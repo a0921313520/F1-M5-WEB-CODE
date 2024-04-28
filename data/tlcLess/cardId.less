@@ -1,0 +1,196 @@
+// 新增完善身份证号手机验证步骤
+.card-id-step-wrap {
+    color: #000;
+    padding: 20px 0;
+    &._1 {
+        .card-round-step .circle-line:first-child .circle-num {
+            border-color: #42d200;
+            color: #42d200;
+        }
+    }
+    &._2 {
+        .card-round-step .circle-line:first-child .circle-num {
+            display: none;
+        }
+        .card-round-step .circle-line:first-child .circle-suc {
+            display: block;
+        }
+        .card-round-step .circle-line:last-child .circle-num {
+            border-color: #42d200;
+            color: #42d200;
+        }
+        .card-info-step .line-info .success-line {
+            width: 50%;
+            height: 2px;
+            background-color: #42d200;
+        }
+    }
+    &._3 {
+        .card-round-step .circle-line .circle-num {
+            display: none;
+        }
+        .card-round-step .circle-line .circle-suc {
+            display: block;
+        }
+        .card-info-step .line-info .success-line {
+            width: 100%;
+            height: 2px;
+            background-color: #42d200;
+        }
+        .card-info-step .text-info {
+            color: #42d200;
+        }
+    }
+    .card-info-step .text-info:first-child {
+        color: #42d200;
+    }
+    .card-round-step {
+        width: 234px;
+        overflow: hidden;
+        margin: auto;
+    }
+    .circle-line {
+        &:first-child {
+            float: left;
+        }
+        &:last-child {
+            float: right;
+        }
+        .circle-num {
+            border: 2px solid #ccc;
+            color: #ccc;
+            width: 30px;
+            height: 30px;
+            line-height: 28px;
+            text-align: center;
+            border-radius: 50%;
+            &.success {
+                border-color: #42d200;
+                background-color: #42d200;
+                color: #fff;
+            }
+        }
+        .circle-suc {
+            display: none;
+            height: 30px;
+            line-height: 30px;
+            color: #42d200;
+            font-size: 30px;
+        }
+    }
+    .card-info-step {
+        text-align: center;
+        width: 300px;
+        line-height: 30px;
+        height: 30px;
+        margin: auto;
+        margin-top: 6px;
+        .text-info {
+            display: inline-block;
+            width: 56px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+        }
+        .line-info {
+            display: inline-block;
+            width: 128px;
+            margin: 0 10px;
+            height: 2px;
+            background-color: #ccc;
+            vertical-align: middle;
+        }
+    }
+}
+.finish-form-wrap {
+    .ant-form-item {
+        margin-bottom: 26px;
+    }
+    .ant-col-24.ant-form-item-label {
+        padding: 0;
+        font-weight: bold;
+        label {
+            color: #555;
+        }
+    }
+    .card-tip {
+        height: 22px;
+        line-height: 22px;
+        color: #999;
+    }
+    .Item-bankName.inactive .ant-form-item-control {
+        box-shadow: 0;
+        width: 100%;
+    }
+    .Item-bankName.active .ant-form-item-control {
+        box-shadow: 0 8px 20px;
+    }
+    .bankNamewrap .ant-input:not(:first-child) {
+        padding-left: 13px;
+    }
+    .bankNamewrap.have .ant-input:not(:first-child) {
+        padding-left: 38px;
+    }
+    .bankNamewrap.active .ant-input {
+        border-right: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-radius: 0px;
+    }
+    .bankNameSelect .ant-select-selection {
+        background-color: #f3f5f9;
+        border: 0;
+        box-shadow: none;
+        border-radius: 4px;
+        height: 35px;
+        width: 96%;
+        margin: 0 2%;
+        .searchwrap {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            background-color: #f3f5f9;
+            display: flex;
+            align-items: center;
+        }
+        .ant-select-selection__rendered {
+            line-height: 35px;
+        }
+    }
+    .contentBtn {
+        width: 100%;
+        height: 43px;
+        border-radius: 8px;
+        padding: 0 10px;
+        border: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .ant-btn:hover,
+        .ant-btn:focus {
+            border: 1px solid #e0e0e0;
+            color: #999999;
+        }
+        span {
+            color: #999999;
+        }
+    }
+}
+.bankNameSelectDropdown {
+    .ant-select-dropdown-menu-item-active:not(
+            .ant-select-dropdown-menu-item-disabled
+        ) {
+        background-image: url("@{base-path}/img/icon/miniTick.svg") !important;
+        background-repeat: no-repeat;
+        background-position: 95%;
+        transition: none;
+    }
+    .ant-select-dropdown-menu {
+        max-height: 215px;
+    }
+    .ant-select-dropdown-menu-item {
+        text-align: left !important;
+    }
+}

@@ -1,0 +1,18 @@
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Clip path group">
+<mask id="mask0_799_54490" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="18" height="18">
+<g id="clip-path-2">
+<path id="Ellipse 244" d="M9.14016 17.7793C13.8235 17.7793 17.6202 13.9827 17.6202 9.29934C17.6202 4.61596 13.8235 0.819336 9.14016 0.819336C4.45678 0.819336 0.660156 4.61596 0.660156 9.29934C0.660156 13.9827 4.45678 17.7793 9.14016 17.7793Z" fill="white"/>
+</g>
+</mask>
+<g mask="url(#mask0_799_54490)">
+<g id="Mask Group 68">
+<g id="Flag_of_Thailand">
+<path id="Rectangle 16776" d="M26.1002 0.819336H0.660156V17.7793H26.1002V0.819336Z" fill="#A51931"/>
+<path id="Rectangle 16777" d="M26.1002 3.99902H0.660156V14.599H26.1002V3.99902Z" fill="#F4F5F8"/>
+<path id="Rectangle 16778" d="M26.1002 6.11932H0.660156V12.4793H26.1002V6.11932Z" fill="#2D2A4A"/>
+</g>
+</g>
+</g>
+</g>
+</svg>

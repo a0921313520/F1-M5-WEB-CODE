@@ -1,0 +1,69 @@
+//奖励地址管理
+.account-wrap.address-management{
+    .address-wrap{
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        .address-item-list{
+           display: flex;
+           gap: 10px;
+            .address-item{
+                width: 260px;
+                height: 130px;
+                color: #666;
+                margin-bottom: 18px;
+                border-radius: 10px;
+                padding: 10px;
+                background: #fff;
+                border: 2px solid #e3e3e8;
+                font-size: 12px;
+                cursor: pointer;
+                .info-name-edit{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                    .info-name{
+                        width: 55%;
+                        font-weight: bold;
+                        color: #000;
+                        font-size: 16px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    .info-edit{
+                        width: 45%;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        .default {
+                            color: #0CCC3C;
+                            margin-right: 5px;
+                            display: inline-block;
+                            background: url("@{base-path}/img/icon/greenTick.svg") 0 center no-repeat;
+                            width: 70px;
+                            text-align: right;
+                        }
+                        .edit{
+                            opacity: 1;
+                        }
+                    }
+                }
+                .info-phone{
+                    margin-bottom: 10px;
+                }
+                .info-address{
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-all;
+                    display: -webkit-box;
+                    -webkit-box-orient:vertical;
+                    -webkit-line-clamp:2;
+                }
+            }
+        }
+    }
+}

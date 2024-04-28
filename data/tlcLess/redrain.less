@@ -1,0 +1,705 @@
+.midautumn-container {
+    width: 1000px;
+    margin: 640px auto auto auto;
+    transform: translateZ(0);
+}
+.tlc-container-wrapper.midautumn-bg {
+    background-image: url("/vn/img/redrain_2022/banner.png"),
+        url("/vn/img/redrain_2022/BG.png");
+    background-position: center top, center bottom;
+    background-color: #e5442e;
+    background-repeat: no-repeat;
+    padding-top: 0;
+    color: #000;
+    .h3-bold-information {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .refresh-icon {
+        width: 24px;
+        height: 24px;
+        background-image: url(/vn/img/redrain_2022/icon-refresh.png);
+        display: block;
+        position: absolute;
+        bottom: 9px;
+        right: 16px;
+        cursor: pointer;
+        &.spin {
+            animation-name: spin;
+            animation-duration: 1000ms;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+    }
+    // 倒计时
+    .ramain-time-wrapper {
+        position: absolute;
+        font-weight: bold;
+        text-align: center;
+        width: 366px;
+        height: 169px;
+        top: 490px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        color: #fff;
+    }
+    .ramain-time-title {
+        font-size: 20px;
+    }
+    .remainder-time-wrap {
+        overflow: hidden;
+        margin: 10px 38px;
+        .remainder-item {
+            width: 60px;
+            height: 64px;
+            margin: 0 5px;
+            border-radius: 8px;
+            border: 4px solid #d9d9d9;
+            display: inline-block;
+            color: #000;
+            background-color: #fff;
+            .date-count-wrap {
+                font-size: 24px;
+            }
+            .remainder-sign {
+                font-size: 12px;
+                margin-top: -4px;
+            }
+        }
+    }
+    // 转盘主题盒子
+    .prize-round-main-wrapper {
+        margin: 0 auto 90px;
+        width: 940px;
+        height: 320px;
+        box-sizing: border-box;
+        box-shadow: 2px 3px 3px #ffa498;
+        border: 4px solid #fff;
+        position: relative;
+        text-align: center;
+        background-color: #f4eadc;
+        background-image: url("/vn/img/redrain_2022/section-header.jpg"),
+            url("/vn/img/redrain_2022/halftone-1.jpg"),
+            url("/vn/img/redrain_2022/halftone-2.jpg");
+        background-position: center top, left bottom, right bottom;
+        background-repeat: no-repeat;
+        &._information {
+            height: 210px;
+            margin-top: 10px;
+            .prize-round-top {
+                padding: 17px 30px;
+            }
+            .prize-round-bottom {
+                padding: 0 38px 25px 38px;
+            }
+        }
+        &._step {
+            height: 460px;
+            margin-top: 10px;
+            margin-bottom: 60px;
+            .prize-round-top {
+                padding: 20px 30px;
+            }
+            .prize-round-bottom {
+                padding: 0;
+                background-position: left 8px, right 8px;
+            }
+            .midautumn-step-txt > h3 {
+                width: 33.33333%;
+                display: inline-block;
+                letter-spacing: -1px;
+                line-height: 1.4;
+                margin-top: 16px;
+            }
+        }
+        .left {
+            float: left;
+        }
+        .right {
+            float: right;
+        }
+        .ant-spin-blur {
+            border-radius: 5px;
+            opacity: 0.9;
+        }
+        .prize-round-top {
+            padding: 38px 30px;
+            text-align: left;
+            &.people-main {
+                width: inherit;
+                overflow: hidden;
+                background: #222;
+                border: 4px solid #4e4e4e;
+                margin-top: -4px;
+                margin-left: -4px;
+            }
+            .prize-information-title {
+                text-align: center;
+                height: 94px;
+                margin-top: -60px;
+            }
+            .autumn-round-btn {
+                width: 124px;
+                height: 24px;
+                outline: none;
+                border: 0;
+                background-color: transparent;
+                background-size: cover;
+                cursor: pointer;
+                &.deposit {
+                    background-image: url("/vn/img/redrain_2022/play-deposit.png");
+                }
+                &.many {
+                    background-image: url("/vn/img/redrain_2022/play-many.png");
+                }
+            }
+            .autumn-round-box {
+                width: 410px;
+                height: 50px;
+                line-height: 40px;
+                overflow: hidden;
+                margin-top: 6px;
+                font-size: 28px;
+                font-weight: bold;
+                border-width: 4px;
+                border-style: solid;
+                border-radius: 8px;
+                background-color: #fff;
+                box-sizing: border-box;
+                padding: 0 16px;
+                position: relative;
+                &.end {
+                    border-color: #cdcccd !important;
+                    color: #cdcccd !important;
+                    .refresh-icon {
+                        opacity: 0.3;
+                    }
+                }
+                &.deposit {
+                    border-color: #e65a45;
+                }
+                &.many {
+                    border-color: #ffd600;
+                }
+            }
+        }
+        .prize-round-bottom {
+            padding: 28px 108px;
+            overflow: hidden;
+            .autumn-round-btn-2 {
+                width: 328px;
+                height: 88px;
+                border: 0;
+                outline: none;
+                background-color: transparent;
+                cursor: pointer;
+                &.direction {
+                    background-image: url("/vn/img/redrain_2022/joystick.png");
+                    &.end {
+                        cursor: default;
+                        background-image: url("/vn/img/redrain_2022/joystick-inactive.png");
+                    }
+                }
+                &.records {
+                    background-image: url("/vn/img/redrain_2022/award.png");
+                }
+            }
+        }
+        // 转盘
+        .prize-round-pic-wrapper {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 500px;
+            height: 500px;
+            background-image: url("/vn/img/midautumn/wheel-mix.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            &.maintain:before {
+                content: "加载中，请稍后...";
+                text-align: center;
+                font-weight: bold;
+                color: #2c2d2c;
+                font-size: 20px;
+                position: absolute;
+                text-shadow: 0 1px 3px #ddd;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                padding-top: 236px;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.5);
+                z-index: 1;
+            }
+        }
+        .prize-round-list {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 456px;
+            height: 456px;
+            background-image: url("/vn/img/midautumn/rotateboard.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            transition-property: transform;
+            transition-timing-function: cubic-bezier(0, 0, 0.3, 1);
+        }
+        .prize-round-star {
+            position: absolute;
+            top: -16px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 84px;
+            height: 88px;
+            background-image: url(/vn/img/midautumn/indicator.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .prize-round-list-btn {
+            background-image: url(/vn/img/midautumn/btn-start-inctive.png);
+            width: 156px;
+            height: 86px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            outline: none;
+            border: 0;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: contain;
+            &.active {
+                background-image: url(/vn/img/midautumn/btn-start-red.png);
+            }
+            &.start {
+                background-image: url(/vn/img/midautumn/start.png),
+                    url(/vn/img/midautumn/btn-start-red.png);
+                background-size: 40%, contain;
+                background-position: center 52%, center center;
+                cursor: pointer;
+            }
+            &.ready {
+                background-image: url(/vn/img/midautumn/ready-start.png),
+                    url(/vn/img/midautumn/btn-start-inctive.png);
+                background-size: 68%, contain;
+                background-position: center 53%, center center;
+                cursor: default;
+            }
+            &.end {
+                cursor: default;
+            }
+        }
+    }
+    // 中奖快讯
+    .information-box {
+        width: 410px;
+        height: 76px;
+        border-width: 4px;
+        border-style: solid;
+        background-color: #fff;
+        border-radius: 14px;
+        position: relative;
+        .information-title {
+            width: 120px;
+            height: 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        .information-content {
+            width: 100%;
+            padding-left: 142px;
+            padding-right: 22px;
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            font-weight: bold;
+            font-size: 44px;
+            line-height: 1.6;
+            text-align: right;
+            overflow: hidden;
+        }
+        &._people {
+            border-color: #222;
+            .information-title {
+                background-color: #222;
+                background-image: url(/vn/img/midautumn/added-people.png);
+            }
+        }
+        &._notification {
+            border-color: #e65a45;
+            .information-title {
+                background-color: #e65a45;
+                background-image: url(/vn/img/midautumn/notification.png);
+            }
+            .information-content {
+                font-size: 16px;
+                text-align: left;
+                padding-right: 46px;
+            }
+            .midautumn-notice-wrap {
+                height: 68px;
+                overflow: hidden;
+            }
+            .midautumn-notice li {
+                height: 68px;
+                line-height: 68px;
+                padding-top: 12px;
+                & > p {
+                    margin: 0;
+                    padding: 0;
+                    line-height: 1.4;
+                }
+            }
+        }
+    }
+    .information-update-time {
+        color: #666;
+        clear: both;
+        text-align: left;
+        padding-top: 16px;
+        margin-bottom: 0;
+    }
+    // 中秋节Footer
+    .midautumn-footer-wrapper {
+        background-color: #0f0f0f;
+        width: 100%;
+        .midautumn-footer {
+            padding: 28px 0;
+            .midautumn-pic {
+                width: 1098px;
+                height: 73px;
+                margin: auto;
+                background-image: url(/vn/img/home/tlc-footer-sprite20220209.png);
+                background-repeat: no-repeat;
+                opacity: 0.3;
+            }
+            .tlc-copyright {
+                color: #fff;
+                margin-top: 18px;
+                opacity: 0.3;
+                text-align: center;
+                font-size: 12px;
+                transform: scale(0.84, 0.84);
+                *font-size: 10px;
+            }
+        }
+    }
+    // 活动已截至
+    .active-end {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 998;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        text-align: center;
+        padding-top: 858px;
+        box-sizing: border-box;
+        font-size: 34px;
+    }
+}
+.midautumn-direction {
+    &.rotate-result {
+        &.null-bag .ant-modal-header {
+            background: #ffd600;
+            border: 4px solid #ffe040;
+        }
+        .ant-modal-header .ant-modal-title {
+            color: #000;
+        }
+        .ant-modal-body {
+            height: auto;
+            padding-bottom: 0;
+            text-align: center;
+            h4 {
+                font-size: 15px;
+                margin-top: 0;
+                margin-bottom: 0;
+                text-align: center;
+            }
+            .result-picture {
+                width: 215px;
+                height: 160px;
+                margin: 14px auto;
+                & > img {
+                    height: 100%;
+                }
+            }
+        }
+    }
+    .ant-modal-header {
+        background-color: #fa624b;
+        border: 4px solid #fb8978;
+        border-radius: 26px 26px 0 0;
+        .ant-modal-title {
+            color: #fff;
+        }
+    }
+    .ant-modal-content {
+        border-radius: 26px;
+        color: #000;
+        font-size: 16px;
+        background-color: #f5f7fa;
+        overflow: hidden;
+        .ant-modal-close-x {
+            font-size: 26px;
+            margin-top: 3px;
+            color: #fff;
+        }
+    }
+    .ant-modal-body {
+        padding: 0;
+        height: 600px;
+        overflow: auto;
+        h3 {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 30px 30px 30px;
+        }
+        ul.flex-2 {
+            width: 100%;
+            margin-top: 20px;
+            li {
+                text-align: center;
+                display: flex;
+                height: 40px;
+                line-height: 40px;
+                border-bottom: 1px solid #ccc;
+                background-color: #fff;
+                &:first-child {
+                    background-color: #ef5350;
+                    color: #fff;
+                    font-weight: bold;
+                }
+                &:last-child {
+                    border-bottom: 0;
+                }
+                div {
+                    flex: 0.5;
+                }
+            }
+        }
+        ul.flex-3 {
+            width: 100%;
+            margin-top: 20px;
+            li {
+                display: flex;
+                height: 40px;
+                line-height: 40px;
+                border-bottom: 1px solid #ccc;
+                background-color: #fff;
+                text-align: center;
+                &:first-child {
+                    background-color: #ef5350;
+                    color: #fff;
+                    font-weight: bold;
+                }
+                &:last-child {
+                    border-bottom: 0;
+                }
+                div {
+                    flex: 0.33333;
+                }
+                .free-money > i {
+                    display: inline-block;
+                    width: 26px;
+                    height: 26px;
+                    background-size: contain;
+                    margin-left: 40px;
+                    margin-right: 8px;
+                    background-image: url(/vn/img/midautumn/icon-spin.png);
+                    vertical-align: middle;
+                }
+                .currency > i {
+                    background-image: url(/vn/img/midautumn/icon-coin.png);
+                }
+                .phone > i {
+                    background-image: url(/vn/img/doubleEleven2021/icon-phone.png);
+                }
+                .coat > i {
+                    background-image: url(/vn/img/doubleEleven2021/icon-coat.png);
+                }
+            }
+            &.midautumn-records li {
+                text-align: center;
+                background-color: #f5f7fa !important;
+                color: #222 !important;
+                .free-money {
+                    text-align: left;
+                    & > i {
+                        margin-left: 50px;
+                    }
+                }
+            }
+        }
+        .midautumn-direction-container {
+            padding: 30px 60px;
+            min-height: 600px;
+        }
+        .currency-direction {
+            text-align: center;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            color: #666;
+            text-align: center;
+        }
+        h4 {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .currency-list {
+            padding-left: 20px;
+            li {
+                list-style: decimal;
+            }
+        }
+    }
+    // 定义Antd Spin loading 状态背景色
+    .ant-spin-nested-loading > div > .ant-spin {
+        background: transparent;
+    }
+}
+.ant-empty.midautumn-big-empty-box .ant-empty-image {
+    height: 150px;
+    margin-top: 110px;
+}
+// 中秋定制提示弹窗
+.ant-modal.ant-modal-confirm.midautumn-info-dialog {
+    .ant-modal-content {
+        border-radius: 30px;
+        .ant-modal-close {
+            top: 20px;
+            right: 22px;
+            .ant-modal-close-x {
+                color: #fff;
+                font-size: 20px;
+                border: 3px solid #fff;
+                border-radius: 50%;
+                width: 36px;
+                height: 36px;
+                line-height: 32px;
+            }
+        }
+        .ant-modal-body {
+            padding: 0;
+            .ant-modal-confirm-title {
+                padding: 22px;
+                background: #ffd600;
+                border: 4px solid #ffe040;
+                border-radius: 30px 30px 0 0;
+            }
+            .ant-modal-confirm-content {
+                font-size: 16px;
+                color: #000;
+            }
+        }
+    }
+}
+.defined-btn .ant-modal-body,
+.ant-modal.ant-modal-confirm.midautumn-info-dialog {
+    .ant-modal-confirm-btns {
+        width: 160px;
+        height: 56px;
+        margin: 24px auto;
+        .ant-btn.ant-btn-primary {
+            height: 100%;
+            border-radius: 28px;
+            background-color: #ef5350;
+            border: 4px solid #f37e7c;
+            &:hover {
+                opacity: 0.8;
+                transition-duration: 0.5;
+            }
+        }
+    }
+}
+.tlc-container-wrapper.midautumn-bg.double {
+    background: #fdfbeb url("/vn/img/doubleEleven2021/BG.png");
+    background-position: center top;
+    background-repeat: no-repeat;
+    .ramain-time-wrapper {
+        width: 600px;
+        top: 370px;
+        color: #fff;
+        text-shadow: 1px 3px 3px #85a6ae;
+        .remainder-time-wrap {
+            overflow: visible;
+            margin: 0;
+            .remainder-item {
+                background-color: transparent;
+                width: 104px;
+                height: 99px;
+                margin-top: -28px;
+                &:first-child {
+                    margin-left: 23px;
+                    margin-right: 12px;
+                }
+                .date-count-wrap {
+                    font-size: 54px;
+                }
+            }
+        }
+        .activity-remainder-time {
+            letter-spacing: 1px;
+            text-indent: 22px;
+        }
+    }
+    .ramain-time-title > img {
+        height: 53px;
+    }
+    // 中奖快讯
+    .information-box {
+        &._people {
+            .information-title {
+                background-image: url(/vn/img/doubleEleven2021/added-people.png);
+            }
+        }
+        &._notification {
+            border-color: #e04b67;
+            .information-title {
+                background-color: #e04b67;
+                background-image: url(/vn/img/doubleEleven2021/notification.png);
+            }
+        }
+    }
+}
+.ant-spin-spinning.rain-spin {
+    position: fixed;
+    opacity: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.3);
+    .ant-spin-dot-item {
+        background-color: #fff;
+    }
+    .ant-spin-dot {
+        top: 300px;
+    }
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

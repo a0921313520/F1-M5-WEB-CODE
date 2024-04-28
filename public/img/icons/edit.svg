@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="SVGID" width="16" height="16" fill="#1c8eff"/>
+    </clipPath>
+  </defs>
+  <g id="编辑" transform="translate(109 -15.89)">
+    <rect id="矩形_52" data-name="矩形 52" width="24" height="24" transform="translate(-109 15.89)" fill="none"/>
+    <g id="组_14" data-name="组 14" transform="translate(-105 18.89)" clip-path="url(#clip-path)">
+      <path id="路径_1" data-name="路径 1" d="M133.257,42.378a.817.817,0,0,0,1.176,0l9.189-9.178a.836.836,0,0,0,0-1.192.817.817,0,0,0-1.178,0l-9.187,9.176a.836.836,0,0,0,0,1.193Zm0,0" transform="translate(-128.284 -31.521)"/>
+      <path id="路径_2" data-name="路径 2" d="M-88.856,27.209a.843.843,0,0,0-.844.842v6.721h-12.613v-12.6h6.729a.854.854,0,0,0,.844-.842.839.839,0,0,0-.827-.843h-7.591a.843.843,0,0,0-.843.843V35.614a.835.835,0,0,0,.245.6.837.837,0,0,0,.6.245h14.3a.837.837,0,0,0,.6-.245.835.835,0,0,0,.245-.6V28.052a.843.843,0,0,0-.843-.843Zm0,0" transform="translate(104.001 -20.475)"/>
+    </g>
+  </g>
+</svg>

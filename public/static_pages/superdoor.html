@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>备用网址-同乐城</title>
+        <style>
+            html,
+            body {
+                margin: auto;
+                padding: 0;
+                font-size: 14px;
+                line-height: 1.5715;
+                color: rgba(0, 0, 0, 0.8);
+                font-family: Helvetica Neue, Helvetica, PingFang SC,
+                    Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+            }
+            .common-distance-wrap {
+                margin: 0 auto;
+                min-width: 1200px;
+                min-height: 100vh;
+                overflow: hidden;
+                /* background-image: url("/vn/img/maintain/y-so-serious.png"); */
+            }
+            .common-distance {
+                width: 1200px;
+                padding: 0 40px;
+                margin: 0 auto;
+                position: relative;
+                box-sizing: border-box;
+            }
+            .tlc-sprite {
+                background-image: url("/vn/img/home/sprite20220315.png");
+                background-repeat: no-repeat;
+            }
+            .center {
+                text-align: center;
+            }
+            .inline-block {
+                display: inline-block;
+            }
+            .maintain-header-wrap {
+                width: 100%;
+                height: 120px;
+                min-width: 1200px;
+                background-color: #d91616;
+            }
+            .maintain-header-wrap .tlc-sprite {
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+            }
+            .maintain-header-wrap .tlc-sprite.xijia {
+                background-position: -48px -81px;
+            }
+            .maintain-header-wrap .tlc-sprite.ehome {
+                background-position: -87px -79px;
+            }
+            .maintain-header-wrap .common-distance > div.inline-block {
+                width: 50%;
+                color: #fff;
+                line-height: 1.3;
+            }
+            .maintain-header-wrap
+                .common-distance
+                > div.inline-block:last-child {
+                text-align: right;
+            }
+            .maintain-header-wrap
+                .common-distance
+                > div.inline-block
+                .tlc-partner-section {
+                text-align: left;
+            }
+            .maintain-header-wrap .common-distance .logo-wrap img {
+                margin-top: 10px;
+                height: 100px;
+            }
+            .maintain-header-wrap .common-distance .sponsor-wrap {
+                vertical-align: 1em;
+            }
+            .maintain-content-wrap .tlc-sprite {
+                width: 16px;
+                height: 16px;
+                display: inline-block;
+                margin-right: 10px;
+                vertical-align: -0.26em;
+            }
+            .maintain-content-wrap .tlc-sprite.maintain-email {
+                background-position: -247px -134px;
+            }
+            .maintain-content-wrap .tlc-sprite.maintain-service {
+                background-position: -293px -133px;
+                vertical-align: -0.2em;
+            }
+            .maintain-content-wrap .tlc-sprite.maintain-phone {
+                background-position: -269px -133px;
+            }
+            .maintain-distance {
+                margin: 50px 0;
+                padding: 50px 70px;
+                border-radius: 10px;
+                /* background-image: url("/vn/img/maintain/orange.png"); */
+                background-repeat: no-repeat;
+                background-size: 100% auto;
+                overflow: hidden;
+            }
+            .maintain-content {
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 8px #ccc;
+                overflow: hidden;
+            }
+            .maintain-content > div {
+                width: 50%;
+                vertical-align: top;
+            }
+            .maintain-info {
+                padding-top: 30px;
+                padding-bottom: 40px;
+                padding-left: 80px;
+                padding-right: 80px;
+                box-sizing: border-box;
+            }
+            .maintain-info h2 {
+                text-align: center;
+                font-weight: bold;
+            }
+            .maintain-info p {
+                padding-bottom: 20px;
+                padding-top: 10px;
+                padding-left: 20px;
+                padding-right: 20px;
+                margin: 0;
+            }
+            .maintain-info button {
+                width: 100%;
+                height: 40px;
+                border-radius: 8px;
+                text-align: center;
+                transition: 0.2s all;
+                margin-top: 10px;
+                outline: none;
+            }
+            .maintain-info button.blue-btn {
+                color: #fff;
+                cursor: pointer;
+                border: 1px solid #1c8eff;
+                background-color: #1c8eff;
+            }
+            .maintain-info button.white-btn {
+                border: 1px solid #666;
+                background-color: #fff;
+            }
+            .maintain-info button.theme-btn {
+                border: 1px solid #f92d2d;
+                background-color: #f92d2d;
+                cursor: pointer;
+                color: #fff;
+            }
+            .maintain-info button.theme-btn:hover {
+                border-color: #d21212;
+                background-color: #d21212;
+            }
+            .maintain-info button.blue-btn:hover {
+                border-color: rgb(17, 127, 236);
+                background-color: rgb(17, 127, 236);
+            }
+            .website-info {
+                padding-top: 30px;
+                padding-bottom: 40px;
+                padding-left: 50px;
+                padding-right: 50px;
+                box-sizing: border-box;
+            }
+            .website-list,
+            .website-list li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                color: #222;
+            }
+            .website-list {
+                margin: 18px 0;
+            }
+            .website-list li {
+                background-color: #eee;
+                position: relative;
+                padding: 4px 16px;
+                line-height: 30px;
+            }
+            .website-list li:nth-child(2n) {
+                background-color: #f5f5f5;
+            }
+            .website-list li span {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .website-list li span.website-key {
+                width: 30px;
+                height: 20px;
+                line-height: 20px;
+                background-color: #fff;
+                border-radius: 5px;
+                text-align: center;
+                margin: 0 6px;
+            }
+            .website-list li span.website-state {
+                font-weight: bold;
+                color: #00c853;
+            }
+            .website-list li span.website-state.busy {
+                color: #f44336;
+            }
+            .website-list li span.website-btn {
+                width: 80px;
+                height: 24px;
+                line-height: 24px;
+                position: absolute;
+                top: 7px;
+                right: 16px;
+                border: 1px solid #222;
+                border-radius: 4px;
+                text-align: center;
+                cursor: pointer;
+                transition: 0.2s all;
+            }
+            .website-list li span.website-btn:hover {
+                background-color: #222;
+                color: #fff;
+            }
+            @media screen and (max-width: 768px) {
+                .common-distance-wrap,
+                .maintain-header-wrap,
+                .common-distance {
+                    min-width: 375px;
+                    width: 100%;
+                }
+                .maintain-header-wrap
+                    .common-distance
+                    > div.inline-block:last-child {
+                    display: none;
+                }
+                .maintain-content > div {
+                    width: 100% !important;
+                    padding: 16px 20px 0 20px;
+                }
+                .maintain-content > div:last-child {
+                    padding-bottom: 26px;
+                }
+                .maintain-distance {
+                    margin: 30px 0;
+                    padding: 0;
+                    box-shadow: 0 0 10px #ccc;
+                    background: #fff;
+                    background-image: none;
+                }
+                .maintain-info {
+                    margin: 0;
+                    box-shadow: none;
+                }
+                .maintain-header-wrap .common-distance > div.inline-block {
+                    width: 100%;
+                }
+                .maintain-img img {
+                    max-width: 56%;
+                    margin-top: 20px;
+                }
+                .maintain-header-wrap {
+                    height: 80px;
+                }
+                .maintain-header-wrap .common-distance .logo-wrap img {
+                    height: 60px;
+                    margin-top: 10px;
+                }
+                .common-distance {
+                    padding: 0 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="common-distance-wrap">
+            <div class="maintain-header-wrap">
+                <div class="common-distance">
+                    <div class="logo-wrap inline-block">
+                        <!-- <img src="/vn/img/home/logo@2x.png" alt="乐天堂" /> -->
+                    </div>
+                    <div class="sponsor-wrap inline-block">
+                        <div class="tlc-title-partner inline-block">
+                            <i class="tlc-sprite xijia"></i>
+                            <div class="tlc-partner-section inline-block">
+                                塞维利亚足球俱乐部<br />西甲联赛官方合作伙伴
+                            </div>
+                        </div>
+                        <!--<div class="tlc-title-partner inline-block">
+                    <i class="tlc-sprite ehome"></i>
+                    <div class="tlc-partner-section inline-block">
+                        EHOME 电竞战队<br />主赞助商
+                    </div>
+                </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="common-distance maintain-content-wrap">
+                <div class="maintain-distance">
+                    <div class="maintain-content">
+                        <div class="website-info inline-block">
+                            <h2 class="center">备用网址</h2>
+                            <h3 class="center">
+                                您可以透过以下的链接访问获得备用网址。
+                            </h3>
+                            <ul class="website-list">
+                                <li>
+                                    <span>备用网址</span>
+                                    <span class="website-key">01</span>
+                                    <span class="website-state">流畅</span>
+                                    <span class="website-btn">前往</span>
+                                </li>
+                                <li>
+                                    <span>备用网址</span>
+                                    <span class="website-key">02</span>
+                                    <span class="website-state busy">拥挤</span>
+                                    <span class="website-btn">前往</span>
+                                </li>
+                                <li>
+                                    <span>备用网址</span>
+                                    <span class="website-key">03</span>
+                                    <span class="website-state">流畅</span>
+                                    <span class="website-btn">前往</span>
+                                </li>
+                                <li>
+                                    <span>备用网址</span>
+                                    <span class="website-key">04</span>
+                                    <span class="website-state busy">拥挤</span>
+                                    <span class="website-btn">前往</span>
+                                </li>
+                                <li>
+                                    <span>备用网址</span>
+                                    <span class="website-key">05</span>
+                                    <span class="website-state">流畅</span>
+                                    <span class="website-btn">前往</span>
+                                </li>
+                            </ul>
+                            <p>
+                                建议您将该网页添加到您的浏览器书签收藏。（请按键盘上的
+                                Ctrl+D 或在浏览器的菜单图标点击收藏此页）
+                            </p>
+                        </div>
+                        <div class="maintain-info inline-block">
+                            <h2>联络我们</h2>
+                            <button class="white-btn">
+                                <i class="tlc-sprite maintain-email"></i
+                                ><span>cs.china@tlc178.com</span>
+                            </button>
+                            <p>
+                                如果您在小同体验过程中有什么疑问或建议，请您发邮件至以上的邮箱。
+                            </p>
+                            <button class="white-btn">
+                                <i class="tlc-sprite maintain-email"></i
+                                ><span>marketing@tlc178.com</span>
+                            </button>
+                            <p>
+                                如果您在小同想了解更多关于优惠或有建议，请您发邮件至以上的邮箱。
+                            </p>
+                            <button class="theme-btn" onclick="PopUpLiveChat()">
+                                <i class="tlc-sprite maintain-service"></i
+                                ><span>在线客服</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            let LocalHost = window.location.host,
+                ApiHost = "",
+                TLCLive = null;
+            let StagingApi = Boolean(
+                [
+                    "stagingp4.tlc88.biz",
+                    "member.stagingp4.china.tlc88.biz",
+                    "member.stagingp4.china.tlc88.biz:8003",
+                    "localhost:8003",
+                ].find((v) => window.location.href.includes(v))
+            );
+            if (StagingApi) {
+                // Master测试环境
+                ApiHost = "https://kongstaging.tlc88.biz";
+            } else if (LocalHost === "react.tlc161.com") {
+                // 灰度地址
+                ApiHost = "https://gatewaytlcslv2.gamealiyun.com";
+            } else {
+                // 线上地址
+                ApiHost =
+                    window.location.host.split(".").length == 3
+                        ? "https://gateway." +
+                          window.location.host.split(".")[1] +
+                          "." +
+                          window.location.host.split(".")[
+                              window.location.host.split(".").length - 1
+                          ]
+                        : "https://gateway." +
+                          window.location.host.split(".")[0] +
+                          "." +
+                          window.location.host.split(".")[
+                              window.location.host.split(".").length - 1
+                          ];
+            }
+
+            function openServer(tlcServerUrl) {
+                TLCLive.document.title = "同乐城在线客服";
+                TLCLive.location.href = tlcServerUrl;
+                TLCLive.focus();
+            }
+            function PopUpLiveChat() {
+                TLCLive && TLCLive.close();
+                TLCLive = window.open(
+                    "about:blank",
+                    "chat",
+                    "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=540, height=650"
+                );
+                const serverUrl = localStorage.getItem("serverUrl");
+                if (!serverUrl) {
+                    fetch(
+                        ApiHost +
+                            "/api/LiveChat/URL/DesktopWeb?api-version=2.0&brand=tlc&Platform=Desktop",
+                        {
+                            method: "GET",
+                            headers: new Headers({
+                                "Content-Type": "application/json",
+                                Accept: "application/json",
+                                Culture: "vi-vn",
+                                token: "rate",
+                                Authorization: "",
+                            }),
+                        }
+                    )
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (response) {
+                            if (response) {
+                                localStorage.setItem("serverUrl", response.url);
+                                openServer(response.url);
+                            }
+                        })
+                        .catch((error) => {
+                            console.log("ApiHost.serverUrl:" + error);
+                        });
+                } else {
+                    openServer(serverUrl);
+                }
+            }
+        </script>
+    </body>
+</html>

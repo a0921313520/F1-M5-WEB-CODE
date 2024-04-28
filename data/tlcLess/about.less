@@ -1,0 +1,316 @@
+#about {
+    .about-content {
+        min-height: 900px;
+        display: flex;
+
+        .ant-skeleton-header {
+            padding: 10px 20px;
+
+            .ant-skeleton-avatar-lg {
+                width: 170px;
+                height: 500px;
+                border-radius: 15px !important;
+            }
+        }
+
+        .ant-empty {
+            padding-top: 15%;
+        }
+
+        .ant-empty-image {
+            height: 150px;
+        }
+
+        .ant-empty-description {
+            margin-top: 20px;
+            text-indent: 50px;
+        }
+
+        .right {
+            flex: 1;
+            margin: 0 25px;
+            // background: #ffffff 0% 0% no-repeat padding-box;
+            // box-shadow: 0px 0px 3px #00000029;
+            border-radius: 20px;
+
+            .box_body {
+                height: auto;
+                background: #ffffff 0% 0% no-repeat padding-box;
+                border-radius: 20px;
+                //margin-top: 25px;
+                margin-bottom: 50px;
+                padding: 5px 15px;
+                min-height: 500px;
+            }
+        }
+
+        .ant-menu {
+            color: #222222;
+        }
+
+        .ant-menu-root {
+            width: 200px;
+            color: #222222;
+            background: #ffffff 0% 0% no-repeat padding-box;
+            box-shadow: 0px 0px 2px #00000029;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .ant-menu-submenu-selected {
+            color: #00a6ff;
+        }
+
+        .ant-menu-submenu-title:hover {
+            color: #00a6ff;
+        }
+
+        .ant-menu-item-selected {
+            color: #00a6ff;
+        }
+
+        .ant-menu-item:hover,
+        .ant-menu-item-active,
+        .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+        .ant-menu-submenu-active,
+        .ant-menu-submenu-title:hover {
+            color: #00a6ff;
+        }
+
+        .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+            background-color: #e0e0e0;
+        }
+
+        .ant-menu-vertical .ant-menu-item::after,
+        .ant-menu-vertical-left .ant-menu-item::after,
+        .ant-menu-vertical-right .ant-menu-item::after,
+        .ant-menu-inline .ant-menu-item::after {
+            border-right: 4px solid #00a6ff;
+            left: 0 !important;
+            right: auto !important;
+        }
+
+        .ant-menu-submenu-open.ant-menu-submenu-inline {
+            > .ant-menu-submenu-title {
+                .ant-menu-submenu-arrow::before {
+                    transform: rotate(45deg) translateX(2px);
+                    background: #222;
+                }
+
+                .ant-menu-submenu-arrow::after {
+                    background: #222;
+                    transform: rotate(-45deg) translateX(-2px);
+                }
+            }
+        }
+
+        .ant-menu-submenu-inline {
+            > .ant-menu-submenu-title {
+                .ant-menu-submenu-arrow::before {
+                    transform: rotate(-45deg) translateX(2px);
+                    background: #222;
+                }
+
+                .ant-menu-submenu-arrow::after {
+                    transform: rotate(45deg) translateX(-2px);
+                    background: #222;
+                }
+            }
+        }
+
+        .ant-timeline-item {
+            padding-left: 35px;
+        }
+
+        .ant-timeline-item-content {
+            top: -15.001px;
+        }
+
+        .ant-divider-horizontal {
+            margin-bottom: 14px;
+        }
+
+        .ant-timeline-item-tail {
+            border-color: rgb(227, 36, 36);
+        }
+
+        .ant-timeline-item-head-custom {
+            padding: 0px 1px;
+        }
+
+        .ant-timeline {
+            margin-left: 15px;
+        }
+
+        .ant-table {
+            margin-bottom: 15px;
+        }
+
+        .ant-table-tbody > tr td:not(:first-child) {
+            transition: all 0.3s, height 0s;
+            color: red;
+        }
+    }
+
+    // 账号管理样式新增
+    #ID_129 img {
+        &[alt="571"] {
+            width: 780px;
+        }
+    }
+
+    #ID_128 img {
+        margin-bottom: 30px;
+
+        &[alt="group3"] {
+            margin-top: 20px;
+            width: 414px;
+        }
+    }
+
+    #tlc_about {
+        .Carouselbody {
+            position: relative;
+            min-height: 270px;
+
+            img {
+                width: 414px;
+            }
+        }
+
+        .partners,
+        .licenses {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            top: -276px;
+            right: -86%;
+            cursor: pointer;
+        }
+
+        .licenses {
+            top: -136px;
+        }
+
+        caption {
+            caption-side: top;
+            color: #000;
+            font-size: 1.17em;
+            font-weight: bold;
+            white-space: pre;
+        }
+
+        h2 {
+            font-weight: bold;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        #e_mail caption {
+            padding-left: 28px;
+            background-image: url("@{base-path}/img/about/email.svg");
+            background-repeat: no-repeat;
+            background-position: 0 17px;
+        }
+
+        #e_mail phone {
+            padding-left: 28px;
+            background-image: url("@{base-path}/img/about/phone.svg");
+            background-repeat: no-repeat;
+            background-position: 0 17px;
+        }
+
+        #e_mail tr:last-child {
+            color: rgb(153, 153, 153);
+            font-size: 12px;
+        }
+
+        #about_us caption,
+        #about_us > p {
+            display: none;
+        }
+
+        #about_us img {
+            width: 890px;
+        }
+
+        #partners img {
+            width: 100px;
+            padding: 25px 0;
+            margin: 0 29px;
+        }
+
+        #partners,
+        #licenses {
+            padding: 25px 50px;
+        }
+
+        #partners {
+            text-align: center;
+        }
+
+        #licenses caption,
+        #slogan caption {
+            padding-bottom: 20px;
+        }
+
+        #cooperation_partner img {
+            width: 649px;
+            margin-top: 6px;
+        }
+
+        #tlc_member_power,
+        .currency-introduction {
+            line-height: 2;
+        }
+
+        .currency-introduction table,
+        .help-table table {
+            width: 100%;
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .currency-introduction table table,
+        .help-table table table {
+            line-height: 2;
+            margin: 10px 0;
+            border: 1px solid #f0f0f0;
+            text-align: center;
+        }
+
+        .currency-introduction table table td,
+        .help-table table table td {
+            border-right: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .currency-introduction table table td:last-child,
+        .help-table table table td:last-child {
+            border-right: none;
+        }
+
+        .currency-introduction table table tr:last-child td,
+        .help-table table table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .currency-introduction
+            table
+            table
+            tr:not(:first-child)
+            td:not(:first-child),
+        .help-table table table tr:not(:first-child) td:not(:first-child) {
+            transition: all 0.3s, height 0s;
+            color: red;
+        }
+
+        .contact-we {
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+    }
+}

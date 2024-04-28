@@ -1,0 +1,169 @@
+.btnYellow {
+    background: transparent linear-gradient(123deg, #ffb858 0%, #ff8b62 100%) 0%
+        0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    // width: 55px;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnBlue {
+    background: transparent linear-gradient(123deg, #2ce3fc 0%, #32c7f7 100%) 0%
+        0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #0202021a;
+    // width: 55px;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+
+.btnPurple {
+    background: transparent linear-gradient(117deg, #fc96ee 0%, #d274ff 100%) 0%
+        0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #0202021a;
+    color: white;
+    // width: 55px;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+.red {
+    color: #f92d2d;
+}
+
+.TextLightYellow {
+    background: #fff5bf 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    padding: 10px;
+    color: #83630b;
+}
+
+.TextLightRed {
+    background: #fee5e5 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    padding: 10px;
+    color: #eb2121;
+    margin-top: 10px;
+    height: auto !important;
+}
+
+.TextLightGrey {
+    background-color: #e0e0e0;
+    color: #666666;
+}
+
+.TextLightGreyInfo {
+    background-color: #e0e0e0;
+    color: #666666;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.TextLight-Off-white{
+    background: #F7F7FC;
+    color: #666666;
+    line-height: 20px;
+    padding:0 10px;
+    border-radius: 8px;
+    margin: 10px auto;
+}
+.P10 {
+    padding: 10px;
+    border-radius: 8px;
+}
+.has-error .ant-form-explain,
+.has-error .ant-form-split {
+    color: #ff4d4f;
+    background-color: #fee0e0;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.ant-popover {
+    z-index: 998;
+}
+
+.showInfoModal {
+    width: 150px!important;
+    .ant-modal-body {
+        padding: 0;
+        background-color: #000000cc;
+        border-radius: 6px;
+        .ant-modal-confirm .ant-modal-body {
+            padding: 0;
+        }
+        .ant-modal-confirm-body .ant-modal-confirm-content {
+            padding: 0;
+            color: #222;
+            margin-top: 0;
+        }
+    }
+    .ant-btn-primary,
+    .ant-modal-close-x {
+        display: none;
+    }
+    .ant-modal-confirm-btns {
+        display: none;
+    }
+    &.opacity {
+        .ant-modal-content {
+            background-color: transparent;
+        }
+        .ant-modal-body {
+            background-color: white;
+            padding: 20px 10px;
+        }
+    }
+    &._initail {
+        width: 400px !important;
+    }
+    &.depositLoading {
+        width: 250px !important;
+        .ant-modal-body {
+            padding: 0 !important;
+            .loadimg {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 25px;
+                p {
+                    font-size: 16px;
+                    color: #fff;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    &.hidden-btn .ant-modal-confirm-btns {
+        margin-top: 20px;
+    }
+    //成功/失败的提示弹窗
+    &.authentication-succeeded {
+        width: 170px!important;
+        .ant-modal-body {
+            padding: 25px 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+}

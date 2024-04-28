@@ -1,0 +1,765 @@
+.usdt-introduce-layout {
+    background-color: #0c0a30;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+
+    .tlc-sign-header {
+        .notice-wrap {
+            .marquee-container-wrapper {
+                .marquee-title {
+                    span {
+                        color: #fff !important;
+                    }
+                }
+
+                .marquee-container {
+                    .tlc-notice-wrap {
+                        border-radius: 0 13px 13px 13px !important;
+                    }
+                }
+            }
+        }
+
+        .login-wrap {
+            .good-greeting {
+                color: #fff;
+            }
+        }
+    }
+
+    .header-usdt {
+        height: 100px;
+        width: 100px;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .footer-usdt {
+        height: 100px;
+        width: 100px;
+        opacity: 0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    .page-navi-dot-box {
+        color: white;
+        position: fixed;
+        top: 50%;
+        right: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .navi-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.4);
+            transition: all 0.2s, background-color 0.5s;
+        }
+
+        .current-section-dot {
+            background-color: #fff;
+            height: 20px;
+            border-radius: 20px;
+        }
+    }
+    .hero-image-ustd {
+        width: 100%;
+        position: absolute;
+        z-index: -1;
+        transform: translateY(-63px);
+    }
+
+    .usdt-content {
+        width: 1200px;
+        margin: auto;
+        color: #fff;
+        text-align: center;
+        padding-top: 820px;
+        .usdt-question-feedback {
+            margin-bottom: 50px;
+        }
+
+        .usdt-description {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 50px;
+        }
+        .usdt-list {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 30px;
+            .usdt-item {
+                padding: 0 15px;
+                margin-right: 15px;
+                overflow: hidden;
+                background-color: #0c113d;
+                border-radius: 8px;
+                &:last-child {
+                    margin-right: 0;
+                }
+                &-img {
+                    & > img {
+                        width: 100%;
+                        vertical-align: middle;
+                    }
+                }
+                &-text {
+                    text-align: left;
+                    margin-left: 15px;
+
+                    & > h3 {
+                        color: #ffe4c4;
+                        font-size: 18px;
+                        font-weight: 400;
+                    }
+                    & > p {
+                        color: #dfdfdf;
+                        font-size: 14px;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+        .usdt-btn-wrapper {
+            .usdt-btn {
+                width: 500px;
+                height: 50px;
+                letter-spacing: 1px;
+                display: inline-block;
+                border-color: #ffe4c4;
+                color: #ffe4c4;
+                opacity: 0.8;
+                &:hover,
+                &:focus {
+                    color: #fff;
+                    border-color: #fff;
+                }
+                span {
+                    margin-right: 20px;
+                }
+
+                .anticon.anticon-right:last-child {
+                    text-indent: -6px;
+                }
+            }
+        }
+
+        .usdt-introduce {
+            padding-bottom: 50px;
+
+            .usdt-list {
+                .usdt-item {
+                    display: flex;
+                    flex-direction: row;
+                    margin-right: 30px;
+                    width: 380px;
+                    height: 180px;
+                    padding: 30px 35px 30px 20px;
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                    &-img {
+                        width: 90px;
+                        flex: none;
+                        align-self: center;
+                    }
+                }
+            }
+        }
+
+        .usdt-advantage {
+            padding: 30px 0 50px 0;
+            .usdt-list {
+                justify-content: space-between;
+
+                .usdt-item {
+                    display: flex;
+                    flex-direction: column;
+                    width: 175px;
+                    height: 200px;
+                    border-radius: 8px;
+                    justify-content: center;
+                    align-items: center;
+                    float: none;
+                    margin: 0;
+
+                    &-img {
+                        margin-bottom: 20px;
+                        & > img {
+                            width: 40px;
+                        }
+                    }
+                    &-text {
+                        margin: 0;
+                        & > p {
+                            color: #dfdfdf;
+                            font-size: 18px;
+                            font-weight: 300;
+                        }
+                    }
+                }
+            }
+        }
+
+        .usdt-deposit {
+            padding: 30px 0 0 0;
+            &-table {
+                width: 100%;
+                background-color: #141337;
+                display: grid;
+                gap: 2px;
+                margin: 0 0 42px 0;
+                color: #fff;
+
+                &-td {
+                    width: 100%;
+                    padding: 18px;
+                    float: left;
+                    box-sizing: border-box;
+                    background-color: #141337;
+                    font-size: 15px;
+                    line-height: 24px;
+                }
+                &-tr {
+                    overflow: hidden;
+                    display: grid;
+                    gap: 2px;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+                    &:nth-child(odd) {
+                        div {
+                            background-color: #1b1a3d;
+                        }
+                    }
+
+                    &:first-child > div {
+                        font-weight: bold;
+                        background-color: #1a2151;
+                        padding: 8px;
+                    }
+                }
+            }
+            &-type {
+                .usdt-list {
+                    text-align: center;
+                    .usdt-item {
+                        float: none;
+                        margin-right: 30px;
+                        width: 175px;
+                        margin-bottom: 20px;
+                        height: 234px;
+                        padding-top: 37px;
+                        text-align: center;
+                        cursor: pointer;
+                        display: inline-block;
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                        & > a {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            text-align: center;
+                        }
+                        .usdt-item-img {
+                            float: none;
+                            width: 60px;
+                            height: 80px;
+                            display: inline-block;
+                            vertical-align: top;
+                            & > img {
+                                width: 100%;
+                                vertical-align: top;
+                            }
+                        }
+                        .usdt-item-text {
+                            width: 100%;
+                            margin: 0;
+                            margin-top: 8px;
+                            vertical-align: top;
+                            & > h3 {
+                                font-weight: bold;
+                                font-size: 18px;
+                                margin: 0;
+                                margin-bottom: 17px;
+                            }
+                            & > p {
+                                color: #323232;
+                            }
+                            & > i {
+                                color: #efa4a4;
+                                border: 1px solid #efa4a4;
+                                border-radius: 50%;
+                                width: 30px;
+                                height: 30px;
+                                line-height: 30px;
+                                text-align: center;
+                                font-size: 16px;
+                                svg {
+                                    vertical-align: -0.14em;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .usdt-btn {
+                border-color: #fff;
+            }
+        }
+
+        .usdt-question {
+            padding: 30px 0 50px 0;
+            .usdt-list {
+                margin-bottom: 30px;
+                flex-direction: column;
+                // 未點開時 unclicked
+                .usdt-item {
+                    padding: 16px 23px;
+                    width: 1040px;
+                    background-color: #0d133e;
+                    margin-bottom: 15px;
+                    margin-right: 0;
+                    border-radius: 6px;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                    &-text {
+                        width: 100%;
+                        margin: 0;
+                        & > h3 {
+                            font-size: 20px;
+                            color: #dfdfdf;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            cursor: pointer;
+                            margin-bottom: 0;
+                            font-weight: 500;
+                        }
+                        .faqInfo {
+                            font-size: 20px;
+                            margin-top: 0.5em;
+
+                            p {
+                                margin: 0;
+                                color: #dfdfdf;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                }
+
+                // 點開時 clicked
+                .usdt-item.usdt-faq-selected {
+                    padding: 16px 23px 40px 23px;
+                    margin-bottom: 15px;
+                    margin-right: 0;
+
+                    .usdt-item-text {
+                        width: 100%;
+                        margin: 0;
+                        & > h3 {
+                            margin-bottom: 26px;
+                        }
+                        .faqInfo {
+                            p {
+                                padding-right: 43px;
+                            }
+                        }
+                    }
+                }
+            }
+            .usdt-btn-wrapper {
+                margin-bottom: 74px;
+
+                .usdt-btn {
+                    width: 447px;
+                    span {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        .usdt-question-feedback {
+            &-form {
+                position: relative;
+                width: 1200px;
+                padding: 30px 50px;
+                border-radius: 6px;
+                background-color: #212750;
+
+                input.ant-input,
+                textarea.ant-input {
+                    margin-bottom: 16px;
+                }
+                .ant-input {
+                    background: transparent;
+                    border: 1px solid #ffe4c4;
+                    color: #fff;
+
+                    &:focus {
+                        border: 1px solid #fff;
+                    }
+                    &::placeholder {
+                        color: #999;
+                        font-size: 14px;
+                    }
+                }
+                .ant-btn-primary {
+                    background-color: #00a6ff;
+                    width: 430px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #fff;
+                    border: none;
+                    cursor: pointer;
+
+                    &:disabled {
+                        background-color: #2e345d;
+                        color: #acacac;
+                        cursor: not-allowed;
+                    }
+                }
+
+                .errorTip {
+                    font-size: 14px;
+                    color: red;
+                    text-align: left;
+                    margin-top: -10px;
+                    padding: 0;
+                }
+            }
+            &-hint {
+                margin: -10px 0 10px 0;
+                color: #dfdfdf;
+                font-size: 12px;
+                text-align: left;
+            }
+        }
+    }
+
+    // .usdt-banner-wrap {
+    //     width: 1200px;
+    //     height: 649px;
+    //     line-height: 649px;
+    //     border-radius: 32px;
+    //     box-shadow: 2px 3px 5px #ce5151;
+    //     margin-bottom: 60px;
+    //     background-color: rgb(219, 219, 219);
+    //     background-size: cover;
+    //     background-repeat: no-repeat;
+    //     & > button {
+    //         width: 200px;
+    //         height: 50px;
+    //         line-height: 46px;
+    //         border-radius: 25px;
+    //         font-size: 16px;
+    //         box-sizing: border-box;
+    //         outline: none;
+    //         color: #000;
+    //         cursor: pointer;
+    //         text-align: center;
+    //         font-weight: bold;
+    //         vertical-align: middle;
+    //         border: 2px solid #ffda63;
+    //         background-color: #ffd13a;
+    //     }
+    // }
+}
+
+.UsdtTeachModalStyle {
+    border-radius: 20px !important;
+    overflow: hidden;
+
+    .ant-modal-header {
+        padding: 0;
+        .ant-modal-title {
+            padding: 18px 0;
+            color: #fff;
+            text-align: center;
+        }
+    }
+    .ant-modal-body {
+        padding: 20px 67px 36px 67px;
+
+        &:has(.FAQ-wrapper) {
+            padding: 49px 30px 31px 67px;
+        }
+        &:has(.lesson-box) {
+            padding: 20px 17px 67px 17px;
+
+            .ant-tabs-bar {
+                margin-bottom: 20px;
+            }
+            .deposit-comment-title {
+                font-weight: unset !important;
+                font: normal normal bold 14px/20px Microsoft YaHei;
+                color: #220000;
+                margin-bottom: 0;
+            }
+        }
+
+        .usdt-introduce-model-wrapper {
+            width: 100%;
+            text-align: center;
+
+            .ant-tabs-top {
+                padding: 0;
+
+                .ant-tabs-top-bar {
+                    padding-top: 0;
+                    margin-bottom: 20px;
+
+                    .ant-tabs-nav-wrap {
+                        .ant-tabs-tab {
+                            padding: 0 16px 12px 16px;
+                        }
+                    }
+                }
+            }
+
+            .ant-tabs-content {
+                .usdt-panel {
+                    text-align: left;
+                    height: 590px;
+                    overflow-y: scroll;
+
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    .panel-Table {
+                        margin-bottom: 10px;
+                    }
+
+                    .table-remarks {
+                        margin-bottom: 30px;
+                        font-size: 12px;
+                    }
+
+                    .panel {
+                        &-Title {
+                            color: #222;
+                            font-weight: bold;
+                            font-size: 18px;
+                            line-height: 24px;
+                            margin-bottom: 14px;
+                        }
+
+                        &-List {
+                            color: #222;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 24px;
+                            margin-bottom: 0;
+
+                            &-Title {
+                                color: #222;
+                                font-size: 16px;
+                                font-weight: bold;
+                                line-height: 28px;
+                                margin-bottom: 0;
+                                font: normal normal bold 16px/28px Microsoft
+                                    YaHei;
+                            }
+
+                            li {
+                                margin-bottom: 30px;
+                                p {
+                                    font-size: 16px;
+                                    margin-bottom: 14px;
+                                }
+                            }
+                        }
+                        &-Table {
+                            width: 100%;
+                            background-color: #fff;
+                            display: grid;
+                            gap: 1px;
+                            color: #232323;
+                            border-radius: 8px;
+                            overflow: hidden;
+                            text-align: center;
+                            &-td {
+                                width: 100%;
+                                padding: 10px;
+                                background-color: #f3f5f9;
+                                font-size: 12px;
+                                font-weight: 400;
+                                line-height: 20px;
+                                display: grid;
+                                align-items: center;
+                            }
+                            &-tr4 {
+                                overflow: hidden;
+                                display: grid;
+                                gap: 1px;
+                                grid-template-columns: repeat(
+                                    4,
+                                    minmax(0, 1fr)
+                                );
+
+                                &:nth-child(2n) > div {
+                                    background-color: #e0eefa;
+                                }
+                                &:first-child > div {
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    color: #fff;
+                                    background-color: #369bf2;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .wallet-agreement-box {
+                    .panel-List {
+                        margin-bottom: 30px;
+                        li {
+                            p {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .FAQ-wrapper {
+        width: 100%;
+        height: 341px;
+        overflow-y: scroll;
+        background-color: #fff;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+
+            &-thumb {
+                background: #f0f0f2;
+            }
+
+            &-track {
+                background: transparent;
+            }
+        }
+
+        .ant-collapse {
+            padding-right: 27px;
+
+            // 設定箭頭style
+            .ant-collapse-item {
+                border-bottom: 3px solid #f0f0f2;
+                .ant-collapse-header {
+                    font-weight: bold;
+                    .anticon {
+                        svg {
+                            color: #999999;
+                        }
+                    }
+                }
+
+                .ant-collapse-content-active {
+                    border-top: 3px solid #f0f0f2;
+                    .ant-collapse-content-box {
+                        padding: 33px 45px 33px 30px;
+
+                        p {
+                            margin: 0;
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+            &-borderless {
+                background: transparent;
+            }
+            &-header {
+                color: #222 !important;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.udt-withdrawl-modal {
+    .ant-modal-body {
+        padding: 30px 20px 67px 20px;
+
+        .ant-tabs-bar {
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .deposit-comment-title {
+            font-weight: unset;
+            color: #220000;
+        }
+    }
+}
+
+// 問題反饋result modal style / Feedback result modal
+.feedback-status-modal {
+    .ant-modal-content {
+        box-shadow: none;
+        background-color: transparent;
+
+        .ant-modal-close {
+            display: none;
+        }
+
+        .ant-modal-body {
+            padding: 0 !important;
+            background-color: transparent !important;
+            border: none;
+
+            .ant-modal-confirm-body {
+                > i {
+                    display: none;
+                }
+
+                .ant-modal-confirm-content {
+                    margin: 0;
+
+                    > div {
+                        padding: 17px 22px;
+                        display: flex;
+                        align-items: center;
+                        gap: 15px;
+                        justify-content: center;
+                        border-radius: 64px;
+                        box-shadow: 0px 3px 6px #00000029;
+
+                        svg {
+                            width: 24px;
+                            height: 24px;
+                        }
+
+                        p {
+                            margin: 0;
+                            padding: 0;
+                            font: normal normal normal 16px/21px Microsoft YaHei;
+                        }
+                    }
+                }
+            }
+
+            .ant-modal-confirm-btns {
+                display: none;
+            }
+        }
+    }
+}

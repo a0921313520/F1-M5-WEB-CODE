@@ -1,0 +1,152 @@
+.down-wrap {
+    min-height: 800px;
+    background: url(/img/down/bg.jpg) center top no-repeat;
+    background-size: cover;
+
+    .dow-distance {
+        text-align: center;
+
+        .content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            align-items: center;
+
+            .hero-banner {
+                width: 100%;
+                grid-column: 1 / span 2;
+            }
+
+            .app-lists-box {
+                // display: flex;
+                // flex-direction: column;
+                // gap: 57px;
+                // margin: 57px 0 57px 0;
+                width: 100%;
+                .app-list-box {
+                    padding: 57px 0px;
+                    &:nth-child(even) {
+                        background-color: #f6f6f6;
+                        .app-item {
+                            // margin-left: 3%;
+                            grid-template-columns: 40fr 60fr;
+
+                            .img-app-demo {
+                                margin-left: 12%;
+                            }
+                        }
+                    }
+                    .app-item {
+                        display: grid;
+                        grid-template-columns: 55fr 45fr;
+                        width: 70%;
+                        margin: auto;
+                        .img-app-demo {
+                            width: 100%;
+                        }
+
+                        .text-box {
+                            align-self: center;
+
+                            h1 {
+                                color: #00a6ff;
+                                font: bold 40px/3rem Microsoft YaHei UI;
+                                margin-bottom: 18px;
+                            }
+
+                            p {
+                                font: 14px/21px Microsoft YaHei UI;
+                                margin: 0;
+                            }
+                            .app-description {
+                                text-align: left;
+                                width: 75%;
+                                margin: auto;
+                            }
+                            .qr-box {
+                                background-color: #fff;
+                                width: 114px;
+                                height: 114px;
+                                margin: 21px auto;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                box-shadow: 0 1px 3px rgba(0, 0 ,0 , 0.2);
+                                border-radius: 5px;
+                            }
+                            // canvas {
+                            //     margin: 21px;
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+
+        // old version
+        // .content {
+        //     display: flex;
+        //     justify-content: center;
+        //     align-items: center;
+        //     padding: 50px 180px;
+
+        //     .right {
+        //         flex: 1;
+
+        //         p {
+        //             margin: 20px;
+        //         }
+
+        //         h1 {
+        //             font: Bold 50px/60px Microsoft YaHei UI;
+        //             letter-spacing: 0;
+        //             color: #ee3434;
+        //         }
+
+        //         .redcolor {
+        //             color: #ee3935;
+        //             padding: 0px 187px;
+        //             text-align: left;
+        //         }
+
+        //         .android {
+        //             width: 170px;
+        //             height: 51px;
+        //             background: transparent linear-gradient(180deg, #f1a043 0%, #FFC43EFD 100%) 0% 0% no-repeat padding-box;
+        //             box-shadow: 0px 2px 10px #FDC13E9A;
+        //             border-radius: 26px;
+        //             border: 0;
+        //             font: Bold 16px/20px Microsoft YaHei UI;
+        //             letter-spacing: 0.29px;
+        //             color: #ffffff;
+        //             margin: 20px;
+        //             cursor: pointer;
+        //         }
+
+        //         .ios {
+        //             width: 170px;
+        //             height: 51px;
+        //             background: transparent linear-gradient(180deg, #ee3434 0%, #f16443 100%) 0% 0% no-repeat padding-box;
+        //             box-shadow: 0px 2px 10px #EF3B3656;
+        //             border-radius: 26px;
+        //             border: 0;
+        //             font: Bold 16px/20px Microsoft YaHei UI;
+        //             letter-spacing: 0.29px;
+        //             color: #ffffff;
+        //             margin: 20px;
+        //             cursor: pointer;
+        //         }
+
+        //     }
+
+        //     .left {
+        //         flex: 1;
+
+        //         img {
+        //             width: 100%;
+        //         }
+        //     }
+        // }
+    }
+}

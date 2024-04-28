@@ -1,0 +1,117 @@
+//下拉式選單
+.ui-modal-select-box {
+    .select-title {
+        display: block;
+        margin: 0 0 5px 0;
+    }
+
+    .selection-container {
+        position: relative;
+        .current-select-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+
+            p {
+                margin: 0;
+                color: #999999;
+            }
+
+            .selected-item-title {
+                color: #222222;
+            }
+            svg {
+                cursor: pointer;
+            }
+        }
+
+        .selection-menu {
+            box-shadow: 0px 8px 20px #00000029;
+            border-radius: 8px;
+            padding: 16px 0;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            background-color: #fff;
+            z-index: 100;
+
+            header {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: #00a6ff;
+                border-bottom: 1px solid #0000001c;
+                padding: 0 19px 15px 19px;
+
+                p {
+                    margin: 0;
+                    font: normal normal bold 14px/19px Microsoft YaHei;
+                    color: #222222;
+                }
+                button {
+                    border: none;
+                    background-color: transparent;
+                    padding: 0;
+                    cursor: pointer;
+                }
+            }
+
+            .options-box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                overflow-y: scroll;
+                max-height: 255px;
+                padding: 0 10px 0 19px;
+                margin-right: 2px;
+
+                &::-webkit-scrollbar {
+                    &-track {
+                        background-color: transparent;
+                        margin-top: 2px;
+                    }
+                    &-thumb {
+                        background-color: #cccccc;
+                        border-radius: 6px;
+                    }
+                }
+
+                .option-item {
+                    width: 100%;
+                    padding: 10px 0;
+                    border-bottom: 1px solid #0000001c;
+                    color: #999999;
+                    display: flex;
+                    justify-content: space-between;
+                    cursor: pointer;
+
+                    p {
+                        margin: 0;
+                    }
+
+                    .check-box {
+                        color: #00a6ff;
+                    }
+                }
+
+                //當option被點擊 or 確認時style
+                .clicked-item,
+                .confirmed-item {
+                    p {
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+
+    .ant-select-lg {
+        width: 100%;
+    }
+}

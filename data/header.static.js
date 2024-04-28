@@ -1,0 +1,180 @@
+import {translate} from "$ACTIONS/Translate";
+import {isWebPSupported} from "$ACTIONS/helper"
+
+//Header中非游戏类列表
+export const menuRightBarData = [
+    {
+        key: "promotions",
+        expression: translate("优惠"),
+    },
+    {
+        key: "KingsClub",
+        expression: translate("天王俱乐部"),
+    },
+    {
+        key: "More",
+        expression: translate("更多"),
+        isDown: 7,
+    },
+    {
+        key: "Alliance",
+        expression: translate("代理"),
+    },
+];
+
+//Header中更多列表中的子列表
+export const hoverSecondary = [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+        // {
+        //     title: "USDT 介绍",
+        //     providerImageUrl: "/vn/img/home/header/Others_USDT.png",
+        //     provider: "/USDTintroduce",
+        //     gameId: "",
+        //     type: "static",
+        //     kind: "new",
+        // },
+        {
+            title: translate("推荐好友"),
+            providerImageUrl: `/vn/img/home/header/Others_ReferAFriend.${isWebPSupported() ? "webp" : "png"}`,
+            provider: "/referrer-activity",
+            gameId: "76",
+            type: "static",
+        },
+        {
+            title: translate("每日优惠"),
+            providerImageUrl: `/vn/img/home/header/Others_RewardsPage.${isWebPSupported() ? "webp" : "png"}`,
+            provider: "/daily-gift",
+            gameId: "",
+            type: "static",
+            kind: "hot",
+        },
+        {
+            title: "VIP",
+            providerImageUrl: `/vn/img/home/header/Others_VIP.${isWebPSupported() ? "webp" : "png"}`,
+            provider: "/diamond-club",
+            gameId: "",
+            type: "static",
+            kind: "hot",
+        },
+        {
+            title: translate("赞助信息"),
+            providerImageUrl: `/vn/img/home/header/Others_SponsorshipPage.${isWebPSupported() ? "webp" : "png"}`,
+            provider: "/help/sponsorship",
+            gameId: "",
+            type: "static",
+            kind: "hot",
+        },
+        {
+            title: "FAQ",
+            providerImageUrl: `/vn/img/home/header/Others_Tournament.${isWebPSupported() ? "webp" : "png"}`,
+            provider: "/faq/ve-fun88",
+            gameId: "76",
+            type: "static",
+        },
+        {
+            title: translate("下载应用软件"),
+            providerImageUrl: `/vn/img/home/header/Others_Download.${isWebPSupported() ? "webp" : "png"}`,
+            provider: "/download-app",
+            gameId: "76",
+            type: "static",
+        },
+        {
+            title: translate("自我限制​"),
+            providerImageUrl: `/vn/img/home/header/Others_BehavioralRestrictions.${isWebPSupported() ? "webp" : "png"}`,
+            provider: "/me/self-exclusion",
+            gameId: "76",
+            type: "static",
+        },
+    ],
+];
+
+//Header中游戏类列表
+export const hoverSecondaryDetail = [
+    {
+        type: "sport",
+        chinese: "体育",
+        english: "SPORTS BETTING",
+        promotion: translate("注册奖金"),
+        promotionVal: "100%",
+        gameContent: "xxx",
+        gameAddress: "/the-thao",
+        dataCategory: "Sportsbook",
+    },
+    {
+        type: "imsport",
+        chinese: "电竞",
+        english: "eSPORT BETTING",
+        promotion: translate("无限退款"),
+        promotionVal: "0.8%",
+        gameContent: "xxx",
+        gameAddress: "/esports",
+        dataCategory: "ESports",
+    },
+    {
+        type: "instantGames",
+        chinese: "小游戏",
+        english: "SP GAMING",
+        promotion: translate("注册奖金"),
+        promotionVal: "80%",
+        gameContent: "xxx",
+        gameAddress: "/arcade-games",
+        dataCategory: "InstantGames",
+    },
+    {
+        type: "casino",
+        chinese: "真人",
+        english: "LIVE CASINO",
+        promotion: translate("无限退款"),
+        promotionVal: "0.8%",
+        gameContent: "xxx",
+        gameAddress: "/live-casino",
+        dataCategory: "LiveCasino",
+    },
+    {
+        type: "chess",
+        chinese: "棋牌",
+        english: "P2P GAMING",
+        promotion: translate("注册奖金"),
+        promotionVal: "80%",
+        gameContent: "xxx",
+        gameAddress: "/P2P",
+        dataCategory: "P2P",
+    },
+    {
+        type: "slotgame",
+        chinese: "老虎机",
+        english: "SLOT GAMING",
+        promotion: translate("无限退款"),
+        promotionVal: "1.0%",
+        gameContent: "xxx",
+        gameAddress: "/slots",
+        dataCategory: "Slot",
+    },
+    {
+        type: "lottery",
+        chinese: "彩票",
+        english: "LOTTERY",
+        promotion: translate("注册奖金"),
+        promotionVal: "100%",
+        gameContent: "xxx",
+        gameAddress: "/xo-so",
+        dataCategory: "KenoLottery",
+    },
+    {
+        type: "more",
+        chinese: translate("功能"),
+        english: translate("更多"),
+        promotion: "",
+        promotionVal: "",
+        gameContent: "",
+        qrcodeImg: "",
+        qrcodeAddress: "www.google.com",
+    },
+];

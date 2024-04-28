@@ -1,0 +1,208 @@
+.UploadFilesUserCenter {
+    h2{
+        font-weight: bold;
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+    .noNeedFiles{
+        .Top{
+            padding-bottom: 15px;
+            border-bottom: 1px solid #cccccc;
+        }
+    }
+    .Top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 10px 0;
+        .h2 {
+            flex: 0 0 12%;
+            margin-bottom: 0;
+            color: #222222;
+        }
+        .txt {
+            flex: 0 0 70%;
+            color: #999999;
+        }
+        .howtxt {
+            color: #00a6ff;
+            cursor: pointer;
+        }
+    }
+}
+.Uploadfiles {
+    .StatusBox {
+        width: 500px;
+        height: 296px;
+        background-color: #f6f6f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        h2 {
+            font: normal normal 600 20px/28px PingFang SC;
+        }
+        Button {
+            margin-top: 10px;
+            width: 240px;
+        }
+    }
+    .UploadFilesSet {
+        padding-top: 25px;
+        padding-bottom: 25px;
+        border-top: 1px solid #cccccc;
+        .Title {
+            display: flex;
+            justify-content: space-between;
+            width: 490px;
+            .name {
+                color: #222222;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-weight: bold;
+                img{
+                    margin-right: 5px;
+                    width: 20px;
+                }
+            }
+            .eg {
+                color: #00a6ff;
+                cursor: pointer;
+            }
+        }
+        .UploadNote {
+            padding-top: 15px;
+        }
+        .tryTime {
+            width: 251px;
+            text-align: center;
+        }
+        .Submit {
+            width: 251px;
+        }
+        .Content {
+            display: flex;
+            padding-top: 15px;
+            justify-content: space-between;
+            width: 505px;
+
+            .SelectFile {
+                width: 240px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 2px dashed #cccccc;
+                border-radius: 10px;
+                margin: 20px 0;
+                color: #00a6ff;
+                cursor: pointer;
+                img {
+                    margin-right: 10px;
+                }
+            }
+            .image-item {
+                background-color: #f5f5f5;
+                border-radius: 8px;
+                width: 240px;
+                margin-top: 20px;
+                margin-bottom: 40px;
+                cursor: pointer;
+                padding: 15px 10px;
+                .name {
+                    word-break: break-all;
+                }
+            }
+        }
+    }
+}
+
+.upload-lesson-wrap {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    &.upload-ls-1 {
+        background-image: url("@{base-path}/img/upload/1.png");
+    }
+    &.upload-ls-2 {
+        background-image: url("@{base-path}/img/upload/2.png");
+    }
+    &.upload-ls-3 {
+        background-image: url("@{base-path}/img/upload/3.png");
+    }
+    &.upload-ls-4 {
+        background-image: url("@{base-path}/img/upload/4.png");
+    }
+    h5 {
+        font: normal normal bold 14px/24px Microsoft YaHei;
+    }
+}
+.setText {
+    text-align: left;
+    padding: 20px 80px;
+}
+
+.EgBox {
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+}
+
+.uploadFiles-removeModal {
+    .ant-modal-confirm-btns .ant-btn:first-child {
+        border-color: #00a6ff;
+        color: #00a6ff;
+        &:hover,&:focus {
+            color: #29bbff;
+            border-color: #29bbff;
+        }
+    }
+}
+
+#upload_wrapper {
+    .slide-arrow {
+        width: 32px;
+        height: 64px;
+        position: absolute;
+        top: 250px;
+        outline: none;
+        border-width: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #00000040;
+        transition: background-color 0.3s;
+    }
+    .slide-arrow:hover {
+        background-color: #00000080;
+    }
+    .slide-prev {
+        left: 148px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url("@{base-path}/img/upload/icon-left.svg");
+    }
+    .slide-next {
+        right: 148px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url("@{base-path}/img/upload/icon-right.svg");
+    }
+    .ant-carousel .custom-Carousel .slick-dots li button {
+        background: #00000040;
+        border-radius: 50%;
+        height: 8px;
+        width: 8px;
+    }
+    .ant-carousel .custom-Carousel .slick-dots li.slick-active button {
+        background: #00a6ff;
+        border-radius: 8px;
+        height: 8px;
+        width: 20px;
+    }
+}

@@ -1,0 +1,12 @@
+# 设置项目缩进为 4 个空格
+[*.js]
+indent_style = space
+indent_size = 4
+
+[*.html]
+indent_style = space
+indent_size = 4
+
+[*.css]
+indent_style = space
+indent_size = 4

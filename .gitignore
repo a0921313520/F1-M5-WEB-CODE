@@ -1,0 +1,20 @@
+.idea
+.vscode
+.DS_Store
+node_modules
+build
+out
+export
+.next
+*.log
+.Central-Payment
+Central-Payment
+
+# Sentry
+#.sentryclirc
+
+# Sentry
+next.config.original.js
+
+# Sentry Auth Token
+.sentryclirc

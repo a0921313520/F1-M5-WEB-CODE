@@ -1,0 +1,1652 @@
+//弹窗
+.modal-pubilc {
+    text-align: center;
+    .ant-tabs {
+        overflow: visible;
+    }
+    .ant-modal-header {
+        background: #00a5fd;
+        border-radius: 20px 20px 0 0;
+
+        .ant-modal-title {
+            color: #fff;
+            font-size: 20px;
+            height: 27px;
+            text-align: center;
+        }
+    }
+    .ant-modal-content {
+        border-radius: 20px;
+        .ant-modal-body {
+            padding: 30px 35px;
+
+            .ant-input-prefix {
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+            .ant-input-affix-wrapper .ant-input:not(:first-child) {
+                padding-left: 38px;
+            }
+            .IputBox {
+                margin-bottom: 16px;
+            }
+            .ant-form {
+                &.ant-form-horizontal {
+                    .ant-form-item-control.has-error {
+                        display: flex;
+                        flex-direction: column;
+
+                        .ant-form-explain {
+                            order: -1;
+                            margin-top: 0px;
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+            }
+            .ant-btn-primary {
+                font-weight: 700;
+            }
+            .login-error {
+                margin-bottom: 10px;
+                font-size: 12px;
+                text-align: left;
+                letter-spacing: 0px;
+                color: #eb2121;
+                background: #fee5e5 0% 0% no-repeat padding-box;
+                border-radius: 8px;
+                opacity: 1;
+                padding: 10px;
+            }
+        }
+        button:disabled {
+            background-color: #ccc;
+            border-color: #ccc;
+            color: #fff;
+        }
+    }
+
+    &.login-and-registration {
+        .ant-modal-header {
+            text-align: center;
+        }
+
+        .ant-tabs-nav-wrap {
+            width: 100%;
+            height: 40px;
+        }
+
+        .ant-modal-content {
+            border-radius: 20px;
+
+            .ant-modal-body {
+                .ant-form-item {
+                    margin-bottom: 0px;
+                }
+
+                .IputBox {
+                    margin-bottom: 10px;
+                    &.emailInput{
+                        position: relative;
+                        .emailList{
+                            width: 100%;
+                            height: 225px;
+                            background-color: #fff;
+                            border: 1px solid #ccc;
+                            border-radius: 10px;
+                            overflow-y: scroll;
+                            position: absolute;
+                            left: 0;
+                            top: 46px;
+                            .ant-col{
+                                line-height: 45px;
+                                text-align: left;
+                                padding:0 10px;
+                                cursor: pointer;
+                                &:hover{
+                                    background-color: #E5F6FF;
+                                }
+                                &:first-child{
+                                    &:hover{
+                                        border-radius: 10px 10px 0 0;
+                                    }
+                                }
+                                &:last-child{
+                                    &:hover{
+                                        border-radius: 0 0 10px 10px;
+                                    }
+                                }
+                            }
+                            &.false{
+                                display: none;
+                            }   
+                            &.true{
+                                display: block;
+                                z-index: 3;
+                            }
+                        }
+                    }
+                }
+
+                .ant-form {
+                    &.ant-form-horizontal {
+                        .ant-form-item-control.has-error {
+                            display: flex;
+                            flex-direction: column;
+
+                            .ant-form-explain {
+                                order: -1;
+                                margin-top: 0px;
+                                margin-bottom: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .Forget-pwd-tabs {
+        .ant-tabs-bar {
+            margin-bottom: 32px;
+        }
+
+        .ant-tabs-ink-bar {
+            height: 98%;
+            z-index: -1;
+            border-radius: 50px;
+        }
+
+        .ant-tabs-tabpane {
+            label {
+                font-size: 12px;
+                text-align: left;
+            }
+        }
+
+        .IputBox {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .invalid-input-error {
+            margin-bottom: 10px;
+            font-size: 12px;
+            text-align: left;
+            letter-spacing: 0px;
+            color: #eb2121;
+            background: #fee5e5 0% 0% no-repeat padding-box;
+            border-radius: 8px;
+            opacity: 1;
+            padding: 10px;
+        }
+
+        .invalid-input-box-error {
+            border-color: #ff4d4f;
+        }
+
+        .error {
+            margin-top: 10px;
+            font-size: 12px;
+            text-align: left;
+            letter-spacing: 0px;
+            color: #eb2121;
+            background: #fee5e5 0% 0% no-repeat padding-box;
+            border-radius: 8px;
+            opacity: 1;
+            padding: 10px;
+        }
+
+        label {
+            display: block;
+            margin: 0px 0px 5px 5px;
+        }
+
+        &.tabs-modal-pubilc {
+            overflow: hidden;
+
+            .ant-tabs-content {
+                .ant-tabs-tabpane {
+                    .IputBox {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+                        margin-bottom: 32px;
+
+                        &.forgetuser-input {
+                            gap: 0;
+
+                            button {
+                                background-color: #00a6ff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .IputBox {
+        .registerPhone.ant-input-affix-wrapper {
+            .ant-input-prefix span {
+                margin-left: 5px;
+            }
+
+            .ant-input:not(:first-child) {
+                padding-left: 70px;
+            }
+        }
+    }
+
+    .IputBox.fix-not-required-text {
+        position: relative;
+
+        .not-required-text {
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
+            letter-spacing: 0px;
+            color: #999999;
+            opacity: 1;
+            font-size: 14px;
+        }
+    }
+
+    // 切換登入/註冊Tab
+    .tabs-modal-pubilc {
+        .ant-tabs-bar {
+            background-color: #7676801f;
+            border-radius: 50px;
+            margin-bottom: 30px;
+
+            .ant-tabs-nav-container {
+                .ant-tabs-nav-scroll {
+                    width: 100%;
+
+                    .ant-tabs-nav {
+                        width: 100%;
+                        z-index: 10;
+
+                        // tab選項box
+                        >div:not(:last-child) {
+                            width: 100%;
+                            display: flex;
+
+                            // 單個tab
+                            >div {
+                                width: 100%;
+                                margin: 0;
+                            }
+
+                            .ant-tabs-tab-active {
+                                color: white !important;
+                                font-weight: 600;
+                            }
+                        }
+
+                        .ant-tabs-ink-bar {
+                            height: 98%;
+                            z-index: -1;
+                            border-radius: 50px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .link-box {
+        text-align: right;
+        height: 16px;
+        margin-bottom: 30px;
+
+        button:first-child {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 0;
+            height: 16px;
+            margin-left: auto;
+        }
+
+        span {
+            font-size: 12px;
+        }
+    }
+
+    .protocol-box {
+        padding: 0 15px;
+        .protocol {
+            font-size: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    }
+
+    //otp验证限制弹窗
+    &.exceed-modal {
+        .ant-modal-body {
+            background-color: white;
+            text-align: center;
+            .otp-modal-title {
+                font-size: 18px;
+                margin: 13px auto;
+            }
+            .otp-cs-tip {
+                text-align: center;
+            }
+        }
+        .ant-modal-footer{
+            margin: auto;
+            padding: 0 20px 20px;
+            text-align: center;
+            .ant-btn{
+                width: 45%;
+                &:first-child{
+                   color: @theme;
+                   border-color: @theme;
+                }
+            }
+        }
+    }
+
+    // otp 驗證彈窗
+    &.OTP-modal {
+        .ant-modal-content {
+            background-color: white;
+
+            .ant-modal-header .ant-modal-title {
+                text-align: center;
+            }
+        }
+
+        .ant-modal-body {
+            padding: 30px 32px 24px 32px;
+            background-color: white;
+            border-radius: 20px;
+
+            .otp-modal-title {
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                margin: 20px auto;
+                color: #222222;
+            }
+
+            .otp-warn {
+                display: block;
+                margin: 0 auto;
+            }
+
+            .otp-modal-banner {
+                margin-left: -32px;
+                margin-top: -30px;
+            }
+
+            .otp-modal-description {
+                //text-align: justify;
+                margin: 20px 0;
+                padding: 10px;
+                background-color: white;
+                border-radius: 10px;
+                font-size: 14px;
+
+                h4 {
+                    font-weight: 600;
+                    margin: 10px 0;
+                }
+
+                .otp-cs {
+                    color: #1c8eff;
+                    cursor: pointer;
+                }
+            }
+
+            .verify-icon-wrap {
+                width: 70px;
+                height: 70px;
+                margin: 0 auto;
+                display: block;
+                background: white;
+                border-radius: 10px;
+                position: relative;
+                cursor: pointer;
+                transition: 0.5s;
+
+                .verify-icon {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+                &.red-email,
+                &.red-phone,
+                &.red-cs {
+                    background: lighten(#00a6ff, 20%);
+                }
+
+                &:checked {
+                    background: darken(#00a6ff, 5%);
+                }
+            }
+
+            .verify-icon-content {
+                text-align: center;
+                padding-top: 10px;
+            }
+
+            .OtpList {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .otpBox {
+                background-color: white;
+                padding: 10px;
+                border-radius: 8px;
+                text-align: center;
+            }
+
+            .otpBtn {
+                margin: 30px auto 10px;
+                color: #00a6ff;
+                background: #fff;
+                border: 1px solid #00a6ff;
+                border-radius: 8px;
+
+                &.readMore {
+                    color: #fff;
+                    background: #00a6ff;
+                    margin-top: 10px;
+                }
+
+                &.securityAnnouncement {
+                    width: 332px;
+                    margin-left: 54px;
+                    margin-right: 54px;
+                }
+            }
+
+            .verification-form-wrap {
+                .timeTip {
+                    width: 100%;
+                    text-align: center;
+                }
+
+                .error-tip {
+                    width: 100%;
+                    height: 20px;
+                    line-height: 20px;
+                    text-align: left;
+                    color: #f00;
+                    font-size: 12px;
+                }
+
+                .otpPwdModal-Item {
+                    padding: 10px 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    i {
+                        width: 60px;
+                        height: 60px;
+                        display: inline-block;
+
+                        img {
+                            width: 100%;
+                            width: 100%;
+                        }
+                    }
+
+                    .text1 {
+                        font-size: 18px;
+                        color: #000;
+                        font-weight: bold;
+                        padding: 20px 0 10px;
+                    }
+
+                    .text2 {
+                        font-size: 14px;
+                        color: #222222;
+                    }
+                }
+
+                .text-tip span {
+                    color: #1c8eff;
+                    cursor: pointer;
+                }
+
+                .tlc-input-disabled {
+                    .icon-text-eyes {
+                        width: 20px;
+                        height: 20px;
+                        display: inline-block;
+                    }
+
+                    .icon-password-eyes {
+                        width: 20px;
+                        height: 20px;
+                        display: inline-block;
+                    }
+                }
+
+                .Item-bankName.inactive .ant-form-item-control {
+                    box-shadow: 0;
+                    width: 100%;
+                }
+
+                .Item-bankName.active .ant-form-item-control {
+                    box-shadow: 0 0 1px 1px #0000001a, 0 1px 2px 0 #00000014,
+                        0 2px 8px 2px #0000000d;
+                    border-bottom: none;
+                    border-radius: 8px 8px 0 0;
+                }
+
+                .bankNamewrap .ant-input:not(:first-child) {
+                    padding-left: 13px;
+                }
+
+                .bankNamewrap.have .ant-input:not(:first-child) {
+                    padding-left: 38px;
+                }
+
+                .bankNamewrap.active .ant-input {
+                    border-right: 0;
+                    border-bottom: 0;
+                    border-left: 0;
+                    border-radius: 0px;
+                    border: none;
+                    background: transparent;
+                }
+
+                .bankNameSelect .ant-select-selection {
+                    border: 1px solid #cccccc;
+                    box-shadow: none;
+                    border-radius: 4px;
+                    height: 35px;
+                    width: 96%;
+                    margin: 0 2%;
+
+                    .searchwrap {
+                        width: 100%;
+                        height: 20px;
+                        line-height: 20px;
+                        background: none;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .ant-select-selection__rendered {
+                        line-height: 35px;
+                    }
+                }
+
+                .Item-bankName .notfind {
+                    width: 100%;
+                    text-align: center;
+
+                    img {
+                        width: 80px;
+                        height: 80px;
+                    }
+
+                    p {
+                        font-size: 12px;
+                        color: #999999;
+                    }
+                }
+            }
+        }
+
+        &.addBankModal {
+            .ant-modal-body {
+                padding: 0 30px 30px 30px;
+
+                .ant-row {
+                    &.ant-form-item:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            .forAddBankCard {
+                .ant-select {
+                    .ant-select-selection {
+                        display: flex;
+                        align-items: center;
+                        height: 100%;
+
+                        .ant-select-selection__rendered {
+                            margin-left: 20px;
+                        }
+                    }
+                }
+
+                .ant-select-disabled .ant-select-selection .ant-select-arrow {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    &.CTC-INVOICE-AUT {
+        .ant-col-12 {
+            text-align: center;
+            border: 1px solid #00a6ff;
+            border-radius: 6px;
+            width: 45%;
+            height: 40px;
+            line-height: 40px;
+            margin: 6% 2.5% 0;
+            cursor: pointer;
+
+            &:first-child {
+                color: #00a6ff;
+            }
+
+            &:last-child {
+                color: #fff;
+                background-color: #00a6ff;
+            }
+        }
+    }
+
+    //银行卡资讯
+    &.bankDetailsModal {
+        .ant-modal-body {
+            padding: 24px;
+            .ant-row {
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+                .ant-col-12 {
+                    &:first-child {
+                        padding-left: 0px !important;
+                        padding-right: 15px !important;
+
+                        div {
+                            width: 100%;
+                            height: 50px;
+                            line-height: 50px;
+                            border-bottom: 1px solid #1a1a1a1a;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            color: #666666;
+
+                            &:last-child {
+                                border-bottom: 0;
+                            }
+                        }
+                    }
+
+                    &:last-child {
+                        padding-left: 15px !important;
+                        padding-right: 0px !important;
+
+                        label {
+                            color: #999999;
+                            font-size: 12px;
+                        }
+
+                        .text1 {
+                            font-size: 16px;
+                            margin-bottom: 10px;
+                        }
+
+                        .text2 {
+                            font-size: 12px;
+                            height: 20px;
+                            line-height: 20px;
+                        }
+
+                        .text3 {
+                            font-size: 12px;
+                            color: #999999;
+                            border-bottom: 1px solid #1a1a1a1a;
+                            height: 20px;
+                            line-height: 20px;
+                            margin-bottom: 10px;
+                            padding-bottom: 10px;
+                        }
+
+                        .text4,
+                        .text5 {
+                            width: 100%;
+                            color: #999999;
+                            height: 40px;
+                            line-height: 40px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            border-bottom: 1px solid #1a1a1a1a;
+                        }
+
+                        .text6 {
+                            font-size: 12px;
+                            background: #fff5bf;
+                            color: #a4893b;
+                            padding: 0.5rem;
+                            border-radius: 10px;
+
+                            span {
+                                color: #f00;
+                            }
+                        }
+
+                        .startDate-Item {
+                            position: relative;
+
+                            .clearItem {
+                                position: absolute;
+                                right: 10px;
+                                top: -50px;
+                                color: #1c8eff;
+                                font-size: 12px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+
+                .ant-col-24 {
+                    div {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        border-bottom: 1px solid #f3f3f3;
+                        height: 50px;
+                        font-weight: bold;
+                        span{
+                            display: inline-block;
+                            width: 50%;
+                            overflow: hidden;
+                            &:last-child{
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .ant-modal-footer .ant-btn{
+            width: 100%;
+            line-height: 40px;
+        }
+    }
+    &.finnInNameModal{
+        .ant-modal-body{
+            padding: 30px 35px 0;
+        }
+        .ant-modal-footer{
+            padding: 0 35px 30px;
+            height: 70px;
+            div{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .ant-btn{
+                    width: 48%;
+                    height: 40px;
+                }
+            }
+        }
+    }
+
+    //紧急公告
+    &.news-modal{
+        .ant-checkbox-wrapper{
+            width: 100%;
+            text-align: center;
+            .ant-checkbox-inner {
+                border-radius: 5px;
+            }
+        }
+        .footer-btn{
+            width: 100%;
+            margin: 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            .ant-btn{
+                width: 48%;
+                &:first-child{
+                    border-color: @theme;
+                    color: @theme;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    &.RegisterBonus-modal{
+        .ant-modal-body {
+            padding: 0 !important;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .headtext{
+            width: 100%;
+            height: 210px;
+            background-image: url("@{base-path}/img/home/registerBanner.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .ant-col-18{
+            margin-top: 10px;
+            min-height: 40px;
+            line-height: 18px;
+            &.havePromotion{
+                border-radius: 8px;
+                background: #F5F5F5;  
+                padding: 10px;
+                margin-top: 10px;
+                color: #464646;
+                cursor: pointer;
+                &.active{
+                    background: @theme; 
+                    color: @white;
+                }
+            }
+            &.check-box .ant-checkbox-wrapper-checked{
+                color: #000;
+                padding: 20px 0;
+            }
+        }
+        .ant-modal-footer{
+            width: 81%;
+            margin: auto;
+            .ant-btn{
+                &:last-child{
+                    margin-left: 0;
+                    span{
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+   
+    &.modal-otpVerification .ant-modal-content .ant-modal-body{
+        .WithdrawalVerification .verificationSubmitBtn .ant-btn{
+            width: 48%;
+            &:first-child{
+                margin-right: 4%;
+            }
+        }
+        .ant-form {
+            &.ant-form-horizontal {
+                .ant-form-item-control.has-error {
+                    display: flex;
+                    flex-direction: column;
+                    .ant-form-explain {
+                        order: 1;
+                        margin-top: 3px;
+                    }
+                }
+            }
+        }
+    }
+    //交易记录上传文件
+    &.UploadFileModal{
+        .btn-content-set {
+            text-align: left;
+            p{
+                color: #666;
+            }
+            label{
+                color: #222;
+            }
+            h5{
+                display:inline-block;
+                border-radius: 4px;
+                background: #FFE273;
+                padding: 5px;
+                margin-left: 10px;
+            }
+            .btn-content-file {
+                background-color: #f5f5f5;
+                text-align: right;
+                border-radius: 10px;
+                margin-top: 8px;
+                display: flex;
+                align-items: center;
+                padding-left: 10px;
+                margin-bottom: 10px;
+                .red-set{
+                    color: #F11818;
+                    font-size: 12px;
+                }
+                .imgname {
+                    text-align: left;
+                    width: 76%;
+                    display: block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                button {
+                    border-radius: 0px 8px 8px 0px;
+                    border: 0;
+                    box-shadow: unset;
+                }
+            }
+            .btn-content {
+                display: flex;
+                margin-top: 30px;
+                .ant-btn-background-ghost {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+    &.BalanceList{
+        .ant-modal-body{
+            padding: 24px;
+        }
+        .Content {
+            display: flex;
+            flex-flow: wrap;
+            .balance-box {
+                flex: 0 0 50%;
+                padding-bottom: 15px;
+                .num {
+                    color: #222222;
+                }
+                .localizedName{
+                    font-weight: 700;
+                    color: #666;
+                    font-size: 12px;
+                }
+                
+            }
+            .UnderMaintenance {
+                .localizedName,
+                .num {
+                    filter: grayscale(100%);
+                    opacity: 0.4;
+                }
+            }
+        }
+    }
+}
+
+.Spin_modal {
+    top: 35%;
+    .ant-modal-header {
+        display: none;
+    }
+    .ant-modal-body {
+        text-align: center;
+        height: 95px;
+
+        .ant-spin {
+            padding-top: 20%;
+            border-radius: 8px;
+        }
+    }
+}
+
+.ant-modal-confirm .ant-modal-confirm-btns {
+    text-align: center;
+}
+
+.ant-message {
+    z-index: 10000 !important;
+}
+
+.bankAccountModals {
+    .ant-modal-content {
+        position: relative;
+        border-radius: 20px;
+
+        .ant-modal-header {
+            border-radius: 20px 20px 0 0;
+
+            .ant-modal-title {
+                font-weight: normal;
+            }
+        }
+
+        .ant-modal-body {
+            padding: 0 40px 20px 40px;
+
+            .hoverShow {
+                display: none;
+                position: relative;
+
+                p {
+                    line-height: 16px;
+                    height: 16px;
+                }
+
+                span {
+                    width: 0;
+                    height: 0;
+                    border-width: 0 10px 10px;
+                    border-style: solid;
+                    border-color: transparent transparent black;
+                    position: absolute;
+                    left: 46.5%;
+                    top: -10px;
+                }
+            }
+
+            .iconTip {
+                img {
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                    position: absolute;
+                    left: 63%;
+                    top: -39px;
+                    cursor: pointer;
+                }
+            }
+
+            .iconTip:hover .hoverShow {
+                display: block;
+                width: 350px;
+                height: 180px;
+                color: #fff;
+                font-size: 12px;
+                background-color: black;
+                position: absolute;
+                left: 38%;
+                top: -5px;
+                z-index: 100;
+                padding: 10px 8px;
+                border-radius: 10px;
+            }
+
+            .ant-row {
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+                margin-bottom: 5px !important;
+
+                .ant-col-12 {
+                    margin-bottom: 35px;
+                    font-size: 12px;
+                    height: 120px;
+
+                    &:nth-child(odd) {
+                        padding-left: 0px !important;
+                        padding-right: 20px !important;
+                    }
+
+                    &:nth-child(even) {
+                        padding-left: 20px !important;
+                        padding-right: 0px !important;
+                    }
+
+                    &:last-child {
+                        padding-top: 21px;
+                    }
+
+                    span {
+                        color: #666666;
+                    }
+
+                    label {
+                        font-size: 12px;
+                        color: #222222;
+                    }
+
+                    .ant-form-item-control .ant-form-item-children {
+                        position: relative;
+
+                        .money-icon {
+                            position: absolute;
+                            left: 10px;
+                        }
+
+                        .ant-input {
+                            padding-left: 20px;
+                        }
+
+                        .baifen-icon {
+                            position: absolute;
+                            right: 10px;
+                        }
+                    }
+                }
+            }
+
+            .settingRequirement {
+                padding: 12px 16px;
+            }
+
+            .btnRow-wrap {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+
+                .ant-col-6 {
+                    text-align: center;
+                    border-radius: 6px;
+                    height: 40px;
+                    line-height: 40px;
+                    cursor: pointer;
+
+                    &:first-child {
+                        color: #000;
+                        border: 1px solid #cccccc;
+                    }
+
+                    &:last-child {}
+                }
+            }
+
+            .ant-btn {
+                width: 320px;
+            }
+
+            .btnactive {
+                color: #fff;
+                background-color: #00a6ff;
+            }
+
+            .btnnoactive {
+                color: #fff;
+                background-color: #cccccc;
+            }
+        }
+    }
+}
+
+.tip-modal .ant-modal-body {
+    background-color: transparent !important;
+    padding: 0 !important;
+}
+
+.ant-modal.ant-modal-confirm.right-angle .ant-modal-content {
+    border-radius: 0;
+}
+
+//滑动验证
+.fpcaptch-modal {
+    z-index: 2002;
+    .ant-modal-close-x{
+        color: #222;
+    }
+    .ant-modal-body {
+        padding: 46px 30px 10px 16px;
+    }
+
+    .fpcontent {
+        .fpSection {
+            width: 100%;
+            height: 150px;
+            .moveElement {
+                width: 60px;
+                height: 60px;
+                position: relative;
+                cursor: pointer;
+            }
+
+            .info {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background-color: #000;
+                opacity: 0.7;
+                left: 0;
+                top: 0;
+                color: #fff;
+
+                img {
+                    margin: 10px 0 0 90%;
+                    width: 18px;
+                    height: auto;
+                    cursor: pointer;
+                }
+
+                p {
+                    padding: 15px;
+                }
+            }
+        }
+        .verifySuccess {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background-color: #10a0004a;
+            color: #42d200;
+
+            img {
+                width: 18px;
+                height: auto;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+        .verifyFail {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background-color: rgba(255, 16, 0, 0.20);;
+            color: #F11818;
+            padding-left: 10px;
+            img {
+                width: 18px;
+                height: auto;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+        .fpFooter {
+            margin: 10px 0 0;
+
+            img {
+                cursor: pointer;
+
+                &:first-child {
+                    margin-right: 15px;
+                }
+            }
+        }
+    }
+}
+
+.uploadImages-modal {
+    .ant-modal-title {
+        font-size: 16px;
+    }
+    .tipTextp {
+        font-size: 14px;
+        color: #222222;
+    }
+    ul li {
+        margin-bottom: 10px;
+        &>span {
+            font-size: 12px;
+            color: #666;
+        }
+        .ant-btn {
+            height: 40px;
+            background-color: #f3f3f3;
+            margin-top: 8px;
+
+            >span {
+                color: #1c8eff;
+            }
+            &:hover,
+            &:focus {
+                border-color: 1px solid #ccc;
+            }
+        }
+        .conbtn {
+            width: 100%;
+            height: 43px;
+            border-radius: 8px;
+            padding: 0 10px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f3f3f3;
+            .ant-btn:hover,
+            .ant-btn:focus {
+                border: 1px solid #e0e0e0;
+                color: #999999;
+            }
+            span {
+                width: 90%;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            div {
+                width: 20px;
+                height: 20px;
+                background-color: #00000066;
+                border-radius: 13px;
+                line-height: 18px;
+                text-align: center;
+
+                img {
+                    width: 12px;
+                    height: 12px;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        &:last-child {
+            .ant-btn {
+                width: 46%;
+                font-size: 14px;
+                border-radius: 19px;
+
+                &:first-child {
+                    margin-right: 4%;
+
+                    >span {
+                        color: #666666;
+                    }
+                }
+
+                &:last-child {
+                    background-color: #cccccc;
+                    margin-left: 4%;
+
+                    >span {
+                        color: #fff;
+                    }
+                }
+
+                &.active {
+                    background-color: #00a6ff;
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+}
+
+// USDT提款 存款
+.UsdtTeachModalStyle .ant-modal-body {
+    padding: 0;
+
+    .ant-tabs-bar {
+        border-bottom: none;
+        margin: 0;
+        padding-top: 15px;
+    }
+
+    .ant-tabs-tab {
+        font-weight: bold;
+    }
+}
+
+.UsdtTeachModalStyle .ant-modal-close-x {
+    font-size: 20px;
+    color: white;
+    height: 51px;
+    line-height: 51px;
+}
+
+.Otptxt {
+    color: #222222;
+    font-weight: bold;
+}
+
+// 忘記密碼/ 忘記用戶名
+.confirm-modal-of-public,
+.confirm-modal-of-forgetuser {
+    .ant-modal-content {
+        border-radius: 20px;
+        .ant-modal-body {
+            padding: 0;
+        }
+        .ant-modal-confirm-body {
+            .ant-modal-confirm-title {
+                color: #fff;
+                background-color: #00a6ff;
+                padding: 19px 10px;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                text-align: center;
+                font-size: 20px;
+            }
+
+            .ant-modal-confirm-content {
+                padding-bottom: 0;
+                margin-bottom: 39px;
+                color: #222222;
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+        }
+
+        .ant-modal-confirm-btns {
+            margin: 0 auto 30px;
+            float: inherit;
+
+            .ant-btn {
+                width: 40%;
+                height: 40px;
+            }
+        }
+        //Central-Payment 提款失败弹窗
+        .WithdrawKyc{
+            .WithdrawKycIcon{
+                width: 60px;
+                height: 60px;
+                background-image: url("@{base-path}/img/icons/icon-warn.svg");
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                margin: 0 auto 15px;
+            }
+        }
+    }
+
+    &.oneButton {
+        .ant-modal-confirm-btns {
+            .ant-btn {
+                width: 86% !important;
+            }
+        }
+    }
+    &.elementTextLeft{
+        .ant-modal-confirm-body .ant-modal-confirm-content{
+            text-align: left;
+        }
+    }
+    &.dont-show-close-button{
+        .ant-modal-close{
+            display: none;
+        }
+    }
+    &.withdraw-confirm-modal{
+        .divCircleList{
+            display: flex;
+            align-items: center;
+        }
+        .divCircle{
+            width: 4px;
+            height: 4px;
+            background-color: #000;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        .ant-btn:first-child{
+            color: @theme;
+        }
+    }
+}
+
+.wallet-deposit-warning {
+    &.confirm-modal-of-public {
+        .ant-modal-content {
+            .ant-modal-confirm-body {
+                .ant-modal-confirm-content {
+                    margin-bottom: 0;
+                    padding: 0 25px;
+                }
+            }
+        }
+    }
+}
+
+.ReferModal {
+    .ant-modal-title {
+        text-align: center;
+    }
+
+    .RecommendedGames {
+        text-align: left;
+        padding-top: 20px;
+        font-weight: bold;
+
+        h4 {
+            text-align: left;
+            padding-top: 20px;
+        }
+    }
+}
+
+// general large feedback modal
+.large-feedback-status-modal {
+    &.ant-modal-confirm .ant-modal-body{
+        padding: 0 24px 24px;
+    }
+    .anticon {
+        display: none;
+    }
+
+    .ant-modal-confirm-content {
+        img {
+            width: 60px;
+            height: 60px;
+        }
+        .note{
+            padding: 0 20px;
+        }
+    }
+
+    .ant-modal-confirm-btns {
+        display: flex;
+    }
+}
+
+.ant-modal-content {
+    box-shadow: unset;
+}
+
+.SecurityAnnouncement {
+    .ant-modal-content {
+        .ant-modal-body {
+            padding: 30px;
+            background-color: white !important;
+
+            .otp-modal-banner {
+                margin-left: -30px;
+            }
+
+            .otp-modal-description {
+                margin: 30px 0 20px 0;
+                padding: 0;
+                color: #6c6c6c;
+            }
+        }
+    }
+}
+
+.StepsBox {
+    .ant-steps-item-wait .ant-steps-item-icon {
+        border-color: #ccc !important;
+    }
+
+    .ant-steps-item-wait .ant-steps-item-icon>.ant-steps-icon {
+        color: #ccc !important;
+    }
+}
+
+.loginOTPModal {
+    .ant-modal-content {
+        .ant-modal-header .ant-modal-title {
+            text-align: center;
+        }
+
+        .ant-modal-body {
+            padding: 22px 30px 30px 30px;
+            background-color: #efeff4;
+            border-radius: 0 0 20px 20px;
+
+            .otp-modal-description {
+                padding: 20px;
+                margin: 0 0 20px 0;
+                color: #000;
+
+                .otp-modal-title {
+                    font-size: 14px;
+                    text-align: left;
+                }
+
+                .ant-btn {
+                    &.otpBtn {
+                        height: 40px;
+                        margin: 16px 0 0 0;
+                    }
+                }
+            }
+
+            .OtpList {
+                justify-content: center;
+                gap: 16px;
+
+                .otpBox {
+                    width: 100%;
+                    padding: 20px 16px;
+
+                    .ant-btn-primary {
+                        width: 120px;
+                        height: 54px;
+                        line-height: 22px;
+                        font-weight: normal;
+                        white-space: normal;
+                        padding: 5px;
+                    }
+                    .one-button{
+                        //文字保持一行不换行
+                        width: auto;
+                        height: 44px;
+                    }
+                }
+            }
+
+            .ant-btn-background-ghost {
+                height: 40px;
+            }
+        }
+    }
+}
+
+.StepsBox {
+    width: 200px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+//忘记用户名密码/忘记用户名
+.forgetPwdModal,
+.confirm-modal-of-forgetuser {
+    .ant-modal-content {
+        .ant-modal-body {
+            .ant-modal-confirm-content {
+                padding: 0 29px;
+            }
+
+            .ant-modal-confirm-title {
+                text-align: center;
+            }
+
+            .ant-modal-confirm-btns {
+                width: 80%;
+                height: 40px;
+                margin: 0 auto 20px;
+                float: inherit;
+
+                .ant-btn {
+                    width: 100%;
+                    height: 40px;
+                }
+            }
+        }
+    }
+}
+
+.WelcomeBanne {
+    .ant-modal-body {
+        padding: 0 !important;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+}

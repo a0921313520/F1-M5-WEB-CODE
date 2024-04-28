@@ -1,0 +1,131 @@
+.error-wrapper {
+    width: 100%;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 8px 20px #0000000d;
+    border-radius: 20px;
+    opacity: 1;
+    margin-top: 60px;
+    display: flex;
+    .error-img {
+        width: 540px;
+        height: 480px;
+        object-fit: cover;
+    }
+    .error-right {
+        width: 660px;
+        height: 480px;
+        padding: 50px 80px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border-radius: 0px 20px 20px 0px;
+        display: flex;
+        justify-content: center;
+        .error-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // width: 360px;
+            .error-text {
+                font: normal normal normal 18px/26px Microsoft YaHei;
+                letter-spacing: 0px;
+                color: #222222;
+                opacity: 1;
+                font-weight: bold;
+                background: #ffffff 0% 0% no-repeat padding-box;
+            }
+            .error-icon {
+                width: 58px;
+                height: 58px;
+                margin: 30px 0;
+                img {
+                    width: 100%;
+                }
+            }
+            //restrictAccess頁面的 block icon
+            .error-block {
+                margin: 30px 0;
+            }
+            .error-mes {
+                text-align: center;
+                font: normal normal normal 14px/24px Microsoft YaHei;
+                letter-spacing: 0px;
+                color: #666666;
+                opacity: 1;
+            }
+            .error-btn {
+                margin: 30px 0 20px;
+                padding: 8px;
+                width: 80%;
+                border: 0;
+                background: #00a6ff 0% 0% no-repeat padding-box;
+                border-radius: 8px;
+                opacity: 1;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img {
+                    width: 16px;
+                    height: 16px;
+                }
+                span {
+                    text-align: center;
+                    font: normal normal normal 14px/19px Microsoft YaHei;
+                    letter-spacing: 0px;
+                    color: #ffffff;
+                    opacity: 1;
+                    padding-left: 10px;
+                }
+            }
+            .error-information {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 80%;
+                .error-info-text {
+                    span {
+                        font: normal normal normal 14px/22px Microsoft YaHei;
+                        letter-spacing: 0px;
+                        color: #999999;
+                        opacity: 1;
+                    }
+                    a {
+                        text-align: center;
+                        font: normal normal normal 14px/22px Microsoft YaHei;
+                        letter-spacing: 0px;
+                        color: #00a6ff;
+                        opacity: 1;
+                        padding-left: 18px;
+                    }
+                }
+            }
+            .maintain-time{
+                width: 80%;
+                margin-top:20px ;
+                label{
+                    color: #999;
+                }
+                .ant-row-flex{
+                    width: 100%;
+                    margin-top: 10px;
+                    .ant-col{
+                        width: 60px;
+                        .time{
+                            height: 70px;
+                            box-shadow: 0px 0px 10px #999;
+                            border-radius: 10px;
+                            margin-bottom: 10px;
+                            color: @primary-color;
+                            line-height: 70px;
+                            text-align: center;
+                            font-size: 30px;
+                            font-weight: bold;
+                        }
+                        center{
+                            color: #999;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
