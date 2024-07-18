@@ -29,7 +29,7 @@ class AnvelopeMain extends React.Component {
                 if (arguments.length === 1) {
                     if (Array.isArray(arguments[0])) {
                         var index = Math.round(
-                            argumnetsRange(0, arguments[0].length - 1)
+                            argumnetsRange(0, arguments[0].length - 1),
                         );
                         return arguments[0][index];
                     }
@@ -46,14 +46,14 @@ class AnvelopeMain extends React.Component {
                         global.innerWidth ||
                             documentElement.clientWidth ||
                             body.clientWidth ||
-                            0
+                            0,
                     ),
                     height = Math.max(
                         0,
                         global.innerHeight ||
                             documentElement.clientHeight ||
                             body.clientHeight ||
-                            0
+                            0,
                     ),
                     offsetX =
                         Math.max(
@@ -61,7 +61,7 @@ class AnvelopeMain extends React.Component {
                             global.pageXOffset ||
                                 documentElement.scrollLeft ||
                                 body.scrollLeft ||
-                                0
+                                0,
                         ) - (documentElement.clientLeft || 0),
                     offsetY =
                         Math.max(
@@ -69,7 +69,7 @@ class AnvelopeMain extends React.Component {
                             global.pageYOffset ||
                                 documentElement.scrollTop ||
                                 body.scrollTop ||
-                                0
+                                0,
                         ) - (documentElement.clientTop || 0);
 
                 return {
@@ -146,7 +146,7 @@ class AnvelopeMain extends React.Component {
                             0,
                             0,
                             this._width,
-                            this._height
+                            this._height,
                         ),
                         window.addEventListener("resize", this._onResize),
                         (this._particleImage.onload = () => {
@@ -160,7 +160,7 @@ class AnvelopeMain extends React.Component {
                 } catch (err) {
                     // 此处加void表明不需要对此函数的返回值做处理
                     return void console.warn(
-                        "Canvas Context Error: " + err.toString()
+                        "Canvas Context Error: " + err.toString(),
                     );
                 }
             },
@@ -169,11 +169,11 @@ class AnvelopeMain extends React.Component {
                         5 > Math.round(argumnetsRange(1, 9)) ? "right" : "left",
                     bagWidth = Math.round(argumnetsRange(80, 117)),
                     positionX = Math.round(
-                        argumnetsRange(-30, this._width + 30)
+                        argumnetsRange(-30, this._width + 30),
                     ),
                     startPosition = new Grocery(
                         positionX,
-                        argumnetsRange(-400, -1000)
+                        argumnetsRange(-400, -1000),
                     );
                 return {
                     point: startPosition,
@@ -205,7 +205,7 @@ class AnvelopeMain extends React.Component {
                         redbag.point.x,
                         redbag.point.y,
                         redbag.width,
-                        redbag.width / 0.78
+                        redbag.width / 0.78,
                     );
                 }
             },
@@ -260,7 +260,7 @@ class AnvelopeMain extends React.Component {
                             "function" && this.props.GetPlayerLuckySpinDetail();
 
                         let currentValue = this.props.prizeList.find(
-                            (ele) => ele.cnName === res.wonPrizes.prizeName
+                            (ele) => ele.cnName === res.wonPrizes.prizeName,
                         );
                         const title = currentValue ? "恭喜中奖" : "再接再厉";
 
@@ -362,7 +362,7 @@ class AnvelopeMain extends React.Component {
                                                         Pushgtagdata(
                                                             "Deposit Nav​",
                                                             "Click",
-                                                            "Deposit_CNY2022"
+                                                            "Deposit_CNY2022",
                                                         );
                                                     }}
                                                 >
@@ -461,7 +461,7 @@ class AnvelopeMain extends React.Component {
                                         Pushgtagdata(
                                             "Deposit Nav​",
                                             "Click",
-                                            "Deposit_CNY2022"
+                                            "Deposit_CNY2022",
                                         );
                                         this.showDepositModal();
                                     },
@@ -491,7 +491,7 @@ class AnvelopeMain extends React.Component {
                                         Pushgtagdata(
                                             "Deposit Nav​",
                                             "Click",
-                                            "Deposit_CNY2022"
+                                            "Deposit_CNY2022",
                                         );
                                         this.showDepositModal();
                                     },
@@ -542,7 +542,7 @@ class AnvelopeMain extends React.Component {
                                         Pushgtagdata(
                                             "Deposit Nav​",
                                             "Click",
-                                            "Deposit_CNY2022"
+                                            "Deposit_CNY2022",
                                         );
                                         this.showDepositModal();
                                     },

@@ -127,7 +127,7 @@ class WC extends React.Component {
 
                             this.props.form.resetFields();
                         }
-                    }
+                    },
                 );
             }
         });
@@ -144,17 +144,17 @@ class WC extends React.Component {
             Pushgtagdata(
                 "Transaction Record",
                 "View",
-                "View_TransactionRecord_Deposit"
+                "View_TransactionRecord_Deposit",
             );
     };
 
     submitBtnEnable = () => {
         let { setting } = this.props.currDepositDetail;
         let errors = Object.values(this.props.form.getFieldsError()).some(
-            (v) => v !== undefined
+            (v) => v !== undefined,
         );
         let values = Object.values(this.props.form.getFieldsValue()).some(
-            (v) => v == "" || v == undefined
+            (v) => v == "" || v == undefined,
         );
         if (
             setting &&

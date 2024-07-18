@@ -62,7 +62,7 @@ export default function Home() {
                             const res = await fetch("/api/sentry-example-api");
                             if (!res.ok) {
                                 throw new Error(
-                                    "Sentry Example Frontend Error"
+                                    "Sentry Example Frontend Error",
                                 );
                             }
                         } finally {

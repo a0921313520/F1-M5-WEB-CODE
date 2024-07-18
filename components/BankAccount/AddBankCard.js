@@ -13,7 +13,7 @@ import {
 import { formItemLayout, tailFormItemLayout } from "$ACTIONS/constantsData";
 import { get, post } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "$ACTIONS/TLCAPI";
-import { realyNameReg ,bankNumberReg} from "$ACTIONS/reg";
+import { realyNameReg, bankNumberReg } from "$ACTIONS/reg";
 import SelectArddress from "../View/SelectArddress";
 import { translate } from "$ACTIONS/Translate";
 import ImageWithFallback from "@/ImageWithFallback";
@@ -37,45 +37,53 @@ class AddBankCard extends React.Component {
         };
     }
     componentDidMount() {
-        this.getWithdrawalbank()
+        this.getWithdrawalbank();
         this.setState({
             isSetDefault: this.props.alreadyBindBanks.length ? false : true,
-        })
+        });
     }
-    componentWillUnmount(){
-        this.setState = ()=> false
+    componentWillUnmount() {
+        this.setState = () => false;
     }
     /**
      * 获取可添加的银行数据
      */
-    getWithdrawalbank= () =>{
-        const withdrawalbankList = !!sessionStorage.getItem("withdrawalbankList");
-        if(withdrawalbankList){
+    getWithdrawalbank = () => {
+        const withdrawalbankList =
+            !!sessionStorage.getItem("withdrawalbankList");
+        if (withdrawalbankList) {
             this.setState({
-                BankList: JSON.parse(sessionStorage.getItem("withdrawalbankList")),
+                BankList: JSON.parse(
+                    sessionStorage.getItem("withdrawalbankList"),
+                ),
             });
-        } else{
+        } else {
             get(ApiPort.GETWithdrawalbank)
                 .then((res) => {
                     if (res && res.result) {
                         let filterDupBank = res.result.banks.filter(
                             (obj, pos, arr) => {
                                 return (
-                                    arr.map((mapObj) => mapObj.name).indexOf(obj.name) == pos
+                                    arr
+                                        .map((mapObj) => mapObj.name)
+                                        .indexOf(obj.name) == pos
                                 );
-                            }
+                            },
                         );
                         this.setState({
                             BankList: filterDupBank,
                         });
-                        sessionStorage.setItem("withdrawalbankList",JSON.stringify(filterDupBank))
+                        sessionStorage.setItem(
+                            "withdrawalbankList",
+                            JSON.stringify(filterDupBank),
+                        );
                     }
                 })
                 .catch((error) => {
                     console.log(error);
-                })
+                });
         }
-    }
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -116,42 +124,44 @@ class AddBankCard extends React.Component {
                                 //     message.error("提款卡保存失败", 3);
                                 //     break;
                                 // }
-                                message.error(temp.message)
+                                message.error(temp.message);
                             }
                         }
                     })
                     .catch((error) => {
                         console.log("error", error);
-                    }).finally(()=>{
-                        this.setState({ isLoading: false });
                     })
+                    .finally(() => {
+                        this.setState({ isLoading: false });
+                    });
             }
         });
 
         Pushgtagdata("Submit_addbankcar_bankacc");
     };
     handleFormChange = () => {
-        let status
+        let status;
         let error = Object.entries(this.props.form.getFieldsError()).every(
-                (v) => v[1] === undefined
-            )
-        let values =  Object.entries(this.props.form.getFieldsValue()).every(
-                (v) => v[1] !== undefined
-            ) 
+            (v) => v[1] === undefined,
+        );
+        let values = Object.entries(this.props.form.getFieldsValue()).every(
+            (v) => v[1] !== undefined,
+        );
         status =
             error &&
             values &&
             this.props.form.getFieldValue("bankname") &&
             this.state.setBankCard.searchValue;
-            //&& this.state.provincesIsValid;
+        //&& this.state.provincesIsValid;
 
         this.setState({ submitButtonDisabled: !status });
-        console.log("🚀 ~ file: AddBankCard.js:131 ~ AddBankCard ~ submitButtonDisabled:", 
+        console.log(
+            "🚀 ~ file: AddBankCard.js:131 ~ AddBankCard ~ submitButtonDisabled:",
             error,
             values,
             this.props.form.getFieldValue("bankname"),
             this.state.setBankCard.searchValue,
-        )
+        );
     };
     setDefaultAccount = () => {
         this.setState({ isSetDefault: !this.state.isSetDefault });
@@ -170,12 +180,13 @@ class AddBankCard extends React.Component {
                 setBankCard: {
                     searchValue: value,
                     showBankList: false,
-                    bankAlphabetic: option.props.children.props.children[0].props.src,
+                    bankAlphabetic:
+                        option.props.children.props.children[0].props.src,
                 },
             },
             () => {
                 this.handleFormChange();
-            }
+            },
         );
         console.log("getFieldValue1", this.props.form.getFieldsValue());
     };
@@ -191,7 +202,7 @@ class AddBankCard extends React.Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         const { BankList, isSetDefault, setBankCard } = this.state;
-        const { alreadyBindBanks,visible } = this.props;
+        const { alreadyBindBanks, visible } = this.props;
         return (
             <Modal
                 title={translate("添加客户账户")}
@@ -213,10 +224,9 @@ class AddBankCard extends React.Component {
                         <div className="line-distance"></div>
                         <Item
                             label={translate("银行名称")}
-                            className={`Item-bankName ${setBankCard.showBankList
-                                ? "active"
-                                : "inactive"
-                                }`}
+                            className={`Item-bankName ${
+                                setBankCard.showBankList ? "active" : "inactive"
+                            }`}
                         >
                             {getFieldDecorator("bankname", {
                                 initialValue: setBankCard.searchValue,
@@ -229,13 +239,15 @@ class AddBankCard extends React.Component {
                             })(
                                 <div>
                                     <Input
-                                        className={`bankNamewrap ${setBankCard.searchValue
-                                            ? "have"
-                                            : ""
-                                            } ${setBankCard.showBankList
+                                        className={`bankNamewrap ${
+                                            setBankCard.searchValue
+                                                ? "have"
+                                                : ""
+                                        } ${
+                                            setBankCard.showBankList
                                                 ? "active"
                                                 : "inactive"
-                                            }`}
+                                        }`}
                                         size="large"
                                         autoComplete="off"
                                         readOnly={true}
@@ -244,7 +256,9 @@ class AddBankCard extends React.Component {
                                         prefix={
                                             setBankCard.searchValue ? (
                                                 <ImageWithFallback
-                                                    src={setBankCard.bankAlphabetic}
+                                                    src={
+                                                        setBankCard.bankAlphabetic
+                                                    }
                                                     width={24}
                                                     height={24}
                                                     alt="app-picture"
@@ -258,128 +272,149 @@ class AddBankCard extends React.Component {
                                         suffix={
                                             !setBankCard.showBankList && (
                                                 <Icon
-                                                    type={`${!setBankCard.showBankList
-                                                        ? "caret-down"
-                                                        : "caret-up"
-                                                        }`}
+                                                    type={`${
+                                                        !setBankCard.showBankList
+                                                            ? "caret-down"
+                                                            : "caret-up"
+                                                    }`}
                                                     onClick={this.openMenu}
                                                 />
                                             )
                                         }
                                     />
                                     <div id="select-wrap">
-                                    {setBankCard.showBankList && (
-                                        <Select
-                                            size="large"
-                                            loading={
-                                                !BankList.length
-                                                    ? true
-                                                    : false
-                                            }
-                                            onChange={this.changeBankName}
-                                            open={setBankCard.showBankList}
-                                            showArrow={false}
-                                            showSearch={true}
-                                            optionFilterProp="children"
-                                            filterOption={(
-                                                input,
-                                                option
-                                            ) => {
-                                                return option.props.value.includes(
-                                                    input
-                                                );
-                                            }}
-                                            notFoundContent={
-                                                <div
-                                                    className="notfind"
-                                                    style={{
-                                                        width: "100%",
-                                                        textAlign: "center",
-                                                        minHeight: "195px",
-                                                    }}
-                                                >
-                                                    <div className="line-distance"></div>
-                                                    <img
-                                                        src={`${process.env.BASE_PATH}/img/icon/img-no-record.svg`}
-                                                        alt="notfind"
+                                        {setBankCard.showBankList && (
+                                            <Select
+                                                size="large"
+                                                loading={
+                                                    !BankList.length
+                                                        ? true
+                                                        : false
+                                                }
+                                                onChange={this.changeBankName}
+                                                open={setBankCard.showBankList}
+                                                showArrow={false}
+                                                showSearch={true}
+                                                optionFilterProp="children"
+                                                filterOption={(
+                                                    input,
+                                                    option,
+                                                ) => {
+                                                    return option.props.value.includes(
+                                                        input,
+                                                    );
+                                                }}
+                                                notFoundContent={
+                                                    <div
+                                                        className="notfind"
                                                         style={{
-                                                            width: "80px",
-                                                            height: "80px",
-                                                        }}
-                                                    />
-                                                    <p
-                                                        style={{
-                                                            fontSize: 12,
-                                                            color: "#999999",
-                                                            lineHeight:
-                                                                "50px",
+                                                            width: "100%",
+                                                            textAlign: "center",
+                                                            minHeight: "195px",
                                                         }}
                                                     >
-                                                        {translate("没有数据")}
-                                                    </p>
-                                                </div>
-                                            }
-                                            className="bankNameSelect"
-                                            dropdownClassName="bankNameSelectDropdown"
-                                            dropdownStyle={{
-                                                borderTopLeftRadius: 0,
-                                                borderTopRightRadius: 0,
-                                            }}
-                                            placeholder={
-                                                <div className="searchwrap">
-                                                    <Icon
-                                                        type="search"
-                                                        style={{
-                                                            fontSize: 16,
-                                                            marginRight: 6,
-                                                        }}
-                                                    />
-                                                    <span>{translate("搜索")}</span>
-                                                </div>
-                                            }
-                                            getPopupContainer={() =>
-                                                document.getElementById("select-wrap")
-                                            }
-                                        >
-                                            {BankList.map((val, index) => {
-                                                return (
-                                                    <Option
-                                                        key={index}
-                                                        value={val.name}
-                                                    >  
-                                                        <div className="option-item">
-                                                            <ImageWithFallback
-                                                                src={
-                                                                    `/vn/img/bank/${val.englishName
-                                                                        ? val.englishName.toUpperCase().replace(/[^0-9a-zA-Z]/ig, '')
-                                                                        : "generic"
-                                                                        }.png`
-                                                                }
-                                                                width={24}
-                                                                height={24}
-                                                                alt="app-picture"
-                                                                fallbackSrc="/vn/img/bank/generic.png"
-                                                                local={true}
-                                                            />
-                                                            <span>{val.name}</span>
-                                                        </div>
-                                                    </Option>
-                                                );
-                                            })}
-                                        </Select>
-                                    )}
+                                                        <div className="line-distance"></div>
+                                                        <img
+                                                            src={`${process.env.BASE_PATH}/img/icon/img-no-record.svg`}
+                                                            alt="notfind"
+                                                            style={{
+                                                                width: "80px",
+                                                                height: "80px",
+                                                            }}
+                                                        />
+                                                        <p
+                                                            style={{
+                                                                fontSize: 12,
+                                                                color: "#999999",
+                                                                lineHeight:
+                                                                    "50px",
+                                                            }}
+                                                        >
+                                                            {translate(
+                                                                "没有数据",
+                                                            )}
+                                                        </p>
+                                                    </div>
+                                                }
+                                                className="bankNameSelect"
+                                                dropdownClassName="bankNameSelectDropdown"
+                                                dropdownStyle={{
+                                                    borderTopLeftRadius: 0,
+                                                    borderTopRightRadius: 0,
+                                                }}
+                                                placeholder={
+                                                    <div className="searchwrap">
+                                                        <Icon
+                                                            type="search"
+                                                            style={{
+                                                                fontSize: 16,
+                                                                marginRight: 6,
+                                                            }}
+                                                        />
+                                                        <span>
+                                                            {translate("搜索")}
+                                                        </span>
+                                                    </div>
+                                                }
+                                                getPopupContainer={() =>
+                                                    document.getElementById(
+                                                        "select-wrap",
+                                                    )
+                                                }
+                                            >
+                                                {BankList.map((val, index) => {
+                                                    return (
+                                                        <Option
+                                                            key={index}
+                                                            value={val.name}
+                                                        >
+                                                            <div className="option-item">
+                                                                <ImageWithFallback
+                                                                    src={`/vn/img/bank/${
+                                                                        val.englishName
+                                                                            ? val.englishName
+                                                                                  .toUpperCase()
+                                                                                  .replace(
+                                                                                      /[^0-9a-zA-Z]/gi,
+                                                                                      "",
+                                                                                  )
+                                                                            : "generic"
+                                                                    }.png`}
+                                                                    width={24}
+                                                                    height={24}
+                                                                    alt="app-picture"
+                                                                    fallbackSrc="/vn/img/bank/generic.png"
+                                                                    local={true}
+                                                                />
+                                                                <span>
+                                                                    {val.name}
+                                                                </span>
+                                                            </div>
+                                                        </Option>
+                                                    );
+                                                })}
+                                            </Select>
+                                        )}
                                     </div>
-                                </div>
+                                </div>,
                             )}
                         </Item>
                         <Item label={translate("账户持有者全名")}>
                             {getFieldDecorator("username", {
                                 rules: [
-                                    { required: true, message: translate("请填写你的名字") },
+                                    {
+                                        required: true,
+                                        message: translate("请填写你的名字"),
+                                    },
                                     {
                                         validator: (rule, value, callback) => {
-                                            if (value &&!realyNameReg.test(value)) {
-                                                callback(translate("姓名格式无效"));
+                                            if (
+                                                value &&
+                                                !realyNameReg.test(value)
+                                            ) {
+                                                callback(
+                                                    translate("姓名格式无效"),
+                                                );
                                             }
                                             callback();
                                         },
@@ -390,21 +425,31 @@ class AddBankCard extends React.Component {
                                     size="large"
                                     maxLength={30}
                                     autoComplete="off"
-                                    placeholder={translate("请填写您的真实姓名")}
-                                />
+                                    placeholder={translate(
+                                        "请填写您的真实姓名",
+                                    )}
+                                />,
                             )}
                         </Item>
                         <Item label={translate("银行账号")}>
                             {getFieldDecorator("cardnumber", {
                                 rules: [
-                                    { required: true, message: translate("请填写您的银行帐号") },
+                                    {
+                                        required: true,
+                                        message:
+                                            translate("请填写您的银行帐号"),
+                                    },
                                     {
                                         validator: (rule, value, callback) => {
                                             if (
                                                 value &&
                                                 !bankNumberReg.test(value)
                                             ) {
-                                                callback(translate("帐号必须在6至19位数字范围内"));
+                                                callback(
+                                                    translate(
+                                                        "帐号必须在6至19位数字范围内",
+                                                    ),
+                                                );
                                             }
                                             callback();
                                         },
@@ -417,7 +462,7 @@ class AddBankCard extends React.Component {
                                     minLength={6}
                                     autoComplete="off"
                                     placeholder={translate("请填写账号")}
-                                />
+                                />,
                             )}
                         </Item>
                         {/* <Item label="省/自治区">
@@ -500,18 +545,20 @@ class AddBankCard extends React.Component {
                                 />
                             )}
                         </Item> */}
-                        {alreadyBindBanks.length ? <Item
-                            label=""
-                            className="small-form-item defaultCheckbox"
-                            style={{ textAlign: "left" }}
-                        >
-                            <Checkbox
-                                checked={isSetDefault}
-                                onChange={this.setDefaultAccount}
+                        {alreadyBindBanks.length ? (
+                            <Item
+                                label=""
+                                className="small-form-item defaultCheckbox"
+                                style={{ textAlign: "left" }}
                             >
-                                {translate("设置为默认银行")}
-                            </Checkbox>
-                        </Item> : null}
+                                <Checkbox
+                                    checked={isSetDefault}
+                                    onChange={this.setDefaultAccount}
+                                >
+                                    {translate("设置为默认银行")}
+                                </Checkbox>
+                            </Item>
+                        ) : null}
                         <div className="line-distance"></div>
                         <Item {...tailFormItemLayout}>
                             <div className="btn-wrap">

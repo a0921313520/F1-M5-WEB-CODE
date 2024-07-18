@@ -26,12 +26,12 @@ export const CLEAR_COOKIE_KEY = [
     "withdrawLastTime",
 ];
 
-export const isWindowOpenGame = ["IMOPT", "SGW", "NLE", "LBK","SLC"]; //不支持iframe的游戏放进去
+export const isWindowOpenGame = ["IMOPT", "SGW", "NLE", "LBK", "SLC"]; //不支持iframe的游戏放进去
 export const isCookieNoOpenGame = ["MGSQF", "BGG", "AGL"]; //不支持第三方cookie
-export const SportsbookGameCatCode = 'Sportsbook';
-export const ESportsGameCatCode = 'ESports';
-export const InstantGamesGameCatCode = 'InstantGames';
-export const LiveCasinoGameCatCode = 'LiveCasino';
-export const P2PGameCatCode = 'P2P';
-export const SlotGameCatCode = 'Slot';
-export const KenoLotteryGameCatCode = 'KenoLottery';
+export const SportsbookGameCatCode = "Sportsbook";
+export const ESportsGameCatCode = "ESports";
+export const InstantGamesGameCatCode = "InstantGames";
+export const LiveCasinoGameCatCode = "LiveCasino";
+export const P2PGameCatCode = "P2P";
+export const SlotGameCatCode = "Slot";
+export const KenoLotteryGameCatCode = "KenoLottery";

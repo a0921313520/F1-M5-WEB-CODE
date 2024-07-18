@@ -83,7 +83,7 @@ export function GetPayDetail(type, call, payListOrValue) {
     let MethodCode = "";
     if (Array.isArray(payListOrValue)) {
         const payMethodsDetail = payListOrValue.find(
-            (item) => item.code === type
+            (item) => item.code === type,
         );
         MethodCode = GetAvailableMethods(payMethodsDetail) || "";
     } else if (typeof payListOrValue === "string") {
@@ -108,7 +108,7 @@ export function GetPayDetail(type, call, payListOrValue) {
             "&isMobile=" +
             (type === "BCM" ? "true" : "false") +
             "&hostName=" +
-            ApiPort.LOCAL_HOST
+            ApiPort.LOCAL_HOST,
     )
         .then((res) => {
             call(res);
@@ -147,7 +147,7 @@ export function GetWalletBonus(AccountType, call, transactionType) {
             "&" +
             "wallet=" +
             AccountType +
-            APISETS
+            APISETS,
     )
         .then((res) => {
             call(res);
@@ -251,7 +251,7 @@ export function CommonPostPay(data, call) {
                         // });
                     }
                 }
-            } 
+            }
             // else {
             //     call(res);
             // }
@@ -269,14 +269,14 @@ export function CommonPostConfirmPay(data, call) {
             "ConfirmStep" +
             APISET +
             `&transactionId=${data.transactionId}`,
-        data
+        data,
     )
         .then((res) => {
             res && call(res);
             if (res.isSuccess) {
                 message.success(
                     "订单成立！交易正在进行中，您的存款将在指定时间内到账，感谢您的耐心等待！",
-                    5
+                    5,
                 );
             } else {
                 message.error("输入的旧账号错误！");
@@ -334,7 +334,7 @@ export function GetWithdrawalExchangeRate(data, call) {
             data.CurrencyTo +
             "&baseAmount=" +
             data.baseAmount +
-            APISETS
+            APISETS,
     )
         .then((res) => {
             call(res);
@@ -354,7 +354,7 @@ export function GETWithdrawalDetails(data, type, call) {
             "&MethodCode=" +
             type +
             "&isMobile=false&hostName=" +
-            ApiPort.LOCAL_HOST
+            ApiPort.LOCAL_HOST,
     )
         .then((res) => {
             call(res);
@@ -371,7 +371,7 @@ export function CheckExchangeRateWallet(data, call) {
         ApiPort.CheckExchangeRateWallet +
             "?cryptoCurrencyCode=" +
             data.CryptoCurrencyCode +
-            APISETS
+            APISETS,
     )
         .then((res) => {
             call(res);
@@ -412,7 +412,7 @@ export function getWithdrawalSetUp(data, call) {
         ApiPort.CheckWithdrawalThreshold +
             "?BankAccountNumber=" +
             data.BankAccountId +
-            APISETS
+            APISETS,
     )
         .then((res) => {
             call(res);
@@ -430,7 +430,7 @@ export function InvoiceAutDeposit(data, call) {
             data.transactionID +
             "&transactionHash=" +
             data.transactionHash +
-            APISETS
+            APISETS,
     )
         .then((res) => {
             call(res);
@@ -447,7 +447,7 @@ export function CancelTheDealMethod(data, call) {
         ApiPort.InvoiceAutCancelTheDeal +
             "?transactionId=" +
             data.transactionId +
-            APISETS
+            APISETS,
     )
         .then((res) => {
             call(res);

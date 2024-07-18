@@ -4,8 +4,8 @@
     typeof exports === "object" && typeof module !== "undefined"
         ? (module.exports = factory())
         : typeof define === "function" && define.amd
-        ? define(factory)
-        : (global.moment = factory());
+          ? define(factory)
+          : (global.moment = factory());
 })(this, function () {
     "use strict";
 
@@ -346,7 +346,7 @@
                         "\nArguments: " +
                         Array.prototype.slice.call(args).join("") +
                         "\n" +
-                        new Error().stack
+                        new Error().stack,
                 );
                 firstTime = false;
             }
@@ -393,7 +393,7 @@
         this._dayOfMonthOrdinalParseLenient = new RegExp(
             (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
                 "|" +
-                /\d{1,2}/.source
+                /\d{1,2}/.source,
         );
     }
 
@@ -487,7 +487,7 @@
             /MMMM|MM|DD|dddd/g,
             function (val) {
                 return val.slice(1);
-            }
+            },
         );
 
         return this._longDateFormat[key];
@@ -626,7 +626,7 @@
                 return zeroFill(
                     func.apply(this, arguments),
                     padded[1],
-                    padded[2]
+                    padded[2],
                 );
             };
         }
@@ -634,7 +634,7 @@
             formatTokenFunctions[ordinal] = function () {
                 return this.localeData().ordinal(
                     func.apply(this, arguments),
-                    token
+                    token,
                 );
             };
         }
@@ -696,7 +696,7 @@
         while (i >= 0 && localFormattingTokens.test(format)) {
             format = format.replace(
                 localFormattingTokens,
-                replaceLongDateFormatTokens
+                replaceLongDateFormatTokens,
             );
             localFormattingTokens.lastIndex = 0;
             i -= 1;
@@ -757,8 +757,8 @@
                     /\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g,
                     function (matched, p1, p2, p3, p4) {
                         return p1 || p2 || p3 || p4;
-                    }
-                )
+                    },
+                ),
         );
     }
 
@@ -903,7 +903,7 @@
                 mom._d["set" + (mom._isUTC ? "UTC" : "") + unit](
                     value,
                     mom.month(),
-                    daysInMonth(value, mom.month())
+                    daysInMonth(value, mom.month()),
                 );
             } else {
                 mom._d["set" + (mom._isUTC ? "UTC" : "") + unit](value);
@@ -1023,7 +1023,7 @@
     var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
     var defaultLocaleMonths =
         "January_February_March_April_May_June_July_August_September_October_November_December".split(
-            "_"
+            "_",
         );
     function localeMonths(m, format) {
         if (!m) {
@@ -1069,11 +1069,11 @@
                 mom = createUTC([2000, i]);
                 this._shortMonthsParse[i] = this.monthsShort(
                     mom,
-                    ""
+                    "",
                 ).toLocaleLowerCase();
                 this._longMonthsParse[i] = this.months(
                     mom,
-                    ""
+                    "",
                 ).toLocaleLowerCase();
             }
         }
@@ -1127,11 +1127,11 @@
             if (strict && !this._longMonthsParse[i]) {
                 this._longMonthsParse[i] = new RegExp(
                     "^" + this.months(mom, "").replace(".", "") + "$",
-                    "i"
+                    "i",
                 );
                 this._shortMonthsParse[i] = new RegExp(
                     "^" + this.monthsShort(mom, "").replace(".", "") + "$",
-                    "i"
+                    "i",
                 );
             }
             if (!strict && !this._monthsParse[i]) {
@@ -1279,11 +1279,11 @@
         this._monthsShortRegex = this._monthsRegex;
         this._monthsStrictRegex = new RegExp(
             "^(" + longPieces.join("|") + ")",
-            "i"
+            "i",
         );
         this._monthsShortStrictRegex = new RegExp(
             "^(" + shortPieces.join("|") + ")",
-            "i"
+            "i",
         );
     }
 
@@ -1413,7 +1413,7 @@
         ["w", "ww", "W", "WW"],
         function (input, week, config, token) {
             week[token.substr(0, 1)] = toInt(input);
-        }
+        },
     );
 
     // HELPERS
@@ -1500,7 +1500,7 @@
             var weekday = config._locale.weekdaysParse(
                 input,
                 token,
-                config._strict
+                config._strict,
             );
             // if we didn't get a weekday name, mark the date as invalid
             if (weekday != null) {
@@ -1508,7 +1508,7 @@
             } else {
                 getParsingFlags(config).invalidWeekday = input;
             }
-        }
+        },
     );
 
     addWeekParseToken(["d", "e", "E"], function (input, week, config, token) {
@@ -1559,8 +1559,8 @@
         return m === true
             ? shiftWeekdays(weekdays, this._week.dow)
             : m
-            ? weekdays[m.day()]
-            : weekdays;
+              ? weekdays[m.day()]
+              : weekdays;
     }
 
     var defaultLocaleWeekdaysShort = "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_");
@@ -1568,8 +1568,8 @@
         return m === true
             ? shiftWeekdays(this._weekdaysShort, this._week.dow)
             : m
-            ? this._weekdaysShort[m.day()]
-            : this._weekdaysShort;
+              ? this._weekdaysShort[m.day()]
+              : this._weekdaysShort;
     }
 
     var defaultLocaleWeekdaysMin = "Su_Mo_Tu_We_Th_Fr_Sa".split("_");
@@ -1577,8 +1577,8 @@
         return m === true
             ? shiftWeekdays(this._weekdaysMin, this._week.dow)
             : m
-            ? this._weekdaysMin[m.day()]
-            : this._weekdaysMin;
+              ? this._weekdaysMin[m.day()]
+              : this._weekdaysMin;
     }
 
     function handleStrictParse$1(weekdayName, format, strict) {
@@ -1595,15 +1595,15 @@
                 mom = createUTC([2000, 1]).day(i);
                 this._minWeekdaysParse[i] = this.weekdaysMin(
                     mom,
-                    ""
+                    "",
                 ).toLocaleLowerCase();
                 this._shortWeekdaysParse[i] = this.weekdaysShort(
                     mom,
-                    ""
+                    "",
                 ).toLocaleLowerCase();
                 this._weekdaysParse[i] = this.weekdays(
                     mom,
-                    ""
+                    "",
                 ).toLocaleLowerCase();
             }
         }
@@ -1678,17 +1678,17 @@
             if (strict && !this._fullWeekdaysParse[i]) {
                 this._fullWeekdaysParse[i] = new RegExp(
                     "^" + this.weekdays(mom, "").replace(".", "\\.?") + "$",
-                    "i"
+                    "i",
                 );
                 this._shortWeekdaysParse[i] = new RegExp(
                     "^" +
                         this.weekdaysShort(mom, "").replace(".", "\\.?") +
                         "$",
-                    "i"
+                    "i",
                 );
                 this._minWeekdaysParse[i] = new RegExp(
                     "^" + this.weekdaysMin(mom, "").replace(".", "\\.?") + "$",
-                    "i"
+                    "i",
                 );
             }
             if (!this._weekdaysParse[i]) {
@@ -1701,7 +1701,7 @@
                     this.weekdaysMin(mom, "");
                 this._weekdaysParse[i] = new RegExp(
                     regex.replace(".", ""),
-                    "i"
+                    "i",
                 );
             }
             // test the regex
@@ -1873,22 +1873,22 @@
 
         this._weekdaysRegex = new RegExp(
             "^(" + mixedPieces.join("|") + ")",
-            "i"
+            "i",
         );
         this._weekdaysShortRegex = this._weekdaysRegex;
         this._weekdaysMinRegex = this._weekdaysRegex;
 
         this._weekdaysStrictRegex = new RegExp(
             "^(" + longPieces.join("|") + ")",
-            "i"
+            "i",
         );
         this._weekdaysShortStrictRegex = new RegExp(
             "^(" + shortPieces.join("|") + ")",
-            "i"
+            "i",
         );
         this._weekdaysMinStrictRegex = new RegExp(
             "^(" + minPieces.join("|") + ")",
-            "i"
+            "i",
         );
     }
 
@@ -1937,7 +1937,7 @@
             return this.localeData().meridiem(
                 this.hours(),
                 this.minutes(),
-                lowercase
+                lowercase,
             );
         });
     }
@@ -2141,7 +2141,7 @@
                     console.warn(
                         "Locale " +
                             key +
-                            " not found. Did you forget to load it?"
+                            " not found. Did you forget to load it?",
                     );
                 }
             }
@@ -2161,7 +2161,7 @@
                     "use moment.updateLocale(localeName, config) to change " +
                         "an existing locale. moment.defineLocale(localeName, " +
                         "config) should only be used for creating a new locale " +
-                        "See http://momentjs.com/guides/#/warnings/define-locale/ for more info."
+                        "See http://momentjs.com/guides/#/warnings/define-locale/ for more info.",
                 );
                 parentConfig = locales[name]._config;
             } else if (config.parentLocale != null) {
@@ -2271,21 +2271,21 @@
                 a[MONTH] < 0 || a[MONTH] > 11
                     ? MONTH
                     : a[DATE] < 1 || a[DATE] > daysInMonth(a[YEAR], a[MONTH])
-                    ? DATE
-                    : a[HOUR] < 0 ||
-                      a[HOUR] > 24 ||
-                      (a[HOUR] === 24 &&
-                          (a[MINUTE] !== 0 ||
-                              a[SECOND] !== 0 ||
-                              a[MILLISECOND] !== 0))
-                    ? HOUR
-                    : a[MINUTE] < 0 || a[MINUTE] > 59
-                    ? MINUTE
-                    : a[SECOND] < 0 || a[SECOND] > 59
-                    ? SECOND
-                    : a[MILLISECOND] < 0 || a[MILLISECOND] > 999
-                    ? MILLISECOND
-                    : -1;
+                      ? DATE
+                      : a[HOUR] < 0 ||
+                          a[HOUR] > 24 ||
+                          (a[HOUR] === 24 &&
+                              (a[MINUTE] !== 0 ||
+                                  a[SECOND] !== 0 ||
+                                  a[MILLISECOND] !== 0))
+                        ? HOUR
+                        : a[MINUTE] < 0 || a[MINUTE] > 59
+                          ? MINUTE
+                          : a[SECOND] < 0 || a[SECOND] > 59
+                            ? SECOND
+                            : a[MILLISECOND] < 0 || a[MILLISECOND] > 999
+                              ? MILLISECOND
+                              : -1;
 
             if (
                 getParsingFlags(m)._overflowDayOfYear &&
@@ -2401,7 +2401,7 @@
 
         config._d = (config._useUTC ? createUTCDate : createDate).apply(
             null,
-            input
+            input,
         );
         expectedWeekday = config._useUTC
             ? config._d.getUTCDay()
@@ -2442,7 +2442,7 @@
             weekYear = defaults(
                 w.GG,
                 config._a[YEAR],
-                weekOfYear(createLocal(), 1, 4).year
+                weekOfYear(createLocal(), 1, 4).year,
             );
             week = defaults(w.W, 1);
             weekday = defaults(w.E, 1);
@@ -2594,7 +2594,7 @@
         dayStr,
         hourStr,
         minuteStr,
-        secondStr
+        secondStr,
     ) {
         var result = [
             untruncateYear(yearStr),
@@ -2638,7 +2638,7 @@
                 weekdayActual = new Date(
                     parsedInput[0],
                     parsedInput[1],
-                    parsedInput[2]
+                    parsedInput[2],
                 ).getDay();
             if (weekdayProvided !== weekdayActual) {
                 getParsingFlags(config).weekdayMismatch = true;
@@ -2686,7 +2686,7 @@
                 match[2],
                 match[5],
                 match[6],
-                match[7]
+                match[7],
             );
             if (!checkWeekday(match[1], parsedArray, config)) {
                 return;
@@ -2738,7 +2738,7 @@
             "http://momentjs.com/guides/#/warnings/js-date/ for more info.",
         function (config) {
             config._d = new Date(config._i + (config._useUTC ? " UTC" : ""));
-        }
+        },
     );
 
     // constant that refers to the ISO standard
@@ -2787,7 +2787,7 @@
                     getParsingFlags(config).unusedInput.push(skipped);
                 }
                 string = string.slice(
-                    string.indexOf(parsedInput) + parsedInput.length
+                    string.indexOf(parsedInput) + parsedInput.length,
                 );
                 totalParsedInputLength += parsedInput.length;
             }
@@ -2826,7 +2826,7 @@
         config._a[HOUR] = meridiemFixWrap(
             config._locale,
             config._a[HOUR],
-            config._meridiem
+            config._meridiem,
         );
 
         configFromArray(config);
@@ -2917,7 +2917,7 @@
             ],
             function (obj) {
                 return obj && parseInt(obj, 10);
-            }
+            },
         );
 
         configFromArray(config);
@@ -3029,7 +3029,7 @@
             } else {
                 return createInvalid();
             }
-        }
+        },
     );
 
     var prototypeMax = deprecate(
@@ -3041,7 +3041,7 @@
             } else {
                 return createInvalid();
             }
-        }
+        },
     );
 
     // Pick a moment m from moments so that m[fn](other) is true for all
@@ -3300,7 +3300,7 @@
                         this,
                         createDuration(input - offset, "m"),
                         1,
-                        false
+                        false,
                     );
                 } else if (!this._changeInProgress) {
                     this._changeInProgress = true;
@@ -3468,7 +3468,7 @@
         ) {
             diffRes = momentsDifference(
                 createLocal(duration.from),
-                createLocal(duration.to)
+                createLocal(duration.to),
             );
 
             duration = {};
@@ -3542,7 +3542,7 @@
                         "(period, number) is deprecated. Please use moment()." +
                         name +
                         "(number, period). " +
-                        "See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info."
+                        "See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.",
                 );
                 tmp = val;
                 val = period;
@@ -3590,16 +3590,16 @@
         return diff < -6
             ? "sameElse"
             : diff < -1
-            ? "lastWeek"
-            : diff < 0
-            ? "lastDay"
-            : diff < 1
-            ? "sameDay"
-            : diff < 2
-            ? "nextDay"
-            : diff < 7
-            ? "nextWeek"
-            : "sameElse";
+              ? "lastWeek"
+              : diff < 0
+                ? "lastDay"
+                : diff < 1
+                  ? "sameDay"
+                  : diff < 2
+                    ? "nextDay"
+                    : diff < 7
+                      ? "nextWeek"
+                      : "sameElse";
     }
 
     function calendar$1(time, formats) {
@@ -3616,7 +3616,8 @@
                 : formats[format]);
 
         return this.format(
-            output || this.localeData().calendar(format, this, createLocal(now))
+            output ||
+                this.localeData().calendar(format, this, createLocal(now)),
         );
     }
 
@@ -3785,7 +3786,7 @@
                 m,
                 utc
                     ? "YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]"
-                    : "YYYYYY-MM-DD[T]HH:mm:ss.SSSZ"
+                    : "YYYYYY-MM-DD[T]HH:mm:ss.SSSZ",
             );
         }
         if (isFunction(Date.prototype.toISOString)) {
@@ -3800,7 +3801,7 @@
         }
         return formatMoment(
             m,
-            utc ? "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYY-MM-DD[T]HH:mm:ss.SSSZ"
+            utc ? "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYY-MM-DD[T]HH:mm:ss.SSSZ",
         );
     }
 
@@ -3897,7 +3898,7 @@
             } else {
                 return this.locale(key);
             }
-        }
+        },
     );
 
     function localeData() {
@@ -3951,7 +3952,7 @@
                 time = startOfDate(
                     this.year(),
                     this.month() - (this.month() % 3),
-                    1
+                    1,
                 );
                 break;
             case "month":
@@ -3961,14 +3962,14 @@
                 time = startOfDate(
                     this.year(),
                     this.month(),
-                    this.date() - this.weekday()
+                    this.date() - this.weekday(),
                 );
                 break;
             case "isoWeek":
                 time = startOfDate(
                     this.year(),
                     this.month(),
-                    this.date() - (this.isoWeekday() - 1)
+                    this.date() - (this.isoWeekday() - 1),
                 );
                 break;
             case "day":
@@ -3979,7 +3980,7 @@
                 time = this._d.valueOf();
                 time -= mod$1(
                     time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE),
-                    MS_PER_HOUR
+                    MS_PER_HOUR,
                 );
                 break;
             case "minute":
@@ -4015,7 +4016,7 @@
                     startOfDate(
                         this.year(),
                         this.month() - (this.month() % 3) + 3,
-                        1
+                        1,
                     ) - 1;
                 break;
             case "month":
@@ -4026,7 +4027,7 @@
                     startOfDate(
                         this.year(),
                         this.month(),
-                        this.date() - this.weekday() + 7
+                        this.date() - this.weekday() + 7,
                     ) - 1;
                 break;
             case "isoWeek":
@@ -4034,7 +4035,7 @@
                     startOfDate(
                         this.year(),
                         this.month(),
-                        this.date() - (this.isoWeekday() - 1) + 7
+                        this.date() - (this.isoWeekday() - 1) + 7,
                     ) - 1;
                 break;
             case "day":
@@ -4051,7 +4052,7 @@
                             (this._isUTC
                                 ? 0
                                 : this.utcOffset() * MS_PER_MINUTE),
-                        MS_PER_HOUR
+                        MS_PER_HOUR,
                     ) -
                     1;
                 break;
@@ -4179,7 +4180,7 @@
         ["gggg", "ggggg", "GGGG", "GGGGG"],
         function (input, week, config, token) {
             week[token.substr(0, 2)] = toInt(input);
-        }
+        },
     );
 
     addWeekParseToken(["gg", "GG"], function (input, week, config, token) {
@@ -4195,7 +4196,7 @@
             this.week(),
             this.weekday(),
             this.localeData()._week.dow,
-            this.localeData()._week.doy
+            this.localeData()._week.doy,
         );
     }
 
@@ -4206,7 +4207,7 @@
             this.isoWeek(),
             this.isoWeekday(),
             1,
-            4
+            4,
         );
     }
 
@@ -4238,12 +4239,12 @@
                 week,
                 weekday,
                 dow,
-                doy
+                doy,
             ),
             date = createUTCDate(
                 dayOfYearData.year,
                 0,
-                dayOfYearData.dayOfYear
+                dayOfYearData.dayOfYear,
             );
 
         this.year(date.getUTCFullYear());
@@ -4337,7 +4338,7 @@
         var dayOfYear =
             Math.round(
                 (this.clone().startOf("day") - this.clone().startOf("year")) /
-                    864e5
+                    864e5,
             ) + 1;
         return input == null ? dayOfYear : this.add(input - dayOfYear, "d");
     }
@@ -4535,23 +4536,23 @@
     proto.zoneName = getZoneName;
     proto.dates = deprecate(
         "dates accessor is deprecated. Use date instead.",
-        getSetDayOfMonth
+        getSetDayOfMonth,
     );
     proto.months = deprecate(
         "months accessor is deprecated. Use month instead",
-        getSetMonth
+        getSetMonth,
     );
     proto.years = deprecate(
         "years accessor is deprecated. Use year instead",
-        getSetYear
+        getSetYear,
     );
     proto.zone = deprecate(
         "moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/",
-        getSetZone
+        getSetZone,
     );
     proto.isDSTShifted = deprecate(
         "isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information",
-        isDaylightSavingTimeShifted
+        isDaylightSavingTimeShifted,
     );
 
     function createUnix(input) {
@@ -4697,12 +4698,12 @@
                     toInt((number % 100) / 10) === 1
                         ? "th"
                         : b === 1
-                        ? "st"
-                        : b === 2
-                        ? "nd"
-                        : b === 3
-                        ? "rd"
-                        : "th";
+                          ? "st"
+                          : b === 2
+                            ? "nd"
+                            : b === 3
+                              ? "rd"
+                              : "th";
             return number + output;
         },
     });
@@ -4711,11 +4712,11 @@
 
     hooks.lang = deprecate(
         "moment.lang is deprecated. Use moment.locale instead.",
-        getSetGlobalLocale
+        getSetGlobalLocale,
     );
     hooks.langData = deprecate(
         "moment.langData is deprecated. Use moment.localeData instead.",
-        getLocale
+        getLocale,
     );
 
     var mathAbs = Math.abs;
@@ -4943,13 +4944,13 @@
         number,
         withoutSuffix,
         isFuture,
-        locale
+        locale,
     ) {
         return locale.relativeTime(
             number || 1,
             !!withoutSuffix,
             string,
-            isFuture
+            isFuture,
         );
     }
 
@@ -5125,7 +5126,7 @@
 
     proto$2.toIsoString = deprecate(
         "toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)",
-        toISOString$1
+        toISOString$1,
     );
     proto$2.lang = lang;
 

@@ -9,16 +9,21 @@ import {
     Checkbox,
     Select,
     Button,
-    Spin
+    Spin,
 } from "antd";
 import { createForm } from "rc-form";
 import Item from "../View/Formitem";
 import SelectArddress from "../View/SelectArddress";
 import { ApiPort } from "../../actions/TLCAPI";
-import { post, del,put } from "$ACTIONS/TlcRequest";
-import {translate}  from "$ACTIONS/Translate";
-import {realyNameReg,phoneReg,address2Reg,postalCodeReg} from "$ACTIONS/reg";
-import { getMaskHandler,getDisplayPublicError } from "$ACTIONS/helper";
+import { post, del, put } from "$ACTIONS/TlcRequest";
+import { translate } from "$ACTIONS/Translate";
+import {
+    realyNameReg,
+    phoneReg,
+    address2Reg,
+    postalCodeReg,
+} from "$ACTIONS/reg";
+import { getMaskHandler, getDisplayPublicError } from "$ACTIONS/helper";
 
 class PromotionsAddressform extends Component {
     constructor(props) {
@@ -32,36 +37,43 @@ class PromotionsAddressform extends Component {
             datavalue: [],
             showArddress: false,
             name: "",
-            loading:false
+            loading: false,
         };
     }
-    componentDidUpdate(prevProps, prevState){
-        if(prevProps.visible !== this.props.visible && this.props.visible){
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.visible !== this.props.visible && this.props.visible) {
             this.getAddressdata();
         }
-        if(prevProps.address !== this.props.address && this.props.address?.length){
-            if (!this.props.address.some(item => item.defaultAddress)) {
+        if (
+            prevProps.address !== this.props.address &&
+            this.props.address?.length
+        ) {
+            if (!this.props.address.some((item) => item.defaultAddress)) {
                 this.setNextAccountToDefault();
             }
         }
     }
     getAddressdata() {
-        const {type, addressKey } = this.props;
-        console.log("🚀 ~ file: Details.js:49 ~ PromotionsAddressform ~ componentDidMount ~ addresskey:",type, addressKey)
-        if(type === "add"){
+        const { type, addressKey } = this.props;
+        console.log(
+            "🚀 ~ file: Details.js:49 ~ PromotionsAddressform ~ componentDidMount ~ addresskey:",
+            type,
+            addressKey,
+        );
+        if (type === "add") {
             this.setState({
                 datavalue: [],
                 name: "",
                 contactNo: "",
                 email: "",
                 postalCode: "",
-                address: ""
+                address: "",
             });
         } else {
             let Addressdata = this.props.address;
             if (Addressdata && Addressdata != "") {
                 let activeData = Addressdata.find(
-                    (item) => item.recordNo == addressKey
+                    (item) => item.recordNo == addressKey,
                 );
                 if (activeData) {
                     let city = [
@@ -73,9 +85,9 @@ class PromotionsAddressform extends Component {
                             name: activeData.districtName,
                             id: activeData.districtID,
                         },
-                        { 
-                            name: activeData.townName, 
-                            id: activeData.townID 
+                        {
+                            name: activeData.townName,
+                            id: activeData.townID,
                         },
                     ];
                     let name = activeData.firstName + activeData.lastName;
@@ -87,13 +99,13 @@ class PromotionsAddressform extends Component {
                         contactNo: phone,
                         email: email,
                         postalCode: activeData.postalCode,
-                        address: activeData.address
+                        address: activeData.address,
                     });
                 }
             }
         }
     }
-    
+
     /**
      * @description:  添加一个新的地址和编辑地址公用一个方法
      * @param {String}  address            详细地址
@@ -106,15 +118,14 @@ class PromotionsAddressform extends Component {
      * @return {Object}
      */
     AddNewAddress = () => {
-        const {
-            defaultAddress,
-            postalCode,
-            contactNo,
-            address,
-            datavalue
-        } = this.state;
-        const memberInfo = !!localStorage.getItem("memberInfo") && JSON.parse(localStorage.getItem("memberInfo"));
-        const email = memberInfo?.contacts.find((item)=>item.contactType === "Email").contact;
+        const { defaultAddress, postalCode, contactNo, address, datavalue } =
+            this.state;
+        const memberInfo =
+            !!localStorage.getItem("memberInfo") &&
+            JSON.parse(localStorage.getItem("memberInfo"));
+        const email = memberInfo?.contacts.find(
+            (item) => item.contactType === "Email",
+        ).contact;
         let Data = {
             recipientFirstName: this.props.form.getFieldValue("name"),
             recipientLastName: "",
@@ -128,33 +139,34 @@ class PromotionsAddressform extends Component {
             houseNumber: "",
             zone: "",
             address: address,
-            defaultAddress: defaultAddress
+            defaultAddress: defaultAddress,
         };
-        if(this.props.type === "edit"){
-            Data.recordNo = this.props.addressKey
+        if (this.props.type === "edit") {
+            Data.recordNo = this.props.addressKey;
         }
-        this.setState({loading: true})
+        this.setState({ loading: true });
         const RequestMethed = this.props.type === "edit" ? put : post;
         RequestMethed(ApiPort.ShippingAddress, Data)
             .then((res) => {
                 if (res && res.isSuccess && res.result) {
-                    if(this.props.type === "add"){
-                        message.success(translate("添加成功"))
+                    if (this.props.type === "add") {
+                        message.success(translate("添加成功"));
                     }
                     this.props.form.resetFields();
                     this.props.onCancel(true);
                     this.setState({
-                        datavalue:[]
-                    })
+                        datavalue: [],
+                    });
                 } else {
-                    res.errors &&  message.error(res.errors[0].message);
+                    res.errors && message.error(res.errors[0].message);
                 }
             })
             .catch((error) => {
                 error.errors && message.error(error.errors[0].message);
-            }).finally(()=>{
-                this.setState({loading: false})
             })
+            .finally(() => {
+                this.setState({ loading: false });
+            });
     };
 
     /**
@@ -170,35 +182,39 @@ class PromotionsAddressform extends Component {
             content: translate("您想删除该奖励地址吗？"),
             okText: translate("删除"),
             cancelText: translate("不是"),
-            className:"confirm-modal-of-public dont-show-close-button",
+            className: "confirm-modal-of-public dont-show-close-button",
             closable: "",
             onOk: () => {
                 this.setState({
-                    loading: true
+                    loading: true,
                 });
-                del(ApiPort.ShippingAddress + `&recordNo=${this.props.addressKey}`)
+                del(
+                    ApiPort.ShippingAddress +
+                        `&recordNo=${this.props.addressKey}`,
+                )
                     .then((res) => {
-                        if(res && res.isSuccess && res.result){
+                        if (res && res.isSuccess && res.result) {
                             this.props.onCancel(true);
-                            message.success(translate("删除成功"))
+                            message.success(translate("删除成功"));
                         } else {
-                            res.errors &&  message.error(res.errors[0].message);
+                            res.errors && message.error(res.errors[0].message);
                         }
-                    }).catch(()=>{
-                        message.error(translate("删除失败"));
-                    }).finally(()=>{
-                        this.setState({
-                            loading: false
-                        })
                     })
+                    .catch(() => {
+                        message.error(translate("删除失败"));
+                    })
+                    .finally(() => {
+                        this.setState({
+                            loading: false,
+                        });
+                    });
             },
             cancelButtonProps: {
                 ghost: true,
                 type: "danger",
                 shape: "round",
             },
-        })
-       
+        });
     };
 
     /**
@@ -207,10 +223,10 @@ class PromotionsAddressform extends Component {
      */
     submitBtnEnable = () => {
         let error = Object.values(this.props.form.getFieldsError()).some(
-            (v) => v !== undefined
+            (v) => v !== undefined,
         );
         let errors = Object.values(this.props.form.getFieldsValue()).some(
-            (v) => v == "" || v == undefined
+            (v) => v == "" || v == undefined,
         );
         let addressIsCompleted = true;
 
@@ -223,32 +239,38 @@ class PromotionsAddressform extends Component {
                 addressIsCompleted = false;
             }
         });
-        console.log("🚀 ~ file: Details.js:185 ~ PromotionsAddressform ~ this.state.datavalue:", !errors , !error , addressIsCompleted)
+        console.log(
+            "🚀 ~ file: Details.js:185 ~ PromotionsAddressform ~ this.state.datavalue:",
+            !errors,
+            !error,
+            addressIsCompleted,
+        );
         return !errors && !error && addressIsCompleted;
     };
 
     /**
      * 当删除的账户是默认的账户时自动默认第一个账户为默认账户
      */
-    setNextAccountToDefault =()=> {
+    setNextAccountToDefault = () => {
         this.props.setType("setDefault");
         const addressData = this.props.address;
         const data = {
-            recipientFirstName: addressData[0].firstName + addressData[0].lastName,
+            recipientFirstName:
+                addressData[0].firstName + addressData[0].lastName,
             recipientLastName: "",
             postalCode: addressData[0].postalCode,
             contactNo: addressData[0].cellphoneNo,
             email: addressData[0].email,
             provinceId: addressData[0].provinceID,
-            districtId:  addressData[0].districtID,
-            townId:  addressData[0].townID,
+            districtId: addressData[0].districtID,
+            townId: addressData[0].townID,
             villageId: addressData[0].villageID,
             houseNumber: addressData[0].houseNum,
             zone: addressData[0].zone,
             address: addressData[0].address,
             recordNo: addressData[0].recordNo,
-            defaultAddress: true
-        }
+            defaultAddress: true,
+        };
         this.props.setLoading(true);
         put(ApiPort.ShippingAddress, data)
             .then((res) => {
@@ -260,10 +282,11 @@ class PromotionsAddressform extends Component {
             })
             .catch((error) => {
                 getDisplayPublicError(error);
-            }).finally(()=>{
-                this.props.setLoading(false)
             })
-    }
+            .finally(() => {
+                this.props.setLoading(false);
+            });
+    };
 
     render() {
         const {
@@ -275,28 +298,28 @@ class PromotionsAddressform extends Component {
             name,
             email,
             postalCode,
-            loading
+            loading,
         } = this.state;
-        const {visible} = this.props;
+        const { visible } = this.props;
         const { getFieldDecorator, getFieldError } = this.props.form;
         return (
-                <Modal
-                    closable={true}
-                    visible={visible}
-                    centered={true}
-                    className="DailyGiftAddressDetail modal-pubilc"
-                    maskClosable={false}
-                    footer={null}
-                    title={translate("奖励地址管理")}
-                    onCancel={() => {
-                        this.props.onCancel(false);
-                    }}
-                >
-                    <Spin spinning={loading} size="large" tip={translate("加载中")}>
-                    <div
-                        className="DailyGiftAddressDetail-text"
-                    >
-                        {translate("请确保此送货地址正确，以确保礼品能够按时送达")}
+            <Modal
+                closable={true}
+                visible={visible}
+                centered={true}
+                className="DailyGiftAddressDetail modal-pubilc"
+                maskClosable={false}
+                footer={null}
+                title={translate("奖励地址管理")}
+                onCancel={() => {
+                    this.props.onCancel(false);
+                }}
+            >
+                <Spin spinning={loading} size="large" tip={translate("加载中")}>
+                    <div className="DailyGiftAddressDetail-text">
+                        {translate(
+                            "请确保此送货地址正确，以确保礼品能够按时送达",
+                        )}
                     </div>
 
                     {/* -------------------用户名----------------- */}
@@ -313,18 +336,20 @@ class PromotionsAddressform extends Component {
                                 rules: [
                                     {
                                         required: true,
-                                        message: translate("请输入您的真实姓名2"),
+                                        message:
+                                            translate("请输入您的真实姓名2"),
                                     },
                                     {
-                                        validator: (
-                                            rule,
-                                            value,
-                                            callback
-                                        ) => {
+                                        validator: (rule, value, callback) => {
                                             if (
-                                                value && !realyNameReg.test(value) 
+                                                value &&
+                                                !realyNameReg.test(value)
                                             ) {
-                                                callback(translate("格式错误，真实姓名需要2-50个字母数字字符"));
+                                                callback(
+                                                    translate(
+                                                        "格式错误，真实姓名需要2-50个字母数字字符",
+                                                    ),
+                                                );
                                             }
                                             callback();
                                         },
@@ -336,16 +361,17 @@ class PromotionsAddressform extends Component {
                                     placeholder={translate("输入名字和姓氏")}
                                     size="large"
                                     maxLength={50}
-                                />
+                                />,
                             )}
                         </Col>
                     </Item>
-                    
 
                     {/* -------------------联系电话----------------- */}
                     <Item errorMessage={getFieldError("phone")}>
                         <Col style={{ marginTop: "15px" }}>
-                            <div className="item-text">{translate("电话号码")}</div>
+                            <div className="item-text">
+                                {translate("电话号码")}
+                            </div>
                             {getFieldDecorator("phone", {
                                 initialValue: contactNo,
                                 rules: [
@@ -356,10 +382,13 @@ class PromotionsAddressform extends Component {
                                     {
                                         validator: (rule, value, callback) => {
                                             if (
-                                                value && !phoneReg.test(value)
+                                                value &&
+                                                !phoneReg.test(value)
                                             ) {
                                                 callback(
-                                                    translate("电话号码必须由9个数字组成，不要在前面填写0")
+                                                    translate(
+                                                        "电话号码必须由9个数字组成，不要在前面填写0",
+                                                    ),
                                                 );
                                             }
                                             callback();
@@ -368,11 +397,15 @@ class PromotionsAddressform extends Component {
                                 ],
                             })(
                                 <Row className="phone-numbner-row">
-                                    <Col span={4}><span>{'84 +'}</span></Col>
+                                    <Col span={4}>
+                                        <span>{"84 +"}</span>
+                                    </Col>
                                     <Col span={19} offset={1}>
                                         <Input
                                             type="phone"
-                                            placeholder={translate("输入你的电话号码")}
+                                            placeholder={translate(
+                                                "输入你的电话号码",
+                                            )}
                                             size="large"
                                             maxLength={9}
                                             onChange={(e) => {
@@ -383,7 +416,7 @@ class PromotionsAddressform extends Component {
                                             value={contactNo}
                                         />
                                     </Col>
-                                </Row>
+                                </Row>,
                             )}
                         </Col>
                     </Item>
@@ -470,14 +503,20 @@ class PromotionsAddressform extends Component {
                                 rules: [
                                     {
                                         required: true,
-                                        message: translate("请输入门牌号和街道名称"),
+                                        message:
+                                            translate("请输入门牌号和街道名称"),
                                     },
                                     {
                                         validator: (rule, value, callback) => {
                                             if (
-                                                value && !address2Reg.test(value)
-                                                ) {
-                                                callback(translate("格式错误。 只接受特殊字符 # ' 。 , - / & ( )"));
+                                                value &&
+                                                !address2Reg.test(value)
+                                            ) {
+                                                callback(
+                                                    translate(
+                                                        "格式错误。 只接受特殊字符 # ' 。 , - / & ( )",
+                                                    ),
+                                                );
                                             }
                                             callback();
                                         },
@@ -485,7 +524,9 @@ class PromotionsAddressform extends Component {
                                 ],
                             })(
                                 <Input
-                                    placeholder={translate("输入门牌号码和街道名称")}
+                                    placeholder={translate(
+                                        "输入门牌号码和街道名称",
+                                    )}
                                     size="large"
                                     maxLength={100}
                                     onChange={(e) => {
@@ -493,7 +534,7 @@ class PromotionsAddressform extends Component {
                                             address: e.target.value,
                                         });
                                     }}
-                                />
+                                />,
                             )}
                         </Col>
                     </Item>
@@ -501,9 +542,11 @@ class PromotionsAddressform extends Component {
                     {/* -------------------邮政编码----------------- */}
                     <Item errorMessage={getFieldError("postalCode")}>
                         <Col style={{ marginTop: "15px" }}>
-                            <div className="item-text">{translate("邮政编码")}</div>
+                            <div className="item-text">
+                                {translate("邮政编码")}
+                            </div>
                             {getFieldDecorator("postalCode", {
-                                initialValue:postalCode,
+                                initialValue: postalCode,
                                 rules: [
                                     {
                                         required: true,
@@ -512,9 +555,14 @@ class PromotionsAddressform extends Component {
                                     {
                                         validator: (rule, value, callback) => {
                                             if (
-                                                value && !postalCodeReg.test(value)
+                                                value &&
+                                                !postalCodeReg.test(value)
                                             ) {
-                                                callback(translate("邮政编码无效（仅输入数字）"));
+                                                callback(
+                                                    translate(
+                                                        "邮政编码无效（仅输入数字）",
+                                                    ),
+                                                );
                                             }
                                             callback();
                                         },
@@ -530,7 +578,7 @@ class PromotionsAddressform extends Component {
                                             postalCode: e.target.value,
                                         });
                                     }}
-                                />
+                                />,
                             )}
                         </Col>
                     </Item>
@@ -561,15 +609,17 @@ class PromotionsAddressform extends Component {
                             {translate("保存")}
                         </Button>
                     </div>
-                    {this.props.type === "edit" ? <div className="delete-btn">
-                        <Button
-                            onClick={this.DeleteAddress}
-                            key='del'
-                            block
-                        >
-                            {translate("删除")}
-                        </Button>
-                    </div> : null}
+                    {this.props.type === "edit" ? (
+                        <div className="delete-btn">
+                            <Button
+                                onClick={this.DeleteAddress}
+                                key="del"
+                                block
+                            >
+                                {translate("删除")}
+                            </Button>
+                        </div>
+                    ) : null}
                 </Spin>
             </Modal>
         );
@@ -577,5 +627,5 @@ class PromotionsAddressform extends Component {
 }
 
 export default withRouter(
-    createForm({ fieldNameProp: "address" })(PromotionsAddressform)
-)
+    createForm({ fieldNameProp: "address" })(PromotionsAddressform),
+);

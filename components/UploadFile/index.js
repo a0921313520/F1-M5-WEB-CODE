@@ -4,7 +4,7 @@ import { post } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "$ACTIONS/TLCAPI";
 import { PostUploadAttachment } from "$DATA/wallet";
 import { getE2BBValue } from "$ACTIONS/helper";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 class UploadFile extends React.Component {
     static defaultProps = {
@@ -16,7 +16,15 @@ class UploadFile extends React.Component {
             fileName: "",
             uploadSizeFlag: false,
         };
-        this.acceptFormat = ["png", "jpg", "jpeg","heic","heif","pdf","gif"]
+        this.acceptFormat = [
+            "png",
+            "jpg",
+            "jpeg",
+            "heic",
+            "heif",
+            "pdf",
+            "gif",
+        ];
     }
     messageInfo = (html, loading) => {
         function appendDom() {
@@ -63,11 +71,11 @@ class UploadFile extends React.Component {
                             self.acceptFormat.includes(
                                 fileName.split(".")[
                                     fileName.split(".").length - 1
-                                ]
+                                ],
                             )
                         ),
                     },
-                    () => {}
+                    () => {},
                 );
             };
         })(e.target.files[0]);
@@ -80,7 +88,7 @@ class UploadFile extends React.Component {
         });
         this.messageInfo(
             `<div><img src=${process.env.BASE_PATH}/img/icons/loading.gif width='35px' style='margin-bottom:5px'/><br/>${translate("上传文件中")}</div>`,
-            true
+            true,
         );
         const memberInfo = JSON.parse(localStorage.getItem("memberInfo"));
         PostUploadAttachment(
@@ -112,7 +120,7 @@ class UploadFile extends React.Component {
                     });
                     this.messageInfo("", false);
                 }
-            }
+            },
         );
     };
     render() {
@@ -145,10 +153,13 @@ class UploadFile extends React.Component {
                 >
                     <div className="btn-content-set">
                         <p>
-                            {translate("最大文件大小：4MB | 文件类型：JPG、JPEG、PNG、GIF、PDF、HEIC、HEIF | 最大文件数：1")}
+                            {translate(
+                                "最大文件大小：4MB | 文件类型：JPG、JPEG、PNG、GIF、PDF、HEIC、HEIF | 最大文件数：1",
+                            )}
                         </p>
                         <div className="line-distance"></div>
-                        <label>{translate("存款收据")}</label><h5>{translate("鼓励")}</h5>
+                        <label>{translate("存款收据")}</label>
+                        <h5>{translate("鼓励")}</h5>
                         <div className="btn-content-file " id="updataset">
                             <span className="imgname">
                                 {this.state.fileName}
@@ -169,7 +180,9 @@ class UploadFile extends React.Component {
                         </div>
                         {this.state.uploadSizeFlag && (
                             <span className="red-set">
-                                {translate("文件类型或文件大小无效。 请检查并重新加载")}
+                                {translate(
+                                    "文件类型或文件大小无效。 请检查并重新加载",
+                                )}
                             </span>
                         )}
                         {this.state.filestatus == 2 && (

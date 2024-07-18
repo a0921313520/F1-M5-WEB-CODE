@@ -7,9 +7,9 @@ import Router from "next/router";
 const { Option } = Select;
 import { translate } from "$ACTIONS/Translate";
 import moment from "moment";
-import { getStaticPropsFromStrapiSEOSetting } from '$DATA/seo';
+import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 export async function getStaticProps() {
-    return await getStaticPropsFromStrapiSEOSetting('/me/self-exclusion'); //參數帶本頁的路徑
+    return await getStaticPropsFromStrapiSEOSetting("/me/self-exclusion"); //參數帶本頁的路徑
 }
 
 const _number = /[^\d]/g;
@@ -210,31 +210,59 @@ export default class Selfexclusion extends React.Component {
             isEnabled: setting === "NotAvailable" ? false : true,
             limitAmount: parseInt(BetLimit),
             betLimitDayRange:
-                RadioStatusset !== translate("请选择时间限制") ? RadioStatusset : "0",
+                RadioStatusset !== translate("请选择时间限制")
+                    ? RadioStatusset
+                    : "0",
         };
         let text;
         if (RadioStatusset == "-1") {
-            text = <p>{translate("您已成功将自我禁入（永久）设置为") +" "+ moment().format("DD/MM/YYYY") +" " + translate("如果您需要任何帮助，请联系")}
-                <span style={{
-                    color: "#00A6FF",
-                    cursor: "pointer",
-                    padding:"0 5px"
-                }}
-                    onClick={() => {
-                        global.PopUpLiveChat();
-                    }}>{translate("在线客服")}</span></p>
+            text = (
+                <p>
+                    {translate("您已成功将自我禁入（永久）设置为") +
+                        " " +
+                        moment().format("DD/MM/YYYY") +
+                        " " +
+                        translate("如果您需要任何帮助，请联系")}
+                    <span
+                        style={{
+                            color: "#00A6FF",
+                            cursor: "pointer",
+                            padding: "0 5px",
+                        }}
+                        onClick={() => {
+                            global.PopUpLiveChat();
+                        }}
+                    >
+                        {translate("在线客服")}
+                    </span>
+                </p>
+            );
+        } else if (RadioStatusset == "7" || RadioStatusset == "90") {
+            text = (
+                <p>
+                    {translate("您已成功设置自我禁入") +
+                        RadioStatusset +
+                        translate("天时间") +
+                        " " +
+                        moment().format("DD/MM/YYYY") +
+                        " " +
+                        translate("如果您需要任何帮助，请联系")}
+                    <span
+                        style={{
+                            color: "#00A6FF",
+                            cursor: "pointer",
+                            padding: "0 5px",
+                        }}
+                        onClick={() => {
+                            global.PopUpLiveChat();
+                        }}
+                    >
+                        {translate("在线客服")}
+                    </span>
+                </p>
+            );
         }
-        else if (RadioStatusset == "7" || RadioStatusset == "90") {
-            text = <p>{translate("您已成功设置自我禁入") + RadioStatusset + translate("天时间") +" "+ moment().format("DD/MM/YYYY") +" "+ translate("如果您需要任何帮助，请联系")}<span style={{
-                color: "#00A6FF",
-                cursor: "pointer",
-                padding:"0 5px"
-            }}
-                onClick={() => {
-                    global.PopUpLiveChat();
-                }}>{translate("在线客服")}</span></p>
-        }
-        const DAYS = ["-1", "7", "90"]
+        const DAYS = ["-1", "7", "90"];
         put(ApiPort.PUTSelfExclusions, MemberData).then((res) => {
             this.setState({
                 loading: false,
@@ -254,7 +282,9 @@ export default class Selfexclusion extends React.Component {
                                 textAlign: "left",
                             }}
                         >
-                            {DAYS.some((day) => day == RadioStatusset) ? text : translate("成功")}
+                            {DAYS.some((day) => day == RadioStatusset)
+                                ? text
+                                : translate("成功")}
                         </div>
                     ),
                 });
@@ -302,7 +332,9 @@ export default class Selfexclusion extends React.Component {
                             <div className="txtbox">
                                 <h3>{translate("自我限制")}</h3>
                                 <p>
-                                    {translate("如果您觉得自己很难控制赌博，您可能应该戒赌 7 天或 3 个月。 您可以联系我们的客户服务寻求支持和建议。")}
+                                    {translate(
+                                        "如果您觉得自己很难控制赌博，您可能应该戒赌 7 天或 3 个月。 您可以联系我们的客户服务寻求支持和建议。",
+                                    )}
                                 </p>
                             </div>
                             <div className="form-submit">
@@ -326,7 +358,9 @@ export default class Selfexclusion extends React.Component {
                                                 ) {
                                                     this.setState({
                                                         RadioStatusset:
-                                                            translate("请选择时间限制"),
+                                                            translate(
+                                                                "请选择时间限制",
+                                                            ),
                                                     });
                                                 }
                                             }}
@@ -335,7 +369,9 @@ export default class Selfexclusion extends React.Component {
                                     </label>
                                     <Input
                                         maxLength={50}
-                                        placeholder={translate("请输入您的转账限额")}
+                                        placeholder={translate(
+                                            "请输入您的转账限额",
+                                        )}
                                         value={
                                             this.state.BetLimit !== 0
                                                 ? this.state.BetLimit
@@ -353,18 +389,18 @@ export default class Selfexclusion extends React.Component {
                                         }}
                                         onBlur={() => {
                                             Pushgtagdata(
-                                                "Amount_selfexclusion_more"
+                                                "Amount_selfexclusion_more",
                                             );
                                         }}
                                         disabled={
                                             this.state.SubmitIsDisabled
                                                 ? true
                                                 : this.state.initialCheck
+                                                  ? false
+                                                  : this.state
+                                                          .limitAmountInputIsEnable
                                                     ? false
-                                                    : this.state
-                                                        .limitAmountInputIsEnable
-                                                        ? false
-                                                        : true
+                                                    : true
                                         }
                                     />
                                     <span
@@ -372,12 +408,14 @@ export default class Selfexclusion extends React.Component {
                                         style={
                                             !this.state
                                                 .limitAmountInputIsEnable &&
-                                                !this.state.initialCheck
+                                            !this.state.initialCheck
                                                 ? { color: "#BCBEC3" }
                                                 : {}
                                         }
                                     >
-                                        {translate("注：您7天内转账的总金额将以您填写的金额为准。")}
+                                        {translate(
+                                            "注：您7天内转账的总金额将以您填写的金额为准。",
+                                        )}
                                     </span>
                                 </div>
                                 <div className="c">
@@ -388,7 +426,7 @@ export default class Selfexclusion extends React.Component {
                                                 this.state.initialCheck
                                                     ? false
                                                     : !this.state
-                                                        .limitAmountInputIsEnable
+                                                          .limitAmountInputIsEnable
                                             }
                                             onChange={() => {
                                                 this.setState({
@@ -411,10 +449,14 @@ export default class Selfexclusion extends React.Component {
                                     <Select
                                         className="selfExclusion-selectDays"
                                         suffixIcon={
-                                            <img src={`${process.env.BASE_PATH}/img/selfexclusion/icon.svg`} />
+                                            <img
+                                                src={`${process.env.BASE_PATH}/img/selfexclusion/icon.svg`}
+                                            />
                                         }
                                         style={{ width: 316 }}
-                                        placeholder={translate("请选择时间限制")}
+                                        placeholder={translate(
+                                            "请选择时间限制",
+                                        )}
                                         value={this.state.RadioStatusset}
                                         dropdownClassName="selfExclusion-selectDays-dropdown"
                                         dropdownStyle={{ borderRadius: 8 }}
@@ -426,11 +468,11 @@ export default class Selfexclusion extends React.Component {
                                             this.state.SubmitIsDisabled
                                                 ? true
                                                 : this.state.initialCheck
-                                                    ? false
-                                                    : this.state
-                                                        .limitAmountInputIsEnable
-                                                        ? true
-                                                        : false
+                                                  ? false
+                                                  : this.state
+                                                          .limitAmountInputIsEnable
+                                                    ? true
+                                                    : false
                                         }
                                         onFocus={() => {
                                             this.setState({
@@ -443,12 +485,12 @@ export default class Selfexclusion extends React.Component {
                                             switch (e) {
                                                 case 7:
                                                     Pushgtagdata(
-                                                        "7days_selfexclusion_more"
+                                                        "7days_selfexclusion_more",
                                                     );
                                                     break;
                                                 case 90:
                                                     Pushgtagdata(
-                                                        "90days_selfexclusion_more"
+                                                        "90days_selfexclusion_more",
                                                     );
                                                     break;
                                                 default:
@@ -462,7 +504,9 @@ export default class Selfexclusion extends React.Component {
                                         <Option value={90}>
                                             {translate("未来 90 天内自我限制")}
                                         </Option>
-                                        <Option value={-1}>{translate("永久自我限制")}</Option>
+                                        <Option value={-1}>
+                                            {translate("永久自我限制")}
+                                        </Option>
                                     </Select>
                                     {/* <Radio.Group
 										onChange={(e) => {
@@ -493,12 +537,14 @@ export default class Selfexclusion extends React.Component {
                                         style={
                                             this.state
                                                 .limitAmountInputIsEnable &&
-                                                !this.state.initialCheck
+                                            !this.state.initialCheck
                                                 ? { color: "#BCBEC3" }
                                                 : {}
                                         }
                                     >
-                                        {translate("一旦开通，您将无法在所选时间内充值、转账和玩游戏。")}
+                                        {translate(
+                                            "一旦开通，您将无法在所选时间内充值、转账和玩游戏。",
+                                        )}
                                     </span>
                                 </div>
 

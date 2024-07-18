@@ -88,9 +88,9 @@
 
                 .IputBox {
                     margin-bottom: 10px;
-                    &.emailInput{
+                    &.emailInput {
                         position: relative;
-                        .emailList{
+                        .emailList {
                             width: 100%;
                             height: 225px;
                             background-color: #fff;
@@ -100,29 +100,29 @@
                             position: absolute;
                             left: 0;
                             top: 46px;
-                            .ant-col{
+                            .ant-col {
                                 line-height: 45px;
                                 text-align: left;
-                                padding:0 10px;
+                                padding: 0 10px;
                                 cursor: pointer;
-                                &:hover{
-                                    background-color: #E5F6FF;
+                                &:hover {
+                                    background-color: #e5f6ff;
                                 }
-                                &:first-child{
-                                    &:hover{
+                                &:first-child {
+                                    &:hover {
                                         border-radius: 10px 10px 0 0;
                                     }
                                 }
-                                &:last-child{
-                                    &:hover{
+                                &:last-child {
+                                    &:hover {
                                         border-radius: 0 0 10px 10px;
                                     }
                                 }
                             }
-                            &.false{
+                            &.false {
                                 display: none;
-                            }   
-                            &.true{
+                            }
+                            &.true {
                                 display: block;
                                 z-index: 3;
                             }
@@ -271,12 +271,12 @@
                         z-index: 10;
 
                         // tab選項box
-                        >div:not(:last-child) {
+                        > div:not(:last-child) {
                             width: 100%;
                             display: flex;
 
                             // 單個tab
-                            >div {
+                            > div {
                                 width: 100%;
                                 margin: 0;
                             }
@@ -339,15 +339,15 @@
                 text-align: center;
             }
         }
-        .ant-modal-footer{
+        .ant-modal-footer {
             margin: auto;
             padding: 0 20px 20px;
             text-align: center;
-            .ant-btn{
+            .ant-btn {
                 width: 45%;
-                &:first-child{
-                   color: @theme;
-                   border-color: @theme;
+                &:first-child {
+                    color: @theme;
+                    border-color: @theme;
                 }
             }
         }
@@ -542,7 +542,9 @@
                 }
 
                 .Item-bankName.active .ant-form-item-control {
-                    box-shadow: 0 0 1px 1px #0000001a, 0 1px 2px 0 #00000014,
+                    box-shadow:
+                        0 0 1px 1px #0000001a,
+                        0 1px 2px 0 #00000014,
                         0 2px 8px 2px #0000000d;
                     border-bottom: none;
                     border-radius: 8px 8px 0 0;
@@ -762,11 +764,11 @@
                         border-bottom: 1px solid #f3f3f3;
                         height: 50px;
                         font-weight: bold;
-                        span{
+                        span {
                             display: inline-block;
                             width: 50%;
                             overflow: hidden;
-                            &:last-child{
+                            &:last-child {
                                 text-align: right;
                             }
                         }
@@ -774,23 +776,23 @@
                 }
             }
         }
-        .ant-modal-footer .ant-btn{
+        .ant-modal-footer .ant-btn {
             width: 100%;
             line-height: 40px;
         }
     }
-    &.finnInNameModal{
-        .ant-modal-body{
+    &.finnInNameModal {
+        .ant-modal-body {
             padding: 30px 35px 0;
         }
-        .ant-modal-footer{
+        .ant-modal-footer {
             padding: 0 35px 30px;
             height: 70px;
-            div{
+            div {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                .ant-btn{
+                .ant-btn {
                     width: 48%;
                     height: 40px;
                 }
@@ -799,22 +801,22 @@
     }
 
     //紧急公告
-    &.news-modal{
-        .ant-checkbox-wrapper{
+    &.news-modal {
+        .ant-checkbox-wrapper {
             width: 100%;
             text-align: center;
             .ant-checkbox-inner {
                 border-radius: 5px;
             }
         }
-        .footer-btn{
+        .footer-btn {
             width: 100%;
             margin: 20px 0 0;
             display: flex;
             justify-content: space-between;
-            .ant-btn{
+            .ant-btn {
                 width: 48%;
-                &:first-child{
+                &:first-child {
                     border-color: @theme;
                     color: @theme;
                     font-weight: bold;
@@ -822,13 +824,13 @@
             }
         }
     }
-    &.RegisterBonus-modal{
+    &.RegisterBonus-modal {
         .ant-modal-body {
             padding: 0 !important;
             border-radius: 10px;
             overflow: hidden;
         }
-        .headtext{
+        .headtext {
             width: 100%;
             height: 210px;
             background-image: url("@{base-path}/img/home/registerBanner.png");
@@ -836,45 +838,45 @@
             background-position: center;
             background-size: cover;
         }
-        .ant-col-18{
+        .ant-col-18 {
             margin-top: 10px;
             min-height: 40px;
             line-height: 18px;
-            &.havePromotion{
+            &.havePromotion {
                 border-radius: 8px;
-                background: #F5F5F5;  
+                background: #f5f5f5;
                 padding: 10px;
                 margin-top: 10px;
                 color: #464646;
                 cursor: pointer;
-                &.active{
-                    background: @theme; 
+                &.active {
+                    background: @theme;
                     color: @white;
                 }
             }
-            &.check-box .ant-checkbox-wrapper-checked{
+            &.check-box .ant-checkbox-wrapper-checked {
                 color: #000;
                 padding: 20px 0;
             }
         }
-        .ant-modal-footer{
+        .ant-modal-footer {
             width: 81%;
             margin: auto;
-            .ant-btn{
-                &:last-child{
+            .ant-btn {
+                &:last-child {
                     margin-left: 0;
-                    span{
+                    span {
                         text-decoration: underline;
                     }
                 }
             }
         }
     }
-   
-    &.modal-otpVerification .ant-modal-content .ant-modal-body{
-        .WithdrawalVerification .verificationSubmitBtn .ant-btn{
+
+    &.modal-otpVerification .ant-modal-content .ant-modal-body {
+        .WithdrawalVerification .verificationSubmitBtn .ant-btn {
             width: 48%;
-            &:first-child{
+            &:first-child {
                 margin-right: 4%;
             }
         }
@@ -892,19 +894,19 @@
         }
     }
     //交易记录上传文件
-    &.UploadFileModal{
+    &.UploadFileModal {
         .btn-content-set {
             text-align: left;
-            p{
+            p {
                 color: #666;
             }
-            label{
+            label {
                 color: #222;
             }
-            h5{
-                display:inline-block;
+            h5 {
+                display: inline-block;
                 border-radius: 4px;
-                background: #FFE273;
+                background: #ffe273;
                 padding: 5px;
                 margin-left: 10px;
             }
@@ -917,8 +919,8 @@
                 align-items: center;
                 padding-left: 10px;
                 margin-bottom: 10px;
-                .red-set{
-                    color: #F11818;
+                .red-set {
+                    color: #f11818;
                     font-size: 12px;
                 }
                 .imgname {
@@ -944,8 +946,8 @@
             }
         }
     }
-    &.BalanceList{
-        .ant-modal-body{
+    &.BalanceList {
+        .ant-modal-body {
             padding: 24px;
         }
         .Content {
@@ -957,12 +959,11 @@
                 .num {
                     color: #222222;
                 }
-                .localizedName{
+                .localizedName {
                     font-weight: 700;
                     color: #666;
                     font-size: 12px;
                 }
-                
             }
             .UnderMaintenance {
                 .localizedName,
@@ -1138,7 +1139,8 @@
                         border: 1px solid #cccccc;
                     }
 
-                    &:last-child {}
+                    &:last-child {
+                    }
                 }
             }
 
@@ -1171,7 +1173,7 @@
 //滑动验证
 .fpcaptch-modal {
     z-index: 2002;
-    .ant-modal-close-x{
+    .ant-modal-close-x {
         color: #222;
     }
     .ant-modal-body {
@@ -1229,8 +1231,8 @@
             width: 100%;
             height: 40px;
             line-height: 40px;
-            background-color: rgba(255, 16, 0, 0.20);;
-            color: #F11818;
+            background-color: rgba(255, 16, 0, 0.2);
+            color: #f11818;
             padding-left: 10px;
             img {
                 width: 18px;
@@ -1263,7 +1265,7 @@
     }
     ul li {
         margin-bottom: 10px;
-        &>span {
+        & > span {
             font-size: 12px;
             color: #666;
         }
@@ -1272,7 +1274,7 @@
             background-color: #f3f3f3;
             margin-top: 8px;
 
-            >span {
+            > span {
                 color: #1c8eff;
             }
             &:hover,
@@ -1326,7 +1328,7 @@
                 &:first-child {
                     margin-right: 4%;
 
-                    >span {
+                    > span {
                         color: #666666;
                     }
                 }
@@ -1335,7 +1337,7 @@
                     background-color: #cccccc;
                     margin-left: 4%;
 
-                    >span {
+                    > span {
                         color: #fff;
                     }
                 }
@@ -1414,8 +1416,8 @@
             }
         }
         //Central-Payment 提款失败弹窗
-        .WithdrawKyc{
-            .WithdrawKycIcon{
+        .WithdrawKyc {
+            .WithdrawKycIcon {
                 width: 60px;
                 height: 60px;
                 background-image: url("@{base-path}/img/icons/icon-warn.svg");
@@ -1434,29 +1436,29 @@
             }
         }
     }
-    &.elementTextLeft{
-        .ant-modal-confirm-body .ant-modal-confirm-content{
+    &.elementTextLeft {
+        .ant-modal-confirm-body .ant-modal-confirm-content {
             text-align: left;
         }
     }
-    &.dont-show-close-button{
-        .ant-modal-close{
+    &.dont-show-close-button {
+        .ant-modal-close {
             display: none;
         }
     }
-    &.withdraw-confirm-modal{
-        .divCircleList{
+    &.withdraw-confirm-modal {
+        .divCircleList {
             display: flex;
             align-items: center;
         }
-        .divCircle{
+        .divCircle {
             width: 4px;
             height: 4px;
             background-color: #000;
             border-radius: 50%;
             margin: 0 5px;
         }
-        .ant-btn:first-child{
+        .ant-btn:first-child {
             color: @theme;
         }
     }
@@ -1494,7 +1496,7 @@
 
 // general large feedback modal
 .large-feedback-status-modal {
-    &.ant-modal-confirm .ant-modal-body{
+    &.ant-modal-confirm .ant-modal-body {
         padding: 0 24px 24px;
     }
     .anticon {
@@ -1506,7 +1508,7 @@
             width: 60px;
             height: 60px;
         }
-        .note{
+        .note {
             padding: 0 20px;
         }
     }
@@ -1544,7 +1546,7 @@
         border-color: #ccc !important;
     }
 
-    .ant-steps-item-wait .ant-steps-item-icon>.ant-steps-icon {
+    .ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon {
         color: #ccc !important;
     }
 }
@@ -1594,7 +1596,7 @@
                         white-space: normal;
                         padding: 5px;
                     }
-                    .one-button{
+                    .one-button {
                         //文字保持一行不换行
                         width: auto;
                         height: 44px;

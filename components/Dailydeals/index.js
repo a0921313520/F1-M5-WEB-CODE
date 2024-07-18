@@ -6,7 +6,7 @@ import { GetAllBalance } from "$DATA/wallet";
 import Router from "next/router";
 import dynamic from "next/dynamic";
 import SelectAddress from "../Address/Address.js";
-import { Provider,connect } from "react-redux";
+import { Provider, connect } from "react-redux";
 import store from "../../store/store.js";
 import { userCenterActions } from "$STORE/userCenterSlice";
 import { translate } from "$ACTIONS/Translate";
@@ -31,9 +31,9 @@ class Detail extends Component {
         modalTabKey: {},
         showSelectAddressModal: false,
         bonusId: "",
-        loading:false
+        loading: false,
     };
-    componentDidMount(){
+    componentDidMount() {
         this.getPromotionInfo();
     }
     /* -------------------------------------------
@@ -46,7 +46,7 @@ class Detail extends Component {
         let params = {
             id: this.props.BonusData.promoId,
         };
-        this.setState({loading: true})
+        this.setState({ loading: true });
         get(ApiPort.CMSPromotionDetail + `id=${params.id}`)
             .then((res) => {
                 res.History = this.props.History;
@@ -56,17 +56,18 @@ class Detail extends Component {
             })
             .catch((error) => {
                 message.error(error);
-            }).finally(()=>{
-                this.setState({loading: false})
             })
+            .finally(() => {
+                this.setState({ loading: false });
+            });
     }
 
     goUserCenter = (key) => {
         if (~global.location.pathname.indexOf("/vn/me")) {
-            this.props.changeUserCenterTabKey(key)
+            this.props.changeUserCenterTabKey(key);
         } else {
-            this.props.changeUserCenterTabKey(key)
-            Router.push("/me")
+            this.props.changeUserCenterTabKey(key);
+            Router.push("/me");
         }
     };
 
@@ -138,7 +139,7 @@ class Detail extends Component {
         let data = {
             bonusRuleId: Detail.bonusId,
         };
-        this.setState({loading: true})
+        this.setState({ loading: true });
         post(ApiPort.PostDailyDeals + `&bonusRuleId=${data.bonusRuleId}&`, data)
             .then((res) => {
                 if (!res) {
@@ -186,20 +187,15 @@ class Detail extends Component {
             .catch((error) => {
                 console.log("PostDailyDeals error : ", error);
                 message.error(error);
-            }).finally(()=>{
-                this.setState({loading: false})
             })
+            .finally(() => {
+                this.setState({ loading: false });
+            });
     };
 
     render() {
         const { ShowDetail, CloseDetail, BonusData } = this.props;
-        const { 
-            Detail, 
-            bonusId, 
-            showSelectAddressModal ,
-            loading
-        } =
-            this.state;
+        const { Detail, bonusId, showSelectAddressModal, loading } = this.state;
         return (
             <>
                 <Modal
@@ -213,106 +209,119 @@ class Detail extends Component {
                         CloseDetail();
                     }}
                 >
-                    <Spin spinning={loading} size="large" tip={translate("加载中")}>
-                    <div className="PromoDetail-info">
-                        {Detail && (
-                            <React.Fragment>
-                                <div>
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: Detail.body,
-                                        }}
-                                    />
-                                </div>
-                            </React.Fragment>
-                        )}
-                    </div>
-                    {!Detail && (
-                        <li className="center">
-                            <Empty
-                                image={"/vn/img/icon/img-no-record.svg"}
-                                className="big-empty-box"
-                            />
-                        </li>
-                    )}
-
-                    {Detail && (
-                        <div className="PromoDetail-submitBtn">
-                            {(() => {
-                                if (!BonusData.bonusData) {
-                                    return;
-                                }
-                                /* 售罄 */
-                                if (!BonusData.bonusData) {
-                                    return;
-                                }
-                                if (
-                                    BonusData.bonusData.maxApplications ==
-                                    BonusData.bonusData.currentApplications
-                                ) {
-                                    BonusData.bonusData.bonusGivenType =
-                                        "SoldOut";
-                                }
-                                switch (BonusData.bonusData.bonusGivenType) {
-                                    /* 填写礼品地址申请 */
-                                    case "Manual Items":
-                                        return (
-                                            <button
-                                                onClick={() => {
-                                                    if (
-                                                        localStorage.getItem(
-                                                            "access_token"
-                                                        ) === null
-                                                    ) {
-                                                        return;
-                                                    }
-                                                    console.log(
-                                                        "Detail.bonusId: ",
-                                                        Detail.bonusId
-                                                    );
-                                                    this.setState({
-                                                        showSelectAddressModal: true,
-                                                        bonusId: Detail.bonusId,
-                                                    });
-                                                    Router.push(
-                                                        `/daily-gift/?id=${Detail.bonusId}`
-                                                    );
-                                                }}
-                                            >
-                                                {translate("获得奖励")}
-                                            </button>
-                                        );
-                                    /* 直接申请 */
-                                    case "Money":
-                                    case "FreeSpin":
-                                    case "Rewards Point":
-                                        return (
-                                            <button
-                                                onClick={() => {
-                                                    if (
-                                                        !localStorage.getItem(
-                                                            "access_token"
-                                                        )
-                                                    ) {
-                                                        global.goUserSign("1");
-                                                        return;
-                                                    }
-                                                    this.ApplyDailyDeals(
-                                                        Detail
-                                                    );
-                                                }}
-                                            >
-                                                {translate("获得奖励")}
-                                            </button>
-                                        );
-                                    case "SoldOut":
-                                        return <Button disband>{translate("获得奖励")}</Button>;
-                                    default:
-                                        return null;
-                                }
-                            })()}
+                    <Spin
+                        spinning={loading}
+                        size="large"
+                        tip={translate("加载中")}
+                    >
+                        <div className="PromoDetail-info">
+                            {Detail && (
+                                <React.Fragment>
+                                    <div>
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html: Detail.body,
+                                            }}
+                                        />
+                                    </div>
+                                </React.Fragment>
+                            )}
                         </div>
-                    )}
+                        {!Detail && (
+                            <li className="center">
+                                <Empty
+                                    image={"/vn/img/icon/img-no-record.svg"}
+                                    className="big-empty-box"
+                                />
+                            </li>
+                        )}
+
+                        {Detail && (
+                            <div className="PromoDetail-submitBtn">
+                                {(() => {
+                                    if (!BonusData.bonusData) {
+                                        return;
+                                    }
+                                    /* 售罄 */
+                                    if (!BonusData.bonusData) {
+                                        return;
+                                    }
+                                    if (
+                                        BonusData.bonusData.maxApplications ==
+                                        BonusData.bonusData.currentApplications
+                                    ) {
+                                        BonusData.bonusData.bonusGivenType =
+                                            "SoldOut";
+                                    }
+                                    switch (
+                                        BonusData.bonusData.bonusGivenType
+                                    ) {
+                                        /* 填写礼品地址申请 */
+                                        case "Manual Items":
+                                            return (
+                                                <button
+                                                    onClick={() => {
+                                                        if (
+                                                            localStorage.getItem(
+                                                                "access_token",
+                                                            ) === null
+                                                        ) {
+                                                            return;
+                                                        }
+                                                        console.log(
+                                                            "Detail.bonusId: ",
+                                                            Detail.bonusId,
+                                                        );
+                                                        this.setState({
+                                                            showSelectAddressModal: true,
+                                                            bonusId:
+                                                                Detail.bonusId,
+                                                        });
+                                                        Router.push(
+                                                            `/daily-gift/?id=${Detail.bonusId}`,
+                                                        );
+                                                    }}
+                                                >
+                                                    {translate("获得奖励")}
+                                                </button>
+                                            );
+                                        /* 直接申请 */
+                                        case "Money":
+                                        case "FreeSpin":
+                                        case "Rewards Point":
+                                            return (
+                                                <button
+                                                    onClick={() => {
+                                                        if (
+                                                            !localStorage.getItem(
+                                                                "access_token",
+                                                            )
+                                                        ) {
+                                                            global.goUserSign(
+                                                                "1",
+                                                            );
+                                                            return;
+                                                        }
+                                                        this.ApplyDailyDeals(
+                                                            Detail,
+                                                        );
+                                                    }}
+                                                >
+                                                    {translate("获得奖励")}
+                                                </button>
+                                            );
+                                        case "SoldOut":
+                                            return (
+                                                <Button disband>
+                                                    {translate("获得奖励")}
+                                                </Button>
+                                            );
+                                        default:
+                                            return null;
+                                    }
+                                })()}
+                            </div>
+                        )}
                     </Spin>
                 </Modal>
                 {/* 财务管理，DynamicWallet內有元件使用到redux，需加上Provider以免抓不抓不到store */}
@@ -374,15 +383,15 @@ class Detail extends Component {
 
 const mapStateToProps = function (state) {
     return {
-        userCenterTabKey: state.userCenter.userCenterPageTabKey
+        userCenterTabKey: state.userCenter.userCenterPageTabKey,
     };
 };
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        changeUserCenterTabKey:(tabkey)=>{
-            dispatch(userCenterActions.changeUserCenterTabKey(tabkey))
-        }
+        changeUserCenterTabKey: (tabkey) => {
+            dispatch(userCenterActions.changeUserCenterTabKey(tabkey));
+        },
     };
 };
 

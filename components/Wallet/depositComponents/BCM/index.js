@@ -35,7 +35,7 @@ class BCM extends React.Component {
         if (
             typeof this.props.depositStatusCheck(
                 this.props.bcType,
-                this.state.bankCodeState
+                this.state.bankCodeState,
             ) === "undefined"
         )
             return; // 未完成真实姓名验证则呼出完善弹窗
@@ -111,7 +111,7 @@ class BCM extends React.Component {
                                 Finish: true,
                             });
                         }
-                    }
+                    },
                 );
             }
         });
@@ -130,10 +130,10 @@ class BCM extends React.Component {
     submitBtnEnable = () => {
         let { banks, setting } = this.props.currDepositDetail;
         let errors = Object.values(this.props.form.getFieldsError()).some(
-            (v) => v !== undefined
+            (v) => v !== undefined,
         );
         let values = Object.values(this.props.form.getFieldsValue()).some(
-            (v) => v == "" || v == undefined
+            (v) => v == "" || v == undefined,
         );
         if (
             setting &&

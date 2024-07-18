@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Button, Input, Form } from "antd";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 const { Item } = Form;
 
 function AddWalletAddress(props) {
@@ -15,10 +15,13 @@ function AddWalletAddress(props) {
         tDBAddressError,
         tDBNameError,
         tDBAddressError2,
-        ctcMethod
+        ctcMethod,
     } = props;
     const isErc = ctcMethod === "USDT-ERC20";
-    console.log("🚀 ~ file: AddWalletAddress.js:21 ~ AddWalletAddress ~ ctcMethod:", ctcMethod)
+    console.log(
+        "🚀 ~ file: AddWalletAddress.js:21 ~ AddWalletAddress ~ ctcMethod:",
+        ctcMethod,
+    );
     return (
         <Modal
             title={translate("添加钱包") + ctcMethod}
@@ -67,7 +70,7 @@ function AddWalletAddress(props) {
                             exchangeRateWalletTest(
                                 e,
                                 "address",
-                                props.ctcMethod
+                                props.ctcMethod,
                             )
                         }
                         maxLength={isErc ? 42 : 34}
@@ -86,12 +89,16 @@ function AddWalletAddress(props) {
                         <img
                             style={{ marginRight: "0.4rem" }}
                             src={`${process.env.BASE_PATH}/img/icon/${
-                                !tDBAddressError ?  "redCross": "greenTick"
+                                !tDBAddressError ? "redCross" : "greenTick"
                             }.svg`}
                         />
                         {isErc
-                            ? translate("由始终以“0x”开头的字符串组成，后跟 40 个字母“a-f”和数字“0-9”")
-                            : translate('由以“T”开头的 34 个字母数字字符组成的字符串')}
+                            ? translate(
+                                  "由始终以“0x”开头的字符串组成，后跟 40 个字母“a-f”和数字“0-9”",
+                              )
+                            : translate(
+                                  "由以“T”开头的 34 个字母数字字符组成的字符串",
+                              )}
                     </div>
                 </Item>
                 <Item>

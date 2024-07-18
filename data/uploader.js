@@ -52,7 +52,7 @@ export function GetVerificationMemberDocuments(call) {
 export function UploadDocument(datas, call) {
     post(
         ApiPort.UploadDocument + "&" + Qs.stringify(datas.params) + "&",
-        datas.data
+        datas.data,
     )
         .then((res) => {
             call(res);

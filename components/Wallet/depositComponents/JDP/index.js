@@ -90,7 +90,7 @@ class JDP extends React.Component {
                             });
                             this.props.form.resetFields();
                         }
-                    }
+                    },
                 );
             }
         });
@@ -196,7 +196,7 @@ class JDP extends React.Component {
                                 <Button
                                     disabled={
                                         Object.values(getFieldsError()).some(
-                                            (v) => v !== undefined
+                                            (v) => v !== undefined,
                                         ) || !getFieldValue("money")
                                     }
                                     size="large"

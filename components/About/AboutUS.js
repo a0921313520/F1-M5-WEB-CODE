@@ -80,7 +80,7 @@ export default class extends React.Component {
                                         Router.push(
                                             `/About?type=Sub0&key=${
                                                 CMSOBJ[HostConfig.CMS_ID][39]
-                                            }`
+                                            }`,
                                         );
                                     }}
                                 >
@@ -189,7 +189,7 @@ export default class extends React.Component {
                                                                 />
                                                             </div>
                                                         );
-                                                    }
+                                                    },
                                                 )}
                                             </ReactCardCarousel>
                                         </div>
@@ -251,7 +251,7 @@ export default class extends React.Component {
                                                                 />
                                                             </div>
                                                         );
-                                                    }
+                                                    },
                                                 )}
                                             </ReactCardCarousel>
                                         </div>

@@ -4,7 +4,11 @@ import { get, post } from "$ACTIONS/TlcRequest";
 import { ApiPort, APISETS, APISET } from "$ACTIONS/TLCAPI";
 import Flexbox from "@/Flexbox/";
 import { lazyLoadImg } from "$ACTIONS/util";
-import { SetPiwikData,HeaderGameNavPiwik,HeaderGameNavMoreBtnPiwik } from "$ACTIONS/piwikData";
+import {
+    SetPiwikData,
+    HeaderGameNavPiwik,
+    HeaderGameNavMoreBtnPiwik,
+} from "$ACTIONS/piwikData";
 import { Carousel, Menu, Icon, Button, Col, message } from "antd";
 import QRCode from "qrcode-react";
 import {
@@ -32,9 +36,16 @@ function SecondaryDom(props) {
     }
     let hoverData = hoverSecondary[props.index];
     if (props.index === 0) {
-        hoverData = hoverData.filter(data => data.code !== "SB2" && data.code !== "YBS" && data.code !== "IPSB-Virtual")
+        hoverData = hoverData.filter(
+            (data) =>
+                data.code !== "SB2" &&
+                data.code !== "YBS" &&
+                data.code !== "IPSB-Virtual",
+        );
     }
-    const detailData = hoverSecondaryDetail.find(item => item.dataCategory == props.itemdata?.code);
+    const detailData = hoverSecondaryDetail.find(
+        (item) => item.dataCategory == props.itemdata?.code,
+    );
     const detailPercentage = detailData.promotionVal.indexOf("%");
     if (Array.isArray(hoverData) && hoverData.length && hoverData.length) {
         hoverData.forEach((item, index) => {
@@ -59,7 +70,7 @@ function SecondaryDom(props) {
                         hoverData,
                         detailData,
                         detailPercentage,
-                        secondaryMenuBar
+                        secondaryMenuBar,
                     )}
                 </div>
             </div>
@@ -81,7 +92,7 @@ function HoverContent(
     hoverData,
     detailData,
     detailPercentage,
-    secondaryMenuBar
+    secondaryMenuBar,
 ) {
     let currentIndex = 0;
     const GameSlider = useRef();
@@ -126,27 +137,23 @@ function HoverContent(
             }
         }
     }
-   /**
-    * Content-List: hover每个游戏后显示的菜单
-    * english，promotion，promotionVal 这三个目前写死。
-    */
+    /**
+     * Content-List: hover每个游戏后显示的菜单
+     * english，promotion，promotionVal 这三个目前写死。
+     */
     return (
         <div className="Content-List">
             {detailData.type != "more" ? (
                 <div className="menu-sign-bar ">
                     <h2>
-                        {props.itemdata && props.itemdata.name ? props.itemdata.name : ""}
+                        {props.itemdata && props.itemdata.name
+                            ? props.itemdata.name
+                            : ""}
                     </h2>
-                    <p className="sign-color">
-                        {detailData.english}
-                    </p>
+                    <p className="sign-color">{detailData.english}</p>
                     <div className="sign-brief">
-                        <p>
-                            {detailData.promotion}
-                        </p>
-                        <p className="sign-color">
-                            {detailData.promotionVal}
-                        </p>
+                        <p>{detailData.promotion}</p>
+                        <p className="sign-color">{detailData.promotionVal}</p>
                     </div>
                 </div>
             ) : (
@@ -156,14 +163,15 @@ function HoverContent(
                 </div>
             )}
             <div
-                className={`menu-bar ${detailData.type === "casino"
-                    ? currentPageCasino
-                    : detailData.type === "slotgame"
-                        ? currentPageSlot
-                        : detailData.type === "more"
+                className={`menu-bar ${
+                    detailData.type === "casino"
+                        ? currentPageCasino
+                        : detailData.type === "slotgame"
+                          ? currentPageSlot
+                          : detailData.type === "more"
                             ? currentPageMore
                             : ""
-                    }`}
+                }`}
             >
                 {/* 游戏左右滑动列表 */}
                 <Carousel
@@ -189,7 +197,7 @@ function HoverContent(
                                                 SetPiwikData(
                                                     innerItem.category,
                                                     innerItem.code,
-                                                    innerItem.providerId
+                                                    innerItem.providerId,
                                                 );
                                             }}
                                         >
@@ -199,13 +207,14 @@ function HoverContent(
                                                     className="list-content"
                                                     onClick={() => {
                                                         props.goPages(
-                                                            innerItem.provider
+                                                            innerItem.provider,
                                                         );
                                                     }}
                                                 >
                                                     <ImageWithFallback
                                                         src={
-                                                            innerItem.providerImageUrl || "/vn/img/icon/bluebg.png"
+                                                            innerItem.providerImageUrl ||
+                                                            "/vn/img/icon/bluebg.png"
                                                         }
                                                         width={currWidth}
                                                         height={currWidth}
@@ -213,7 +222,8 @@ function HoverContent(
                                                         fallbackSrc="/vn/img/icon/bluebg.png"
                                                     />
                                                     <p>
-                                                        {innerItem.providerTitle || innerItem.title}
+                                                        {innerItem.providerTitle ||
+                                                            innerItem.title}
                                                     </p>
                                                 </div>
                                             )}
@@ -221,7 +231,7 @@ function HoverContent(
                                                 <OpenGame
                                                     className={classNames({
                                                         "list-content": true,
-                                                        HOT: innerItem.isHot, 
+                                                        HOT: innerItem.isHot,
                                                         NEW: innerItem.isNew,
                                                     })}
                                                     itemsData={{
@@ -233,8 +243,7 @@ function HoverContent(
                                                         gameId: innerItem.providerId,
                                                         imageUrl:
                                                             innerItem.providerHomepageImage,
-                                                        image:
-                                                            innerItem.image,
+                                                        image: innerItem.image,
                                                         gameCatCode:
                                                             innerItem.category,
                                                         OpenGamesListPage:
@@ -267,24 +276,26 @@ function HoverContent(
                         className="ant-btn ant-btn-primary ant-btn-sm app-down-address"
                         target="__blank"
                         href={global.downloadLinks}
-                        onClick={()=>{
-                            Pushgtagdata("Home","Go to Download Page","Home_TopNav_C_DownloadApp");
+                        onClick={() => {
+                            Pushgtagdata(
+                                "Home",
+                                "Go to Download Page",
+                                "Home_TopNav_C_DownloadApp",
+                            );
                         }}
                     >
                         {translate("下载")}
                     </a>
                 </div>
-            ) :  (
+            ) : (
                 <div className="menu-section">
                     <p>{props.itemdata && props.itemdata.description}</p>
                     <Button
                         type="link"
                         ghost
                         onClick={() => {
-                            Router.push(
-                                "/games" + detailData.gameAddress
-                            );
-                            HeaderGameNavMoreBtnPiwik(detailData.dataCategory)
+                            Router.push("/games" + detailData.gameAddress);
+                            HeaderGameNavMoreBtnPiwik(detailData.dataCategory);
                         }}
                     >
                         {translate("了解更多")}
@@ -306,14 +317,14 @@ class HeaderMenuBar extends React.Component {
             ProviderData: [],
             hostname: "",
             GameNavStatusData: [],
-            rewardUrl: 'https://www.fun88vn2.com/Rewards/MyVIP.aspx?Pop=1'
+            rewardUrl: "https://www.fun88vn2.com/Rewards/MyVIP.aspx?Pop=1",
         };
         this.goPages = this.goPages.bind(this); // 导航菜单界面跳转
     }
     componentDidMount() {
         this.setState({
             hostname: window.location.origin,
-            route: Router.router.route
+            route: Router.router.route,
         });
         //获取导航菜单数据和导航菜单游戏分类数据
         this.props.getGameCategoriesList();
@@ -351,14 +362,14 @@ class HeaderMenuBar extends React.Component {
         get(ApiPort.CMSConfigs).then((res) => {
             if (res && res.rewardUrl) {
                 this.setState({
-                    rewardUrl: res.rewardUrl
+                    rewardUrl: res.rewardUrl,
                 });
             }
         });
     }
 
     goPages(link) {
-        console.log("🚀 ~ HeaderMenuBar ~ goPages ~ link:", link, typeof link)
+        console.log("🚀 ~ HeaderMenuBar ~ goPages ~ link:", link, typeof link);
         if (link === "/referrer-activity") {
             global.goReferFriend();
         } else {
@@ -366,19 +377,27 @@ class HeaderMenuBar extends React.Component {
         }
         switch (link) {
             case "/help/sponsorship":
-                Pushgtagdata("Home","View Sponsor","Home_TopNav_C_Sponsor");
+                Pushgtagdata("Home", "View Sponsor", "Home_TopNav_C_Sponsor");
                 break;
             case "/referrer-activity":
-                Pushgtagdata("Home","Go to Refer Friend","Home_TopNav_C_ReferFriend");
+                Pushgtagdata(
+                    "Home",
+                    "Go to Refer Friend",
+                    "Home_TopNav_C_ReferFriend",
+                );
                 break;
             // case "/download-app":
             //     Pushgtagdata("Home","Go to Download Page","Home_TopNav_C_DownloadApp");
             //     break;
             case "/diamond-club":
-                Pushgtagdata("Home","Go to VIP","Home_TopNav_C_VIP");
+                Pushgtagdata("Home", "Go to VIP", "Home_TopNav_C_VIP");
                 break;
             case "/me/self-exclusion":
-                Pushgtagdata("Home","Go to Self Exclusion","Home_TopNav_C_SelfExclusion");
+                Pushgtagdata(
+                    "Home",
+                    "Go to Self Exclusion",
+                    "Home_TopNav_C_SelfExclusion",
+                );
                 break;
             case "/faq":
                 Pushgtagdata("Home", "View FAQ", "Home_TopNav_C_FAQ");
@@ -411,7 +430,9 @@ class HeaderMenuBar extends React.Component {
                         </a>
                     </Menu.Item>
                     {/* 游戏导航菜单 */}
-                    {GameCategory && Array.isArray(GameCategory) && GameCategory.length &&
+                    {GameCategory &&
+                        Array.isArray(GameCategory) &&
+                        GameCategory.length &&
                         GameCategory.map((item, index) => {
                             // 新增 category 字段
                             const providersWithCategory =
@@ -425,9 +446,11 @@ class HeaderMenuBar extends React.Component {
                                 return;
                             }
                             const statusInfo = GameNavStatusData.find(
-                                (s) => s.providerCode == item.code
+                                (s) => s.providerCode == item.code,
                             );
-                            const gameItem = hoverSecondaryDetail.find(game => game.dataCategory == item.code);
+                            const gameItem = hoverSecondaryDetail.find(
+                                (game) => game.dataCategory == item.code,
+                            );
                             return (
                                 <Menu.Item key={index}>
                                     <Flexbox
@@ -435,19 +458,22 @@ class HeaderMenuBar extends React.Component {
                                         onClick={() => {
                                             Router.push({
                                                 pathname:
-                                                    "/games" + gameItem.gameAddress,
+                                                    "/games" +
+                                                    gameItem.gameAddress,
                                             });
-                                            HeaderGameNavPiwik(item)
+                                            HeaderGameNavPiwik(item);
                                         }}
                                         className={classNames({
                                             ["ant-menu-item-active-list"]:
                                                 this.state.route.indexOf(
-                                                    item.code
+                                                    item.code,
                                                 ) != -1,
                                             ["Menu_item"]: true,
                                         })}
                                     >
-                                        {item.name?.length>9?item.name.slice(0,13):item.name}
+                                        {item.name?.length > 9
+                                            ? item.name.slice(0, 13)
+                                            : item.name}
                                         {statusInfo && statusInfo.isNew ? (
                                             <div className="SetNew">
                                                 {translate("新")}
@@ -490,7 +516,7 @@ class HeaderMenuBar extends React.Component {
                                     className={classNames({
                                         ["ant-menu-item-active-list"]:
                                             this.state.route.indexOf(
-                                                item.key
+                                                item.key,
                                             ) != -1
                                                 ? "ant-menu-item-active"
                                                 : "",
@@ -515,7 +541,7 @@ class HeaderMenuBar extends React.Component {
                                     className={classNames({
                                         ["ant-menu-item-active-list"]:
                                             this.state.route.indexOf(
-                                                item.key
+                                                item.key,
                                             ) != -1
                                                 ? "ant-menu-item-active"
                                                 : "",
@@ -525,13 +551,11 @@ class HeaderMenuBar extends React.Component {
                                         if (item.key === "Alliance") {
                                             window.open(
                                                 "https://www.luckyf86.com/zh-cn",
-                                                `_blank`
+                                                `_blank`,
                                             );
-                                        } 
-                                        else if (item.key === "KingsClub") {
+                                        } else if (item.key === "KingsClub") {
                                             window.open(rewardUrl, `_blank`);
-                                        }
-                                        else if(item.key === "promotions"){
+                                        } else if (item.key === "promotions") {
                                             Router.push({
                                                 pathname: "/" + item.key,
                                             });
@@ -539,7 +563,7 @@ class HeaderMenuBar extends React.Component {
                                                 "/vn/promotions" &&
                                                 this.props.getPromotionList();
                                         }
-                                        HeaderGameNavPiwik(item.key)
+                                        HeaderGameNavPiwik(item.key);
                                     }}
                                 >
                                     {item.expression}

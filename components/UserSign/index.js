@@ -3,7 +3,7 @@ import { Modal, Tabs, Icon, message } from "antd";
 import Login from "./Login";
 import Register from "./Register";
 import ForgotPwd from "@/ForgotPwd/";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 message.config({
     top: 100,
@@ -56,11 +56,11 @@ class UserSign extends React.Component {
     };
 
     render() {
-        const {activeKey} = this.state;
+        const { activeKey } = this.state;
         return (
             <div>
                 <Modal
-                    title={translate(activeKey === "1" ? "登录":"注册")}
+                    title={translate(activeKey === "1" ? "登录" : "注册")}
                     closeIcon={
                         <Icon type="close" style={{ fontSize: "18px" }} />
                     }
@@ -81,9 +81,16 @@ class UserSign extends React.Component {
                         onChange={(activeKey) => {
                             this.setState({ activeKey });
                             activeKey === "1"
-                                ? Pushgtagdata("Register","switch to Login","Register_C_Login")
-                                : Pushgtagdata("Login","switch to Register","Login_C_Register")
-                            
+                                ? Pushgtagdata(
+                                      "Register",
+                                      "switch to Login",
+                                      "Register_C_Login",
+                                  )
+                                : Pushgtagdata(
+                                      "Login",
+                                      "switch to Register",
+                                      "Login_C_Register",
+                                  );
                         }}
                     >
                         <TabPane tab={translate("登录")} key={"1"}>
@@ -104,7 +111,7 @@ class UserSign extends React.Component {
                                 login={() => {
                                     this.Login.Registerdata(
                                         this.Register.state.UserName,
-                                        this.Register.state.UserPwd
+                                        this.Register.state.UserPwd,
                                     );
                                     this.Login.Login();
                                 }}

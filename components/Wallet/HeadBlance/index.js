@@ -1,32 +1,29 @@
 import React from "react";
-import { Form, Popover, Modal,message } from "antd";
+import { Form, Popover, Modal, message } from "antd";
 import classNames from "classnames";
 import { connect } from "react-redux";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 import { getE2BBValue } from "$ACTIONS/helper";
-import {
-    TransferSubmit,
-    GetAllBalance,
-} from "$DATA/wallet";
+import { TransferSubmit, GetAllBalance } from "$DATA/wallet";
 class HeadBlance extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             showAll: false,
-            isSuccess:"",
-            TotalBal:"",
-            MAINBal:"",
-            otherWalletTotal:0,
-            balanceList:"",
+            isSuccess: "",
+            TotalBal: "",
+            MAINBal: "",
+            otherWalletTotal: 0,
+            balanceList: "",
         };
     }
     componentDidMount() {
         this.getAllBalance();
     }
-    componentWillUnmount(){
-        this.setState =()=> false
+    componentWillUnmount() {
+        this.setState = () => false;
     }
-    getAllBalance= () => {
+    getAllBalance = () => {
         // this.props.setLoading(true);
         GetAllBalance((res) => {
             if (res.isSuccess && res.result) {
@@ -41,17 +38,17 @@ class HeadBlance extends React.Component {
                             (v) =>
                                 v.state !== "UnderMaintenance" &&
                                 v.category !== "TotalBal" &&
-                                v.category !== "Main"
+                                v.category !== "Main",
                         ),
                     },
                     () => {
                         this.calcOtherWalletTotal();
-                    }
+                    },
                 );
             }
             // this.props.setLoading(false);
         });
-    }
+    };
     calcOtherWalletTotal = () => {
         const { otherWalletList } = this.state;
         if (!otherWalletList.length) {
@@ -68,7 +65,7 @@ class HeadBlance extends React.Component {
             otherWalletTotal: otherBal,
         });
     };
-    handleTransfer= (TotalBal)=> {
+    handleTransfer = (TotalBal) => {
         this.props.setLoading(true);
         let DATA = {
             fromAccount: "ALL",
@@ -84,31 +81,31 @@ class HeadBlance extends React.Component {
             if (res.isSuccess && res.result) {
                 if (res.result.status == 1) {
                     this.getAllBalance();
-                    message.success(res.result.messages || translate("转账成功"));
-                }
-                else{
-                    message.error(res.result?.messages || translate("转账失败"));
+                    message.success(
+                        res.result.messages || translate("转账成功"),
+                    );
+                } else {
+                    message.error(
+                        res.result?.messages || translate("转账失败"),
+                    );
                 }
             } else {
                 message.error(res?.result?.messages || translate("转账失败"));
             }
         });
-    }
+    };
     render() {
-        const {
-            balanceList,
-            otherWalletTotal,
-            TotalBal,
-            MAINBal,
-            showAll
-        } = this.state;
+        const { balanceList, otherWalletTotal, TotalBal, MAINBal, showAll } =
+            this.state;
 
         return (
             <React.Fragment>
                 <div>
                     <div className="MainBlance">
                         <div className="item-blance" flex="1">
-                            <label className="item-label">{translate("总余额")}</label>
+                            <label className="item-label">
+                                {translate("总余额")}
+                            </label>
                             <b>{TotalBal || "0"} đ</b>
                         </div>
 
@@ -123,7 +120,7 @@ class HeadBlance extends React.Component {
                                         Pushgtagdata(
                                             `Transfer`,
                                             "Submit",
-                                            `QuickTransfer_WithdrawPage`
+                                            `QuickTransfer_WithdrawPage`,
                                         );
                                     }}
                                 />
@@ -147,9 +144,7 @@ class HeadBlance extends React.Component {
                                     src={`${process.env.BASE_PATH}/img/wallet/dropdown.svg`}
                                 />
                             </label>
-                            <b>
-                                {otherWalletTotal.toFixed(2)} đ
-                            </b>
+                            <b>{otherWalletTotal.toFixed(2)} đ</b>
                         </div>
                     </div>
                     {/* <div className="card-balance-wrap" style={{ display: showAll ? 'block' : 'none' }}>
@@ -202,26 +197,26 @@ class HeadBlance extends React.Component {
                     <div className="Content">
                         {balanceList && balanceList.length
                             ? balanceList.map((val, index) => {
-                                if (
-                                    val.category === "Main" ||
-                                    val.category === "TotalBal"
-                                )
-                                    return null;
-                                return (
-                                    <div
-                                        
-                                        key={"walletTransfer" + index}
-                                        className={classNames({
-                                            "balance-box": true,
-                                            UnderMaintenance:
-                                                val.state == "UnderMaintenance",
-                                        })}
-                                    >
-                                        <div>
-                                            <span className="localizedName">
-                                                {val.localizedName}
-                                            </span>
-                                            {/* {val.name === "SB" ? (
+                                  if (
+                                      val.category === "Main" ||
+                                      val.category === "TotalBal"
+                                  )
+                                      return null;
+                                  return (
+                                      <div
+                                          key={"walletTransfer" + index}
+                                          className={classNames({
+                                              "balance-box": true,
+                                              UnderMaintenance:
+                                                  val.state ==
+                                                  "UnderMaintenance",
+                                          })}
+                                      >
+                                          <div>
+                                              <span className="localizedName">
+                                                  {val.localizedName}
+                                              </span>
+                                              {/* {val.name === "SB" ? (
                                                 <Popover
                                                     overlayStyle={{
                                                         zIndex: 1000,
@@ -244,7 +239,7 @@ class HeadBlance extends React.Component {
                                                     </span>
                                                 </Popover>
                                             ) : null} */}
-                                            {/* {val.name === "P2P" ? (
+                                              {/* {val.name === "P2P" ? (
                                                 <Popover
                                                     overlayStyle={{
                                                         zIndex: 1000,
@@ -265,16 +260,16 @@ class HeadBlance extends React.Component {
                                                     </span>
                                                 </Popover>
                                             ) : null} */}
-                                        </div>
-                                        <div className="num">
-                                            {val.state === "UnderMaintenance"
-                                                ? translate("维护中")
-                                                : "￥" + val.balance}
-                                        </div>
-                                        <div className="btn" />
-                                    </div>
-                                );
-                            })
+                                          </div>
+                                          <div className="num">
+                                              {val.state === "UnderMaintenance"
+                                                  ? translate("维护中")
+                                                  : "￥" + val.balance}
+                                          </div>
+                                          <div className="btn" />
+                                      </div>
+                                  );
+                              })
                             : null}
                     </div>
                 </Modal>

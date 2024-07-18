@@ -13,7 +13,7 @@ import PhoneVerify from "@/Verification/PhoneVerify";
 import { get } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "$ACTIONS/TLCAPI";
 import { Button } from "antd";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 class SecurityCheck extends React.Component {
     constructor(props) {
@@ -37,15 +37,13 @@ class SecurityCheck extends React.Component {
             //低安全等级
             Low =
                 (memberInfo.isVerifiedPhone &&
-                !memberInfo.isVerifiedPhone[1] &&
-                memberInfo.isVerifiedEmail &&
-                !memberInfo.isVerifiedEmail[1] &&
-                memberInfo.firstName == "") ||
-                (memberInfo.isVerifiedPhone &&
-                memberInfo.isVerifiedPhone[1] ||
-                memberInfo.isVerifiedEmail &&
-                memberInfo.isVerifiedEmail[1] ||
-                memberInfo.firstName !== "");
+                    !memberInfo.isVerifiedPhone[1] &&
+                    memberInfo.isVerifiedEmail &&
+                    !memberInfo.isVerifiedEmail[1] &&
+                    memberInfo.firstName == "") ||
+                (memberInfo.isVerifiedPhone && memberInfo.isVerifiedPhone[1]) ||
+                (memberInfo.isVerifiedEmail && memberInfo.isVerifiedEmail[1]) ||
+                memberInfo.firstName !== "";
             //中安全等级
             Medium =
                 (memberInfo.isVerifiedPhone &&
@@ -98,7 +96,14 @@ class SecurityCheck extends React.Component {
             <div className="account-wrap SecurityCheck">
                 <h2>{translate("帐户验证")}</h2>
                 <p>
-                    {translate("安全级别：")} <b>{High ? translate("高") : Medium ? translate("中") : translate("低")}</b>
+                    {translate("安全级别：")}{" "}
+                    <b>
+                        {High
+                            ? translate("高")
+                            : Medium
+                              ? translate("中")
+                              : translate("低")}
+                    </b>
                 </p>
 
                 <div className="Progress">
@@ -119,7 +124,9 @@ class SecurityCheck extends React.Component {
                     <small>{translate("为了提高安全性，请验证您的帐户")}</small>
                 </p>
                 <p className="note">
-                    {translate("FUN88始终遵守规则、条款和隐私，提供安全可靠的服务。 验证您的帐户以提高安全性")}
+                    {translate(
+                        "FUN88始终遵守规则、条款和隐私，提供安全可靠的服务。 验证您的帐户以提高安全性",
+                    )}
                 </p>
                 <div className="CheckBox">
                     <div className="List">
@@ -129,9 +136,15 @@ class SecurityCheck extends React.Component {
                             height="30px"
                         />
                         <div className="typeTitle">
-                            <b>{translate("身份验证")}<br/>{translate("公民身份")}</b>
+                            <b>
+                                {translate("身份验证")}
+                                <br />
+                                {translate("公民身份")}
+                            </b>
                         </div>
-                        <div className="TypeName">{translate("验证您的真实姓名")}</div>
+                        <div className="TypeName">
+                            {translate("验证您的真实姓名")}
+                        </div>
                         {!firstName && (
                             <Button
                                 type="primary"
@@ -160,10 +173,16 @@ class SecurityCheck extends React.Component {
                             height="32px"
                         />
                         <div className="typeTitle">
-                            <b>{translate("身份验证")}<br/>{translate("电话号码")}</b>
+                            <b>
+                                {translate("身份验证")}
+                                <br />
+                                {translate("电话号码")}
+                            </b>
                         </div>
 
-                        <div className="TypeName">{translate("有效电话号码验证")}</div>
+                        <div className="TypeName">
+                            {translate("有效电话号码验证")}
+                        </div>
                         {!isVerifiedPhone ? (
                             <Button
                                 type="primary"
@@ -192,10 +211,16 @@ class SecurityCheck extends React.Component {
                         />
 
                         <div className="typeTitle">
-                            <b>{translate("身份验证")}<br/>{translate("邮箱")}</b>
+                            <b>
+                                {translate("身份验证")}
+                                <br />
+                                {translate("邮箱")}
+                            </b>
                         </div>
 
-                        <div className="TypeName">{translate("有效电子邮件验证")}</div>
+                        <div className="TypeName">
+                            {translate("有效电子邮件验证")}
+                        </div>
                         {!isVerifiedEmail ? (
                             <Button
                                 type="primary"

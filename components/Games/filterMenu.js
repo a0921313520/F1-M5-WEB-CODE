@@ -19,7 +19,7 @@ export default class filterMenu extends React.Component {
             this.props;
 
         let isHave = categoryData.filter(
-            (item) => item.categoryType == typeKey
+            (item) => item.categoryType == typeKey,
         );
         return (
             <React.Fragment>
@@ -35,7 +35,7 @@ export default class filterMenu extends React.Component {
                                                 onClick={() => {
                                                     subcategory(
                                                         item.category,
-                                                        typeKey
+                                                        typeKey,
                                                     );
                                                 }}
                                                 key={index}

@@ -47,7 +47,7 @@ class PPB extends React.Component {
         if (prevState.lbStep !== this.state.lbStep) {
             if (this.state.lbStep === 2) {
                 this.startCountDown(
-                    this.hasTimeoutSeconds ? this.hasTimeoutSeconds : 300
+                    this.hasTimeoutSeconds ? this.hasTimeoutSeconds : 300,
                 );
             }
             if (this.state.lbStep === 3) {
@@ -81,7 +81,9 @@ class PPB extends React.Component {
                         className: "confirm-modal-of-public",
                         title: "温馨提醒",
                         content: (
-                            <div style={{ textAlign: "left" }}>您是否已经成功存款？</div>
+                            <div style={{ textAlign: "left" }}>
+                                您是否已经成功存款？
+                            </div>
                         ),
                         okText: "是，我已经成功存款",
                         cancelText: "否，我想提交新交易",
@@ -106,7 +108,7 @@ class PPB extends React.Component {
         const Paybank =
             this.props.currDepositDetail.banks &&
             this.props.currDepositDetail.banks.find(
-                (v) => v.Code === this.state.bankCodeState
+                (v) => v.Code === this.state.bankCodeState,
             );
         // if (Paybank == undefined) {
         // 	return message.error('正在维护，请选择其他存款方式。');
@@ -114,7 +116,7 @@ class PPB extends React.Component {
         if (
             typeof this.props.depositStatusCheck(
                 this.props.bcType,
-                this.state.bankCodeState
+                this.state.bankCodeState,
             ) === "undefined"
         )
             return; // 未完成真实姓名验证则呼出完善弹窗
@@ -194,20 +196,20 @@ class PPB extends React.Component {
                                     currDepositDetail.setting.timeoutSeconds;
                                 minute = parseInt(
                                     currDepositDetail.setting.timeoutSeconds /
-                                        60
+                                        60,
                                 )
                                     ? parseInt(
                                           currDepositDetail.setting
-                                              .timeoutSeconds / 60
+                                              .timeoutSeconds / 60,
                                       ) + "分钟"
                                     : "";
                                 second = parseInt(
                                     currDepositDetail.setting.timeoutSeconds %
-                                        60
+                                        60,
                                 )
                                     ? parseInt(
                                           currDepositDetail.setting
-                                              .timeoutSeconds % 60
+                                              .timeoutSeconds % 60,
                                       ) + "秒"
                                     : "";
                             }
@@ -343,7 +345,7 @@ class PPB extends React.Component {
                                 var RBWindow = window.open(
                                     "",
                                     "_blank",
-                                    "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=1245, height=559"
+                                    "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=1245, height=559",
                                 );
                                 RBWindow.document.write(res.redirectUrl);
                                 RBWindow.focus();
@@ -356,7 +358,7 @@ class PPB extends React.Component {
                                         .split(".")[0],
                                     {
                                         expires: 10,
-                                    }
+                                    },
                                 );
 
                                 this.setState({
@@ -376,7 +378,7 @@ class PPB extends React.Component {
                                         .split(".")[0],
                                     {
                                         expires: 5,
-                                    }
+                                    },
                                 );
                                 this.collectionInfo = res;
                                 this.setState({ lbStep: 2, FinishData: res });
@@ -400,7 +402,7 @@ class PPB extends React.Component {
                                     "哎呀！系统开小差了，请稍后重试。",
                             });
                         }
-                    }
+                    },
                 );
             }
         });
@@ -418,17 +420,17 @@ class PPB extends React.Component {
             Pushgtagdata(
                 "Transaction Record",
                 "View",
-                "View_TransactionRecord_Deposit"
+                "View_TransactionRecord_Deposit",
             );
     };
 
     submitBtnEnable = () => {
         let { setting } = this.props.currDepositDetail;
         let errors = Object.values(this.props.form.getFieldsError()).some(
-            (v) => v !== undefined
+            (v) => v !== undefined,
         );
         let values = Object.values(this.props.form.getFieldsValue()).some(
-            (v) => v == "" || v == undefined
+            (v) => v == "" || v == undefined,
         );
         if (
             setting &&

@@ -22,7 +22,7 @@ const MonthPicker = dynamic(
                 </div>
             </div>
         ),
-    }
+    },
 );
 
 class AP extends React.Component {
@@ -119,7 +119,7 @@ class AP extends React.Component {
                             message.success("充值成功！");
                             this.props.form.resetFields();
                         }
-                    }
+                    },
                 );
             }
         });
@@ -161,20 +161,20 @@ class AP extends React.Component {
                 (this.moneyInfo.minBalVal = setting.minBal),
                 (this.moneyInfo.maxBalVal = setting.maxBal),
                 (this.moneyInfo.minBal = formatAmount(
-                    this.moneyInfo.minBalVal
+                    this.moneyInfo.minBalVal,
                 )),
                 (this.moneyInfo.maxBal = formatAmount(
-                    this.moneyInfo.maxBalVal
+                    this.moneyInfo.maxBalVal,
                 )),
                 (this.moneyInfo.minBalUSDVal =
                     this.moneyInfo.minBalVal / this.moneyInfo.Rate),
                 (this.moneyInfo.maxBalUSDVal =
                     this.moneyInfo.maxBalVal / this.moneyInfo.Rate),
                 (this.moneyInfo.minBalUSD = formatAmount(
-                    this.moneyInfo.minBalUSDVal
+                    this.moneyInfo.minBalUSDVal,
                 )),
                 (this.moneyInfo.maxBalUSD = formatAmount(
-                    this.moneyInfo.maxBalUSDVal
+                    this.moneyInfo.maxBalUSDVal,
                 ));
         }
 
@@ -220,7 +220,7 @@ class AP extends React.Component {
                                                 !isPassAstroPay
                                             ) {
                                                 callback(
-                                                    "AstroPay卡号格式有误"
+                                                    "AstroPay卡号格式有误",
                                                 );
                                             }
                                             if (isPassAstroPay) {
@@ -236,13 +236,13 @@ class AP extends React.Component {
                                                                 parseInt(
                                                                     mul(
                                                                         getFieldValue(
-                                                                            "money"
+                                                                            "money",
                                                                         ),
                                                                         this
                                                                             .moneyInfo
-                                                                            .Rate
-                                                                    )
-                                                                )
+                                                                            .Rate,
+                                                                    ),
+                                                                ),
                                                             ),
                                                     });
                                                 } else {
@@ -263,7 +263,7 @@ class AP extends React.Component {
                                 placeholder="请输入AstroPay卡号"
                                 autoComplete="off"
                                 maxLength={16}
-                            />
+                            />,
                         )}
                     </Item>
                     <Item label="安全码">
@@ -278,7 +278,7 @@ class AP extends React.Component {
                                 placeholder="请输入安全码"
                                 autoComplete="off"
                                 maxLength={20}
-                            />
+                            />,
                         )}
                     </Item>
 
@@ -323,10 +323,12 @@ class AP extends React.Component {
                                         this.clearValue(e, "month");
                                     }}
                                 />
-                            </div>
+                            </div>,
                         )}
                     </Item>
-                    <Item label={`卡片面值${this.state.moneyType ? '（' + this.state.moneyType + '）' : ''}(USD/RMB)`}>
+                    <Item
+                        label={`卡片面值${this.state.moneyType ? "（" + this.state.moneyType + "）" : ""}(USD/RMB)`}
+                    >
                         {" "}
                         {/* label={`卡片面值(USD/RMB)`}  */}
                         {/* ${this.state.moneyType ? '（' + this.state.moneyType + '）' : ''} */}
@@ -339,7 +341,7 @@ class AP extends React.Component {
                                         if (value) {
                                             if (!depositMoneyInt.test(value)) {
                                                 callback(
-                                                    "金额格式错误，只允许输入整数"
+                                                    "金额格式错误，只允许输入整数",
                                                 );
                                             }
                                             if (
@@ -352,7 +354,7 @@ class AP extends React.Component {
                                                     callback(
                                                         "最高存款金额：$" +
                                                             this.moneyInfo
-                                                                .maxBalUSD
+                                                                .maxBalUSD,
                                                     );
                                                 }
                                                 if (
@@ -362,7 +364,7 @@ class AP extends React.Component {
                                                     callback(
                                                         "最低存款金额：$" +
                                                             this.moneyInfo
-                                                                .minBalUSD
+                                                                .minBalUSD,
                                                     );
                                                 }
                                                 if (
@@ -381,9 +383,9 @@ class AP extends React.Component {
                                                                         value,
                                                                         this
                                                                             .moneyInfo
-                                                                            .Rate
-                                                                    )
-                                                                )
+                                                                            .Rate,
+                                                                    ),
+                                                                ),
                                                             ),
                                                     });
                                                 }
@@ -396,7 +398,7 @@ class AP extends React.Component {
                                                         "最高存款金额：" +
                                                             this.moneyInfo
                                                                 .maxBal +
-                                                            "元"
+                                                            "元",
                                                     );
                                                 }
                                                 if (
@@ -407,7 +409,7 @@ class AP extends React.Component {
                                                         "最低存款金额：" +
                                                             this.moneyInfo
                                                                 .minBal +
-                                                            "元"
+                                                            "元",
                                                     );
                                                 }
                                             }
@@ -425,7 +427,7 @@ class AP extends React.Component {
                                 autoComplete="off"
                                 maxLength={20}
                                 placeholder={`单笔存款范围:${this.moneyInfo.minBal} ($${this.moneyInfo.minBalUSD}) - ${this.moneyInfo.maxBal} ($${this.moneyInfo.maxBalUSD})`}
-                            />
+                            />,
                         )}
                     </Item>
                     {this.state.moneyType === "USD" ? (
@@ -459,7 +461,7 @@ class AP extends React.Component {
                             <Button
                                 disabled={
                                     Object.values(getFieldsError()).some(
-                                        (v) => v !== undefined
+                                        (v) => v !== undefined,
                                     ) ||
                                     !this.state.yeartime ||
                                     !this.state.monthtime

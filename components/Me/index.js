@@ -9,8 +9,11 @@ import { Popover, Spin, Button, Icon } from "antd";
 import { getMemberInfo } from "$DATA/userinfo";
 import { connect } from "react-redux";
 import { promotionActions } from "$STORE/promotionSlice";
-import { userCenterActions,WILLUPDATETODEFAULT_KEYARRAY } from "$STORE/userCenterSlice";
-import {translate} from "$ACTIONS/Translate";
+import {
+    userCenterActions,
+    WILLUPDATETODEFAULT_KEYARRAY,
+} from "$STORE/userCenterSlice";
+import { translate } from "$ACTIONS/Translate";
 
 // 个人中心
 const DynamicAccount = dynamic(import("@/Account"), {
@@ -18,10 +21,10 @@ const DynamicAccount = dynamic(import("@/Account"), {
     ssr: true,
 });
 //奖励地址管理
-const Address = dynamic(import("@/Address"),{
+const Address = dynamic(import("@/Address"), {
     loading: () => "",
     ssr: true,
-})
+});
 // 银行账户
 const DynamicBankAccount = dynamic(import("@/BankAccount"), {
     loading: () => "",
@@ -63,7 +66,7 @@ class MeModule extends React.PureComponent {
         super(props);
         this.state = {
             pageKey: "",
-            memberInfo:{},
+            memberInfo: {},
             loading: false,
             memberInfoRefresh: false, // flag for refresh memberInfo everytime enter Usercenter
         };
@@ -81,7 +84,7 @@ class MeModule extends React.PureComponent {
             "betrecords",
             "mypromotion",
             "mybonus",
-            "dailybonus"
+            "dailybonus",
         ];
         this.pageNameArr = [
             "个人信息",
@@ -101,7 +104,8 @@ class MeModule extends React.PureComponent {
         let i = 0;
         this.pageArr.forEach((val, index) => {
             (index === 7 || index === 9) && i++;
-            typeof this.pageArrGroup[i] === "undefined" && (this.pageArrGroup[i] = []);
+            typeof this.pageArrGroup[i] === "undefined" &&
+                (this.pageArrGroup[i] = []);
             this.pageArrGroup[i].push({
                 key: val,
                 name: translate(this.pageNameArr[index]),
@@ -109,42 +113,49 @@ class MeModule extends React.PureComponent {
         });
     }
     componentDidMount() {
-        if(this.props.memberInfo){
+        if (this.props.memberInfo) {
             this.setState({
                 pageKey: this.props.userCenterTabKey,
-                memberInfoRefresh: this.props.userCenterTabKey === "userinfo" ? true : false,
-                loading:true,
-                memberInfo: this.props.memberInfo
-            })
+                memberInfoRefresh:
+                    this.props.userCenterTabKey === "userinfo" ? true : false,
+                loading: true,
+                memberInfo: this.props.memberInfo,
+            });
         }
     }
-    componentDidUpdate(prevProps, prevState){
-        if(prevProps.userCenterTabKey !== this.props.userCenterTabKey && this.props.userCenterTabKey){
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            prevProps.userCenterTabKey !== this.props.userCenterTabKey &&
+            this.props.userCenterTabKey
+        ) {
             this.setState({
                 pageKey: this.props.userCenterTabKey,
-            })
+            });
         }
-        if(prevProps.memberInfo !== this.props.memberInfo && this.props.memberInfo !== "{}"){
+        if (
+            prevProps.memberInfo !== this.props.memberInfo &&
+            this.props.memberInfo !== "{}"
+        ) {
             this.setState({
-                memberInfo: this.props.memberInfo
-            })
+                memberInfo: this.props.memberInfo,
+            });
         }
     }
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState = () => false;
     }
-    
+
     /**
      * 公用跳转UserCenterFunction
      * @param {string} key 需要跳转的界面
      */
-    navigatorPage =(key)=> {
+    navigatorPage = (key) => {
         let currKey = !!key ? key : this.pageArr[0];
         if (currKey === this.props.userCenterTabKey) return; //禁止重复选择一样的tab
-        if(WILLUPDATETODEFAULT_KEYARRAY.some((item)=>item === currKey)){
-            switch(currKey){
+        if (WILLUPDATETODEFAULT_KEYARRAY.some((item) => item === currKey)) {
+            switch (currKey) {
                 case "mypromotion":
-                    this.props.changeTab( "2");
+                    this.props.changeTab("2");
                     Router.push("/promotions");
                     break;
                 case "mybonus":
@@ -157,7 +168,7 @@ class MeModule extends React.PureComponent {
                     break;
             }
         } else {
-            switch(currKey){
+            switch (currKey) {
                 case "bankaccount":
                     this.props.changeUserCenterTabKey(currKey);
                     Router.push("/me/bank-account");
@@ -198,7 +209,7 @@ class MeModule extends React.PureComponent {
                     break;
             }
         }
-    }
+    };
     /**
      * @description: 获取会员信息 并更新本地数据
      * @return {*}
@@ -210,12 +221,9 @@ class MeModule extends React.PureComponent {
                 if (res) {
                     this.setLoading(false);
                     this.props.setUserCenterMemberInfo(res);
-                    this.setState(
-                        { memberInfoRefresh: true },
-                        () => {
-                            props.SecurityCheckInfo(res);
-                        }
-                    );
+                    this.setState({ memberInfoRefresh: true }, () => {
+                        props.SecurityCheckInfo(res);
+                    });
                 }
             }, true);
         });
@@ -226,16 +234,15 @@ class MeModule extends React.PureComponent {
     }
 
     render() {
-        const {
+        const { userCenterTabKey, currentMoney, hasUnRead } = this.props;
+        const { pageKey, loading } = this.state;
+        console.log(
+            "🚀 ~ file: usercenter.js:234 ~ UserCenter ~ render ~ userCenterTabKey:",
             userCenterTabKey,
-            currentMoney,
-            hasUnRead,
-        } = this.props;
-        const {
+            ",",
+            "pageKey:",
             pageKey,
-            loading
-        } = this.state;
-        console.log("🚀 ~ file: usercenter.js:234 ~ UserCenter ~ render ~ userCenterTabKey:", userCenterTabKey,",","pageKey:",pageKey)
+        );
         let pageComponent = null;
         switch (pageKey) {
             case this.pageArr[0]:
@@ -244,7 +251,9 @@ class MeModule extends React.PureComponent {
                         setLoading={this.setLoading}
                         memberInfoRefresh={this.state.memberInfoRefresh}
                         // 更新HadHeader组件的memberInfo，此memberInfo公用到个人信息弹出层和钱包弹出层
-                        setMemberInfo={(v)=>{this.props.setUserCenterMemberInfo(v)}}
+                        setMemberInfo={(v) => {
+                            this.props.setUserCenterMemberInfo(v);
+                        }}
                         // 更新userCenter Page的memberInfo
                         setSelfMemberInfo={(v) => {
                             this.setState({ memberInfo: v });
@@ -253,9 +262,7 @@ class MeModule extends React.PureComponent {
                 );
                 break;
             case this.pageArr[1]:
-                pageComponent = (
-                    <Address setLoading={this.setLoading} />
-                );
+                pageComponent = <Address setLoading={this.setLoading} />;
                 break;
             case this.pageArr[2]:
                 pageComponent = (
@@ -314,9 +321,7 @@ class MeModule extends React.PureComponent {
                 break;
             case this.pageArr[8]:
                 pageComponent = (
-                    <DynamicBetRecords
-                        setLoading={this.setLoading}
-                    />
+                    <DynamicBetRecords setLoading={this.setLoading} />
                 );
                 break;
             default:
@@ -324,15 +329,16 @@ class MeModule extends React.PureComponent {
         }
 
         return (
-            <React.Fragment
-            >
+            <React.Fragment>
                 <div className="common-distance-wrap">
                     <div className="common-distance">
                         <div className="user-center-wrap">
                             <div className="left-nav-wrap user-title-wrap">
                                 <div className="tlc-user-picture-wrap">
                                     <div className="tlc-user-picture">
-                                        <img src={`${process.env.BASE_PATH}/img/icons/head.svg`} />
+                                        <img
+                                            src={`${process.env.BASE_PATH}/img/icons/head.svg`}
+                                        />
                                     </div>
                                     <h4 className="tlc-user-name">
                                         {this.props.memberInfo.userName}
@@ -390,7 +396,9 @@ class MeModule extends React.PureComponent {
                                                 ￥
                                             </span>
                                             <span className="inline-block">
-                                                {formatAmount(currentMoney?.mainMoney)}
+                                                {formatAmount(
+                                                    currentMoney?.mainMoney,
+                                                )}
                                             </span>
                                         </div>
                                         <Button.Group
@@ -405,7 +413,7 @@ class MeModule extends React.PureComponent {
                                                         key: 'wallet:{"type": "deposit"}',
                                                     });
                                                     Pushgtagdata(
-                                                        "Deposit_profilepage"
+                                                        "Deposit_profilepage",
                                                     );
                                                 }}
                                             >
@@ -419,7 +427,7 @@ class MeModule extends React.PureComponent {
                                                         key: 'wallet:{"type": "transfer"}',
                                                     });
                                                     Pushgtagdata(
-                                                        "Transfer_profilepage"
+                                                        "Transfer_profilepage",
                                                     );
                                                 }}
                                             >
@@ -433,7 +441,7 @@ class MeModule extends React.PureComponent {
                                                         key: 'wallet:{"type": "withdraw"}',
                                                     });
                                                     Pushgtagdata(
-                                                        "Withdrawal_profilepage"
+                                                        "Withdrawal_profilepage",
                                                     );
                                                 }}
                                             >
@@ -452,8 +460,12 @@ class MeModule extends React.PureComponent {
                                                 return (
                                                     <li
                                                         key={`navItem${itemIndex}`}
-                                                        className={`${pageKey === item.key ? "active": ""}`}
-                                                        onClick={() =>this.navigatorPage(item.key)}
+                                                        className={`${pageKey === item.key ? "active" : ""}`}
+                                                        onClick={() =>
+                                                            this.navigatorPage(
+                                                                item.key,
+                                                            )
+                                                        }
                                                     >
                                                         <span>{item.name}</span>
                                                         {item.key ===
@@ -490,7 +502,7 @@ const mapStateToProps = function (state) {
     return {
         promotionTabIndex: state.promotion.topTabIndex,
         memberInfo: state.userCenter.memberInfo,
-        userCenterTabKey: state.userCenter.userCenterPageTabKey
+        userCenterTabKey: state.userCenter.userCenterPageTabKey,
     };
 };
 
@@ -502,9 +514,9 @@ const mapDispatchToProps = function (dispatch) {
         setMemberInfo: (memberObj) => {
             dispatch(userCenterActions.setMemberInfo(memberObj));
         },
-        changeUserCenterTabKey:(key)=>{
-            dispatch(userCenterActions.changeUserCenterTabKey(key))
-        }
+        changeUserCenterTabKey: (key) => {
+            dispatch(userCenterActions.changeUserCenterTabKey(key));
+        },
     };
 };
 

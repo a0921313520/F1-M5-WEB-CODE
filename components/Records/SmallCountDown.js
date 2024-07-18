@@ -79,12 +79,16 @@ class SmallCountDown extends React.Component {
                                 src="/vn/img/icons/icon-warnstop.png"
                                 alt="icon-warnstop"
                             ></img>
-                            <p>
-                                {" "}
-                                重要提示
-                            </p>
+                            <p> 重要提示</p>
                         </div>
-                        <div style={{textAlign: 'center', fontWeight: '500', color: '#222222', marginBottom: '10px'}}>
+                        <div
+                            style={{
+                                textAlign: "center",
+                                fontWeight: "500",
+                                color: "#222222",
+                                marginBottom: "10px",
+                            }}
+                        >
                             在您继续下一步之前，请务必先了解详细内容后才点击“确认到账”。
                         </div>
                         <ul>
@@ -100,10 +104,7 @@ class SmallCountDown extends React.Component {
                                     请留意您的资金安全。
                                 </span>
                             </li>
-                            <li>
-                                {" "}
-                                若您在尚未检查的情况下点击 “确认到账”， 
-                            </li>
+                            <li> 若您在尚未检查的情况下点击 “确认到账”，</li>
                             <li>
                                 所产生的损失乐天堂
                                 <span
@@ -114,7 +115,7 @@ class SmallCountDown extends React.Component {
                                 >
                                     概不负责赔偿。
                                 </span>
-                                <br/>
+                                <br />
                                 请确认您的金额是否已到账。
                             </li>
                         </ul>

@@ -2,23 +2,27 @@
 if (process.browser) {
     let piwikTimer = null;
     let piwikUrl = [];
-    function pushUrl(_paq, url,trackTitle) {
-        console.log("🚀 ~ file: Globalfun.js:6 ~ url,trackTitle:", url,trackTitle)
+    function pushUrl(_paq, url, trackTitle) {
+        console.log(
+            "🚀 ~ file: Globalfun.js:6 ~ url,trackTitle:",
+            url,
+            trackTitle,
+        );
         if (!window.piwikLoadFinished && ~window.location.href.indexOf(url)) {
             return;
         }
         _paq.push(["setCustomUrl", url]);
         _paq.push(["trackPageView"]);
-        trackTitle && _paq.push(["setDocumentTitle",trackTitle]);
+        trackTitle && _paq.push(["setDocumentTitle", trackTitle]);
     }
-    global.Pushgtagpiwikurl = (url,trackTitle="") => {
+    global.Pushgtagpiwikurl = (url, trackTitle = "") => {
         if (!url) {
             return;
         } else {
             url = window.location.origin + "/vn/" + url + "/";
         }
         if (typeof _paq === "object") {
-            pushUrl(_paq, url,trackTitle);
+            pushUrl(_paq, url, trackTitle);
         } else {
             piwikUrl.push(url);
             clearInterval(piwikTimer);
@@ -28,7 +32,7 @@ if (process.browser) {
                     Array.isArray(piwikUrl) &&
                         piwikUrl.length &&
                         piwikUrl.forEach((v) => {
-                            pushUrl(_paq, v,trackTitle);
+                            pushUrl(_paq, v, trackTitle);
                         });
                     piwikUrl = [];
                 }
@@ -39,27 +43,49 @@ if (process.browser) {
         eventCategory,
         action,
         name,
-        number="",
-        customVariableArr = []
+        number = "",
+        customVariableArr = [],
     ) => {
         if (eventCategory == undefined) {
             return;
         }
-        console.log("Piwik 追中:", eventCategory,",", action,",", name,",",number,",",customVariableArr);
+        console.log(
+            "Piwik 追中:",
+            eventCategory,
+            ",",
+            action,
+            ",",
+            name,
+            ",",
+            number,
+            ",",
+            customVariableArr,
+        );
         let data = eventCategory.replace(/[&\|\\\*^%/$#@\-]/g, "");
         if (typeof _paq === "object") {
-            customVariableArr.length && customVariableArr.forEach((variableItem,i)=> {
-                variableItem.customVariableKey &&
-                _paq.push([
-                    "setCustomVariable",
-                    i+1,
-                    variableItem.customVariableKey,
-                    variableItem.customVariableValue,
-                    "page",
-                ])
-            });
-            _paq.push(["trackEvent", data, action ? action : "touch", name,number]);
-            customVariableArr.length && customVariableArr.forEach((variableItem,i)=> { variableItem.customVariableKey && _paq.push(["deleteCustomVariable", i+1, "page"])});
+            customVariableArr.length &&
+                customVariableArr.forEach((variableItem, i) => {
+                    variableItem.customVariableKey &&
+                        _paq.push([
+                            "setCustomVariable",
+                            i + 1,
+                            variableItem.customVariableKey,
+                            variableItem.customVariableValue,
+                            "page",
+                        ]);
+                });
+            _paq.push([
+                "trackEvent",
+                data,
+                action ? action : "touch",
+                name,
+                number,
+            ]);
+            customVariableArr.length &&
+                customVariableArr.forEach((variableItem, i) => {
+                    variableItem.customVariableKey &&
+                        _paq.push(["deleteCustomVariable", i + 1, "page"]);
+                });
         }
     };
     let StagingApi = Boolean(
@@ -73,7 +99,7 @@ if (process.browser) {
             "p5stag7.fun88.biz",
             "p5stag8.fun88.biz",
             "localhost:8003",
-        ].find((v) => global.location.href.includes(v))
+        ].find((v) => global.location.href.includes(v)),
     );
     setTimeout(() => {
         let e2src = "https://e2.platform88798.com/E2/EagleEye.js";
@@ -117,7 +143,7 @@ if (process.browser) {
             stgCreateCookie(
                 "stg_debug",
                 isStgDebug ? 1 : "",
-                isStgDebug ? 14 : -1
+                isStgDebug ? 14 : -1,
             );
 
             var qP = [];
@@ -148,13 +174,19 @@ if (process.browser) {
                                             event: n + "." + i + ":" + a[0],
                                             parameters: [].slice.call(
                                                 arguments,
-                                                1
+                                                1,
                                             ),
                                         });
                                 });
                     })(i[c]);
             })(window, "ppms", ["tm", "cm"]);
-        })(window, document, "dataLayer", "d276117d-58ce-4b99-8418-9b11484cb34e" || "9ede9ab4-cea2-4a10-bf94-02ac2600e615");
+        })(
+            window,
+            document,
+            "dataLayer",
+            "d276117d-58ce-4b99-8418-9b11484cb34e" ||
+                "9ede9ab4-cea2-4a10-bf94-02ac2600e615",
+        );
     } else {
         (function (window, document, dataLayerName, id) {
             (window[dataLayerName] = window[dataLayerName] || []),
@@ -182,7 +214,7 @@ if (process.browser) {
             stgCreateCookie(
                 "stg_debug",
                 isStgDebug ? 1 : "",
-                isStgDebug ? 14 : -1
+                isStgDebug ? 14 : -1,
             );
 
             var qP = [];
@@ -213,12 +245,17 @@ if (process.browser) {
                                             event: n + "." + i + ":" + a[0],
                                             parameters: [].slice.call(
                                                 arguments,
-                                                1
+                                                1,
                                             ),
                                         });
                                 });
                     })(i[c]);
             })(window, "ppms", ["tm", "cm"]);
-        })(window, document, "dataLayer", "d276117d-58ce-4b99-8418-9b11484cb34e");
+        })(
+            window,
+            document,
+            "dataLayer",
+            "d276117d-58ce-4b99-8418-9b11484cb34e",
+        );
     }
 }

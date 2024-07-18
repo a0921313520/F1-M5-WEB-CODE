@@ -3,15 +3,20 @@ import Router from "next/router";
 import { createForm } from "rc-form";
 import { Button, Input, message, Row, Spin, Col } from "antd";
 import Item from "../../components/View/Formitem";
-import { pwdReg, emailReg,nameReg ,phoneReg} from "$ACTIONS/reg";
+import { pwdReg, emailReg, nameReg, phoneReg } from "$ACTIONS/reg";
 import { get, post } from "$ACTIONS/TlcRequest";
-import { getAffiliateReferralCode, Cookie, getDisplayPublicError,getE2BBValue } from "$ACTIONS/helper";
-import { ApiPort,APISETS } from "$ACTIONS/TLCAPI";
+import {
+    getAffiliateReferralCode,
+    Cookie,
+    getDisplayPublicError,
+    getE2BBValue,
+} from "$ACTIONS/helper";
+import { ApiPort, APISETS } from "$ACTIONS/TLCAPI";
 import HostConfig from "$ACTIONS/Host.config";
 import CMSOBJ from "$DATA/stage.live.static.id";
 import Captcha from "../Captcha";
-import {translate} from "$ACTIONS/Translate";
-import {throttle} from "$ACTIONS/util"
+import { translate } from "$ACTIONS/Translate";
+import { throttle } from "$ACTIONS/util";
 import {
     MemberIcon,
     PasswordIcon,
@@ -36,7 +41,7 @@ class _Register extends React.Component {
             isNameAvailable: false,
             isEmailAvailable: false,
             showEmailList: false,
-            chooseTheRecommended: false
+            chooseTheRecommended: false,
         };
 
         this.phonePrefix = [];
@@ -53,8 +58,8 @@ class _Register extends React.Component {
             "@outlook.com.vn",
             "@caothang.edu.vn",
             "@love.com",
-            "@cdktcnqn.edu.vn"
-        ]
+            "@cdktcnqn.edu.vn",
+        ];
     }
 
     componentDidMount() {
@@ -68,7 +73,7 @@ class _Register extends React.Component {
             disabled: isDisabled,
         });
 
-        this.getPhonePrefix()
+        this.getPhonePrefix();
         global.Pushgtagpiwikurl && global.Pushgtagpiwikurl("register");
         this.handleInputThrottled = throttle(this.handleInput, 2000);
     }
@@ -76,10 +81,10 @@ class _Register extends React.Component {
         this.handleInputThrottled = null;
         this.setState = () => false;
     }
-    getPhonePrefix =()=>{
+    getPhonePrefix = () => {
         get(ApiPort.PhonePrefix)
             .then((res) => {
-                if(res?.isSuccess && res?.result){
+                if (res?.isSuccess && res?.result) {
                     this.phonePrefix = res.result.prefixes;
                     // this.maxLength = res.result.maxLength;
                     // this.minLength = res.result.minLength;
@@ -88,89 +93,100 @@ class _Register extends React.Component {
             .catch((error) => {
                 console.log("PhonePrefix error:", error);
             });
-    }
-    handleInputChange = (key,value) => {
-        this.handleInputThrottled(key,value)
-    }
-    handleInput = (key="",value) => {
-        get(ApiPort.GETInfoValidity + "?key="+ key +"&value=" + value + APISETS)
+    };
+    handleInputChange = (key, value) => {
+        this.handleInputThrottled(key, value);
+    };
+    handleInput = (key = "", value) => {
+        get(
+            ApiPort.GETInfoValidity +
+                "?key=" +
+                key +
+                "&value=" +
+                value +
+                APISETS,
+        )
             .then((res) => {
                 if (res) {
-                    switch (key){
+                    switch (key) {
                         case "Username":
                             if (res.isSuccess && res.result) {
-                                this.setState({isNameAvailable: true})
+                                this.setState({ isNameAvailable: true });
                             } else {
                                 //用户名被别人注册了
-                                this.setState({isNameAvailable: false})
+                                this.setState({ isNameAvailable: false });
                             }
                             break;
                         case "Email":
                             if (res.isSuccess && res.result) {
-                                this.setState({isEmailAvailable: true})
+                                this.setState({ isEmailAvailable: true });
                             } else {
                                 //邮箱被别人注册了或是格式不符合后端定义的邮箱格式
-                                this.setState({isEmailAvailable: false});
-                            } 
+                                this.setState({ isEmailAvailable: false });
+                            }
                             break;
                         default:
                             break;
                     }
                 }
-            }).catch((error) => {
-                switch (key){
+            })
+            .catch((error) => {
+                switch (key) {
                     case "Username":
                         //用户名被别人注册了
-                        this.setState({isNameAvailable: false})
-                    break;
+                        this.setState({ isNameAvailable: false });
+                        break;
                     case "Email":
                         //邮箱被别人注册了或是格式不符合后端定义的邮箱格式
-                        this.setState({isEmailAvailable: false});
+                        this.setState({ isEmailAvailable: false });
                         break;
                     default:
                         break;
                 }
-            })
-    }
+            });
+    };
 
     startRegister = () => {
-        const {
-            UserName,
-            UserPwd,
-            UserPhone,
-            EmailAccount,
-            referer,
-        } = this.state;
+        const { UserName, UserPwd, UserPhone, EmailAccount, referer } =
+            this.state;
         const phoneLength = UserPhone.toString().length;
         if (UserName == "") {
             message.error(translate("请输入用户名"));
             return;
         }
         if (nameReg.test(UserName) == false) {
-            message.error(translate("用户名长度必须至少有6个字符，不能超过14个字符，仅可使用字母 'A-Z', 'a-z' , 数字 '0-9'。"));
+            message.error(
+                translate(
+                    "用户名长度必须至少有6个字符，不能超过14个字符，仅可使用字母 'A-Z', 'a-z' , 数字 '0-9'。",
+                ),
+            );
             return;
         }
         if (UserPwd == "") {
             message.error(translate("请输入密码"));
             return;
         }
-      
+
         if (pwdReg.test(UserPwd) === false) {
-            message.error(translate("密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@"));
+            message.error(
+                translate(
+                    "密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@",
+                ),
+            );
             return;
         }
 
-        if(Array.isArray(this.phonePrefix) && this.phonePrefix.length){
-            if(
-                !this.checkPrefix(UserPhone,this.phonePrefix) ||
+        if (Array.isArray(this.phonePrefix) && this.phonePrefix.length) {
+            if (
+                !this.checkPrefix(UserPhone, this.phonePrefix) ||
                 phoneLength > this.maxLength ||
                 phoneLength < this.minLength ||
                 /\D/.test(UserPhone.toString())
-            ){
+            ) {
                 message.error(translate("该电话号码无效，请输入正确的号码"));
                 return;
             }
-        } 
+        }
         // else if(!phoneReg.test(UserPhone)){
         //     //如果手机号前缀验证未加载完成或API Error,则只做基本的电话校验,其他交给API去校验
         //     message.error(translate("电话号码必须由9个数字组成，不要在前面填写0"));
@@ -182,9 +198,9 @@ class _Register extends React.Component {
             return;
         }
         if (this.Captcha) {
-			this.Captcha.getCaptchaInfo(UserName);
-		}
-        if (this.state.challengeUuid == '') {
+            this.Captcha.getCaptchaInfo(UserName);
+        }
+        if (this.state.challengeUuid == "") {
             this.setState({ captchaVisible: true });
             return;
         }
@@ -193,13 +209,8 @@ class _Register extends React.Component {
 
     /*注册*/
     Register() {
-        const {
-            UserName,
-            UserPwd,
-            UserPhone,
-            EmailAccount,
-            referer,
-        } = this.state;
+        const { UserName, UserPwd, UserPhone, EmailAccount, referer } =
+            this.state;
         this.setState({ loading: true });
         const UserData = {
             HostName: ApiPort.LOCAL_HOST,
@@ -218,10 +229,10 @@ class _Register extends React.Component {
             BrandCode: "FUN88",
             currency: "VND",
             queleaReferrerId: localStorage.getItem("queleaReferrerId"),
-            Captch:{
-            	challenge: this.state.challengeUuid
+            Captch: {
+                challenge: this.state.challengeUuid,
             },
-            blackBoxValue:getE2BBValue(),
+            blackBoxValue: getE2BBValue(),
             e2BlackBoxValue: getE2BBValue(),
         };
         let responseData = {};
@@ -233,10 +244,14 @@ class _Register extends React.Component {
                         this.props.login(UserName, UserPwd, "Register");
                     } else if (res.isSuccess == false) {
                         if (res.result.errorCode == "MEM00026") {
-                            message.error(res.message || translate("用户名已被其他人使用，请重新输入"));
-                        }else {
+                            message.error(
+                                res.message ||
+                                    translate(
+                                        "用户名已被其他人使用，请重新输入",
+                                    ),
+                            );
+                        } else {
                             message.error(res.message);
-
                         }
                     }
                     responseData = res;
@@ -245,16 +260,19 @@ class _Register extends React.Component {
             .catch((error) => {
                 console.log(error);
                 responseData = error;
-            }).finally(()=>{
-                this.setState({ 
+            })
+            .finally(() => {
+                this.setState({
                     loading: false,
-                    challengeUuid: '' 
+                    challengeUuid: "",
                 });
-                const messages = responseData.isSuccess ? "" : getDisplayPublicError(responseData);
-                let refCode = 
+                const messages = responseData.isSuccess
+                    ? ""
+                    : getDisplayPublicError(responseData);
+                let refCode =
                     Cookie.GetCookieKeyValue("CO_Referer") ||
                     sessionStorage.getItem("affCode") ||
-                    ""
+                    "";
                 Pushgtagdata(
                     "Register",
                     "Submit Register",
@@ -262,16 +280,25 @@ class _Register extends React.Component {
                     responseData.isSuccess ? 2 : 1,
                     [
                         {
-                            customVariableKey: responseData.isSuccess ? false : "Register_S_Register_ErrorMsg",
-                            customVariableValue: responseData.isSuccess ? false : messages || translate("系统错误，请稍后重试！")
+                            customVariableKey: responseData.isSuccess
+                                ? false
+                                : "Register_S_Register_ErrorMsg",
+                            customVariableValue: responseData.isSuccess
+                                ? false
+                                : messages ||
+                                  translate("系统错误，请稍后重试！"),
                         },
                         {
-                            customVariableKey: responseData.isSuccess ? false : "Register_S_Register_AffiliateCode",
-                            customVariableValue: responseData.isSuccess ? false : refCode
-                        }
-                    ]
+                            customVariableKey: responseData.isSuccess
+                                ? false
+                                : "Register_S_Register_AffiliateCode",
+                            customVariableValue: responseData.isSuccess
+                                ? false
+                                : refCode,
+                        },
+                    ],
                 );
-            })
+            });
     }
 
     RegisterFormdata = (e, t) => {
@@ -279,7 +306,9 @@ class _Register extends React.Component {
             this.setState({
                 UserName: e.target.value,
             });
-            e.target.value && nameReg.test(e.target.value) && this.handleInputChange("Username",e.target.value)
+            e.target.value &&
+                nameReg.test(e.target.value) &&
+                this.handleInputChange("Username", e.target.value);
         }
         if (t == "affcode") {
             this.setState({
@@ -291,7 +320,7 @@ class _Register extends React.Component {
                 UserPwd: e.target.value,
             });
         }
-     
+
         if (t == "phone") {
             this.setState({
                 UserPhone: e.target.value,
@@ -299,18 +328,21 @@ class _Register extends React.Component {
         }
         if (t == "email") {
             const atIndex = e.target.value.indexOf("@");
-            const suffixValue = (atIndex > 0 && e.target.value.slice(atIndex+1)) || "";
+            const suffixValue =
+                (atIndex > 0 && e.target.value.slice(atIndex + 1)) || "";
             this.setState({
                 EmailAccount: e.target.value,
                 showEmailList: atIndex > 0 && !suffixValue,
-                chooseTheRecommended: false
-            })
-            e.target.value && emailReg.test(e.target.value) && this.handleInputChange("Email",e.target.value)
+                chooseTheRecommended: false,
+            });
+            e.target.value &&
+                emailReg.test(e.target.value) &&
+                this.handleInputChange("Email", e.target.value);
             let error = "";
-            if(!e.target.value){
-                error = translate("请输入电子邮箱")
-            } else if(e.target.value && !emailReg.test(e.target.value)){
-                error = translate("请填写有效的电子邮件地址")
+            if (!e.target.value) {
+                error = translate("请输入电子邮箱");
+            } else if (e.target.value && !emailReg.test(e.target.value)) {
+                error = translate("请填写有效的电子邮件地址");
             }
             this.props.form.setFields({
                 emailNameState: {
@@ -318,7 +350,7 @@ class _Register extends React.Component {
                     errors: [new Error(error)],
                 },
             });
-            this.props.form.validateFields(['emailNameState']);
+            this.props.form.validateFields(["emailNameState"]);
         }
     };
     onMatch = (id) => {
@@ -329,7 +361,7 @@ class _Register extends React.Component {
             },
             () => {
                 this.Register();
-            }
+            },
         );
     };
 
@@ -340,43 +372,51 @@ class _Register extends React.Component {
      */
     submitBtnEnable = () => {
         let error = Object.values(this.props.form.getFieldsError()).some(
-            (v) => v !== undefined
+            (v) => v !== undefined,
         );
         let errors = Object.values(this.props.form.getFieldsValue()).some(
-            (v) => v == "" || v == undefined
+            (v) => v == "" || v == undefined,
         );
         // console.log(
         //     "🚀 ~ _Register ~ !errors && !error && this.state.isNameAvailable && this.state.isEmailAvailable:", !errors ,
         //     "!error:", !error ,
-        //     "isNameAvailable:", this.state.isNameAvailable, 
+        //     "isNameAvailable:", this.state.isNameAvailable,
         //     "isEmailAvailable:", this.state.isEmailAvailable
         // )
-        return !errors && !error && this.state.isNameAvailable && this.state.isEmailAvailable;
+        return (
+            !errors &&
+            !error &&
+            this.state.isNameAvailable &&
+            this.state.isEmailAvailable
+        );
     };
 
     /**
      * 选择邮箱后缀
      * @param {Sting} item 后缀
      */
-    selectMailboxSuffix=(item) => {
-        const value = item.slice(1)
-        const atIndex = this.state.EmailAccount.indexOf('@');
+    selectMailboxSuffix = (item) => {
+        const value = item.slice(1);
+        const atIndex = this.state.EmailAccount.indexOf("@");
         const finalyValue = this.state.EmailAccount.slice(0, atIndex + 1);
         const emailText = finalyValue + value;
         let emailText2 = { target: { value: emailText ?? "" } };
-        this.setState({
-            EmailAccount: emailText,
-            showEmailList: false,
-            chooseTheRecommended:true,
-        },
-            ()=>{this.RegisterFormdata(emailText2,"email")}
-        )
-    }
+        this.setState(
+            {
+                EmailAccount: emailText,
+                showEmailList: false,
+                chooseTheRecommended: true,
+            },
+            () => {
+                this.RegisterFormdata(emailText2, "email");
+            },
+        );
+    };
 
     /**
      * 检查输入的手机号前缀是否符合要求
-     * @param {*} number 
-     * @param {Array} prefixes 
+     * @param {*} number
+     * @param {Array} prefixes
      * @returns true符合，false不符合
      */
     checkPrefix(number, prefixes) {
@@ -397,15 +437,15 @@ class _Register extends React.Component {
     }
 
     render() {
-        const { 
-            affcode, 
+        const {
+            affcode,
             captchaVisible,
             isNameAvailable,
             isEmailAvailable,
             UserName,
             EmailAccount,
             showEmailList,
-            chooseTheRecommended
+            chooseTheRecommended,
         } = this.state;
         const { getFieldDecorator, getFieldError } = this.props.form;
         return (
@@ -420,14 +460,17 @@ class _Register extends React.Component {
                         <div className="IputBox">
                             {getFieldDecorator("NameState", {
                                 rules: [
-                                    { required: true, message: translate("请输入用户名") },
+                                    {
+                                        required: true,
+                                        message: translate("请输入用户名"),
+                                    },
                                     {
                                         validator: (rule, value, callback) => {
-                                            if (
-                                                value && !nameReg.test(value)
-                                            ) {
+                                            if (value && !nameReg.test(value)) {
                                                 callback(
-                                                    translate("用户名长度必须至少有6个字符，不能超过14个字符，仅可使用字母 'A-Z', 'a-z' , 数字 '0-9'。")
+                                                    translate(
+                                                        "用户名长度必须至少有6个字符，不能超过14个字符，仅可使用字母 'A-Z', 'a-z' , 数字 '0-9'。",
+                                                    ),
                                                 );
                                             }
                                             callback();
@@ -443,10 +486,14 @@ class _Register extends React.Component {
                                         this.RegisterFormdata(e, "name")
                                     }
                                     maxLength={14}
-                                />
+                                />,
                             )}
                         </div>
-                        {nameReg.test(UserName) && !isNameAvailable ? <div className="input-error-message">{translate("用户名不可用，请尝试其他名称")}</div> : null}
+                        {nameReg.test(UserName) && !isNameAvailable ? (
+                            <div className="input-error-message">
+                                {translate("用户名不可用，请尝试其他名称")}
+                            </div>
+                        ) : null}
                     </Item>
 
                     {/* ------------------ 密碼 ------------------*/}
@@ -454,15 +501,17 @@ class _Register extends React.Component {
                         <div className="IputBox">
                             {getFieldDecorator("passwordState", {
                                 rules: [
-                                    { required: true, message: translate("请输入密码") },
+                                    {
+                                        required: true,
+                                        message: translate("请输入密码"),
+                                    },
                                     {
                                         validator: (rule, value, callback) => {
-                                            if (
-                                                value &&
-                                                !pwdReg.test(value)
-                                            ) {
+                                            if (value && !pwdReg.test(value)) {
                                                 callback(
-                                                    translate("密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@")
+                                                    translate(
+                                                        "密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@",
+                                                    ),
                                                 );
                                             }
                                             callback();
@@ -478,7 +527,7 @@ class _Register extends React.Component {
                                         this.RegisterFormdata(e, "pwd")
                                     }
                                     maxLength={20}
-                                />
+                                />,
                             )}
                         </div>
                     </Item>
@@ -494,15 +543,34 @@ class _Register extends React.Component {
                                     },
                                     {
                                         validator: (rule, value, callback) => {
-                                            if(value && !phoneReg.test(value)){
-                                                callback(translate("电话号码必须由9个数字组成，不要在前面填写0"));
-                                            }
-                                            else if(Array.isArray(this.phonePrefix) && this.phonePrefix.length){
-                                                const FirstThreeCheck = this.checkPrefix(value,this.phonePrefix);
+                                            if (
+                                                value &&
+                                                !phoneReg.test(value)
+                                            ) {
+                                                callback(
+                                                    translate(
+                                                        "电话号码必须由9个数字组成，不要在前面填写0",
+                                                    ),
+                                                );
+                                            } else if (
+                                                Array.isArray(
+                                                    this.phonePrefix,
+                                                ) &&
+                                                this.phonePrefix.length
+                                            ) {
+                                                const FirstThreeCheck =
+                                                    this.checkPrefix(
+                                                        value,
+                                                        this.phonePrefix,
+                                                    );
                                                 if (value && !FirstThreeCheck) {
-                                                    callback(translate("该电话号码无效，请输入正确的号码"));
+                                                    callback(
+                                                        translate(
+                                                            "该电话号码无效，请输入正确的号码",
+                                                        ),
+                                                    );
                                                 }
-                                            } 
+                                            }
                                             callback();
                                         },
                                     },
@@ -517,7 +585,7 @@ class _Register extends React.Component {
                                         this.RegisterFormdata(e, "phone")
                                     }
                                     maxLength={this.maxLength}
-                                />
+                                />,
                             )}
                         </div>
                     </Item>
@@ -533,11 +601,22 @@ class _Register extends React.Component {
                                     },
                                     {
                                         validator: (rule, value, callback) => {
-                                            if(value && value.length > 50){
-                                                callback(translate("请填写最多50个字符"));
+                                            if (value && value.length > 50) {
+                                                callback(
+                                                    translate(
+                                                        "请填写最多50个字符",
+                                                    ),
+                                                );
                                             }
-                                            if (value && !emailReg.test(value)) {
-                                                callback(translate("请填写有效的电子邮件地址"));
+                                            if (
+                                                value &&
+                                                !emailReg.test(value)
+                                            ) {
+                                                callback(
+                                                    translate(
+                                                        "请填写有效的电子邮件地址",
+                                                    ),
+                                                );
                                             }
                                             callback();
                                         },
@@ -555,21 +634,39 @@ class _Register extends React.Component {
                                         maxLength={60}
                                         value={EmailAccount}
                                     />
-                                   <Row className={`emailList ${showEmailList}`}>
-                                        {this.emailSuffixList.map((item)=>
-                                            <Col 
+                                    <Row
+                                        className={`emailList ${showEmailList}`}
+                                    >
+                                        {this.emailSuffixList.map((item) => (
+                                            <Col
                                                 key={item}
-                                                onClick={()=>this.selectMailboxSuffix(item)}
+                                                onClick={() =>
+                                                    this.selectMailboxSuffix(
+                                                        item,
+                                                    )
+                                                }
                                             >
-                                                {EmailAccount ? (EmailAccount.slice(0, (EmailAccount.indexOf('@'))) + item) : item}
+                                                {EmailAccount
+                                                    ? EmailAccount.slice(
+                                                          0,
+                                                          EmailAccount.indexOf(
+                                                              "@",
+                                                          ),
+                                                      ) + item
+                                                    : item}
                                             </Col>
-                                        )}
-                                   </Row>
-                                </>
-                               
+                                        ))}
+                                    </Row>
+                                </>,
                             )}
                         </div>
-                        {emailReg.test(EmailAccount) && !isEmailAvailable ? <div className="input-error-message">{translate("电子邮件地址不可用，请尝试使用其他电子邮件地址")}</div>: null}
+                        {emailReg.test(EmailAccount) && !isEmailAvailable ? (
+                            <div className="input-error-message">
+                                {translate(
+                                    "电子邮件地址不可用，请尝试使用其他电子邮件地址",
+                                )}
+                            </div>
+                        ) : null}
                     </Item>
                     {/* ------------------ 推荐代码 ------------------*/}
                     {this.state.showAffCode ? (
@@ -587,7 +684,9 @@ class _Register extends React.Component {
                                 }
                                 maxLength={16}
                             />
-                            <div className="not-required-text">{translate("非必填")}</div>
+                            <div className="not-required-text">
+                                {translate("非必填")}
+                            </div>
                         </div>
                     ) : null}
 
@@ -610,25 +709,36 @@ class _Register extends React.Component {
                         {translate("点击“注册”按钮即表示您已年满 21 岁并同意")}
                         <a
                             onClick={() => {
-                                console.log("🚀 ~ file: Register.js:575 ~ _Register ~ render ~ CMSOBJ[HostConfig.CMS_ID][25]:", CMSOBJ[HostConfig.CMS_ID][25])
+                                console.log(
+                                    "🚀 ~ file: Register.js:575 ~ _Register ~ render ~ CMSOBJ[HostConfig.CMS_ID][25]:",
+                                    CMSOBJ[HostConfig.CMS_ID][25],
+                                );
                                 Router.push(
                                     "/faq/responsible-gaming?type=Sub7&key=" +
-                                        CMSOBJ[HostConfig.CMS_ID][27]
+                                        CMSOBJ[HostConfig.CMS_ID][27],
                                 );
-                                Pushgtagdata("Register","View TC","Register_V_T&C");
+                                Pushgtagdata(
+                                    "Register",
+                                    "View TC",
+                                    "Register_V_T&C",
+                                );
                             }}
                         >
                             {translate("条款")}
                         </a>
                         {translate("与")}
-                        <br/>
+                        <br />
                         <a
                             onClick={() => {
                                 Router.push(
                                     "/faq/privacy-policy?type=Sub7&key=" +
-                                        CMSOBJ[HostConfig.CMS_ID][21]
+                                        CMSOBJ[HostConfig.CMS_ID][21],
                                 );
-                                Pushgtagdata("Register","View TC","Register_V_T&C");
+                                Pushgtagdata(
+                                    "Register",
+                                    "View TC",
+                                    "Register_V_T&C",
+                                );
                             }}
                         >
                             {translate("隐私政策")}
@@ -645,8 +755,8 @@ class _Register extends React.Component {
                     onMatch={this.onMatch}
                     type="Register"
                     getCaptchaInfo={(props) => {
-						this.Captcha = props;
-					}}
+                        this.Captcha = props;
+                    }}
                 />
             </Spin>
         );

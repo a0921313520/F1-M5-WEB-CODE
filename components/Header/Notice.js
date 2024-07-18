@@ -6,7 +6,7 @@ import Router from "next/router";
 import { translate } from "$ACTIONS/Translate";
 import { connect } from "react-redux";
 import { userCenterActions } from "$STORE/userCenterSlice";
-import {pathNameList} from "$DATA/me.static";
+import { pathNameList } from "$DATA/me.static";
 class Notice extends React.Component {
     constructor(props) {
         super(props);
@@ -32,10 +32,10 @@ class Notice extends React.Component {
             //已登录，因为父组件在被判断时会先是0后是1，会触发请求两次，所以加个限制
             get(
                 ApiPort.Announcements +
-                    "&messageTypeOptionID=10&pageSize=8&pageIndex=1"
+                    "&messageTypeOptionID=10&pageSize=8&pageIndex=1",
             )
                 .then((res) => {
-                        res?.result?.announcementsByMember?.length &&
+                    res?.result?.announcementsByMember?.length &&
                         this.updateNoticeList(res.result.announcementsByMember);
                 })
                 .catch((error) => {
@@ -45,7 +45,7 @@ class Notice extends React.Component {
             //未登录
             get(
                 ApiPort.Announcements +
-                    "&messageTypeOptionID=10&pageSize=8&pageIndex=1"
+                    "&messageTypeOptionID=10&pageSize=8&pageIndex=1",
             )
                 .then((res) => {
                     res?.result?.announcementsByMember?.length &&
@@ -64,7 +64,7 @@ class Notice extends React.Component {
         this.marquee.current.onmouseleave = null;
         // 清除公告设置方法（防止异步内存泄漏）
         this.updateNoticeList = () => {};
-        this.setState = () => false
+        this.setState = () => false;
     }
     updateNoticeList(list) {
         this.setState(
@@ -75,7 +75,7 @@ class Notice extends React.Component {
                 list &&
                     list.length > 1 &&
                     this.marqueeAnimate(this.marquee.current);
-            }
+            },
         );
     }
     marqueeAnimate() {
@@ -109,7 +109,7 @@ class Notice extends React.Component {
                         speed +
                         "ms;margin-top: -" +
                         currHeight +
-                        "px;"
+                        "px;",
                 );
                 // 递增Li条数（高度）
                 currHeight += containerLiHeight;
@@ -120,7 +120,7 @@ class Notice extends React.Component {
                     this.timertimeout = setTimeout(() => {
                         containerUl.setAttribute(
                             "style",
-                            "transition-duration: 0;margin-top: 0;"
+                            "transition-duration: 0;margin-top: 0;",
                         );
                     }, speed);
                 }
@@ -170,7 +170,7 @@ class Notice extends React.Component {
 
         return `${d}-${m}-${y} ${h}:${mi}:${s}`;
     }
-    goMessage=()=> {
+    goMessage = () => {
         if (localStorage.getItem("access_token") === null) {
             global.goUserSign("1");
             return;
@@ -180,16 +180,13 @@ class Notice extends React.Component {
         if (~global.location.pathname.indexOf(`/vn/${pathNameList[pathKey]}`)) {
             return; //禁止重复选择一样的tab
         } else {
-            this.props.changeUserCenterTabKey("message")
+            this.props.changeUserCenterTabKey("message");
             Router.push("/notification");
         }
-    }
+    };
     render() {
         return (
-            <div
-                id="t_header_notice_wrapper"
-                className="notice-wrap"
-            >
+            <div id="t_header_notice_wrapper" className="notice-wrap">
                 {/* Notice 公告 */}
                 <div className="manager-picture">
                     <img
@@ -199,7 +196,7 @@ class Notice extends React.Component {
                         alt="fun88vn"
                     />
                 </div>
-                <div 
+                <div
                     className="marquee-container-wrapper"
                     onClick={this.goMessage}
                 >
@@ -212,7 +209,7 @@ class Notice extends React.Component {
                                       .sendOn &&
                                   this.dealWithTime(
                                       this.state.noticeList[this.state.currTime]
-                                          .sendOn
+                                          .sendOn,
                                   )
                                 : null}
                         </span>
@@ -224,16 +221,18 @@ class Notice extends React.Component {
                                     {this.state.noticeList.length
                                         ? this.state.noticeList.map(
                                               (val, index) => {
-                                                  return  (
-                                                      val.isRunningText ? <li
+                                                  return val.isRunningText ? (
+                                                      <li
                                                           key={index}
                                                           data-marquee-item
                                                           title={val.topic}
                                                       >
                                                           {val.topic}
-                                                      </li> :<li key={index}></li>
+                                                      </li>
+                                                  ) : (
+                                                      <li key={index}></li>
                                                   );
-                                              }
+                                              },
                                           )
                                         : null}
                                 </ul>
@@ -247,15 +246,15 @@ class Notice extends React.Component {
 }
 const mapStateToProps = function (state) {
     return {
-        userCenterTabKey: state.userCenter.userCenterPageTabKey
+        userCenterTabKey: state.userCenter.userCenterPageTabKey,
     };
 };
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        changeUserCenterTabKey:(tabkey)=>{
-            dispatch(userCenterActions.changeUserCenterTabKey(tabkey))
-        }
+        changeUserCenterTabKey: (tabkey) => {
+            dispatch(userCenterActions.changeUserCenterTabKey(tabkey));
+        },
     };
 };
 

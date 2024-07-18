@@ -75,7 +75,13 @@ class RealyName extends React.Component {
         };
         setMemberInfoPut(userInfo, (res) => {
             if (res.isSuccess) {
-                showResultModal("验证成功", true,1501,'otp','authentication-succeeded');
+                showResultModal(
+                    "验证成功",
+                    true,
+                    1501,
+                    "otp",
+                    "authentication-succeeded",
+                );
                 this.props.getMemberData();
             }
             this.props.setLoading(false);
@@ -90,7 +96,7 @@ class RealyName extends React.Component {
      */
     submitBtnEnable = () => {
         let errors = Object.values(this.props.form.getFieldsError()).some(
-            (v) => v !== undefined
+            (v) => v !== undefined,
         );
         let cityAddress = this.props.form.getFieldValue("useridCityState");
         let dAddress = this.props.form.getFieldValue("useridAddressState");
@@ -168,7 +174,7 @@ class RealyName extends React.Component {
                                 allowClear={false}
                                 style={{ width: "100%" }}
                                 size="large"
-                            />
+                            />,
                             // <DatePicker
                             // 	datePickerProps={{
                             // 		defaultDate: now,
@@ -233,7 +239,7 @@ class RealyName extends React.Component {
                                         datavalue: val,
                                     });
                                 }}
-                            />
+                            />,
                         )}
                     </Item>
                     <br />
@@ -264,7 +270,7 @@ class RealyName extends React.Component {
                                     });
                                 }}
                                 maxLength="100"
-                            />
+                            />,
                         )}
                     </Item>
                 </div>

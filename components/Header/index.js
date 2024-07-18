@@ -21,11 +21,11 @@ import {
 import OpenGame from "@/Games/openGame";
 import { getUrlVars } from "$ACTIONS/util";
 import ImageWithFallback from "@/ImageWithFallback/imgLocal";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 import { PopUpLiveChat as ContactCustomerService } from "$ACTIONS/util";
 import { connect } from "react-redux";
 import { userCenterActions } from "$STORE/userCenterSlice";
-import {pathNameList} from "$DATA/me.static";
+import { pathNameList } from "$DATA/me.static";
 // 邮箱链接重置密码
 // const DynamicResetPassword = dynamic(import('@/ResetPassword'), {
 // 	loading: () => (""),
@@ -127,7 +127,7 @@ class Header extends React.Component {
 
         // 设置右侧滚动条宽度（避免弹出框因为滚动条抖动的问题）
         this.addStyle(
-            `.ant-scrolling-effect .header-warp, .ant-scrolling-effect .fixed-right{right:${this.getScrollbarWidth()}px}.fixed-right{right: 0}`
+            `.ant-scrolling-effect .header-warp, .ant-scrolling-effect .fixed-right{right:${this.getScrollbarWidth()}px}.fixed-right{right: 0}`,
         );
 
         // 设置登陆状态
@@ -213,7 +213,7 @@ class Header extends React.Component {
         if (vars.ref && vars.ref !== "" && vars.token && vars.token !== "") {
             localStorage.setItem(
                 "access_token",
-                JSON.stringify("Bearer" + " " + vars.token)
+                JSON.stringify("Bearer" + " " + vars.token),
             );
             localStorage.setItem("refresh_token", JSON.stringify(vars.ref));
         } else {
@@ -245,15 +245,21 @@ class Header extends React.Component {
         post(ApiPort.RefreshTokenapi, postData)
             .then((res) => {
                 if (res?.isSuccess && res.result) {
-                    if (res.result.accessToken?.accessToken && res.result.accessToken?.refreshToken) {
+                    if (
+                        res.result.accessToken?.accessToken &&
+                        res.result.accessToken?.refreshToken
+                    ) {
                         localStorage.setItem(
                             "access_token",
-                            JSON.stringify("bearer " + res.result.accessToken.accessToken)
+                            JSON.stringify(
+                                "bearer " + res.result.accessToken.accessToken,
+                            ),
                         );
-                        ApiPort.Token = "bearer " + res.result.accessToken.accessToken;
+                        ApiPort.Token =
+                            "bearer " + res.result.accessToken.accessToken;
                         localStorage.setItem(
                             "refresh_token",
-                            JSON.stringify(res.result.accessToken.refreshToken)
+                            JSON.stringify(res.result.accessToken.refreshToken),
                         );
                     } else {
                         message.error(translate("请重新登录，访问过期！"), 3);
@@ -282,7 +288,7 @@ class Header extends React.Component {
      * 联系客服
      */
     PopUpLiveChat() {
-        ContactCustomerService()
+        ContactCustomerService();
     }
 
     ReferreeTaskStatus() {
@@ -346,7 +352,7 @@ class Header extends React.Component {
         post(ApiPort.ThroughoutVerification)
             .then((data) => {
                 let GameReferModal = localStorage.getItem(
-                    localStorage.getItem("UserName") + "_GameReferModal"
+                    localStorage.getItem("UserName") + "_GameReferModal",
                 );
                 if (GameReferModal) {
                     return;
@@ -377,26 +383,34 @@ class Header extends React.Component {
     goReferFriend() {
         get(ApiPort.GetQueleaActiveCampaign).then((res) => {
             if (res?.isSuccess) {
-                if (!localStorage.getItem('access_token')) {
-                    global.goUserSign('1');
+                if (!localStorage.getItem("access_token")) {
+                    global.goUserSign("1");
                     return;
                 } else {
-                    Router.push('/referrer-activity');
+                    Router.push("/referrer-activity");
                 }
             } else {
                 Modal.confirm({
                     className: "confirm-modal-of-public dont-show-close-button",
-                    title: translate('不符合资格的账户'),
+                    title: translate("不符合资格的账户"),
                     centered: true,
-                    okText: translate('在线客服'),
+                    okText: translate("在线客服"),
                     cancelText: translate("明白了"),
-                    closable:true,
-                    content: <div>
-                        <img src={`${process.env.BASE_PATH}/img/icons/icon-warn.svg`}/>
-                        <div className="line-distance"></div>
-                        <p>{translate('抱歉，您的帐户目前不符合推荐朋友计划的资格。 请尝试参与其他免费奖金或联系在线聊天寻求建议。')}</p>
-                    </div>,
-                    icon:null,
+                    closable: true,
+                    content: (
+                        <div>
+                            <img
+                                src={`${process.env.BASE_PATH}/img/icons/icon-warn.svg`}
+                            />
+                            <div className="line-distance"></div>
+                            <p>
+                                {translate(
+                                    "抱歉，您的帐户目前不符合推荐朋友计划的资格。 请尝试参与其他免费奖金或联系在线聊天寻求建议。",
+                                )}
+                            </p>
+                        </div>
+                    ),
+                    icon: null,
                     onOk: () => {
                         ContactCustomerService();
                     },
@@ -455,14 +469,16 @@ class Header extends React.Component {
     }
     /**
      * 个人中心页面 跳转key
-     * @param {*} key 
+     * @param {*} key
      */
-    goUserCenter=(key) => {
+    goUserCenter = (key) => {
         const pathKey = this.props.userCenterTabKey;
-        if (~global.location.pathname.indexOf(`/vn/me/${pathNameList[pathKey]}`)) {
+        if (
+            ~global.location.pathname.indexOf(`/vn/me/${pathNameList[pathKey]}`)
+        ) {
             if (key === this.props.userCenterTabKey) return; //禁止重复选择一样的tab
-        } 
-        switch(key){
+        }
+        switch (key) {
             case "userinfo":
                 this.props.changeUserCenterTabKey(key);
                 Router.push("/me/account-info");
@@ -502,7 +518,7 @@ class Header extends React.Component {
             default:
                 break;
         }
-    }
+    };
 
     // 切换个人中心弹出框教程状态
     // toggleHeaderCenterLearn(status) {
@@ -628,7 +644,7 @@ class Header extends React.Component {
         if (this.state.rafStep == 4) {
             localStorage.setItem(
                 localStorage.getItem("UserName") + "_displayReferee",
-                true
+                true,
             );
         }
     }
@@ -636,7 +652,7 @@ class Header extends React.Component {
     SetGameReferStatus() {
         localStorage.setItem(
             localStorage.getItem("UserName") + "_GameReferModal",
-            "TRUE"
+            "TRUE",
         );
     }
 
@@ -727,36 +743,36 @@ class Header extends React.Component {
                                                                 global.showDialog(
                                                                     {
                                                                         key: 'wallet:{"type": "deposit"}',
-                                                                    }
+                                                                    },
                                                                 );
                                                                 Pushgtagdata(
                                                                     "Deposit Nav",
                                                                     "Click",
-                                                                    "Deposit_TopNav"
+                                                                    "Deposit_TopNav",
                                                                 );
                                                                 break;
                                                             case "4":
                                                                 global.showDialog(
                                                                     {
                                                                         key: 'wallet:{"type": "withdraw"}',
-                                                                    }
+                                                                    },
                                                                 );
                                                                 Pushgtagdata(
                                                                     "Withdrawal Nav",
                                                                     "Click",
-                                                                    "Withdrawal_TopNav"
+                                                                    "Withdrawal_TopNav",
                                                                 );
                                                                 break;
                                                             case "5":
                                                                 global.showDialog(
                                                                     {
                                                                         key: 'wallet:{"type": "transfer"}',
-                                                                    }
+                                                                    },
                                                                 );
                                                                 Pushgtagdata(
                                                                     "Transfer Nav",
                                                                     "Click",
-                                                                    "Transfer_TopNav"
+                                                                    "Transfer_TopNav",
                                                                 );
                                                                 break;
                                                             default:
@@ -776,17 +792,19 @@ class Header extends React.Component {
                                                             }`}
                                                             onMouseEnter={() =>
                                                                 this.parentShowSimple(
-                                                                    1
+                                                                    1,
                                                                 )
                                                             }
                                                             onMouseLeave={() =>
                                                                 this.parentHideSimple(
-                                                                    0.1
+                                                                    0.1,
                                                                 )
                                                             }
                                                         >
                                                             <span>
-                                                                {translate("个人中心")}
+                                                                {translate(
+                                                                    "个人中心",
+                                                                )}
                                                             </span>
                                                             <i
                                                                 className={`tlc-sprite user-message ${
@@ -811,12 +829,12 @@ class Header extends React.Component {
                                                             }`}
                                                             onMouseEnter={() =>
                                                                 this.parentShowSimple(
-                                                                    2
+                                                                    2,
                                                                 )
                                                             }
                                                             onMouseLeave={() =>
                                                                 this.parentHideSimple(
-                                                                    0.2
+                                                                    0.2,
                                                                 )
                                                             }
                                                         >
@@ -824,7 +842,7 @@ class Header extends React.Component {
                                                             <span>
                                                                 {formatAmount(
                                                                     this.state
-                                                                        .allBalance
+                                                                        .allBalance,
                                                                 )}
                                                             </span>
                                                             <Icon type="caret-down" />
@@ -858,7 +876,7 @@ class Header extends React.Component {
                                                             case "1":
                                                             case "2":
                                                                 this.onUserSign(
-                                                                    item.key
+                                                                    item.key,
                                                                 );
                                                                 break;
                                                             default:
@@ -954,7 +972,9 @@ class Header extends React.Component {
                         <li>
                             <div className="invite-step-content step1">
                                 <h4>{translate("步骤")} 1 </h4>
-                                <p>{translate("点击“立即注册”成为我们的会员")}</p>
+                                <p>
+                                    {translate("点击“立即注册”成为我们的会员")}
+                                </p>
                                 <Button
                                     type="danger"
                                     onClick={() => {
@@ -1074,7 +1094,9 @@ class Header extends React.Component {
                             />
                             <div className="line-distance" />
                             <p>
-                                {translate("抱歉，您的帐户目前不符合推荐朋友计划。 请尝试其他免费奖金或联系在线聊天寻求建议")}
+                                {translate(
+                                    "抱歉，您的帐户目前不符合推荐朋友计划。 请尝试其他免费奖金或联系在线聊天寻求建议",
+                                )}
                             </p>
                         </Col>
                     </Row>
@@ -1125,10 +1147,14 @@ class Header extends React.Component {
                         </center>
                         <div className="line-distance" />
                         <div className="note" style={{ textAlign: "center" }}>
-                            {translate("完成推荐好友任务，奖金将在24小时内转账")}
+                            {translate(
+                                "完成推荐好友任务，奖金将在24小时内转账",
+                            )}
                         </div>
                         <div className="line-distance" />
-                        <div className="RecommendedGames">{translate("火热优惠")}</div>
+                        <div className="RecommendedGames">
+                            {translate("火热优惠")}
+                        </div>
                         <div className="GameReferImg">
                             {/* <OpenGame
                                 itemsData={{
@@ -1248,17 +1274,16 @@ class Header extends React.Component {
 
 const mapStateToProps = function (state) {
     return {
-        userCenterTabKey: state.userCenter.userCenterPageTabKey
+        userCenterTabKey: state.userCenter.userCenterPageTabKey,
     };
 };
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        changeUserCenterTabKey:(tabkey)=>{
-            dispatch(userCenterActions.changeUserCenterTabKey(tabkey))
-        }
+        changeUserCenterTabKey: (tabkey) => {
+            dispatch(userCenterActions.changeUserCenterTabKey(tabkey));
+        },
     };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
-

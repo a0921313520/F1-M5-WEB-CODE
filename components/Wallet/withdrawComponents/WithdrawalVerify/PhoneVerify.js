@@ -12,14 +12,14 @@ import {
 } from "antd";
 import { formItemLayout, tailFormItemLayout } from "$ACTIONS/constantsData";
 import { dateFormat, formatSeconds, numberConversion } from "$ACTIONS/util";
-import { Cookie,showResultModal } from "$ACTIONS/helper";
+import { Cookie, showResultModal } from "$ACTIONS/helper";
 import { get, post, patch } from "$ACTIONS/TlcRequest";
 import { ApiPort, APISET, APISETS } from "$ACTIONS/TLCAPI";
 import { otpNumReg } from "$ACTIONS/reg";
 import PhoneEdit from "@/Verification/PhoneEdit";
 import Router from "next/router";
 import classNames from "classnames";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 const { Item } = Form;
 const { Step } = Steps;
@@ -32,7 +32,7 @@ class PhoneVerify extends React.Component {
             buttonStatus: false,
             sendBtnDisable: false,
             memberInfo: JSON.parse(localStorage.getItem("memberInfo")),
-            phoneVerifyType:"sms"
+            phoneVerifyType: "sms",
         };
 
         this.PhoneVerify = this.PhoneVerify.bind(this); // 发送验证码
@@ -45,23 +45,27 @@ class PhoneVerify extends React.Component {
         clearInterval(this.timeTimer);
         this.getPhoneOTPAttempts();
     }
-    
+
     componentWillUnmount() {
         clearInterval(this.timeTimer);
-        this.setState = ()=> false
+        this.setState = () => false;
     }
 
     getPhoneOTPAttempts = (callback) => {
         this.setState({ isLoading: true });
-        get(ApiPort.GetOTPAttempts +`&channelType=SMS&serviceAction=WithdrawalVerification&`)
+        get(
+            ApiPort.GetOTPAttempts +
+                `&channelType=SMS&serviceAction=WithdrawalVerification&`,
+        )
             .then((res) => {
                 this.setState({ isLoading: false });
                 if (res && res.result) {
                     if (res.result.attempt < 1) {
-                        this.props.setExceedVisible()
+                        this.props.setExceedVisible();
                     } else if (res.result.attempt) {
                         this.props.setAttemptRemaining(res.result.attempt);
-                        typeof callback === "function" && callback(res.result.attempts);
+                        typeof callback === "function" &&
+                            callback(res.result.attempts);
                     }
                 }
             })
@@ -91,7 +95,7 @@ class PhoneVerify extends React.Component {
             let lastSeconds = parseInt(
                 times -
                     (new Date().getTime() - new Date(phoneTime).getTime()) /
-                        1000
+                        1000,
             );
             this.setState({ buttonStatus: true });
             this.timeTimer = setInterval(() => {
@@ -99,7 +103,7 @@ class PhoneVerify extends React.Component {
                     this.clearTime();
                     this.props.judgeOTPVerification &&
                         this.props.judgeOTPVerification(
-                            this.props.usdtWithdrawType
+                            this.props.usdtWithdrawType,
                         ); // cryOtp
                 }
                 this.setState({ remainingTime: lastSeconds-- }); // 將button status寫在倒計時，refresh時仍可以正常為true
@@ -120,9 +124,10 @@ class PhoneVerify extends React.Component {
 
     PhoneVerify(isResend) {
         if (!this.state.sendBtnDisable) {
-            const SMSAPI = ApiPort.POSTPhoneVerifyAPI + "?isFirstRequest=false" + APISETS;
+            const SMSAPI =
+                ApiPort.POSTPhoneVerifyAPI + "?isFirstRequest=false" + APISETS;
             const VOICEAPI = ApiPort.POSTPhoneVoiceVerifyAPI + APISET;
-            let URL = (this.state.phoneVerifyType === "sms") ? SMSAPI : VOICEAPI;
+            let URL = this.state.phoneVerifyType === "sms" ? SMSAPI : VOICEAPI;
             const { UserName, currency, MemberCode } = this.state.memberInfo;
             let PhoneData = {
                 msIsdn: this.state.memberInfo.isVerifiedPhone[0],
@@ -141,7 +146,8 @@ class PhoneVerify extends React.Component {
                 .then((res) => {
                     this.setState({ isLoading: false });
                     let { isSuccess, result = {}, errors = [] } = res || {};
-                    const [{ errorCode, description: description = "" } = {}] = errors;
+                    const [{ errorCode, description: description = "" } = {}] =
+                        errors;
                     if (isSuccess == true) {
                         Cookie.Create("phoneTime", dateFormat(), 1);
                         message.success(translate("发送成功"));
@@ -153,9 +159,7 @@ class PhoneVerify extends React.Component {
                         ) {
                             this.props.setExceedVisible();
                         } else {
-                            message.error(
-                                description || translate("发送失败")
-                            );
+                            message.error(description || translate("发送失败"));
                         }
                     }
                 })
@@ -170,19 +174,25 @@ class PhoneVerify extends React.Component {
                     isResend
                         ? "ResendCode_Phone_WithdrawPage"
                         : "Send_Phone_WithdrawPage"
-                }`
+                }`,
             );
         }
     }
 
     /**
      * 提交验证码
-     * @param {*} code 
-     * @returns 
+     * @param {*} code
+     * @returns
      */
     checkUrlVerifyCode(code) {
         if (!otpNumReg.test(code))
-            return showResultModal(translate("验证码格式错误"), false,1501,'otp','authentication-succeeded');
+            return showResultModal(
+                translate("验证码格式错误"),
+                false,
+                1501,
+                "otp",
+                "authentication-succeeded",
+            );
         let URL = ApiPort.POSTPhoneVerifyTAC;
         let PhoneData = {
             verificationCode: code,
@@ -202,7 +212,13 @@ class PhoneVerify extends React.Component {
             const [{ errorCode, message: errorMessage = "" } = {}] = errors;
 
             if (isSuccess && result.isVerified) {
-                showResultModal(translate("验证成功"), true,1501,'otp','authentication-succeeded');
+                showResultModal(
+                    translate("验证成功"),
+                    true,
+                    1501,
+                    "otp",
+                    "authentication-succeeded",
+                );
                 this.props.getMemberData();
                 this.clearTime(isSuccess);
             } else {
@@ -226,27 +242,31 @@ class PhoneVerify extends React.Component {
                     return;
                 } else {
                     // 超過驗證次數
-                    this.props.setExceedVisible()
+                    this.props.setExceedVisible();
                     return;
                 }
             }
         });
     }
-    changePhoneVerifyTypeToVoice=()=>{
-        if(this.state.remainingTime !== 0){
-            return
-        }else{
-            const type = this.state.phoneVerifyType === "voice" ? "sms":"voice";
-            this.setState({
-                phoneVerifyType: type,
-                remainingTime: -1
-            },()=>{
-                this.getPhoneOTPAttempts((res)=>{
-                    if(res > 0){
-                        this.PhoneVerify()
-                    }
-                })
-            })
+    changePhoneVerifyTypeToVoice = () => {
+        if (this.state.remainingTime !== 0) {
+            return;
+        } else {
+            const type =
+                this.state.phoneVerifyType === "voice" ? "sms" : "voice";
+            this.setState(
+                {
+                    phoneVerifyType: type,
+                    remainingTime: -1,
+                },
+                () => {
+                    this.getPhoneOTPAttempts((res) => {
+                        if (res > 0) {
+                            this.PhoneVerify();
+                        }
+                    });
+                },
+            );
             this.props.form.setFields({
                 verifyCode: {
                     value: "",
@@ -254,13 +274,14 @@ class PhoneVerify extends React.Component {
                 },
             });
         }
-    }
+    };
     render() {
         const { getFieldDecorator, getFieldValue } = this.props.form;
-        const { remainingTime, buttonStatus, memberInfo ,phoneVerifyType} =
+        const { remainingTime, buttonStatus, memberInfo, phoneVerifyType } =
             this.state;
         const verificationCode = getFieldValue("verifyCode");
-        const phone = memberInfo && memberInfo.isVerifiedPhone[0].replace("84-", "");
+        const phone =
+            memberInfo && memberInfo.isVerifiedPhone[0].replace("84-", "");
         return (
             <React.Fragment>
                 <Spin
@@ -273,9 +294,13 @@ class PhoneVerify extends React.Component {
                         {...formItemLayout}
                         onSubmit={this.handleSubmit}
                     >
-                        <h3 className="Otptxt">{translate("验证电话号码以继续")}</h3>
+                        <h3 className="Otptxt">
+                            {translate("验证电话号码以继续")}
+                        </h3>
                         <div>
-                            {translate("一次性密码验证码将通过短信发送或通过您的电话号码拨打")}
+                            {translate(
+                                "一次性密码验证码将通过短信发送或通过您的电话号码拨打",
+                            )}
                         </div>
                         <div className="line-distance" />
                         {!this.props.isEditPhone ? (
@@ -296,7 +321,7 @@ class PhoneVerify extends React.Component {
                                             disabled={true}
                                             value={phone.replace(
                                                 /\d(?=\d{4})/g,
-                                                "*"
+                                                "*",
                                             )}
                                         />
                                     </Col>
@@ -348,7 +373,7 @@ class PhoneVerify extends React.Component {
                                 getValueFromEvent: (event) => {
                                     return event.target.value.replace(
                                         /\D/g,
-                                        ""
+                                        "",
                                     );
                                 },
                             })(
@@ -389,10 +414,10 @@ class PhoneVerify extends React.Component {
                                             : "abled-time"
                                     }
                                     placeholder={translate("请输入验证码")}
-                                />
+                                />,
                             )}
                         </Item>
-                        
+
                         <div className="line-distance" />
 
                         <Item {...tailFormItemLayout}>
@@ -403,7 +428,9 @@ class PhoneVerify extends React.Component {
                                     onClick={this.changePhoneVerifyTypeToVoice}
                                     disabled={remainingTime > 0}
                                 >
-                                    {phoneVerifyType === "sms"? translate("通过语音发送 OTP") : translate("通过短信发送 OTP")}
+                                    {phoneVerifyType === "sms"
+                                        ? translate("通过语音发送 OTP")
+                                        : translate("通过短信发送 OTP")}
                                 </Button>
                                 <Button
                                     size="large"
@@ -436,20 +463,23 @@ class PhoneVerify extends React.Component {
                             ) {translate("次尝试")}
                         </center>
                         <div className="line-distance" />
-                            {(remainingTime > 0) ? <center className="change-loginOTP-method">
-                                <span className="blue" 
+                        {remainingTime > 0 ? (
+                            <center className="change-loginOTP-method">
+                                <span
+                                    className="blue"
                                     onClick={() => {
-                                        this.changeVerificationMethod
-                                    }}>
+                                        this.changeVerificationMethod;
+                                    }}
+                                >
                                     {translate("更改验证方式")}
                                 </span>
-                        </center> : null }
+                            </center>
+                        ) : null}
                     </Form>
                 </Spin>
             </React.Fragment>
         );
     }
 }
-
 
 export default Form.create({ name: "PhoneVerify" })(PhoneVerify);

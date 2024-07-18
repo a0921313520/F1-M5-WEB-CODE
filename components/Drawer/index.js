@@ -45,7 +45,7 @@ export default class Main extends React.Component {
                 "style",
                 "position: relative; overflow-y: hidden; touch-action: none; width:calc(100% - " +
                     this.scrollWidth +
-                    "px);"
+                    "px);",
             );
             body.setAttribute("class", "ant-scrolling-effect");
         } else {
@@ -88,7 +88,7 @@ export default class Main extends React.Component {
                       </div>
                   </div>,
                   (this.props.wrapDom && this.props.wrapDom.current) ||
-                      document.body
+                      document.body,
               )
             : null;
     }

@@ -12,8 +12,8 @@ import { useState } from "react";
 
 function ImageWithFallback({
     src,
-    width="100%",
-    height="auto",
+    width = "100%",
+    height = "auto",
     alt,
     fallbackSrc = "/vn/img/logo/logo.svg",
 }) {

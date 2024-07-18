@@ -92,7 +92,7 @@ class MyBonus extends React.Component {
                 "?startDate=" +
                 this.state.definedDate.startTime +
                 "&endDate=" +
-                this.state.definedDate.endTime
+                this.state.definedDate.endTime,
         )
             .then((res) => {
                 res && this.setState({ bonusData: res.result });
@@ -119,7 +119,7 @@ class MyBonus extends React.Component {
                 "?startDate=" +
                 this.state.definedDate.startTime +
                 "&endDate=" +
-                this.state.definedDate.endTime
+                this.state.definedDate.endTime,
         )
             .then((res) => {
                 if (res) {
@@ -132,7 +132,10 @@ class MyBonus extends React.Component {
                         },
                     });
                 } else {
-                    message.error(res.result.message || translate("系统错误，请稍后重试！"));
+                    message.error(
+                        res.result.message ||
+                            translate("系统错误，请稍后重试！"),
+                    );
                 }
                 this.props.setLoading(false);
             })
@@ -204,7 +207,7 @@ class MyBonus extends React.Component {
             },
             () => {
                 this.getBonuslist();
-            }
+            },
         );
     }
     changePage(index) {
@@ -215,7 +218,7 @@ class MyBonus extends React.Component {
             bonusDetailData: {
                 rebates: this.localBnousDetailData.slice(
                     startIndex,
-                    startIndex + this.onePageSize
+                    startIndex + this.onePageSize,
                 ), // 当前展示数据
             },
         });
@@ -361,7 +364,7 @@ class MyBonus extends React.Component {
                                                         <p>有效流水</p>
                                                         <strong>
                                                             {formatAmount(
-                                                                bonuItem.totalBetAmount
+                                                                bonuItem.totalBetAmount,
                                                             )}
                                                         </strong>
                                                     </div>
@@ -370,7 +373,7 @@ class MyBonus extends React.Component {
                                                         <strong className="theme-color">
                                                             ￥
                                                             {formatAmount(
-                                                                bonuItem.totalGivenAmount
+                                                                bonuItem.totalGivenAmount,
                                                             )}
                                                         </strong>
                                                     </div>
@@ -384,7 +387,9 @@ class MyBonus extends React.Component {
                                     <div className="line-distance"></div>
                                     <Col span={24} className="center">
                                         <Empty
-                                            image={"/vn/img/icon/img-no-record.svg"}
+                                            image={
+                                                "/vn/img/icon/img-no-record.svg"
+                                            }
                                             className="big-empty-box"
                                             description="暂无返水记录"
                                         />
@@ -419,13 +424,13 @@ class MyBonus extends React.Component {
                                                 <Row key={index}>
                                                     <Col span={4}>
                                                         {formatAmount(
-                                                            val.totalBetAmount
+                                                            val.totalBetAmount,
                                                         )}
                                                     </Col>
                                                     <Col span={5}>
                                                         ￥
                                                         {formatAmount(
-                                                            val.totalGivenAmount
+                                                            val.totalGivenAmount,
                                                         )}
                                                     </Col>
                                                     <Col span={5}>
@@ -438,13 +443,13 @@ class MyBonus extends React.Component {
                                                         {val.applyDate.substring(
                                                             0,
                                                             val.applyDate.indexOf(
-                                                                "T"
-                                                            )
+                                                                "T",
+                                                            ),
                                                         )}
                                                     </Col>
                                                 </Row>
                                             );
-                                        }
+                                        },
                                     )
                                 ) : (
                                     <Row>
@@ -473,7 +478,7 @@ class MyBonus extends React.Component {
                                 { definedDate: v, dateRadio: "0" },
                                 () => {
                                     this.getBonuslist();
-                                }
+                                },
                             );
                         }}
                     />

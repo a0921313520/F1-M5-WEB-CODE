@@ -95,14 +95,18 @@ export function getUrlVars() {
  * @param {String} suffixes 是否需要.00后缀
  * @returns 返回格式化后的金额
  */
-export function formatAmount(num,suffixes="") {
+export function formatAmount(num, suffixes = "") {
     if (!num) {
         return 0;
     }
     let numCount = num.toString().split(".");
     const numCountVal =
         (numCount[0] + "").replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g, "$1,") +
-        (numCount[1] ? "." + numCount[1].toString().substr(0, 2) : suffixes === "TwoDecimalSuffixes" ? ".00"  :"");
+        (numCount[1]
+            ? "." + numCount[1].toString().substr(0, 2)
+            : suffixes === "TwoDecimalSuffixes"
+              ? ".00"
+              : "");
     return typeof num === "number" && isNaN(num) ? 0 : numCountVal;
 }
 
@@ -184,7 +188,7 @@ export function Cookie(name, value, options) {
 
                 if (CookieIn.substring(0, name.length + 1) == name + "=") {
                     CookieValue = decodeURIComponent(
-                        CookieIn.substring(name.length + 1)
+                        CookieIn.substring(name.length + 1),
                     );
                     break;
                 }
@@ -351,7 +355,7 @@ export function formatYearMonthDate(dateStr) {
 // 延迟加载图片
 export function lazyLoadImg(parentNodeId) {
     const imgs = Array.from(
-        document.getElementById(parentNodeId).getElementsByTagName("img")
+        document.getElementById(parentNodeId).getElementsByTagName("img"),
     );
     if (imgs[0] && imgs[0].getAttribute("src")) return;
     imgs.forEach((item) => {
@@ -578,7 +582,7 @@ export function Domainparse(input) {
     var tldParts = rule.suffix.split(".");
     var privateParts = domainParts.slice(
         0,
-        domainParts.length - tldParts.length
+        domainParts.length - tldParts.length,
     );
 
     if (rule.exception) {
@@ -614,7 +618,7 @@ export function PopUpLiveChat() {
     let FUN88Live = window.open(
         "about:blank",
         "chat",
-        "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=540, height=650"
+        "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=540, height=650",
     );
     const openServer = (serverUrl) => {
         FUN88Live.document.title = "FUN88 Live Chat";
@@ -633,64 +637,64 @@ export function PopUpLiveChat() {
         }
     });
 }
- /**
-     * @description: 生产区间随机数
-     * @param {*} min 最低
-     * @param {*} max 最大
-     * @return {*}
-     */
-export function  getRandomNumber(min, max) {
+/**
+ * @description: 生产区间随机数
+ * @param {*} min 最低
+ * @param {*} max 最大
+ * @return {*}
+ */
+export function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 //节流
 export const throttle = (func, delay) => {
-	let timerId = null;
-	let lastArgs = null;
-	const throttledFunc = (...args) => {
-	  lastArgs = args;
-	  if (!timerId) {
-		timerId = setTimeout(() => {
-		  func(...lastArgs);
-		  timerId = null;
-		}, delay);
-	  }
-	};
-	return throttledFunc;
+    let timerId = null;
+    let lastArgs = null;
+    const throttledFunc = (...args) => {
+        lastArgs = args;
+        if (!timerId) {
+            timerId = setTimeout(() => {
+                func(...lastArgs);
+                timerId = null;
+            }, delay);
+        }
+    };
+    return throttledFunc;
 };
 
 //返回顶部
-export const backToTop =()=> {
-	document.querySelector("body")?.scrollIntoView({
-		behavior: "smooth", // 平滑滚动
-		block: "start"      // 垂直方向上对齐到顶部
-	});
-}
+export const backToTop = () => {
+    document.querySelector("body")?.scrollIntoView({
+        behavior: "smooth", // 平滑滚动
+        block: "start", // 垂直方向上对齐到顶部
+    });
+};
 
 /**
  * 格式化数字
- * @param {String} value 
+ * @param {String} value
  * @returns {Number} 数字类型的结果
  * 例子：123*-45/！@#6￥%7……&*8（9；
  * 返回 123456789
  * 如果是纯字符没数字会返回0
  */
-export const numberValidatorHandler = (value)=> {
-    if(!value) return "";
+export const numberValidatorHandler = (value) => {
+    if (!value) return "";
     const regex1 = /[^0-9]/g;
     const regex2 = /[+*/e-]/g;
     let validValue = Number(
-        String(value).replace(regex1, "").replace(regex2, "")
+        String(value).replace(regex1, "").replace(regex2, ""),
     );
     return validValue;
 };
 
 /**
  * 使用正则表达式匹配两个及以上的空白字符，并替换为一个空格
- * @param {*} str 
- * @returns 
+ * @param {*} str
+ * @returns
  */
-export const replaceMultipleSpacesWithSingle =(str)=> {
-    return str.replace(/\s{2,}/g, ' ');
-}
+export const replaceMultipleSpacesWithSingle = (str) => {
+    return str.replace(/\s{2,}/g, " ");
+};
 export default Util;

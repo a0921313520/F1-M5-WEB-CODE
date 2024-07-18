@@ -46,8 +46,6 @@ class ALB extends React.Component {
         this.collectionInfo !== null &&
             this.collectionInfo !== "null" &&
             this.setState({ lbStep: 2 });
-
-            
     }
     componentDidUpdate(prevProps, prevState) {
         // 支付宝转账第三步骤记录
@@ -156,13 +154,13 @@ class ALB extends React.Component {
         if (
             typeof this.props.depositStatusCheck(
                 this.payTypeCode,
-                this.state.bankCodeState
+                this.state.bankCodeState,
             ) === "undefined"
         )
             return;
 
         const Paybank = this.props.currDepositDetail.bankAccounts.find(
-            (v) => v.bankLogID === this.state.bankCodeState
+            (v) => v.bankLogID === this.state.bankCodeState,
         );
         const isAutoAssign =
             this.props.currDepositDetail.setting &&
@@ -189,8 +187,8 @@ class ALB extends React.Component {
                         offlineRefNo: "0",
                         BankLogID: Paybank.bankLogID,
                         depositingBankName: !isAutoAssign
-                        ? Paybank.enBankName
-                        : "",
+                            ? Paybank.enBankName
+                            : "",
                         depositingBankAcctNum: "",
                         // depositingBankAcctNum: isAutoAssign
                         //     ? Paybank.accountNo
@@ -237,7 +235,7 @@ class ALB extends React.Component {
                                     .split(".")[0],
                                 {
                                     expires: 30,
-                                }
+                                },
                             );
                             Cookie.Create("isAlbSecond", JSON.stringify(res), {
                                 expires: 30,
@@ -275,7 +273,7 @@ class ALB extends React.Component {
                                 tryOtherDialog();
                             }
                         }
-                    }
+                    },
                 );
             }
         });
@@ -292,7 +290,7 @@ class ALB extends React.Component {
             Pushgtagdata(
                 "Transaction Record",
                 "View",
-                "View_TransactionRecord_Deposit"
+                "View_TransactionRecord_Deposit",
             );
     };
     copyEvent() {
@@ -403,9 +401,8 @@ class ALB extends React.Component {
                             <Button
                                 disabled={
                                     Object.values(getFieldsError()).some(
-                                        (v) => v !== undefined
-                                    ) ||
-                                    !getFieldValue("money") 
+                                        (v) => v !== undefined,
+                                    ) || !getFieldValue("money")
                                 }
                                 size="large"
                                 type="primary"

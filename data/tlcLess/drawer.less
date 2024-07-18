@@ -4,7 +4,9 @@
     left: 0;
     width: 0%;
     height: 0%;
-    transition: width 0s ease 0.3s, height 0s ease 0.3s;
+    transition:
+        width 0s ease 0.3s,
+        height 0s ease 0.3s;
     z-index: 1001;
 }
 .drawer-wrap.drawer-open.learn {
@@ -24,7 +26,8 @@
     overflow: auto;
     background-color: #fff;
     transform: translate(100%, 0);
-    transition: transform 0.3s cubic-bezier(0.9, 0, 0.3, 0.7),
+    transition:
+        transform 0.3s cubic-bezier(0.9, 0, 0.3, 0.7),
         box-shadow 0.3s cubic-bezier(0.9, 0, 0.3, 0.7);
 }
 .drawer-wrap.drawer-open .drawer-content-wrapper {
@@ -46,7 +49,9 @@
     opacity: 0;
     z-index: 99;
     filter: alpha(opacity=50);
-    transition: opacity 0.3s linear, height 0s ease 0.3s;
+    transition:
+        opacity 0.3s linear,
+        height 0s ease 0.3s;
 }
 .drawer-wrap.drawer-open {
     position: fixed;

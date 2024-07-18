@@ -11,10 +11,10 @@ import {
     Icon,
 } from "antd";
 import { formItemLayout } from "$ACTIONS/constantsData";
-import { emailReg,telegramReg } from "$ACTIONS/reg";
+import { emailReg, telegramReg } from "$ACTIONS/reg";
 import EmailVerify from "@/Verification/EmailVerify";
 import PhoneVerify from "@/Verification/PhoneVerify";
-import { getMemberInfo, setMemberInfo,setMemberInfoPut } from "$DATA/userinfo";
+import { getMemberInfo, setMemberInfo, setMemberInfoPut } from "$DATA/userinfo";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { connect } from "react-redux";
 import { getMaskHandler } from "../../actions/helper";
@@ -33,7 +33,13 @@ class AccountInfo extends React.Component {
             attemptRemaining: "5",
             emailattemptRemaining: "5",
             isPopoverVisible: false,
-            checkboxValue: this.tranferContacts(this.props.memberInfo.offerContacts).filter((contact) => ["isCall", "isEmail", "isSMS"].some((method) => method === contact))
+            checkboxValue: this.tranferContacts(
+                this.props.memberInfo.offerContacts,
+            ).filter((contact) =>
+                ["isCall", "isEmail", "isSMS"].some(
+                    (method) => method === contact,
+                ),
+            ),
         };
 
         this.VerifyCategory = this.VerifyCategory.bind(this);
@@ -47,11 +53,20 @@ class AccountInfo extends React.Component {
     }
 
     componentDidMount() {}
-    componentDidUpdate(prevProps, prevState){
-        if(prevProps.memberInfo !== this.props.memberInfo && this.props.memberInfo?.offerContacts){
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            prevProps.memberInfo !== this.props.memberInfo &&
+            this.props.memberInfo?.offerContacts
+        ) {
             this.setState({
-                checkboxValue:  this.tranferContacts(this.props.memberInfo.offerContacts).filter((contact) => ["isCall", "isEmail", "isSMS"].some((method) => method === contact)),
-            })
+                checkboxValue: this.tranferContacts(
+                    this.props.memberInfo.offerContacts,
+                ).filter((contact) =>
+                    ["isCall", "isEmail", "isSMS"].some(
+                        (method) => method === contact,
+                    ),
+                ),
+            });
         }
     }
     VerifyCategory(param, otpVisible, status) {
@@ -68,11 +83,14 @@ class AccountInfo extends React.Component {
                 let contactsMap = {};
                 let promiseArr = [];
                 Array.isArray(contacts) &&
-                contacts.forEach((val) => {
-                    contactsMap[val.contactType] = val.contact;
-                });
-                console.log("🚀 ~ file: AccountInfo.js:72 ~ AccountInfo ~ this.props.form.validateFields ~ contactsMap:", contactsMap)
-                    
+                    contacts.forEach((val) => {
+                        contactsMap[val.contactType] = val.contact;
+                    });
+                console.log(
+                    "🚀 ~ file: AccountInfo.js:72 ~ AccountInfo ~ this.props.form.validateFields ~ contactsMap:",
+                    contactsMap,
+                );
+
                 promiseArr.push(
                     new Promise((resolve, reject) => {
                         setMemberInfo(
@@ -83,7 +101,7 @@ class AccountInfo extends React.Component {
                                     !!~values.contactMethods.indexOf("isCall") +
                                     ',"isEmail": ' +
                                     !!~values.contactMethods.indexOf(
-                                        "isEmail"
+                                        "isEmail",
                                     ) +
                                     ',"isSMS": ' +
                                     !!~values.contactMethods.indexOf("isSMS") +
@@ -95,9 +113,9 @@ class AccountInfo extends React.Component {
                                 } else {
                                     reject(res);
                                 }
-                            }
+                            },
                         );
-                    })
+                    }),
                 );
 
                 if (!contactsMap.Email) {
@@ -114,9 +132,9 @@ class AccountInfo extends React.Component {
                                     } else {
                                         reject(res);
                                     }
-                                }
+                                },
                             );
-                        })
+                        }),
                     );
                 }
 
@@ -135,15 +153,21 @@ class AccountInfo extends React.Component {
                 //     }));
                 // }
 
-                if (!contactsMap.Telegram || (contactsMap.Telegram  !== values.telegram && values.telegram)) {
+                if (
+                    !contactsMap.Telegram ||
+                    (contactsMap.Telegram !== values.telegram &&
+                        values.telegram)
+                ) {
                     promiseArr.push(
                         new Promise((resolve, reject) => {
                             setMemberInfoPut(
                                 {
-                                    messengerDetails:[{
-                                        Contact: values.telegram,
-                                        ContactTypeId: "15"
-                                    }]
+                                    messengerDetails: [
+                                        {
+                                            Contact: values.telegram,
+                                            ContactTypeId: "15",
+                                        },
+                                    ],
                                 },
                                 (res) => {
                                     if (res && res.isSuccess) {
@@ -151,9 +175,9 @@ class AccountInfo extends React.Component {
                                     } else {
                                         reject(res);
                                     }
-                                }
+                                },
                             );
-                        })
+                        }),
                     );
                 }
 
@@ -178,10 +202,14 @@ class AccountInfo extends React.Component {
                         Array.isArray(err) &&
                             err.forEach((v) => {
                                 if (v.message == "MEM00050") {
-                                    message.error(v.message || v.result.Message || translate("失败"));
+                                    message.error(
+                                        v.message ||
+                                            v.result.Message ||
+                                            translate("失败"),
+                                    );
                                 } else {
                                     message.error(
-                                        v.message || v.result.Message
+                                        v.message || v.result.Message,
                                     );
                                 }
                             });
@@ -196,11 +224,11 @@ class AccountInfo extends React.Component {
         this.props.form.resetFields();
         this.setState({
             checkboxValue: this.tranferContacts(
-                this.props.memberInfo.offerContacts
+                this.props.memberInfo.offerContacts,
             ).filter((contact) =>
                 ["isCall", "isEmail", "isSMS"].some(
-                    (method) => method === contact
-                )
+                    (method) => method === contact,
+                ),
             ),
         });
         Pushgtagdata("Cancel_contact_personal");
@@ -240,15 +268,17 @@ class AccountInfo extends React.Component {
     getVerifiedStatusBox(isItemVerified, verifyHandler) {
         return (
             <div
-                className={`verifiled-status-box ${isItemVerified && isItemVerified[1] && "verified"
-                    }`}
+                className={`verifiled-status-box ${
+                    isItemVerified && isItemVerified[1] && "verified"
+                }`}
             >
                 {isItemVerified && isItemVerified[1] && (
-                    <img src={`${process.env.BASE_PATH}/img/icons/icon-checked.png`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/icons/icon-checked.png`}
+                    />
                 )}
                 <p
                     onClick={() => {
-
                         if (!isItemVerified[1]) {
                             verifyHandler();
                         }
@@ -273,10 +303,11 @@ class AccountInfo extends React.Component {
                     top: "14px",
                     left: "0",
                 }}
-                src={`${process.env.BASE_PATH}/img/icons/${this.state.checkboxValue.includes(filedName)
-                    ? "icon-checked.png"
-                    : "greyCheck.svg"
-                    }`}
+                src={`${process.env.BASE_PATH}/img/icons/${
+                    this.state.checkboxValue.includes(filedName)
+                        ? "icon-checked.png"
+                        : "greyCheck.svg"
+                }`}
             />
         );
     }
@@ -303,17 +334,18 @@ class AccountInfo extends React.Component {
         const isTelegramInvalid = this.props.form.getFieldError("telegram");
         const isTelegramTouched = this.props.form.isFieldTouched("telegram");
         const isTelegramHasValue = !!this.props.form.getFieldValue("telegram");
-        const isContactMethodTouched = this.props.form.isFieldTouched("contactMethods");
+        const isContactMethodTouched =
+            this.props.form.isFieldTouched("contactMethods");
 
         if (
-            checkboxValue.length >= 2 && 
+            checkboxValue.length >= 2 &&
             !isTelegramInvalid &&
             isTelegramHasValue &&
             (isTelegramTouched || isContactMethodTouched)
         ) {
             isSubmittable = true;
         }
-        
+
         return (
             <React.Fragment>
                 <p className="home-section-title">{translate("安全信息")}</p>
@@ -361,27 +393,30 @@ class AccountInfo extends React.Component {
                                 {getFieldDecorator("email", {
                                     initialValue: getMaskHandler(
                                         "Email",
-                                        contactsMap.Email
+                                        contactsMap.Email,
                                     ),
                                     rules: [
                                         {
                                             required: true,
-                                            message: translate("请输入电子邮箱"),
+                                            message:
+                                                translate("请输入电子邮箱"),
                                         },
                                     ],
                                 })(
                                     <Input
                                         disabled={true}
-                                        placeholder={translate("请输入电子邮箱")}
+                                        placeholder={translate(
+                                            "请输入电子邮箱",
+                                        )}
                                         size="large"
                                         autoComplete="off"
                                         className="user-center-account-profile-input"
                                         maxLength={50}
-                                    />
+                                    />,
                                 )}
                                 {this.getVerifiedStatusBox(
                                     isVerifiedEmail,
-                                    this.openEmailVerification
+                                    this.openEmailVerification,
                                 )}
                             </Item>
                         </Col>
@@ -393,12 +428,13 @@ class AccountInfo extends React.Component {
                                 {getFieldDecorator("phone", {
                                     initialValue: getMaskHandler(
                                         "Phone",
-                                        contactsMap.Phone
+                                        contactsMap.Phone,
                                     ),
                                     rules: [
                                         {
                                             required: true,
-                                            message: translate("请输入联系电话"),
+                                            message:
+                                                translate("请输入联系电话"),
                                         },
                                     ],
                                 })(
@@ -408,12 +444,14 @@ class AccountInfo extends React.Component {
                                         autoComplete="off"
                                         className="user-center-account-profile-input"
                                         maxLength={9}
-                                        placeholder={translate("请输入联系电话")}
-                                    />
+                                        placeholder={translate(
+                                            "请输入联系电话",
+                                        )}
+                                    />,
                                 )}
                                 {this.getVerifiedStatusBox(
                                     isVerifiedPhone,
-                                    this.openPhoneVerification
+                                    this.openPhoneVerification,
                                 )}
                             </Item>
                         </Col>
@@ -438,7 +476,9 @@ class AccountInfo extends React.Component {
                                             content={
                                                 <>
                                                     <p className="p-text">
-                                                        {translate("您至少可以选择2种方式，以便我们及时联系您发送礼物、发布新活动！")}
+                                                        {translate(
+                                                            "您至少可以选择2种方式，以便我们及时联系您发送礼物、发布新活动！",
+                                                        )}
                                                         <button
                                                             onClick={() => {
                                                                 this.setState({
@@ -473,7 +513,7 @@ class AccountInfo extends React.Component {
                                             validator: (
                                                 rule,
                                                 value,
-                                                callback
+                                                callback,
                                             ) => {
                                                 if (Array.isArray(value)) {
                                                     if (
@@ -481,7 +521,9 @@ class AccountInfo extends React.Component {
                                                     ) {
                                                         if (value.length < 2) {
                                                             callback(
-                                                                translate("请至少选择两个联系方式。")
+                                                                translate(
+                                                                    "请至少选择两个联系方式。",
+                                                                ),
                                                             );
                                                         }
                                                     }
@@ -505,7 +547,7 @@ class AccountInfo extends React.Component {
                                                     {translate("打电话")}
                                                 </Checkbox>
                                                 {this.getCheckboxStatusUI(
-                                                    "isCall"
+                                                    "isCall",
                                                 )}
                                             </Col>
                                             <Col span={7}>
@@ -513,7 +555,7 @@ class AccountInfo extends React.Component {
                                                     {translate("短信")}
                                                 </Checkbox>
                                                 {this.getCheckboxStatusUI(
-                                                    "isSMS"
+                                                    "isSMS",
                                                 )}
                                             </Col>
                                             <Col span={7}>
@@ -521,11 +563,11 @@ class AccountInfo extends React.Component {
                                                     {translate("电子邮件")}
                                                 </Checkbox>
                                                 {this.getCheckboxStatusUI(
-                                                    "isEmail"
+                                                    "isEmail",
                                                 )}
                                             </Col>
                                         </Row>
-                                    </Checkbox.Group>
+                                    </Checkbox.Group>,
                                 )}
                             </Item>
                         </Col>
@@ -541,16 +583,26 @@ class AccountInfo extends React.Component {
                                         rules: [
                                             {
                                                 required: true,
-                                                message: translate("Telegram 账号不能为空"),
+                                                message:
+                                                    translate(
+                                                        "Telegram 账号不能为空",
+                                                    ),
                                             },
                                             {
                                                 validator: (
                                                     rule,
                                                     value,
-                                                    callback
+                                                    callback,
                                                 ) => {
-                                                    if (value && !telegramReg.test(value)) {
-                                                        callback(translate("格式错误。 只接受字母、数字和字符“_”"));
+                                                    if (
+                                                        value &&
+                                                        !telegramReg.test(value)
+                                                    ) {
+                                                        callback(
+                                                            translate(
+                                                                "格式错误。 只接受字母、数字和字符“_”",
+                                                            ),
+                                                        );
                                                     }
                                                     callback();
                                                 },
@@ -558,13 +610,15 @@ class AccountInfo extends React.Component {
                                         ],
                                     })(
                                         <Input
-                                            placeholder={translate("输入您的电报帐户")}
+                                            placeholder={translate(
+                                                "输入您的电报帐户",
+                                            )}
                                             size="large"
                                             className="tlc-input-disabled user-center-account-profile-input"
                                             maxLength={50}
                                             autoComplete="off"
                                             disabled={!isEnable}
-                                        />
+                                        />,
                                     )}
                                 </Item>
                             </div>
@@ -650,5 +704,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(Form.create({ name: "AccountInfo" })(AccountInfo));

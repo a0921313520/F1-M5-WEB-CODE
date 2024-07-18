@@ -2,9 +2,9 @@ import React from "react";
 import { post } from "$ACTIONS/TlcRequest";
 import { ApiPort, APISETS } from "$ACTIONS/TLCAPI";
 import { Button, message, Input, Form, Modal, Tabs } from "antd";
-import { getQueryVariable,getDisplayPublicError } from "$ACTIONS/helper";
-import {translate} from "$ACTIONS/Translate";
-import {emailReg as emailRegex,regSymbols} from "$ACTIONS/reg";
+import { getQueryVariable, getDisplayPublicError } from "$ACTIONS/helper";
+import { translate } from "$ACTIONS/Translate";
+import { emailReg as emailRegex, regSymbols } from "$ACTIONS/reg";
 const TabPane = Tabs.TabPane;
 message.config({
     top: 100,
@@ -123,8 +123,8 @@ class ForgotPwd extends React.Component {
             visible: true,
             defaultkey: e,
         });
-        if(e === 1){
-            global.Pushgtagpiwikurl("forget_password","Forget Password");
+        if (e === 1) {
+            global.Pushgtagpiwikurl("forget_password", "Forget Password");
         }
     };
 
@@ -183,33 +183,50 @@ class ForgotPwd extends React.Component {
                             <div
                                 style={{ textAlign: "center" }}
                                 dangerouslySetInnerHTML={{
-                                    __html: translate("密码更新链接已发送至您的邮箱，请检查您的注册邮箱"),
+                                    __html: translate(
+                                        "密码更新链接已发送至您的邮箱，请检查您的注册邮箱",
+                                    ),
                                 }}
                             />
                         ),
                     });
                     return;
                 } else {
-                    this.setState({ errorMessage: getDisplayPublicError(res) || translate("电子邮件或用户名无效，请重试")});
+                    this.setState({
+                        errorMessage:
+                            getDisplayPublicError(res) ||
+                            translate("电子邮件或用户名无效，请重试"),
+                    });
                 }
                 responseData = res;
-            }).catch((error) => {
+            })
+            .catch((error) => {
                 console.log(error);
-                responseData(error)
-            }).finally(()=>{
+                responseData(error);
+            })
+            .finally(() => {
                 this.setState({
                     loading: false,
                 });
-                const messages = responseData?.isSuccess ? "" : getDisplayPublicError(responseData);
+                const messages = responseData?.isSuccess
+                    ? ""
+                    : getDisplayPublicError(responseData);
                 Pushgtagdata(
-                    "ForgetPassword", 
-                    "Submit Forget Password", 
+                    "ForgetPassword",
+                    "Submit Forget Password",
                     "ForgetPassword_S_Email&Name",
                     responseData?.isSuccess ? 2 : 1,
                     [
-                        {customVariableKey: responseData?.isSuccess ? false : "ForgetPassword_S_Email&Name_ErrorMsg",
-                        customVariableValue: responseData?.isSuccess ? false : messages || translate("电子邮件地址无效，请重试")}
-                    ]
+                        {
+                            customVariableKey: responseData?.isSuccess
+                                ? false
+                                : "ForgetPassword_S_Email&Name_ErrorMsg",
+                            customVariableValue: responseData?.isSuccess
+                                ? false
+                                : messages ||
+                                  translate("电子邮件地址无效，请重试"),
+                        },
+                    ],
                 );
             });
     }
@@ -240,53 +257,71 @@ class ForgotPwd extends React.Component {
                 this.state.EmailForForgetUser +
                 "&redirectUrl=" +
                 ApiPort.LOCAL_HOST +
-                APISETS
-        ).then((res) => {
-            if (res?.isSuccess) {
-                Modal.info({
-                    className: "confirm-modal-of-forgetuser",
-                    icon: <></>,
-                    title: translate("发送订单成功"),
-                    centered: true,
-                    okText: translate("关闭"),
-                    closable: true,
-                    zIndex: 2000,
-                    content: (
-                        <div
-                            style={{ textAlign: "center" }}
-                            dangerouslySetInnerHTML={{
-                                __html: translate("您的用户名已成功发送到您的电子邮件地址"),
-                            }}
-                        />
-                    ),
-                });
-            } else {
+                APISETS,
+        )
+            .then((res) => {
+                if (res?.isSuccess) {
+                    Modal.info({
+                        className: "confirm-modal-of-forgetuser",
+                        icon: <></>,
+                        title: translate("发送订单成功"),
+                        centered: true,
+                        okText: translate("关闭"),
+                        closable: true,
+                        zIndex: 2000,
+                        content: (
+                            <div
+                                style={{ textAlign: "center" }}
+                                dangerouslySetInnerHTML={{
+                                    __html: translate(
+                                        "您的用户名已成功发送到您的电子邮件地址",
+                                    ),
+                                }}
+                            />
+                        ),
+                    });
+                } else {
+                    this.setState({
+                        errorMessageForForgetUser:
+                            getDisplayPublicError(res) ||
+                            translate("电子邮件地址无效，请重试"),
+                    });
+                }
+                responseData = res;
+            })
+            .catch((error) => {
                 this.setState({
-                    errorMessageForForgetUser: getDisplayPublicError(res) || translate("电子邮件地址无效，请重试"),
-                });
-            }
-            responseData = res;
-        }).catch((error) => {
-                this.setState({
-                    errorMessageForForgetUser: getDisplayPublicError(error) || translate("电子邮件地址无效，请重试"),
+                    errorMessageForForgetUser:
+                        getDisplayPublicError(error) ||
+                        translate("电子邮件地址无效，请重试"),
                 });
                 responseData = error;
-        }).finally(()=>{
-            this.setState({
-                loading: false,
+            })
+            .finally(() => {
+                this.setState({
+                    loading: false,
+                });
+                const messages = responseData?.isSuccess
+                    ? ""
+                    : getDisplayPublicError(responseData);
+                Pushgtagdata(
+                    "ForgetUsername",
+                    "Submit Forget Username",
+                    "ForgetUsername_S_Email",
+                    responseData?.isSuccess ? 2 : 1,
+                    [
+                        {
+                            customVariableKey: responseData?.isSuccess
+                                ? false
+                                : "Forget_Username_S_Email_ErrorMsg",
+                            customVariableValue: responseData?.isSuccess
+                                ? false
+                                : messages ||
+                                  translate("电子邮件地址无效，请重试"),
+                        },
+                    ],
+                );
             });
-            const messages = responseData?.isSuccess ? "" : getDisplayPublicError(responseData);
-            Pushgtagdata(
-                "ForgetUsername", 
-                "Submit Forget Username", 
-                "ForgetUsername_S_Email",
-                responseData?.isSuccess ? 2 : 1,
-                [
-                    {customVariableKey: responseData?.isSuccess ? false : "Forget_Username_S_Email_ErrorMsg",
-                    customVariableValue: responseData?.isSuccess ? false : messages || translate("电子邮件地址无效，请重试")}
-                ]
-            );
-        })
     }
     UpdateMemberPWD() {
         const { NEWPWD, OLDPWD } = this.state;
@@ -313,13 +348,20 @@ class ForgotPwd extends React.Component {
             activeIndex: key,
             submitstatus: false,
         });
-        if(key == "1"){
-            global.Pushgtagpiwikurl("forget_password","Forget Password");
-            Pushgtagdata("ForgetUsername","Go to Forget Password","ForgetUsername_C_ForgetPassword")
-        }
-        else {
-            global.Pushgtagpiwikurl("forget_username","Forget User Name");
-            Pushgtagdata("ForgetPassword","Go to Forget Username","ForgetPassword_C_ForgetName")
+        if (key == "1") {
+            global.Pushgtagpiwikurl("forget_password", "Forget Password");
+            Pushgtagdata(
+                "ForgetUsername",
+                "Go to Forget Password",
+                "ForgetUsername_C_ForgetPassword",
+            );
+        } else {
+            global.Pushgtagpiwikurl("forget_username", "Forget User Name");
+            Pushgtagdata(
+                "ForgetPassword",
+                "Go to Forget Username",
+                "ForgetPassword_C_ForgetName",
+            );
         }
     }
 
@@ -339,7 +381,9 @@ class ForgotPwd extends React.Component {
         } = this.state;
         return (
             <Modal
-                title={translate(activeIndex == 1 ? "忘记密码了" : "忘记用户名了")}
+                title={translate(
+                    activeIndex == 1 ? "忘记密码了" : "忘记用户名了",
+                )}
                 visible={visible}
                 onOk={this.handleCancel}
                 onCancel={this.handleCancel}
@@ -380,10 +424,10 @@ class ForgotPwd extends React.Component {
                                     }
                                     onChange={this.MemberChange.bind(
                                         this,
-                                        "Email"
+                                        "Email",
                                     )}
                                     onPressEnter={this.EmailForgetPassword.bind(
-                                        this
+                                        this,
                                     )}
                                     size="large"
                                 />
@@ -408,10 +452,10 @@ class ForgotPwd extends React.Component {
                                     }
                                     onChange={this.MemberChange.bind(
                                         this,
-                                        "Name"
+                                        "Name",
                                     )}
                                     onPressEnter={this.EmailForgetPassword.bind(
-                                        this
+                                        this,
                                     )}
                                     size="large"
                                     maxLength={20}
@@ -456,7 +500,7 @@ class ForgotPwd extends React.Component {
                                 }
                                 onChange={this.MemberChange.bind(
                                     this,
-                                    "EmailForForgetUser"
+                                    "EmailForForgetUser",
                                 )}
                                 onPressEnter={this.Forgetuser.bind(this)}
                                 size="large"

@@ -12,7 +12,7 @@ class ShowEg extends React.Component {
         };
     }
 
-    componentDidMount() { }
+    componentDidMount() {}
 
     titleText = () => {
         const { docTypeId } = this.props;
@@ -28,9 +28,9 @@ class ShowEg extends React.Component {
             case 5:
                 return translate("银行账户(大写)");
             default:
-                break
+                break;
         }
-    }
+    };
     render() {
         /* 身份证 */
         const Type1 = [
@@ -49,7 +49,9 @@ class ShowEg extends React.Component {
                 index: 1,
                 content: (
                     <ol>
-                        <li>{translate("• CCCD 的文字和图像模糊且无法读取。")}</li>
+                        <li>
+                            {translate("• CCCD 的文字和图像模糊且无法读取。")}
+                        </li>
                         <li>{translate("• 背景图案不清晰。")}</li>
                         <li>{translate("• 图像上应有足够的光线且无阴影。")}</li>
                     </ol>
@@ -86,7 +88,11 @@ class ShowEg extends React.Component {
                 content: (
                     <ol>
                         <li>{translate("• 人脸、ID信息清晰无遮挡。")}</li>
-                        <li>{translate("• 拍照时将焦点放在CCCD 上。 注意：拍照时请点击手机屏幕，以对准拍摄时清晰的图像。")}</li>
+                        <li>
+                            {translate(
+                                "• 拍照时将焦点放在CCCD 上。 注意：拍照时请点击手机屏幕，以对准拍摄时清晰的图像。",
+                            )}
+                        </li>
                         <li>{translate("• 完美的照明。")}</li>
                     </ol>
                 ),
@@ -95,11 +101,21 @@ class ShowEg extends React.Component {
                 index: 1,
                 content: (
                     <ol>
-                        <li>{translate("• CCCD 距离摄像机太远，内容信息不清晰。")}</li>
+                        <li>
+                            {translate(
+                                "• CCCD 距离摄像机太远，内容信息不清晰。",
+                            )}
+                        </li>
                         <li>{translate("• 脸部模糊且图像倾斜。")}</li>
                         <li>{translate("• CCCD 图像从脸部隐藏。")}</li>
-                        <li>{translate("• 发布或捕获时请勿反转CCCD 图像。")}</li>
-                        <li>{translate("注意：拍照时请点击手机屏幕，以对准拍摄时清晰的图像。")}</li>
+                        <li>
+                            {translate("• 发布或捕获时请勿反转CCCD 图像。")}
+                        </li>
+                        <li>
+                            {translate(
+                                "注意：拍照时请点击手机屏幕，以对准拍摄时清晰的图像。",
+                            )}
+                        </li>
                     </ol>
                 ),
             },
@@ -159,12 +175,12 @@ class ShowEg extends React.Component {
             docTypeId == 1
                 ? Type1
                 : docTypeId == 2
-                    ? Type2
-                    : docTypeId == 3
-                        ? Type3
-                        : docTypeId == 4
-                            ? Type4
-                            : Type5;
+                  ? Type2
+                  : docTypeId == 3
+                    ? Type3
+                    : docTypeId == 4
+                      ? Type4
+                      : Type5;
         return (
             <Modal
                 title={this.titleText()}
@@ -182,8 +198,9 @@ class ShowEg extends React.Component {
                     {TypeData.map((item, index) => (
                         <div key={index + "List"}>
                             <img
-                                src={`${process.env.BASE_PATH}/img/upload/eg/${index == 0 ? docTypeId : docTypeId + ".1"
-                                    }.jpg`}
+                                src={`${process.env.BASE_PATH}/img/upload/eg/${
+                                    index == 0 ? docTypeId : docTypeId + ".1"
+                                }.jpg`}
                             />
                             <div
                                 className="setText"

@@ -24,7 +24,7 @@ export default class Header extends React.Component {
     componentWillReceiveProps(props) {
         if (props.Gameslist) {
             var index = props.Gameslist.findIndex(
-                (x) => x.providerCode == props.bannertype.name
+                (x) => x.providerCode == props.bannertype.name,
             );
             if (index != -1) {
                 this.setState({
@@ -69,7 +69,9 @@ export default class Header extends React.Component {
                                 }
                             >
                                 {this.props.Gameslist.filter(
-                                    (item) => ["YBS","IPSB-Virtual","SB2"].every !==item.providerCode 
+                                    (item) =>
+                                        ["YBS", "IPSB-Virtual", "SB2"].every !==
+                                        item.providerCode,
                                 ).map((item, index) => {
                                     if (item.providerId == "70") return;
                                     return (
@@ -170,4 +172,3 @@ export default class Header extends React.Component {
         );
     }
 }
-

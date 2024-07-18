@@ -64,7 +64,9 @@ function MainComponent(props) {
                     <Header key="main-header" {...commonParams} />
                     {props.children}
                     <Footer key="main-footer" />
-                    {!!props.seoContainer ? <SeoFooterContainer seocontent={props.seoContainer}/> : null}
+                    {!!props.seoContainer ? (
+                        <SeoFooterContainer seocontent={props.seoContainer} />
+                    ) : null}
                 </div>
             );
         case 2:
@@ -137,8 +139,8 @@ export default ({
     description = "",
     Keywords = "",
     getPromotionList,
-    seoContainer="",
-    seoData
+    seoContainer = "",
+    seoData,
 }) => [
     <Head key="layout-head">
         <meta charSet="utf-8" />
@@ -149,7 +151,10 @@ export default ({
             href={`${process.env.BASE_PATH}/img/logo/favicon.ico`}
         />
         <title>{seoData?.title ?? title}</title>
-        <meta name="description" content={seoData?.description ?? description} />
+        <meta
+            name="description"
+            content={seoData?.description ?? description}
+        />
         <meta name="Keywords" content={seoData?.keyword ?? Keywords} />
     </Head>,
     <>

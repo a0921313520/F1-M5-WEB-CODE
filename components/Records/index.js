@@ -11,7 +11,7 @@ import WithdrawRecords from "./WithdrawRecords";
 import { LEARN_TIME } from "$ACTIONS/constantsData";
 import { Cookie } from "$ACTIONS/util";
 import Router from "next/router";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 import { connect } from "react-redux";
 import { userCenterActions } from "$STORE/userCenterSlice";
 
@@ -71,7 +71,7 @@ class Records extends React.Component {
             if (res.result && res.result.paymentMethods.length) {
                 this.setState({
                     payMethods: [{ code: "", name: translate("全部") }].concat(
-                        res.result.paymentMethods
+                        res.result.paymentMethods,
                     ),
                 });
             }
@@ -81,9 +81,9 @@ class Records extends React.Component {
         GetWithdrawalMethods((res) => {
             if (res.result && res.result.paymentMethods.length) {
                 this.setState({
-                    withdrawMethodsList: [{ code: "", name: translate("全部") }].concat(
-                        res.result.paymentMethods
-                    ),
+                    withdrawMethodsList: [
+                        { code: "", name: translate("全部") },
+                    ].concat(res.result.paymentMethods),
                 });
             }
         });
@@ -115,13 +115,15 @@ class Records extends React.Component {
             }, 3000);
         }
         //在交易记录页进行充值/提款/转账 操作完成相对应操作后点击去交易记录按钮的判断
-        if(prevProps.refreshCurrentPage !== this.props.refreshCurrentPage){
-            ["deposit","withdraw","transfer"].some((item) => item === this.props.refreshCurrentPage) && this.changeFilterType(this.props.refreshCurrentPage);
+        if (prevProps.refreshCurrentPage !== this.props.refreshCurrentPage) {
+            ["deposit", "withdraw", "transfer"].some(
+                (item) => item === this.props.refreshCurrentPage,
+            ) && this.changeFilterType(this.props.refreshCurrentPage);
         }
     }
     componentWillUnmount() {
         clearTimeout(this.recordInfoTimer);
-        this.setState = () => false
+        this.setState = () => false;
     }
     closeLearn() {
         this.setState({ isShowLearnMask: false });
@@ -164,7 +166,7 @@ class Records extends React.Component {
                 this.state.definedDate.endTime +
                 (this.state.methodValue
                     ? "&method=" + this.state.methodValue
-                    : "")
+                    : ""),
         )
             .then((res) => {
                 if (res && res.result) {
@@ -190,7 +192,7 @@ class Records extends React.Component {
     }
     /**
      * 获取提款记录
-     * @param {function} call 
+     * @param {function} call
      */
     getWithdrawlist(call) {
         this.props.setLoading(true);
@@ -202,7 +204,7 @@ class Records extends React.Component {
                 this.state.definedDate.endTime +
                 (this.state.withdrawMethodValue
                     ? "&method=" + this.state.withdrawMethodValue
-                    : "")
+                    : ""),
         )
             .then((res) => {
                 if (res && res.result) {
@@ -219,7 +221,7 @@ class Records extends React.Component {
     }
     /**
      * 获取转账记录
-     * @param {function} call 
+     * @param {function} call
      */
     getTransferlist(call) {
         this.props.setLoading(true);
@@ -230,7 +232,7 @@ class Records extends React.Component {
                 " 00:00:00.000&dateTo=" +
                 this.state.definedDate.endTime +
                 " 23:59:59.997" +
-                APISETS
+                APISETS,
         )
             .then((res) => {
                 if (res && res.result) {
@@ -320,91 +322,91 @@ class Records extends React.Component {
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "Main_from_sorting_transfer"
-                        : "Main_to_sorting_transfer"
+                        : "Main_to_sorting_transfer",
                 );
                 break;
             case "SB":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "BTiIMSPIMESTF_from_sorting_transfer"
-                        : "BTiIMSPIMESTF_to_sorting_transfer"
+                        : "BTiIMSPIMESTF_to_sorting_transfer",
                 );
                 break;
             case "SP":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "SPsport_from_sorting_transfer"
-                        : "SPsport_to_sorting_transfer"
+                        : "SPsport_to_sorting_transfer",
                 );
                 break;
             case "P2P":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "KYGP2P_from_sorting_transfer"
-                        : "KYGP2P_to_sorting_transfer"
+                        : "KYGP2P_to_sorting_transfer",
                 );
                 break;
             case "VR":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "VRkeno_from_sorting_transfer"
-                        : "VRkeno_to_sorting_transfer"
+                        : "VRkeno_to_sorting_transfer",
                 );
                 break;
             case "KYG":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "KYG_from_sorting_transfer"
-                        : "KYG_to_sorting_transfer"
+                        : "KYG_to_sorting_transfer",
                 );
                 break;
             case "LD":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "Live_from_sorting_transfer"
-                        : "Live_to_sorting_transfer"
+                        : "Live_to_sorting_transfer",
                 );
                 break;
             case "SLOT":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "Slot_from_sorting_transfer"
-                        : "Slot_to_sorting_transfer"
+                        : "Slot_to_sorting_transfer",
                 );
                 break;
             case "PT":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "PT_from_sorting_transfer"
-                        : "PT_to_sorting_transfer"
+                        : "PT_to_sorting_transfer",
                 );
                 break;
             case "BOY2":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "BoleP2P_from_sorting_transfer"
-                        : "BoleP2P_to_sorting_transfer"
+                        : "BoleP2P_to_sorting_transfer",
                 );
                 break;
             case "KENO":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "BYkeno_from_sorting_transfer"
-                        : "BYkeno_to_sorting_transfer"
+                        : "BYkeno_to_sorting_transfer",
                 );
                 break;
             case "AG":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "Fishing2slot_from_sorting_transfer"
-                        : "Fishing2slot_to_sorting_transfer"
+                        : "Fishing2slot_to_sorting_transfer",
                 );
                 break;
             case "":
                 Pushgtagdata(
                     type === "formAccountCode"
                         ? "All_from_sorting_transfer"
-                        : "All_to_sorting_transfer"
+                        : "All_to_sorting_transfer",
                 );
                 break;
             default:
@@ -422,7 +424,7 @@ class Records extends React.Component {
                 Pushgtagdata(
                     "Transaction Record",
                     "View",
-                    "Deposit_TransactionRecord"
+                    "Deposit_TransactionRecord",
                 );
                 break;
             case "withdraw":
@@ -432,7 +434,7 @@ class Records extends React.Component {
                 Pushgtagdata(
                     "Transaction Record",
                     "View",
-                    "Ｗithdrawal_TransactionRecord​"
+                    "Ｗithdrawal_TransactionRecord​",
                 );
                 break;
             case "transfer":
@@ -442,7 +444,7 @@ class Records extends React.Component {
                 Pushgtagdata(
                     "Transaction Record",
                     "View",
-                    "Transfer_TransactionRecord​"
+                    "Transfer_TransactionRecord​",
                 );
                 break;
             default:
@@ -452,10 +454,10 @@ class Records extends React.Component {
 
     /**
      * 跳转page
-     * @param {*} key 
+     * @param {*} key
      */
-    navigationPage=(key)=>{
-        switch(key){
+    navigationPage = (key) => {
+        switch (key) {
             case "uploadFiles":
                 this.props.changeUserCenterTabKey(key);
                 Router.push("/me/upload-files");
@@ -463,7 +465,7 @@ class Records extends React.Component {
             default:
                 break;
         }
-    }
+    };
 
     render() {
         return (
@@ -534,7 +536,7 @@ class Records extends React.Component {
                                     dropdownStyle={{ width: 125, zIndex: 1 }}
                                     onFocus={() => {
                                         Pushgtagdata(
-                                            "Sorting_deposit_transactionrecord"
+                                            "Sorting_deposit_transactionrecord",
                                         );
                                     }}
                                     onChange={this.handleChange}
@@ -548,8 +550,8 @@ class Records extends React.Component {
                                                 {value.code === "BC"
                                                     ? "网银支付"
                                                     : value.code === "BCM"
-                                                    ? "快捷支付"
-                                                    : value.name}
+                                                      ? "快捷支付"
+                                                      : value.name}
                                             </Option>
                                         );
                                     })}
@@ -564,7 +566,7 @@ class Records extends React.Component {
                                     dropdownStyle={{ width: 125, zIndex: 1 }}
                                     onFocus={() => {
                                         Pushgtagdata(
-                                            "Sorting_withdrawal_transactionrecord"
+                                            "Sorting_withdrawal_transactionrecord",
                                         );
                                     }}
                                     onChange={this.handleWithdrawChange}
@@ -581,7 +583,7 @@ class Records extends React.Component {
                                                     {value.name}
                                                 </Option>
                                             );
-                                        }
+                                        },
                                     )}
                                 </Select>
                             ) : null}
@@ -592,9 +594,17 @@ class Records extends React.Component {
                                     this.setState({ visibleDateRange: true });
                                 }}
                             >
-                                <span>{moment(this.state.definedDate.startTime).format("DD-MM-YYYY")}</span>
+                                <span>
+                                    {moment(
+                                        this.state.definedDate.startTime,
+                                    ).format("DD-MM-YYYY")}
+                                </span>
                                 <Icon type="swap-right" />
-                                <span>{moment(this.state.definedDate.endTime).format("DD-MM-YYYY")}</span>
+                                <span>
+                                    {moment(
+                                        this.state.definedDate.endTime,
+                                    ).format("DD-MM-YYYY")}
+                                </span>
                                 <Icon type="calendar" />
                             </div>
                         </div>
@@ -655,13 +665,13 @@ class Records extends React.Component {
 const mapStateToProps = function (state) {
     return {
         refreshCurrentPage: state.userCenter.refreshCurrentPage,
-    }
-}
-const mapDispatchToProps = function (dispatch) {
-    return {
-        changeUserCenterTabKey:(key)=>{
-            dispatch(userCenterActions.changeUserCenterTabKey(key))
-        }
     };
 };
-export default connect(mapStateToProps,mapDispatchToProps)(Records);
+const mapDispatchToProps = function (dispatch) {
+    return {
+        changeUserCenterTabKey: (key) => {
+            dispatch(userCenterActions.changeUserCenterTabKey(key));
+        },
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Records);

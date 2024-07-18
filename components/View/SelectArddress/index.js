@@ -10,7 +10,7 @@ import { translate } from "$ACTIONS/Translate";
 export default class AreaSelection extends Component {
     constructor(props) {
         super(props);
-            this.state = {
+        this.state = {
             // value: this.props.datavalue, //array
             updatedDataValue: {
                 province: this.props.datavalue[0],
@@ -185,7 +185,7 @@ export default class AreaSelection extends Component {
             });
             get(
                 ApiPort.GetDistricts +
-                    `&provinceId=${this.state.selectedProvinceId}`
+                    `&provinceId=${this.state.selectedProvinceId}`,
             ).then((res) => {
                 this.setState({
                     citys: res.result,
@@ -200,7 +200,7 @@ export default class AreaSelection extends Component {
                 loading: true,
             });
             get(
-                ApiPort.GetTowns + `&districtId=${this.state.selectedCityId}`
+                ApiPort.GetTowns + `&districtId=${this.state.selectedCityId}`,
             ).then((res) => {
                 this.setState({
                     districts: res.result,
@@ -210,14 +210,14 @@ export default class AreaSelection extends Component {
                 });
             });
         }
-        if(prevProps.type !== this.props.type && this.props.type){
+        if (prevProps.type !== this.props.type && this.props.type) {
             this.setState({
                 updatedDataValue: {
                     province: this.props.datavalue[0],
                     city: this.props.datavalue[1],
                     district: this.props.datavalue[2],
                 },
-            })
+            });
         }
     };
 
@@ -325,11 +325,12 @@ export default class AreaSelection extends Component {
     };
 
     render() {
-        const { 
-            provinces, citys, districts, updatedDataValue, loading 
-        } =
-        this.state;
-        console.log("🚀 ~ file: index.js:318 ~ AreaSelection ~ render ~ updatedDataValue:", updatedDataValue)
+        const { provinces, citys, districts, updatedDataValue, loading } =
+            this.state;
+        console.log(
+            "🚀 ~ file: index.js:318 ~ AreaSelection ~ render ~ updatedDataValue:",
+            updatedDataValue,
+        );
         const { type } = this.props;
 
         return (
@@ -341,7 +342,7 @@ export default class AreaSelection extends Component {
                         justifyContent: "space-between",
                         marginBottom: "10px",
                     }}
-                    id = "select-item"
+                    id="select-item"
                 >
                     <Select
                         style={{ width: "107px", height: "45px" }}
@@ -372,9 +373,7 @@ export default class AreaSelection extends Component {
                                 ? updatedDataValue.city.name
                                 : translate("市/区")
                         }
-                        disabled={
-                            !updatedDataValue.province
-                        }
+                        disabled={!updatedDataValue.province}
                         onChange={(e) => {
                             this.changeSelect("city", citys, e);
                         }}

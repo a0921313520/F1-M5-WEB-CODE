@@ -47,8 +47,8 @@ class RedirectResetPassword extends React.Component {
         // 验证当前加密代码是否符合规则
         patch(
             ApiPort.VerifyResetPasswordLink +
-            "&encryptedValue=" +
-            encodeURIComponent(this.encryptedText)
+                "&encryptedValue=" +
+                encodeURIComponent(this.encryptedText),
         )
             .then((res) => {
                 if (res && !res.isSuccess) {
@@ -135,14 +135,16 @@ class RedirectResetPassword extends React.Component {
                                 title: translate("重设密码"),
                                 centered: true,
                                 okText: translate("关闭"),
-                                content:
+                                content: (
                                     <div
                                         style={{ textAlign: "center" }}
                                         dangerouslySetInnerHTML={{
-                                            __html: translate("您已成功重置密码，请使用新密码登录！"),
+                                            __html: translate(
+                                                "您已成功重置密码，请使用新密码登录！",
+                                            ),
                                         }}
-
-                                    />,
+                                    />
+                                ),
                                 onOk: () => {
                                     window.location.href = "/vn/";
                                 },
@@ -158,7 +160,11 @@ class RedirectResetPassword extends React.Component {
                                     <div
                                         style={{ textAlign: "center" }}
                                         dangerouslySetInnerHTML={{
-                                            __html: res.errors[0].description || translate('系统错误，请联系在线支持！'),
+                                            __html:
+                                                res.errors[0].description ||
+                                                translate(
+                                                    "系统错误，请联系在线支持！",
+                                                ),
                                         }}
                                     />
                                 ),
@@ -183,7 +189,10 @@ class RedirectResetPassword extends React.Component {
                 <Head>
                     <title>{"FUN88"}</title>
                     <meta charSet="utf-8" />
-                    <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+                    <meta
+                        httpEquiv="X-UA-Compatible"
+                        content="IE=edge,chrome=1"
+                    />
                     <link
                         rel="shortcut icon"
                         type="image/x-icon"
@@ -193,7 +202,10 @@ class RedirectResetPassword extends React.Component {
                     <meta name="Keywords" content={""} />
                     <script src="/vn/js/polyfill.min.js" />
                 </Head>
-                <div id="maintain" className="common-distance-wrap link-resetpassword-page">
+                <div
+                    id="maintain"
+                    className="common-distance-wrap link-resetpassword-page"
+                >
                     <div className="maintain-header-wrap">
                         <PublicHead />
                     </div>
@@ -210,17 +222,19 @@ class RedirectResetPassword extends React.Component {
                                                 onSubmit={this.handleSubmit}
                                             >
                                                 <Form.Item
-                                                    label={translate("新的密码")}
+                                                    label={translate(
+                                                        "新的密码",
+                                                    )}
                                                     className={
                                                         this.state.showPwdTip
                                                             ? "defined-error"
                                                             : null
                                                     }
-                                                // extra={
-                                                //     this.state.showPwdTip
-                                                //         ? "您已达到 20 个字符的输入上限"
-                                                //         : null
-                                                // }
+                                                    // extra={
+                                                    //     this.state.showPwdTip
+                                                    //         ? "您已达到 20 个字符的输入上限"
+                                                    //         : null
+                                                    // }
                                                 >
                                                     {getFieldDecorator(
                                                         "password",
@@ -228,65 +242,71 @@ class RedirectResetPassword extends React.Component {
                                                             rules: [
                                                                 {
                                                                     required: false,
-                                                                    message: ""
+                                                                    message: "",
                                                                 },
                                                                 {
                                                                     validator: (
                                                                         rule,
                                                                         value,
-                                                                        callback
+                                                                        callback,
                                                                     ) => {
                                                                         if (
                                                                             pwdReg.test(
-                                                                                value
+                                                                                value,
                                                                             ) ===
                                                                             false
                                                                         ) {
                                                                             callback(
-                                                                                translate("密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@")
+                                                                                translate(
+                                                                                    "密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@",
+                                                                                ),
                                                                             );
                                                                             return;
                                                                         }
                                                                         if (
                                                                             value &&
                                                                             value.length ===
-                                                                            20
+                                                                                20
                                                                         ) {
                                                                             this.setState(
                                                                                 {
                                                                                     showPwdTip: true,
-                                                                                }
+                                                                                },
                                                                             );
                                                                         }
                                                                         callback();
                                                                     },
                                                                 },
                                                             ],
-                                                        }
+                                                        },
                                                     )(
                                                         <Input.Password
                                                             size="large"
                                                             type="password"
                                                             maxLength={20}
                                                             autoComplete="off"
-                                                            placeholder={translate("新的密码(小写)")}
-                                                        />
+                                                            placeholder={translate(
+                                                                "新的密码(小写)",
+                                                            )}
+                                                        />,
                                                     )}
                                                 </Form.Item>
                                                 <Form.Item
-                                                    label={translate("重新输入新密码")}
+                                                    label={translate(
+                                                        "重新输入新密码",
+                                                    )}
                                                     className={
                                                         this.state
                                                             .showConfirmPwdTip
                                                             ? "defined-error"
                                                             : null
                                                     }
-                                                // extra={
-                                                //     this.state
-                                                //         .showConfirmPwdTip
-                                                //         ? "您已达到 20 个字符的输入上限"
-                                                //         : null
-                                                // }
+                                                    // extra={
+                                                    //     this.state
+                                                    //         .showConfirmPwdTip
+                                                    //         ? "您已达到 20 个字符的输入上限"
+                                                    //         : null
+                                                    // }
                                                 >
                                                     {getFieldDecorator(
                                                         "passwordconfirm",
@@ -294,49 +314,56 @@ class RedirectResetPassword extends React.Component {
                                                             rules: [
                                                                 {
                                                                     required: true,
-                                                                    message: translate("确认密码和新密码不一致"),
+                                                                    message:
+                                                                        translate(
+                                                                            "确认密码和新密码不一致",
+                                                                        ),
                                                                 },
                                                                 {
                                                                     validator: (
                                                                         rule,
                                                                         value,
-                                                                        callback
+                                                                        callback,
                                                                     ) => {
                                                                         if (
                                                                             value
                                                                         ) {
                                                                             getFieldValue(
-                                                                                "password"
+                                                                                "password",
                                                                             ) !==
                                                                                 value &&
                                                                                 callback(
-                                                                                    translate("确认密码和新密码不一致")
+                                                                                    translate(
+                                                                                        "确认密码和新密码不一致",
+                                                                                    ),
                                                                                 );
                                                                         }
                                                                         if (
                                                                             value &&
                                                                             value.length ===
-                                                                            20
+                                                                                20
                                                                         ) {
                                                                             this.setState(
                                                                                 {
                                                                                     showConfirmPwdTip: true,
-                                                                                }
+                                                                                },
                                                                             );
                                                                         }
                                                                         callback();
                                                                     },
                                                                 },
                                                             ],
-                                                        }
+                                                        },
                                                     )(
                                                         <Input.Password
                                                             size="large"
                                                             type="password"
                                                             maxLength={20}
                                                             autoComplete="off"
-                                                            placeholder={translate("重新输入新密码(小写)")}
-                                                        />
+                                                            placeholder={translate(
+                                                                "重新输入新密码(小写)",
+                                                            )}
+                                                        />,
                                                     )}
                                                 </Form.Item>
                                                 <div className="line-distance" />
@@ -350,17 +377,17 @@ class RedirectResetPassword extends React.Component {
                                                             htmlType="submit"
                                                             disabled={
                                                                 Object.values(
-                                                                    getFieldsError()
+                                                                    getFieldsError(),
                                                                 ).some(
                                                                     (v) =>
                                                                         v !==
-                                                                        undefined
+                                                                        undefined,
                                                                 ) ||
                                                                 !getFieldValue(
-                                                                    "password"
+                                                                    "password",
                                                                 ) ||
                                                                 !getFieldValue(
-                                                                    "passwordconfirm"
+                                                                    "passwordconfirm",
                                                                 )
                                                             }
                                                             loading={

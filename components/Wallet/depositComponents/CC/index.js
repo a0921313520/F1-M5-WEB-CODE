@@ -90,7 +90,7 @@ class CC extends React.Component {
                                 Finish: true,
                             });
                         }
-                    }
+                    },
                 );
             }
         });
@@ -173,11 +173,11 @@ class CC extends React.Component {
                                             if (value) {
                                                 if (
                                                     !this.tlcCardNumberReg.test(
-                                                        value
+                                                        value,
                                                     )
                                                 ) {
                                                     callback(
-                                                        "乐卡序列号不接受字母"
+                                                        "乐卡序列号不接受字母",
                                                     );
                                                 }
                                             }
@@ -191,7 +191,7 @@ class CC extends React.Component {
                                     placeholder="现金卡序列号"
                                     autoComplete="off"
                                     maxLength={16}
-                                />
+                                />,
                             )}
                         </Item>
                         <Item label="密码">
@@ -206,11 +206,11 @@ class CC extends React.Component {
                                             if (value) {
                                                 if (
                                                     !this.tlcCardPasswordReg.test(
-                                                        value
+                                                        value,
                                                     )
                                                 ) {
                                                     callback(
-                                                        "密码只能包含数字，字母或者下划线"
+                                                        "密码只能包含数字，字母或者下划线",
                                                     );
                                                 }
                                             }
@@ -224,7 +224,7 @@ class CC extends React.Component {
                                     placeholder="现金卡密码"
                                     autoComplete="off"
                                     maxLength={10}
-                                />
+                                />,
                             )}
                         </Item>
                         <TargetAccount
@@ -249,7 +249,7 @@ class CC extends React.Component {
                                 <Button
                                     disabled={
                                         Object.values(getFieldsError()).some(
-                                            (v) => v !== undefined
+                                            (v) => v !== undefined,
                                         ) ||
                                         !getFieldValue("money") ||
                                         !getFieldValue("tlccardpin") ||

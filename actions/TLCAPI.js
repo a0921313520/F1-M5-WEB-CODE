@@ -1,7 +1,7 @@
 import HostConfig from "./Host.config";
 import CMSOBJ from "$DATA/stage.live.static.id";
 const URL = HostConfig.Config.HostApi;
-const BFFSCURL = HostConfig.Config.BffscHostApi
+const BFFSCURL = HostConfig.Config.BffscHostApi;
 const LOCAL_HOST = HostConfig.Config.LocalHost;
 export const CMSAPIUrl = HostConfig.Config.CMSAPIUrl;
 export const APISET = "?api-version=2.0&Platform=Desktop";
@@ -50,7 +50,7 @@ export const ApiPort = {
     POSTPromotionApplications: URL + "/api/Promotion/ManualPromo" + APISET, // 申请优惠
     GETManualPromoMaxApplicant:
         URL + "/api/Promotion/ManualPromo/CheckMaxApplicant" + APISET, //取得Manual優惠是否已達最大申請人數
-    
+
     GETCanWithdrawalPay:
         URL + "/api/Payment/Methods?transactionType=Withdrawal" + APISETS, // 返回提款的方式可用列表
     GETWithdrawalbank:
@@ -58,7 +58,8 @@ export const ApiPort = {
         "/api/Payment/Method/Details?transactionType=Deposit&isMobile=false&Withdrawal&method=LB&hostName=" +
         LOCAL_HOST +
         APISETS, // 提款新账户 返回的银行列表
-    GETMemberBanksfirst: URL + "/api/Payment/MemberBanks?AccountType=ALL" + APISETS, // 获取提款首选账户
+    GETMemberBanksfirst:
+        URL + "/api/Payment/MemberBanks?AccountType=ALL" + APISETS, // 获取提款首选账户
     POSTRememberBanks: URL + "/api/Payment/MemberBank" + APISET, // 提款记住我
     PUTMemberPassword: URL + "/api/Auth/ChangePassword/" + APISET, // 修改密碼
     PTMemberPwd: URL + "/api/Member/Password" + APISET, //安全验证修改密码
@@ -102,7 +103,7 @@ export const ApiPort = {
     GETSettingwithdrawal:
         URL + "/api/Setting?key=withdrawalverification" + APISETS, // 是否需要强制验证
     GetDownloadLink: URL + "/api/Download", // 下载链接
-   
+
     SosBonusVerifications: URL + "/api/SosBonus/Verifications" + APISET, // 电子游戏紧急救援金 第一步验证
     SosBonusApplications: URL + "/api/SosBonus/Applications" + APISET, // 老虎金紧急救援金 第二步，第一步验证成功后 调用此接口
     LatteryHistory: URL + "/api/CMS/Promotions/Applications", // 彩金历史-其他
@@ -117,7 +118,7 @@ export const ApiPort = {
     RebateBonusDetail: URL + "/api/Rebate/RebateDetails" + APISET, // 我的返水详情
     DayBonusHistory: URL + "/api/Bonus/RebateBonusSummary" + APISET,
     RefreshTokenapi: URL + "/api/Auth/RefreshToken" + APISET /* 刷新token */,
-   
+
     PostLinkVerification: URL + "/api/Member/LinkVerification" + APISET,
     GetQuestions:
         URL +
@@ -128,13 +129,13 @@ export const ApiPort = {
         URL + "/api/Bonus/RegistrationSuccess" + APISET /* 获取新用户注册优惠*/,
 
     /*头部导航菜单列表 */
-    GameCategory: CMSAPIUrl + "/vi-vn/Games/Providers/Sequence" + APISET ,
+    GameCategory: CMSAPIUrl + "/vi-vn/Games/Providers/Sequence" + APISET,
 
     /* 游戏分类类形列表 */
-    CmsSubCategory: CMSAPIUrl + "/vi-vn/Games/Categories/Details" ,
+    CmsSubCategory: CMSAPIUrl + "/vi-vn/Games/Categories/Details",
 
     // 游戏平台接口
-    ProvidersDetails: CMSAPIUrl + "/vi-vn/Games/Providers/Details" + APISET, 
+    ProvidersDetails: CMSAPIUrl + "/vi-vn/Games/Providers/Details" + APISET,
 
     CmsGames: CMSAPIUrl + "/vi-vn/Games",
 
@@ -157,7 +158,7 @@ export const ApiPort = {
     GetTemplateCategories: URL + "/api/News/TemplateCategories" + APISET, // 获取消息中心分类类别（暂时写死，不使用！）
     GetProductCategories:
         URL + "/api/Games/DailyTurnover/ProductTypes" + APISET, // 获取投注记录筛选分类
-    
+
     ReferrerLinkActivity: URL + "/api/Quelea/ReferrerLinkActivity" + APISET, // 点击链接数量控制
     ReferrerEligible: URL + "/api/Quelea/ReferrerEligible" + APISET, // 获取推荐人资格条件
     GetQueleaInfo: URL + "/api/Quelea/ReferrerInfo" + APISET, // 获取推荐人详情
@@ -299,7 +300,7 @@ export const ApiPort = {
 
     ConfirmWithdrawalComplete:
         URL + "/api/Payment/Applications/ConfirmWithdrawalComplete",
-    CaptchaInfo: URL + '/api/Verification/Captcha/Info'  + APISET, //获取滑动验证码验证记录
+    CaptchaInfo: URL + "/api/Verification/Captcha/Info" + APISET, //获取滑动验证码验证记录
     //登录图形验证获取id
     RequestCaptchaChallengeId:
         URL + "/api/Verification/Captcha/ChallengeId" + APISET,
@@ -323,7 +324,7 @@ export const ApiPort = {
     getNews: URL + "/api/Announcement/Popup" + APISET,
     //已读该条公告
     readNews: URL + "/api/News/UpdateAnnouncementNotShowAgainFlag" + APISET,
-    
+
     //小额提款第二次建议金额
     GetPrefixAmount: URL + "/api/Payment/ClosestPrefixAmount" + APISET,
     // 每日好禮API
@@ -345,13 +346,14 @@ export const ApiPort = {
     WithdrawalVerification: URL + "/api/Setting/WithdrawalVerification", //获取提款之前验证资料
     AccountHolderName: URL + "/api/Verification/AccountHolderName" + APISET, //提款需要验证文件的弹窗，点击立即验证按钮触发此api
     GetGameMaintenanceStatus:
-    URL + "/api/Games/Navigation/MaintenanceStatus" + APISET,
+        URL + "/api/Games/Navigation/MaintenanceStatus" + APISET,
     POSTPhoneVoiceVerifyAPI: URL + "/api/Verification/Voice", // 语音验证(发送)
-    PATCHPhoneVoiceVerifyAPI: URL + "/api/Verification/Voice"+APISET, // 语音验证(提交)
+    PATCHPhoneVoiceVerifyAPI: URL + "/api/Verification/Voice" + APISET, // 语音验证(提交)
     //检查用户名是否被注册过
-    GETInfoValidity: URL + "/api/Member/InfoValidity", 
-    PostWelcomeCall: URL + "/api/Member/WelcomeCall" + APISET,  
-    GetBankMaintenanceInfo: BFFSCURL + "/api/Payment/Banks/MaintenanceInfo"  + APISET, //获取银行营业时间
+    GETInfoValidity: URL + "/api/Member/InfoValidity",
+    PostWelcomeCall: URL + "/api/Member/WelcomeCall" + APISET,
+    GetBankMaintenanceInfo:
+        BFFSCURL + "/api/Payment/Banks/MaintenanceInfo" + APISET, //获取银行营业时间
 
     /* 整合CMS和BFF API */
     PromotionCategories: CMSAPIUrl + "/vi-vn/api/v1/promotion/categories",
@@ -368,6 +370,6 @@ export const ApiPort = {
     CMSPromotionList: CMSAPIUrl + "/vi-vn/api/v1/web/promotions?",
     CMSAppliedHistory: CMSAPIUrl + "/cms/promotions-m3/",
     CMSRebateHistory: CMSAPIUrl + "/cms/promotions-m3/rebateids/",
-    CMSConfigs: CMSAPIUrl + "/cms/vi-vn/fe-configs",//获取天王俱乐部链接
+    CMSConfigs: CMSAPIUrl + "/cms/vi-vn/fe-configs", //获取天王俱乐部链接
     /* ----------------------------------------------------------------------------------------- */
 };

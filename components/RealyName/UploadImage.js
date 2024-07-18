@@ -78,8 +78,8 @@ class UploadImage extends React.Component {
                                 type == "success"
                                     ? "icon-success"
                                     : type == "fail"
-                                    ? "icon-error"
-                                    : ""
+                                      ? "icon-error"
+                                      : ""
                             }.png`}
                         />
                     )}
@@ -112,7 +112,7 @@ class UploadImage extends React.Component {
         if (files.size > max || !imageFormat.includes(currentSuffix)) {
             this.fileResultModal(
                 "仅接受 jpg，png 或 heic 的格式档案，档案大小最多 4MB",
-                "none"
+                "none",
             );
             return;
         } else {
@@ -127,7 +127,7 @@ class UploadImage extends React.Component {
                         },
                         () => {
                             self.UploadReceipt(key);
-                        }
+                        },
                     );
                 };
             })(e.target.files[0]);
@@ -153,7 +153,7 @@ class UploadImage extends React.Component {
                 } else {
                     this.fileResultModal(
                         "上传失败，请稍后再试 或联系在线客服协助",
-                        "fail"
+                        "fail",
                     );
                 }
             })
@@ -161,7 +161,7 @@ class UploadImage extends React.Component {
                 this.loadingNode.destroy();
                 this.fileResultModal(
                     "上传失败，请稍后再试 或联系在线客服协助",
-                    "fail"
+                    "fail",
                 );
             });
     };

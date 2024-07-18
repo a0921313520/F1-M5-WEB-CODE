@@ -9,7 +9,7 @@ import {
     Row,
     Col,
     DatePicker,
-    Button
+    Button,
 } from "antd";
 import { formItemLayout, tailFormItemLayout } from "$ACTIONS/constantsData";
 import { get, post } from "$ACTIONS/TlcRequest";
@@ -97,20 +97,23 @@ class BankWithdrawalDetails extends React.Component {
     }
     /**
      * 用props传递给来的详情,不用单独请求
-     * 
+     *
      * */
-    renderBankDetail=()=>{
-        const {itemBankDetail} = this.props;
-        console.log("🚀 ~ file: BankWithdrawalDetails.js:103 ~ BankWithdrawalDetails ~ item:", itemBankDetail)
-        if(itemBankDetail){
+    renderBankDetail = () => {
+        const { itemBankDetail } = this.props;
+        console.log(
+            "🚀 ~ file: BankWithdrawalDetails.js:103 ~ BankWithdrawalDetails ~ item:",
+            itemBankDetail,
+        );
+        if (itemBankDetail) {
             this.setState({
                 username: itemBankDetail.accountHolderName,
                 BankName: itemBankDetail.bankName,
                 AccountNumber: itemBankDetail.accountNumber,
             });
         }
-    }
-    
+    };
+
     getWithdrawalThresholdHistory = () => {
         this.setState({ isLoading: true });
         get(
@@ -121,7 +124,7 @@ class BankWithdrawalDetails extends React.Component {
                 "&endDate=" +
                 moment(this.state.endDate).format("YYYY-MM-DD") +
                 "T23:59:59" +
-                APISETS
+                APISETS,
         )
             .then((res) => {
                 this.setState({ isLoading: false });
@@ -129,7 +132,7 @@ class BankWithdrawalDetails extends React.Component {
                     let item = res.result.find(
                         (ele) =>
                             ele.bankAccountNum ==
-                            this.props.itemBankDetail.accountNumber
+                            this.props.itemBankDetail.accountNumber,
                     );
                     if (item) {
                         this.setState({
@@ -182,7 +185,7 @@ class BankWithdrawalDetails extends React.Component {
                     if (this.state.showEndDate) {
                         this.getWithdrawalThresholdHistory();
                     }
-                }
+                },
             );
         } else {
             if (this.state.endValue > 0 && this.state.showEndDate) {
@@ -210,7 +213,7 @@ class BankWithdrawalDetails extends React.Component {
                 },
                 () => {
                     this.getWithdrawalThresholdHistory();
-                }
+                },
             );
         } else {
             this.setState({ endDate: endDate, endValue: v.valueOf() });
@@ -245,10 +248,7 @@ class BankWithdrawalDetails extends React.Component {
             startDate,
             endDate,
         } = this.state;
-        const {
-            deleteCard,
-            itemBankDetail
-        } = this.props;
+        const { deleteCard, itemBankDetail } = this.props;
         return (
             <Modal
                 title={translate("银行账户(大写)")}
@@ -257,13 +257,13 @@ class BankWithdrawalDetails extends React.Component {
                 closable={true}
                 width={400}
                 footer={[
-                    <Button 
+                    <Button
                         size="large"
                         type="primary"
-                        onClick={()=>deleteCard(itemBankDetail.bankAccountID)}
+                        onClick={() => deleteCard(itemBankDetail.bankAccountID)}
                     >
                         {translate("删除")}
-                    </Button>
+                    </Button>,
                 ]}
                 className="modal-pubilc bankDetailsModal"
                 centered={true}
@@ -274,14 +274,15 @@ class BankWithdrawalDetails extends React.Component {
                             <Col span={24}>
                                 <div>
                                     <span>{translate("银行名称")}</span>
-                                    <span>
-                                        {BankName}
-                                    </span>
+                                    <span>{BankName}</span>
                                 </div>
                                 <div>
                                     <span>{translate("银行账号")}</span>
                                     <span>
-                                        {AccountNumber.replace(/\d(?=\d{3})/g,"*")}
+                                        {AccountNumber.replace(
+                                            /\d(?=\d{3})/g,
+                                            "*",
+                                        )}
                                     </span>
                                 </div>
                                 <div>

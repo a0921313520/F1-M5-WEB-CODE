@@ -6,15 +6,15 @@ import { ApiPort } from "$ACTIONS/TLCAPI";
 import EmailVerify from "@/Verification/EmailVerify";
 import PhoneVerify from "@/Verification/PhoneVerify";
 import { formatAmount } from "$ACTIONS/util";
-import { Button, Icon, Spin, message,Modal } from "antd";
+import { Button, Icon, Spin, message, Modal } from "antd";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { getMemberInfo } from "$DATA/userinfo";
 import QRCode from "qrcode-react";
 import moment from "moment";
 import { translate } from "$ACTIONS/Translate";
-import { getStaticPropsFromStrapiSEOSetting } from '$DATA/seo';
+import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 export async function getStaticProps() {
-    return await getStaticPropsFromStrapiSEOSetting('/referrer-activity'); //參數帶本頁的路徑/resetpassword
+    return await getStaticPropsFromStrapiSEOSetting("/referrer-activity"); //參數帶本頁的路徑/resetpassword
 }
 const DynamicOtpPopUp = dynamic(import("@/Refer/OtpPopUp"), {
     ssr: false,
@@ -25,7 +25,7 @@ export default class IM extends React.Component {
         this.state = {
             emailVisible: false,
             phoneVisible: false,
-            otpVisible:false,
+            otpVisible: false,
             memberInfo: {},
             isNext: false, // 是否是手机号以及邮箱都未验证
             applyStep: 1,
@@ -44,11 +44,11 @@ export default class IM extends React.Component {
             isRegisteredMet: false,
             isVerificationMet: false,
             showLiJiJiaRu: true,
-            attemptRemaining:5,
-            emailattemptRemaining:5
+            attemptRemaining: 5,
+            emailattemptRemaining: 5,
         };
 
-        this.setMemberInfo = function () { }; // HasHeader传递过来的方法（设置会员信息）
+        this.setMemberInfo = function () {}; // HasHeader传递过来的方法（设置会员信息）
         this.addActive = this.addActive.bind(this);
         this.correctMemberInfo = this.correctMemberInfo.bind(this); // 更正会员信息
         this.ReferrerSignUp = this.ReferrerSignUp.bind(this);
@@ -68,7 +68,7 @@ export default class IM extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (
             prevState.memberInfo.registerDate !==
-            this.state.memberInfo.registerDate &&
+                this.state.memberInfo.registerDate &&
             this.state.memberInfo.registerDate
         ) {
             // 获取用户已存款金额
@@ -94,36 +94,47 @@ export default class IM extends React.Component {
     addActive() {
         Pushgtagdata("Joinnow_raf");
         this.setState({ isLoading: true });
-        get(ApiPort.GetQueleaActiveCampaign).then((data) => {
-            if (data?.isSuccess) {
-                if (!localStorage.getItem("access_token")) {
-                    global.goUserSign("1");
+        get(ApiPort.GetQueleaActiveCampaign)
+            .then((data) => {
+                if (data?.isSuccess) {
+                    if (!localStorage.getItem("access_token")) {
+                        global.goUserSign("1");
+                    } else {
+                        !(JSON.stringify(this.state.memberInfo) === "{}") &&
+                            this.setState({ showLiJiJiaRu: false });
+                    }
                 } else {
-                    !(JSON.stringify(this.state.memberInfo) === "{}") &&
-                        this.setState({ showLiJiJiaRu: false });
+                    Modal.confirm({
+                        className:
+                            "confirm-modal-of-public dont-show-close-button",
+                        title: translate("不符合资格的账户"),
+                        centered: true,
+                        okText: translate("在线客服"),
+                        cancelText: translate("明白了"),
+                        closable: true,
+                        content: (
+                            <div>
+                                <img
+                                    src={`${process.env.BASE_PATH}/img/icons/icon-warn.svg`}
+                                />
+                                <div className="line-distance"></div>
+                                <p>
+                                    {translate(
+                                        "抱歉，您的帐户目前不符合推荐朋友计划的资格。 请尝试参与其他免费奖金或联系在线聊天寻求建议。",
+                                    )}
+                                </p>
+                            </div>
+                        ),
+                        icon: null,
+                        onOk: () => {
+                            ContactCustomerService();
+                        },
+                    });
                 }
-            } else {
-                Modal.confirm({
-                    className: "confirm-modal-of-public dont-show-close-button",
-                    title: translate('不符合资格的账户'),
-                    centered: true,
-                    okText: translate('在线客服'),
-                    cancelText: translate("明白了"),
-                    closable:true,
-                    content: <div>
-                        <img src={`${process.env.BASE_PATH}/img/icons/icon-warn.svg`}/>
-                        <div className="line-distance"></div>
-                        <p>{translate('抱歉，您的帐户目前不符合推荐朋友计划的资格。 请尝试参与其他免费奖金或联系在线聊天寻求建议。')}</p>
-                    </div>,
-                    icon:null,
-                    onOk: () => {
-                        ContactCustomerService();
-                    },
-                });
-            }
-        }).finally(()=>{
-            this.setState({ isLoading: false });
-        })
+            })
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
     }
     ReferrerRewardStatus() {
         get(ApiPort.ReferrerRewardStatus).then((data) => {
@@ -182,22 +193,24 @@ export default class IM extends React.Component {
     }
     checkMemberInfo() {
         this.setState({ isLoading: true });
-        get(ApiPort.GetQueleaInfo).then((data) => {
-            if (data && data.isSuccess && data.result) {
-                if (!data.result.referrerID && !data.result.campaignName) {
-                    this.setState({ applyStep: 1 }); // 显示立即加入按钮
-                } else {
-                    // 显示分享链接以及二维码
-                    this.setState({
-                        applyStep: 3,
-                        referUrl: data.result.queleaUrl,
-                        referCode: data.result.referrerID,
-                    });
+        get(ApiPort.GetQueleaInfo)
+            .then((data) => {
+                if (data && data.isSuccess && data.result) {
+                    if (!data.result.referrerID && !data.result.campaignName) {
+                        this.setState({ applyStep: 1 }); // 显示立即加入按钮
+                    } else {
+                        // 显示分享链接以及二维码
+                        this.setState({
+                            applyStep: 3,
+                            referUrl: data.result.queleaUrl,
+                            referCode: data.result.referrerID,
+                        });
+                    }
                 }
-            }
-        }).finally(()=>{
-            this.setState({ isLoading: false });
-        })
+            })
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
     }
     correctMemberInfo() {
         getMemberInfo((res) => {
@@ -212,7 +225,7 @@ export default class IM extends React.Component {
     ReferrerSignUp() {
         this.setState({ isLoading: true });
         post(ApiPort.ReferrerSignUp).then((data) => {
-            if ( data && data.isSuccess) {
+            if (data && data.isSuccess) {
                 this.setState({
                     applyStep: 3,
                     isLoading: false,
@@ -228,7 +241,7 @@ export default class IM extends React.Component {
     downloadCanvas() {
         let save_link = document.createElementNS(
             "http://www.w3.org/1999/xhtml",
-            "a"
+            "a",
         );
         save_link.href =
             this.qrcodeDOM.current.refs.canvas.toDataURL("image/png");
@@ -250,7 +263,7 @@ export default class IM extends React.Component {
             false,
             false,
             0,
-            null
+            null,
         );
         save_link.dispatchEvent(event);
 
@@ -259,13 +272,14 @@ export default class IM extends React.Component {
     }
     autoClearPrompt(text) {
         // this.setState({ referPromptInfo: text });
-        message.success(
-            translate(text)
-        );
+        message.success(translate(text));
     }
     goVerified() {
         const { memberInfo } = this.state;
-        console.log("🚀 ~ file: Refer.js:249 ~ IM ~ goVerified ~ memberInfo:", memberInfo)
+        console.log(
+            "🚀 ~ file: Refer.js:249 ~ IM ~ goVerified ~ memberInfo:",
+            memberInfo,
+        );
         if (!memberInfo.isVerifiedPhone) {
             return;
         }
@@ -289,7 +303,7 @@ export default class IM extends React.Component {
     // 获取用户是否满足申请条件
     referrerEligible() {
         get(ApiPort.ReferrerEligible).then((data) => {
-            if(data && data.isSuccess && data.result){
+            if (data && data.isSuccess && data.result) {
                 this.setState({
                     isDepositMet: data.result.isDepositMet,
                     isBetAmountMet: data.result.isBetAmountMet,
@@ -331,7 +345,7 @@ export default class IM extends React.Component {
                                 <div className="invite-friend-content">
                                     <div className="invite-step-wrap">
                                         {this.state.showLiJiJiaRu &&
-                                            !this.state.referUrl ? (
+                                        !this.state.referUrl ? (
                                             <React.Fragment>
                                                 <h4 className="invite-title">
                                                     {translate("过程")}
@@ -343,14 +357,19 @@ export default class IM extends React.Component {
                                                         </div>
                                                         <div className="invite-step-content">
                                                             <h4>
-                                                                {translate("单击按钮")}
-                                                                {" "}
+                                                                {translate(
+                                                                    "单击按钮",
+                                                                )}{" "}
                                                                 "
-                                                                {translate("现在加入")}
+                                                                {translate(
+                                                                    "现在加入",
+                                                                )}
                                                                 "
                                                             </h4>
                                                             <p>
-                                                                {translate("任务完成后将生成推荐链接")}
+                                                                {translate(
+                                                                    "任务完成后将生成推荐链接",
+                                                                )}
                                                             </p>
                                                         </div>
                                                     </li>
@@ -360,10 +379,14 @@ export default class IM extends React.Component {
                                                         </div>
                                                         <div className="invite-step-content">
                                                             <h4>
-                                                                {translate("分享推荐链接或二维码")}
+                                                                {translate(
+                                                                    "分享推荐链接或二维码",
+                                                                )}
                                                             </h4>
                                                             <p>
-                                                                {translate("推荐的朋友必须通过链接注册并玩游戏。")}
+                                                                {translate(
+                                                                    "推荐的朋友必须通过链接注册并玩游戏。",
+                                                                )}
                                                             </p>
                                                         </div>
                                                     </li>
@@ -373,10 +396,14 @@ export default class IM extends React.Component {
                                                         </div>
                                                         <div className="invite-step-content">
                                                             <h4>
-                                                                {translate("检查进度并获得奖金")}
+                                                                {translate(
+                                                                    "检查进度并获得奖金",
+                                                                )}
                                                             </h4>
                                                             <p>
-                                                                {translate("访问“推荐朋友”页面，查看您朋友的注册、存款和收入进度。")}
+                                                                {translate(
+                                                                    "访问“推荐朋友”页面，查看您朋友的注册、存款和收入进度。",
+                                                                )}
                                                             </p>
                                                         </div>
                                                     </li>
@@ -395,7 +422,7 @@ export default class IM extends React.Component {
                                                 </Button>
                                             </React.Fragment>
                                         ) : this.state.applyStep === 3 &&
-                                            this.state.referUrl ? (
+                                          this.state.referUrl ? (
                                             <div className="refer-qrcode-wrap">
                                                 {/* {!!this.state
                                                     .referPromptInfo ? (
@@ -413,9 +440,7 @@ export default class IM extends React.Component {
                                                         }
                                                     </div>
                                                 ) : null} */}
-                                                <h4>
-                                                    {translate("推荐好友")}
-                                                </h4>
+                                                <h4>{translate("推荐好友")}</h4>
                                                 <p className="gray-color">
                                                     {translate("分享链接")}
                                                 </p>
@@ -429,10 +454,12 @@ export default class IM extends React.Component {
                                                     text={this.state.referUrl}
                                                     onCopy={() => {
                                                         this.autoClearPrompt(
-                                                            translate("复制成功")
+                                                            translate(
+                                                                "复制成功",
+                                                            ),
                                                         );
                                                         Pushgtagdata(
-                                                            "Copylink_raf"
+                                                            "Copylink_raf",
                                                         );
                                                     }}
                                                 >
@@ -443,7 +470,9 @@ export default class IM extends React.Component {
                                                         block
                                                         ghost
                                                     >
-                                                        {translate("复制推荐链接")}
+                                                        {translate(
+                                                            "复制推荐链接",
+                                                        )}
                                                     </Button>
                                                 </CopyToClipboard>
                                                 <p className="margin-distance black-color">
@@ -470,7 +499,9 @@ export default class IM extends React.Component {
                                                     {translate("保存二维码")}
                                                 </Button>
                                                 <p className="fail-color">
-                                                    {translate("分享链接或二维码给您的朋友，推荐FUN88并获得诱人优惠。 推荐人可以通过链接或二维码注册FUN88帐户，推荐人可以在“进度”部分查看奖金状态")}
+                                                    {translate(
+                                                        "分享链接或二维码给您的朋友，推荐FUN88并获得诱人优惠。 推荐人可以通过链接或二维码注册FUN88帐户，推荐人可以在“进度”部分查看奖金状态",
+                                                    )}
                                                 </p>
                                             </div>
                                         ) : (
@@ -524,18 +555,39 @@ export default class IM extends React.Component {
                                                         </div>
                                                         <div className="invite-step-content">
                                                             <h4>
-                                                                {translate("本月存款")}{" "}
-                                                                {formatAmount(this.state.totalDepositRequired)}{" "}đ
+                                                                {translate(
+                                                                    "本月存款",
+                                                                )}{" "}
+                                                                {formatAmount(
+                                                                    this.state
+                                                                        .totalDepositRequired,
+                                                                )}{" "}
+                                                                đ
                                                             </h4>
                                                             <p>
                                                                 <i
-                                                                    className={`tlc-sprite user-deposit-currency${isDepositMet
-                                                                        ? " curr"
-                                                                        : ""
-                                                                        }`}
+                                                                    className={`tlc-sprite user-deposit-currency${
+                                                                        isDepositMet
+                                                                            ? " curr"
+                                                                            : ""
+                                                                    }`}
                                                                 />
                                                                 <span>
-                                                                    {translate("存款")}:{" "}{this.state.totalDeposits}/{this.state.totalDepositRequired}
+                                                                    {translate(
+                                                                        "存款",
+                                                                    )}
+                                                                    :{" "}
+                                                                    {
+                                                                        this
+                                                                            .state
+                                                                            .totalDeposits
+                                                                    }
+                                                                    /
+                                                                    {
+                                                                        this
+                                                                            .state
+                                                                            .totalDepositRequired
+                                                                    }
                                                                 </span>
                                                             </p>
                                                             {isDepositMet ? null : (
@@ -545,22 +597,24 @@ export default class IM extends React.Component {
                                                                         global.showDialog(
                                                                             {
                                                                                 key: 'wallet:{"type": "deposit"}',
-                                                                            }
+                                                                            },
                                                                         );
                                                                         Pushgtagdata(
-                                                                            "Deposit_raf"
+                                                                            "Deposit_raf",
                                                                         );
                                                                     }}
                                                                     disabled={
                                                                         !isRegisteredMet
                                                                     }
                                                                 >
-                                                                    {translate("立即存款")}
+                                                                    {translate(
+                                                                        "立即存款",
+                                                                    )}
                                                                 </Button>
                                                             )}
                                                         </div>
                                                         {isDepositMet &&
-                                                            isBetAmountMet ? (
+                                                        isBetAmountMet ? (
                                                             <Icon
                                                                 type="check-circle"
                                                                 theme="filled"
@@ -576,15 +630,35 @@ export default class IM extends React.Component {
                                                         </div>
                                                         <div className="invite-step-content">
                                                             <h4>
-                                                                {translate("本月收入")}{" "}
-                                                                {formatAmount(this.state.totalBetAmountRequired)}{" "}đ
+                                                                {translate(
+                                                                    "本月收入",
+                                                                )}{" "}
+                                                                {formatAmount(
+                                                                    this.state
+                                                                        .totalBetAmountRequired,
+                                                                )}{" "}
+                                                                đ
                                                             </h4>
                                                             <p>
                                                                 <i
                                                                     className={`tlc-sprite user-bonus-currency${isBetAmountMet ? " curr" : ""}`}
                                                                 />
                                                                 <span>
-                                                                    {translate("收入")}:{this.state.totalBets}/{this.state.totalBetAmountRequired}
+                                                                    {translate(
+                                                                        "收入",
+                                                                    )}
+                                                                    :
+                                                                    {
+                                                                        this
+                                                                            .state
+                                                                            .totalBets
+                                                                    }
+                                                                    /
+                                                                    {
+                                                                        this
+                                                                            .state
+                                                                            .totalBetAmountRequired
+                                                                    }
                                                                 </span>
                                                             </p>
                                                             {/* {isDepositMet ? null : (
@@ -609,7 +683,7 @@ export default class IM extends React.Component {
                                                             )} */}
                                                         </div>
                                                         {isDepositMet &&
-                                                            isBetAmountMet ? (
+                                                        isBetAmountMet ? (
                                                             <Icon
                                                                 type="check-circle"
                                                                 theme="filled"
@@ -625,46 +699,65 @@ export default class IM extends React.Component {
                                                         </div>
                                                         <div className="invite-step-content">
                                                             <h4>
-                                                                {translate("验证电子邮件和电话号码")}
+                                                                {translate(
+                                                                    "验证电子邮件和电话号码",
+                                                                )}
                                                             </h4>
                                                             <p>
                                                                 <i
-                                                                    className={`tlc-sprite user-email ${memberInfo.isVerifiedEmail &&
+                                                                    className={`tlc-sprite user-email ${
+                                                                        memberInfo.isVerifiedEmail &&
                                                                         memberInfo
                                                                             .isVerifiedEmail[1] &&
                                                                         "curr"
-                                                                        }`}
+                                                                    }`}
                                                                 />
                                                                 <span>
                                                                     {memberInfo.isVerifiedEmail &&
-                                                                        memberInfo
-                                                                            .isVerifiedEmail[1]
-                                                                        ? translate("已验证")
-                                                                        : translate("未验证")}
+                                                                    memberInfo
+                                                                        .isVerifiedEmail[1]
+                                                                        ? translate(
+                                                                              "已验证",
+                                                                          )
+                                                                        : translate(
+                                                                              "未验证",
+                                                                          )}
                                                                 </span>
-                                                                <br/>
+                                                                <br />
                                                                 <i
-                                                                    className={`tlc-sprite user-phone ${memberInfo.isVerifiedPhone &&
+                                                                    className={`tlc-sprite user-phone ${
+                                                                        memberInfo.isVerifiedPhone &&
                                                                         memberInfo
                                                                             .isVerifiedPhone[1] &&
                                                                         "curr"
-                                                                        }`}
+                                                                    }`}
                                                                 />
                                                                 <span>
                                                                     {memberInfo.isVerifiedPhone &&
-                                                                        memberInfo
-                                                                            .isVerifiedPhone[1]
-                                                                        ? translate("已验证")
-                                                                        : translate("未验证")}
+                                                                    memberInfo
+                                                                        .isVerifiedPhone[1]
+                                                                        ? translate(
+                                                                              "已验证",
+                                                                          )
+                                                                        : translate(
+                                                                              "未验证",
+                                                                          )}
                                                                 </span>
                                                             </p>
                                                             {isVerificationMet ? null : (
                                                                 <Button
                                                                     type="danger"
-                                                                    onClick={this.goVerified}
-                                                                    disabled={!isRegisteredMet}
+                                                                    onClick={
+                                                                        this
+                                                                            .goVerified
+                                                                    }
+                                                                    disabled={
+                                                                        !isRegisteredMet
+                                                                    }
                                                                 >
-                                                                    {translate("立即验证")}
+                                                                    {translate(
+                                                                        "立即验证",
+                                                                    )}
                                                                 </Button>
                                                             )}
                                                         </div>
@@ -710,114 +803,133 @@ export default class IM extends React.Component {
                                                 <div className="prize-process fail-color">
                                                     <div className="prize-list">
                                                         <div
-                                                            className={`process-step${infoObj.linkClicked >
+                                                            className={`process-step${
+                                                                infoObj.linkClicked >
                                                                 0
-                                                                ? " light-blue"
-                                                                : ""
-                                                                }`}
+                                                                    ? " light-blue"
+                                                                    : ""
+                                                            }`}
                                                         >
                                                             <p>
                                                                 <span
                                                                     className={
                                                                         infoObj.linkClicked >
-                                                                        0 &&
+                                                                            0 &&
                                                                         "active-blue"
                                                                     }
                                                                 >
-                                                                    {translate("路径")}
+                                                                    {translate(
+                                                                        "路径",
+                                                                    )}
                                                                 </span>
                                                                 <span
                                                                     className={
                                                                         infoObj.linkClicked >
-                                                                        0 &&
+                                                                            0 &&
                                                                         "active-black"
                                                                     }
                                                                 >
                                                                     {
                                                                         infoObj.linkClicked
                                                                     }
-                                                                    {translate("点击次数")}
+                                                                    {translate(
+                                                                        "点击次数",
+                                                                    )}
                                                                 </span>
                                                             </p>
                                                         </div>
                                                         <div
-                                                            className={`process-step${infoObj.memberRegistered >
+                                                            className={`process-step${
+                                                                infoObj.memberRegistered >
                                                                 0
-                                                                ? " light-blue"
-                                                                : ""
-                                                                }`}
+                                                                    ? " light-blue"
+                                                                    : ""
+                                                            }`}
                                                         >
                                                             <p>
                                                                 <span
                                                                     className={
                                                                         infoObj.memberRegistered >
-                                                                        0 &&
+                                                                            0 &&
                                                                         "active-blue"
                                                                     }
                                                                 >
-                                                                    {translate("已经登记过了")}
+                                                                    {translate(
+                                                                        "已经登记过了",
+                                                                    )}
                                                                 </span>
                                                                 <span
                                                                     className={
                                                                         infoObj.memberRegistered >
-                                                                        0 &&
+                                                                            0 &&
                                                                         "active-black"
                                                                     }
                                                                 >
                                                                     {
                                                                         infoObj.memberRegistered
                                                                     }
-                                                                    {translate("朋友")}
+                                                                    {translate(
+                                                                        "朋友",
+                                                                    )}
                                                                 </span>
                                                             </p>
                                                         </div>
                                                         <div
-                                                            className={`process-step${infoObj.memberDeposited >
+                                                            className={`process-step${
+                                                                infoObj.memberDeposited >
                                                                 0
-                                                                ? " light-blue"
-                                                                : ""
-                                                                }`}
+                                                                    ? " light-blue"
+                                                                    : ""
+                                                            }`}
                                                         >
                                                             <p>
                                                                 <span
                                                                     className={
                                                                         infoObj.memberDeposited >
-                                                                        0 &&
+                                                                            0 &&
                                                                         "active-blue"
                                                                     }
                                                                 >
-                                                                    {translate("存款")}
+                                                                    {translate(
+                                                                        "存款",
+                                                                    )}
                                                                 </span>
                                                                 <span
                                                                     className={
                                                                         infoObj.memberDeposited >
-                                                                        0 &&
+                                                                            0 &&
                                                                         "active-black"
                                                                     }
                                                                 >
                                                                     {
                                                                         infoObj.memberDeposited
                                                                     }
-                                                                    {translate("朋友")}
+                                                                    {translate(
+                                                                        "朋友",
+                                                                    )}
                                                                 </span>
                                                             </p>
                                                         </div>
                                                         <div
-                                                            className={`process-step${infoObj.firstTierMetCount >
+                                                            className={`process-step${
+                                                                infoObj.firstTierMetCount >
                                                                 0
-                                                                ? " light-blue"
-                                                                : ""
-                                                                }`}
+                                                                    ? " light-blue"
+                                                                    : ""
+                                                            }`}
                                                         >
                                                             <p>
                                                                 <span
-                                                                    className={`gray-color${infoObj.firstTierMetCount >
+                                                                    className={`gray-color${
+                                                                        infoObj.firstTierMetCount >
                                                                         0
-                                                                        ? " active-black"
-                                                                        : ""
-                                                                        }`}
+                                                                            ? " active-black"
+                                                                            : ""
+                                                                    }`}
                                                                 >
-                                                                    {translate("更多")}{" "}
+                                                                    {translate(
+                                                                        "更多",
+                                                                    )}{" "}
                                                                     {
                                                                         infoObj.firstTierRewardAmountSetting
                                                                     }
@@ -826,14 +938,16 @@ export default class IM extends React.Component {
                                                                 <span
                                                                     className={
                                                                         infoObj.firstTierMetCount >
-                                                                        0 &&
+                                                                            0 &&
                                                                         "active-black"
                                                                     }
                                                                 >
                                                                     {
                                                                         infoObj.firstTierMetCount
                                                                     }
-                                                                    {translate("朋友")}
+                                                                    {translate(
+                                                                        "朋友",
+                                                                    )}
                                                                 </span>
                                                             </p>
                                                             <p>
@@ -857,21 +971,25 @@ export default class IM extends React.Component {
                                                             </p>
                                                         </div>
                                                         <div
-                                                            className={`process-step${infoObj.secondTierMetCount >
+                                                            className={`process-step${
+                                                                infoObj.secondTierMetCount >
                                                                 0
-                                                                ? " light-blue"
-                                                                : ""
-                                                                }`}
+                                                                    ? " light-blue"
+                                                                    : ""
+                                                            }`}
                                                         >
                                                             <p>
                                                                 <span
-                                                                    className={`gray-color${infoObj.secondTierMetCount >
+                                                                    className={`gray-color${
+                                                                        infoObj.secondTierMetCount >
                                                                         0
-                                                                        ? " active-black"
-                                                                        : ""
-                                                                        }`}
+                                                                            ? " active-black"
+                                                                            : ""
+                                                                    }`}
                                                                 >
-                                                                    {translate("更多")} {" "}
+                                                                    {translate(
+                                                                        "更多",
+                                                                    )}{" "}
                                                                     {
                                                                         infoObj.secondTierRewardAmountSetting
                                                                     }
@@ -880,14 +998,16 @@ export default class IM extends React.Component {
                                                                 <span
                                                                     className={
                                                                         infoObj.secondTierMetCount >
-                                                                        0 &&
+                                                                            0 &&
                                                                         "active-black"
                                                                     }
                                                                 >
                                                                     {
                                                                         infoObj.secondTierMetCount
                                                                     }
-                                                                    {translate("朋友")}
+                                                                    {translate(
+                                                                        "朋友",
+                                                                    )}
                                                                 </span>
                                                             </p>
                                                             <p>
@@ -912,15 +1032,18 @@ export default class IM extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div
-                                                        className={`prize-total${infoObj.referrerPayoutAmount >
+                                                        className={`prize-total${
+                                                            infoObj.referrerPayoutAmount >
                                                             0
-                                                            ? " light-blue"
-                                                            : ""
-                                                            }`}
+                                                                ? " light-blue"
+                                                                : ""
+                                                        }`}
                                                     >
                                                         <p>
                                                             <span className="black-color">
-                                                                {translate("总得奖金")}
+                                                                {translate(
+                                                                    "总得奖金",
+                                                                )}
                                                             </span>
                                                             <span className="black-color">
                                                                 {
@@ -943,16 +1066,34 @@ export default class IM extends React.Component {
                                                     <thead>
                                                         <tr className="head">
                                                             <th colSpan="2">
-                                                                {translate("被推荐人")}
+                                                                {translate(
+                                                                    "被推荐人",
+                                                                )}
                                                             </th>
-                                                            <th>{translate("推荐人")}</th>
+                                                            <th>
+                                                                {translate(
+                                                                    "推荐人",
+                                                                )}
+                                                            </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>{translate("存款")}</td>
-                                                            <td>{translate("流水")}</td>
-                                                            <td>{translate("可得彩金")}</td>
+                                                            <td>
+                                                                {translate(
+                                                                    "存款",
+                                                                )}
+                                                            </td>
+                                                            <td>
+                                                                {translate(
+                                                                    "流水",
+                                                                )}
+                                                            </td>
+                                                            <td>
+                                                                {translate(
+                                                                    "可得彩金",
+                                                                )}
+                                                            </td>
                                                         </tr>
                                                         {this.state.campaignRewardDetails.map(
                                                             (v, index) => {
@@ -964,34 +1105,38 @@ export default class IM extends React.Component {
                                                                     >
                                                                         <td>
                                                                             {formatAmount(
-                                                                                v.depositAmount
+                                                                                v.depositAmount,
                                                                             )}{" "}
                                                                             đ
                                                                         </td>
                                                                         <td>
                                                                             {formatAmount(
-                                                                                v.turnoverAmount
+                                                                                v.turnoverAmount,
                                                                             )}{" "}
                                                                             đ
                                                                         </td>
                                                                         <td className="theme-color">
                                                                             {formatAmount(
-                                                                                v.referralRewardAmount
+                                                                                v.referralRewardAmount,
                                                                             )}{" "}
                                                                             đ
                                                                         </td>
                                                                     </tr>
                                                                 );
-                                                            }
+                                                            },
                                                         )}
                                                     </tbody>
                                                 </table>
                                             </React.Fragment>
                                         ) : null}
                                         <div className="prize-example-wrap gray-color">
-                                            <h4>{translate("示例 A 推荐 B")}</h4>
+                                            <h4>
+                                                {translate("示例 A 推荐 B")}
+                                            </h4>
                                             <p>
-                                                {translate("B于20年1月1日注册，自注册起存入200,000越南盾（包括押金费用），并有资格参加促销活动，A将获得100,000越南盾免费投注。 B将收到新会员奖励包。")}
+                                                {translate(
+                                                    "B于20年1月1日注册，自注册起存入200,000越南盾（包括押金费用），并有资格参加促销活动，A将获得100,000越南盾免费投注。 B将收到新会员奖励包。",
+                                                )}
                                             </p>
                                         </div>
                                         <div className="prize-example-wrap gray-color">
@@ -1006,48 +1151,71 @@ export default class IM extends React.Component {
                                                         : ""}
                                                 </li> */}
                                                 <li>
-                                                    {translate("最多推荐 10 人。")}
+                                                    {translate(
+                                                        "最多推荐 10 人。",
+                                                    )}
                                                 </li>
                                                 <li>
-                                                    {translate("如果您想推荐超过 10 人，请加入联盟计划。")}
+                                                    {translate(
+                                                        "如果您想推荐超过 10 人，请加入联盟计划。",
+                                                    )}
                                                 </li>
                                             </ul>
                                         </div>
-                                        <h4 className="invite-title">
-                                            FAQ
-                                        </h4>
+                                        <h4 className="invite-title">FAQ</h4>
                                         <div className="invite-question">
                                             <ul className="question-list">
                                                 <li>
                                                     <div className="black-color">
                                                         <b>Q:</b>
                                                         <b>
-                                                            {translate("我可以与其他促销活动一起参加此促销活动吗？")}
+                                                            {translate(
+                                                                "我可以与其他促销活动一起参加此促销活动吗？",
+                                                            )}
                                                         </b>
                                                     </div>
                                                     <div className="gray-color">
                                                         <p>A:</p>
-                                                        <p>{translate("是的，您仍然可以参加其他促销活动。")}</p>
+                                                        <p>
+                                                            {translate(
+                                                                "是的，您仍然可以参加其他促销活动。",
+                                                            )}
+                                                        </p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="black-color">
                                                         <b>Q:</b>
-                                                        <b>{translate("奖金需要经过多少轮投注才可以提取？")}</b>
+                                                        <b>
+                                                            {translate(
+                                                                "奖金需要经过多少轮投注才可以提取？",
+                                                            )}
+                                                        </b>
                                                     </div>
                                                     <div className="gray-color">
                                                         <p>A:</p>
-                                                        <p>{translate("提款前必须至少下注一次奖金。")}</p>
+                                                        <p>
+                                                            {translate(
+                                                                "提款前必须至少下注一次奖金。",
+                                                            )}
+                                                        </p>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div className="black-color">
                                                         <b>Q:</b>
-                                                        <b>{translate("如果我无法验证我的电话号码和电子邮件，我该怎么办？")}</b>
+                                                        <b>
+                                                            {translate(
+                                                                "如果我无法验证我的电话号码和电子邮件，我该怎么办？",
+                                                            )}
+                                                        </b>
                                                     </div>
                                                     <div className="gray-color">
                                                         <p>A:</p>
-                                                        <p>{translate("提供 24/7 支持。 请联系相关部门")}
+                                                        <p>
+                                                            {translate(
+                                                                "提供 24/7 支持。 请联系相关部门",
+                                                            )}
                                                             <Button
                                                                 type="link"
                                                                 className="inline"
@@ -1055,7 +1223,9 @@ export default class IM extends React.Component {
                                                                     global.PopUpLiveChat()
                                                                 }
                                                             >
-                                                                {translate("在线聊天")}
+                                                                {translate(
+                                                                    "在线聊天",
+                                                                )}
                                                             </Button>
                                                         </p>
                                                     </div>
@@ -1068,47 +1238,65 @@ export default class IM extends React.Component {
                                         <ul className="decimal-list gray-color">
                                             <li>
                                                 <p>
-                                                    {translate("通过 Fun88 Affiliate 注册帐户的推荐人和被推荐人没有资格享受此促销活动。")}
+                                                    {translate(
+                                                        "通过 Fun88 Affiliate 注册帐户的推荐人和被推荐人没有资格享受此促销活动。",
+                                                    )}
                                                 </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    {translate("具有相同信息（IP 地址、设备 ID、电话号码）的推荐人和被推荐人将没有资格享受此促销活动。")}
+                                                    {translate(
+                                                        "具有相同信息（IP 地址、设备 ID、电话号码）的推荐人和被推荐人将没有资格享受此促销活动。",
+                                                    )}
                                                 </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    {translate("被推荐人必须注册以下账号")}
+                                                    {translate(
+                                                        "被推荐人必须注册以下账号",
+                                                    )}
                                                 </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    {translate("推荐人。 被推荐人只有资格从 1 位推荐人那里获得促销。")}
+                                                    {translate(
+                                                        "推荐人。 被推荐人只有资格从 1 位推荐人那里获得促销。",
+                                                    )}
                                                 </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    {translate("通过该计划被朋友推荐加入Fun88的新注册会员可以选择仅从“新会员注册奖金”或“推荐奖励筏”两个计划之一中获得欢迎奖金。")}
+                                                    {translate(
+                                                        "通过该计划被朋友推荐加入Fun88的新注册会员可以选择仅从“新会员注册奖金”或“推荐奖励筏”两个计划之一中获得欢迎奖金。",
+                                                    )}
                                                 </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    {translate("用于注册 Fun88 账户（注册或开立账户）的全名必须与用于存款和取款的银行账户名称一致。")}
+                                                    {translate(
+                                                        "用于注册 Fun88 账户（注册或开立账户）的全名必须与用于存款和取款的银行账户名称一致。",
+                                                    )}
                                                 </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    {translate("推荐奖金（200,000 VND/成功推荐人）在提款前必须下注至少三次。")}
+                                                    {translate(
+                                                        "推荐奖金（200,000 VND/成功推荐人）在提款前必须下注至少三次。",
+                                                    )}
                                                 </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    {translate("推荐人每年最多可获得 10,000,000 越南盾的奖金（每年 50 名成功推荐人）。")}
+                                                    {translate(
+                                                        "推荐人每年最多可获得 10,000,000 越南盾的奖金（每年 50 名成功推荐人）。",
+                                                    )}
                                                 </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    {translate("如果发现会员有作弊、不良行为或利用促销活动的行为，Fun88保留取消所有奖金或阻止/取消整个促销申请的权利。")}
+                                                    {translate(
+                                                        "如果发现会员有作弊、不良行为或利用促销活动的行为，Fun88保留取消所有奖金或阻止/取消整个促销申请的权利。",
+                                                    )}
                                                 </p>
                                             </li>
                                         </ul>
@@ -1148,7 +1336,9 @@ export default class IM extends React.Component {
                             changeVerify={() => {
                                 this.setState({ emailVisible: false });
                             }}
-                            emailattemptRemaining={this.state.emailattemptRemaining}
+                            emailattemptRemaining={
+                                this.state.emailattemptRemaining
+                            }
                             setEmailAttemptRemaining={(v) =>
                                 this.setState({ emailattemptRemaining: v })
                             }
@@ -1157,13 +1347,15 @@ export default class IM extends React.Component {
                             otpVisible={this.state.otpVisible}
                             memberInfo={memberInfo}
                             otpModal={(v) => {
-                                this.setState({otpVisible: v})
+                                this.setState({ otpVisible: v });
                             }}
                             allowClose={true}
                             setPhoneVisible={(v) =>
-                                this.setState({ phoneVisible: v })}
+                                this.setState({ phoneVisible: v })
+                            }
                             setEmailVisible={(v) =>
-                                this.setState({ emailVisible: v })}
+                                this.setState({ emailVisible: v })
+                            }
                         />
                     </React.Fragment>
                 ) : null}

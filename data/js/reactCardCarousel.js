@@ -38,7 +38,7 @@ module.exports = (function (e) {
                         o,
                         function (t) {
                             return e[t];
-                        }.bind(null, o)
+                        }.bind(null, o),
                     );
             return r;
         }),
@@ -115,13 +115,13 @@ module.exports = (function (e) {
                 !(function (e, t) {
                     if (!(e instanceof t))
                         throw new TypeError(
-                            "Cannot call a class as a function"
+                            "Cannot call a class as a function",
                         );
                 })(this, t);
                 var n = (function (e, t) {
                     if (!e)
                         throw new ReferenceError(
-                            "this hasn't been initialised - super() hasn't been called"
+                            "this hasn't been initialised - super() hasn't been called",
                         );
                     return !t ||
                         ("object" != typeof t && "function" != typeof t)
@@ -129,13 +129,13 @@ module.exports = (function (e) {
                         : t;
                 })(
                     this,
-                    (t.__proto__ || Object.getPrototypeOf(t)).call(this, e)
+                    (t.__proto__ || Object.getPrototypeOf(t)).call(this, e),
                 );
                 return (
                     (n.goTo = function (e) {
                         n.setState(
                             { current_index: Number(e) },
-                            n.props.afterChange
+                            n.props.afterChange,
                         );
                     }),
                     (n.next = function () {
@@ -151,8 +151,8 @@ module.exports = (function (e) {
                         return 39 === e.which
                             ? n.next()
                             : 37 === e.which
-                            ? n.prev()
-                            : void 0;
+                              ? n.prev()
+                              : void 0;
                     }),
                     (n._autoplay = function () {
                         if (n._is_mounted) {
@@ -172,24 +172,30 @@ module.exports = (function (e) {
                         return null === a
                             ? s.POSITION.HIDDEN
                             : e === a
-                            ? s.POSITION.CURRENT
-                            : e === a + 1 ||
-                              (0 === e && a === i.default.Children.count(r) - 1)
-                            ? s.POSITION.NEXT
-                            : (e === a + 2 ||
+                              ? s.POSITION.CURRENT
+                              : e === a + 1 ||
                                   (0 === e &&
-                                      a === i.default.Children.count(r) - 2)) &&
-                              4 === o.length
-                            ? s.POSITION.NEXTS
-                            : e === a - 1 ||
-                              (e === i.default.Children.count(r) - 1 && 0 === a)
-                            ? s.POSITION.PREV
-                            : (e === a - 2 ||
-                                  (e === i.default.Children.count(r) - 2 &&
-                                      0 === a)) &&
-                              4 === o.length
-                            ? s.POSITION.PREVS
-                            : s.POSITION.HIDDEN;
+                                      a === i.default.Children.count(r) - 1)
+                                ? s.POSITION.NEXT
+                                : (e === a + 2 ||
+                                        (0 === e &&
+                                            a ===
+                                                i.default.Children.count(r) -
+                                                    2)) &&
+                                    4 === o.length
+                                  ? s.POSITION.NEXTS
+                                  : e === a - 1 ||
+                                      (e === i.default.Children.count(r) - 1 &&
+                                          0 === a)
+                                    ? s.POSITION.PREV
+                                    : (e === a - 2 ||
+                                            (e ===
+                                                i.default.Children.count(r) -
+                                                    2 &&
+                                                0 === a)) &&
+                                        4 === o.length
+                                      ? s.POSITION.PREVS
+                                      : s.POSITION.HIDDEN;
                     }),
                     (n._cardOnClick = function (e) {
                         var t = n.props,
@@ -201,11 +207,11 @@ module.exports = (function (e) {
                                 ? a === i.default.Children.count(r) - 1
                                     ? n.setState(
                                           { current_index: 0 },
-                                          n.props.afterChange
+                                          n.props.afterChange,
                                       )
                                     : n.setState(
                                           { current_index: a + 1 },
-                                          n.props.afterChange
+                                          n.props.afterChange,
                                       )
                                 : e === s.POSITION.PREV &&
                                   (0 === a
@@ -213,14 +219,14 @@ module.exports = (function (e) {
                                             {
                                                 current_index:
                                                     i.default.Children.count(
-                                                        r
+                                                        r,
                                                     ) - 1,
                                             },
-                                            n.props.afterChange
+                                            n.props.afterChange,
                                         )
                                       : n.setState(
                                             { current_index: a - 1 },
-                                            n.props.afterChange
+                                            n.props.afterChange,
                                         ));
                     }),
                     (n.ChildComponents = function () {
@@ -245,7 +251,7 @@ module.exports = (function (e) {
                                             transform: (0, l.getTransform)(
                                                 c,
                                                 t,
-                                                o || s.SPREADSTATIC
+                                                o || s.SPREADSTATIC,
                                             ),
                                             boxShadow: (0,
                                             n.props.disable_box_shadow === 0
@@ -256,9 +262,9 @@ module.exports = (function (e) {
                                             cursor: (0, l.getCursor)(c, t),
                                         }),
                                     },
-                                    e
+                                    e,
                                 );
-                            }
+                            },
                         );
                     }),
                     (n.state = {
@@ -275,7 +281,7 @@ module.exports = (function (e) {
                     if ("function" != typeof t && null !== t)
                         throw new TypeError(
                             "Super expression must either be null or a function, not " +
-                                typeof t
+                                typeof t,
                         );
                     (e.prototype = Object.create(t && t.prototype, {
                         constructor: {
@@ -327,8 +333,8 @@ module.exports = (function (e) {
                                 { style: l.STYLES.CONTAINER },
                                 i.default.createElement(
                                     this.ChildComponents,
-                                    null
-                                )
+                                    null,
+                                ),
                             );
                         },
                     },
@@ -379,7 +385,7 @@ module.exports = (function (e) {
                 function e(e, t, n, o, a, i) {
                     if (i !== r) {
                         var u = new Error(
-                            "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types"
+                            "Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types",
                         );
                         throw ((u.name = "Invariant Violation"), u);
                     }
@@ -428,10 +434,10 @@ module.exports = (function (e) {
                 return e === r.POSITION.HIDDEN
                     ? 0
                     : e === r.POSITION.PREVS || e === r.POSITION.NEXTS
-                    ? 0
-                    : e === r.POSITION.CURRENT
-                    ? 2
-                    : 1;
+                      ? 0
+                      : e === r.POSITION.CURRENT
+                        ? 2
+                        : 1;
             }),
             (t.getTransform = function (e, t, n) {
                 if (t === r.ALIGNMENT.HORIZONTAL) {

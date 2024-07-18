@@ -72,7 +72,7 @@ class SR extends React.Component {
             Pushgtagdata(
                 "Transaction Record",
                 "View",
-                "View_TransactionRecord_Deposit"
+                "View_TransactionRecord_Deposit",
             );
     };
     startCountDown() {
@@ -112,7 +112,6 @@ class SR extends React.Component {
             "undefined"
         )
             return;
-
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
@@ -182,7 +181,7 @@ class SR extends React.Component {
                                     .split("T")
                                     .join(" ")
                                     .split(".")[0],
-                                { expires: 30 }
+                                { expires: 30 },
                             );
                             this.setState({
                                 lbStep: 2,
@@ -232,12 +231,12 @@ class SR extends React.Component {
                                         post(
                                             ApiPort.CancelPaybnbDeposit +
                                                 "depositId=" +
-                                                res.transactionId
+                                                res.transactionId,
                                         )
                                             .then((res) => {
                                                 if (res) {
                                                     console.log(
-                                                        res.errorMessage
+                                                        res.errorMessage,
                                                     );
                                                 }
                                             })
@@ -251,7 +250,7 @@ class SR extends React.Component {
                                     res.returnedBankDetails &&
                                     res.returnedBankDetails.accountNumber &&
                                     res.returnedBankDetails.accountNumber.split(
-                                        ""
+                                        "",
                                     );
                                 if (
                                     Array.isArray(accountNoArr) &&
@@ -262,11 +261,10 @@ class SR extends React.Component {
                             }
                         } else if (res.errorCode === "P111001") {
                             message.error(
-                                errorRes.errorMessage || "目前没有合适的金额，请尝试不同的存款提交方法。"
+                                errorRes.errorMessage ||
+                                    "目前没有合适的金额，请尝试不同的存款提交方法。",
                             );
-                        } else if (
-                            res.errorCode === "P111004"
-                        ) {
+                        } else if (res.errorCode === "P111004") {
                             Modal.info({
                                 title: null,
                                 centered: true,
@@ -317,16 +315,20 @@ class SR extends React.Component {
                                     </div>
                                 ),
                             });
-                        } else if (errorRes && errorRes.errorCode === "P111001"){
+                        } else if (
+                            errorRes &&
+                            errorRes.errorCode === "P111001"
+                        ) {
                             message.error(
-                                errorRes.description || "充值失败,请稍后再尝试!"
+                                errorRes.description ||
+                                    "充值失败,请稍后再尝试!",
                             );
-                        }else {
+                        } else {
                             message.error(
-                                res.errorMessage || "充值失败,请稍后再尝试!"
+                                res.errorMessage || "充值失败,请稍后再尝试!",
                             );
                         }
-                    }
+                    },
                 );
             }
         });
@@ -446,7 +448,7 @@ class SR extends React.Component {
                             <Button
                                 disabled={
                                     Object.values(getFieldsError()).some(
-                                        (v) => v !== undefined
+                                        (v) => v !== undefined,
                                     ) || getFieldValue("money") == ""
                                 }
                                 size="large"
@@ -495,50 +497,63 @@ class SR extends React.Component {
                     className="lb-third-step-wrap"
                     style={{ display: lbStep === 3 ? "block" : "none" }}
                 >
-                    <div style={{background: '#FFFFFF'}}>
+                    <div style={{ background: "#FFFFFF" }}>
                         <Icon type="check-circle" theme="filled" />
                         <div className="check-success">
-                            <div style={{fontSize: '16px'}}>已成功提交</div>
+                            <div style={{ fontSize: "16px" }}>已成功提交</div>
                             {/* <div className="cuccess">
                                 {this.state.remainingTime}
                             </div> */}
                         </div>
                         <div className="StepsBox">
-                        <Steps current={0} direction="vertical" size="small">
-                            <Step
-                                className="firstStep"
-                                title="提交成功"
-                                description="处理中"
-                                icon={
-                                    <BsCheckCircleFill
-                                        color="#00A5FD"
-                                        size={17}
-                                    />
-                                }
-                            />
-                            <Step
-                                className="lastStep"
-                                title=""
-                                description={`预计30:00分钟到账`}
-                                icon={<BsCircle color="#999999" size={13} />}
-                            />
-                        </Steps>
+                            <Steps
+                                current={0}
+                                direction="vertical"
+                                size="small"
+                            >
+                                <Step
+                                    className="firstStep"
+                                    title="提交成功"
+                                    description="处理中"
+                                    icon={
+                                        <BsCheckCircleFill
+                                            color="#00A5FD"
+                                            size={17}
+                                        />
+                                    }
+                                />
+                                <Step
+                                    className="lastStep"
+                                    title=""
+                                    description={`预计30:00分钟到账`}
+                                    icon={
+                                        <BsCircle color="#999999" size={13} />
+                                    }
+                                />
+                            </Steps>
                         </div>
                         <p className="smallRiver-p">
-                            存款提交后，会员务必在<span>30 分钟内完成转账，</span>
+                            存款提交后，会员务必在
+                            <span>30 分钟内完成转账，</span>
                             以避免导致延迟到账。若会员转账后 30
                             分钟，仍尚未到账，请立即联系在线客服。
                         </p>
                         <div className="smallRiver-border">
-                            <li className="item-wrap" style={{fontSize: '12px', color: '#222222'}}>
+                            <li
+                                className="item-wrap"
+                                style={{ fontSize: "12px", color: "#222222" }}
+                            >
                                 <span className="item-label">存款金额</span>
-                                <span style={{fontWeight: 'bold'}}>
+                                <span style={{ fontWeight: "bold" }}>
                                     ¥ {this.state.depositMoney}
                                 </span>
                             </li>
                         </div>
                         <div className="smallRiver-border">
-                            <li className="item-wrap" style={{fontSize: '12px', color: '#222222'}}>
+                            <li
+                                className="item-wrap"
+                                style={{ fontSize: "12px", color: "#222222" }}
+                            >
                                 <span className="item-label">交易单号</span>
                                 <span>
                                     {this.transactionId}
@@ -546,7 +561,11 @@ class SR extends React.Component {
                                         text={this.transactionId}
                                         onCopy={this.copySuccessCall}
                                     >
-                                        <Button type="link"><img src={`/cn/img/icons/Copys.svg`}/></Button>
+                                        <Button type="link">
+                                            <img
+                                                src={`/cn/img/icons/Copys.svg`}
+                                            />
+                                        </Button>
                                     </CopyToClipboard>
                                 </span>
                             </li>
@@ -555,8 +574,24 @@ class SR extends React.Component {
 
                     <div className="tlc-deposit-receipt">
                         <div className="upload-wrapper smdeposit">
-                            <div style={{ textAlign: "left", fontSize: '14px' }}>
-                            上传存款凭证 <span style={{color: '#323232', background: '#FFE273', fontSize: '11px', fontWeight: 'bold', borderRadius: '5px', width: '50px', textAlign: 'center', lineHeight: '12px'}}>推荐使用</span>
+                            <div
+                                style={{ textAlign: "left", fontSize: "14px" }}
+                            >
+                                上传存款凭证{" "}
+                                <span
+                                    style={{
+                                        color: "#323232",
+                                        background: "#FFE273",
+                                        fontSize: "11px",
+                                        fontWeight: "bold",
+                                        borderRadius: "5px",
+                                        width: "50px",
+                                        textAlign: "center",
+                                        lineHeight: "12px",
+                                    }}
+                                >
+                                    推荐使用
+                                </span>
                             </div>
                             {/* <span className="item-label">
                                 小同建议 直接上传充值收据以便加快充值审核哦！
@@ -574,27 +609,51 @@ class SR extends React.Component {
                                         this.setState({ uploadFileName: v });
                                     }}
                                     children={
-                                        <Button block className="link" style={{fontSize: '13px'}}>
-                                            <img src="/cn/img/icons/plus-upload.svg" /> &nbsp; 上传存款凭证以利款项快速到帐
+                                        <Button
+                                            block
+                                            className="link"
+                                            style={{ fontSize: "13px" }}
+                                        >
+                                            <img src="/cn/img/icons/plus-upload.svg" />{" "}
+                                            &nbsp; 上传存款凭证以利款项快速到帐
                                         </Button>
                                     }
                                 />
                             )}
-                            <span className="item-label" style={{color: '#666666', fontSize: '12px'}}>
+                            <span
+                                className="item-label"
+                                style={{ color: "#666666", fontSize: "12px" }}
+                            >
                                 若您无法上传凭证，请联系在线客服
                                 <Button
-                                style={{fontSize: '12px'}}
+                                    style={{ fontSize: "12px" }}
                                     className="inline"
                                     type="link"
                                     onClick={global.PopUpLiveChat}
                                 >
-                                    <span style={{borderBottom: '1.5px solid #1C8EFF', lineHeight: '9px', color: '#1C8EFF', maxWidth: '100%'}}>在线客服</span>
+                                    <span
+                                        style={{
+                                            borderBottom: "1.5px solid #1C8EFF",
+                                            lineHeight: "9px",
+                                            color: "#1C8EFF",
+                                            maxWidth: "100%",
+                                        }}
+                                    >
+                                        在线客服
+                                    </span>
                                 </Button>
                             </span>
                         </div>
                     </div>
-                    <div style={{color: '#999999', fontSize: '13px', marginBottom: '20px'}}>
-                    您可以回到首页继续投注，请等待30分钟以刷新金额， 如果有任何问题，请联系我们的在线客服
+                    <div
+                        style={{
+                            color: "#999999",
+                            fontSize: "13px",
+                            marginBottom: "20px",
+                        }}
+                    >
+                        您可以回到首页继续投注，请等待30分钟以刷新金额，
+                        如果有任何问题，请联系我们的在线客服
                     </div>
                     <div className="btn-wrap">
                         <Button
@@ -606,9 +665,19 @@ class SR extends React.Component {
                         >
                             查看交易记录
                         </Button>
-                        <Button size="large" htmlType="submit" onClick={this.goLbHome} block style={{border: '1px solid #00A5FD', color: '#00A5FD', marginTop: '15px'}}>
-							到首页
-						</Button>
+                        <Button
+                            size="large"
+                            htmlType="submit"
+                            onClick={this.goLbHome}
+                            block
+                            style={{
+                                border: "1px solid #00A5FD",
+                                color: "#00A5FD",
+                                marginTop: "15px",
+                            }}
+                        >
+                            到首页
+                        </Button>
                     </div>
                 </div>
             </React.Fragment>

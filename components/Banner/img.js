@@ -2,7 +2,7 @@ import React from "react";
 import Router from "next/router";
 import LaunchGame from "@/Games/openGame";
 import Image from "next/image";
-import { getQueryVariable } from '$ACTIONS/helper'
+import { getQueryVariable } from "$ACTIONS/helper";
 import { connect } from "react-redux";
 import pubilcData from "$DATA/game.static.js";
 
@@ -51,8 +51,10 @@ class Banner extends React.Component {
                 Router.push("/help/sponsorship/");
                 break;
             case 31:
-                if(!isLogin){
-                    global.goUserSign(getQueryVariable("isAgent") === "1" ? "2" : "1");
+                if (!isLogin) {
+                    global.goUserSign(
+                        getQueryVariable("isAgent") === "1" ? "2" : "1",
+                    );
                     return;
                 }
                 global.showDialog({ key: 'wallet:{"type": "deposit"}' });
@@ -64,20 +66,28 @@ class Banner extends React.Component {
                     gameId: item.gameId,
                     type: "Game",
                 };
-                const codelist = gmaeCategories
-                    .flatMap(category =>
-                        (category.subProviders || [])
-                            .filter(subProvider => subProvider.code && !gamesToFilter.includes(subProvider.code))
-                            .map(subProvider => subProvider.code)
-                    );
+                const codelist = gmaeCategories.flatMap((category) =>
+                    (category.subProviders || [])
+                        .filter(
+                            (subProvider) =>
+                                subProvider.code &&
+                                !gamesToFilter.includes(subProvider.code),
+                        )
+                        .map((subProvider) => subProvider.code),
+                );
 
                 if (codelist.includes(item.cgmsVendorCode)) {
-                    const itemCode = gmaeCategories.find(category =>
-                        category.subProviders.some(subProvider => subProvider.code === item.cgmsVendorCode)
+                    const itemCode = gmaeCategories.find((category) =>
+                        category.subProviders.some(
+                            (subProvider) =>
+                                subProvider.code === item.cgmsVendorCode,
+                        ),
                     )?.code;
 
                     if (itemCode) {
-                        const path = pubilcData.find(data => data.providerName === itemCode)?.path;
+                        const path = pubilcData.find(
+                            (data) => data.providerName === itemCode,
+                        )?.path;
                         Router.push(`/games/${path}/${item.cgmsVendorCode}`);
                         return;
                     }
@@ -125,10 +135,13 @@ class Banner extends React.Component {
                                             "Home_C_Banner",
                                             "",
                                             [
-                                                {customVariableKey: "Home_C_Banner_PromoName",
-                                                customVariableValue: item.title}
-                                            ]
-                                            
+                                                {
+                                                    customVariableKey:
+                                                        "Home_C_Banner_PromoName",
+                                                    customVariableValue:
+                                                        item.title,
+                                                },
+                                            ],
                                         );
                                     }}
                                     alt={item ? item.title : ""}
@@ -165,5 +178,5 @@ const mapStateToProps = function (state) {
     return {
         gameInfo: state.game,
     };
-}
+};
 export default connect(mapStateToProps, null)(Banner);

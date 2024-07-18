@@ -25,7 +25,7 @@
     &.black {
         background-image: url("@{base-path}/img/maintain/y-so-serious.png");
     }
-    
+
     .tlc-sprite {
         background-image: url("@{base-path}/img/home/sprite20220315.png");
         background-repeat: no-repeat;
@@ -195,7 +195,10 @@
     .maintain-header-wrap .common-distance > div.inline-block:last-child {
         text-align: right;
     }
-    .maintain-header-wrap .common-distance > div.inline-block .tlc-partner-section {
+    .maintain-header-wrap
+        .common-distance
+        > div.inline-block
+        .tlc-partner-section {
         text-align: left;
     }
     .maintain-header-wrap .common-distance .logo-wrap img {
@@ -230,14 +233,14 @@
         content: "";
     }
 }
-.link-resetpassword-page{
-    .maintain-header-wrap{
-        background-color: #00A6FF;
+.link-resetpassword-page {
+    .maintain-header-wrap {
+        background-color: #00a6ff;
         height: 120px;
-        .common-distance{
+        .common-distance {
             flex-direction: row;
             justify-content: space-between;
-            .sponsor-wrap{
+            .sponsor-wrap {
                 font-size: 12px;
                 color: #fff;
             }
@@ -246,11 +249,14 @@
 }
 
 // 重置密码需求（自定义FormItem错误提示语，在字段合法的情况下出现错误提示）
-.defined-error .ant-input, .defined-error .ant-input:hover {
+.defined-error .ant-input,
+.defined-error .ant-input:hover {
     background-color: #fff;
     border-color: #ff4d4f;
 }
 
-.defined-error .ant-form-explain, .defined-error .ant-form-split, .defined-error .ant-form-extra {
+.defined-error .ant-form-explain,
+.defined-error .ant-form-split,
+.defined-error .ant-form-extra {
     color: #ff4d4f;
 }

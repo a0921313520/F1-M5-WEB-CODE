@@ -26,7 +26,7 @@ const pubilcData = [
             {
                 providerName: translate("IM 体育"),
                 description: translate(
-                    "IM Sports 现代投注平台，在线中心更新比赛信息和统计数据。"
+                    "IM Sports 现代投注平台，在线中心更新比赛信息和统计数据。",
                 ),
                 iconLeftText: translate("最稳固的品质"),
                 iconBonus: "1",
@@ -37,7 +37,7 @@ const pubilcData = [
             {
                 providerName: translate("沙巴体育"),
                 description: translate(
-                    "SABA Sports 亚洲第一博彩平台。 经营超过20年。 威严而稳定。"
+                    "SABA Sports 亚洲第一博彩平台。 经营超过20年。 威严而稳定。",
                 ),
                 iconLeftText: translate("最稳固的品质"),
                 iconBonus: "1",
@@ -48,7 +48,7 @@ const pubilcData = [
             {
                 providerName: translate("CMD体育"),
                 description: translate(
-                    "CMD体育具有特色的可靠投注平台自动投注支付和实时比赛统计数据。"
+                    "CMD体育具有特色的可靠投注平台自动投注支付和实时比赛统计数据。",
                 ),
                 iconLeftText: translate("最稳固的品质"),
                 iconBonus: "1",
@@ -59,7 +59,7 @@ const pubilcData = [
             {
                 providerName: translate("BTI体育"),
                 description: translate(
-                    "BTi Sports 亚洲领先的投注平台。 投注类型多样，赔率诱人。"
+                    "BTi Sports 亚洲领先的投注平台。 投注类型多样，赔率诱人。",
                 ),
                 iconLeftText: translate("最稳固的品质"),
                 iconBonus: "1",
@@ -70,7 +70,7 @@ const pubilcData = [
             {
                 providerName: translate("V2体育"),
                 description: translate(
-                    "Sports V2 先进的虚拟投注技术。 随时玩就有机会赢取巨额奖金！"
+                    "Sports V2 先进的虚拟投注技术。 随时玩就有机会赢取巨额奖金！",
                 ),
                 iconLeftText: translate("最稳固的品质"),
                 iconBonus: "1",
@@ -79,7 +79,7 @@ const pubilcData = [
                 providerCode: "VTG",
             },
         ],
-        path:"the-thao"
+        path: "the-thao",
     },
     {
         gameName: "电子竞技",
@@ -100,7 +100,7 @@ const pubilcData = [
             {
                 providerName: translate("TF 电竞"),
                 description: translate(
-                    "TF E-Sports 提供多种投注类型和诱人的赔率。 清晰在线电视，顶级娱乐。"
+                    "TF E-Sports 提供多种投注类型和诱人的赔率。 清晰在线电视，顶级娱乐。",
                 ),
                 iconLeftText: translate("最稳固的品质"),
                 iconBonus: "1",
@@ -111,7 +111,7 @@ const pubilcData = [
             {
                 providerName: translate("FUN88 电竞"),
                 description: translate(
-                    "FUN88 电子竞技 FUN88 电子竞技提供特殊、独特的投注，赔率颇具吸引力。"
+                    "FUN88 电子竞技 FUN88 电子竞技提供特殊、独特的投注，赔率颇具吸引力。",
                 ),
                 iconLeftText: translate("最稳固的品质"),
                 iconBonus: "1",
@@ -120,7 +120,7 @@ const pubilcData = [
                 providerCode: "IPES",
             },
         ],
-        path:"esports"
+        path: "esports",
     },
     {
         gameName: "真人娱乐",
@@ -138,7 +138,7 @@ const pubilcData = [
         howtoplay: [],
         bonus: "12" /* 返水 */,
         howtoplayid: CMSOBJ[HostConfig.CMS_ID][13],
-        path:"live-casino"
+        path: "live-casino",
     },
     {
         gameName: "棋牌游戏",
@@ -155,7 +155,7 @@ const pubilcData = [
         howtoplay: [],
         bonus: "12",
         howtoplayid: CMSOBJ[HostConfig.CMS_ID][3],
-        path:"P2P"
+        path: "P2P",
     },
     {
         gameName: "彩票游戏",
@@ -172,7 +172,7 @@ const pubilcData = [
         howtoplay: [],
         bonus: "12",
         howtoplayid: CMSOBJ[HostConfig.CMS_ID][1],
-        path:"xo-so"
+        path: "xo-so",
     },
     {
         gameName: "电子游戏",
@@ -189,12 +189,12 @@ const pubilcData = [
         howtoplay: [],
         bonus: "12",
         howtoplayid: CMSOBJ[HostConfig.CMS_ID][2],
-        path:"slots"
+        path: "slots",
     },
     {
         providerName: "InstantGames",
         gameName: "小游戏",
-        path:"arcade-games",
+        path: "arcade-games",
     },
 ];
 

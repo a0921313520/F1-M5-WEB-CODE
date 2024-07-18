@@ -1,5 +1,14 @@
 import React from "react";
-import { Tabs, Modal, Empty, Spin, Input, message, Pagination ,Button} from "antd";
+import {
+    Tabs,
+    Modal,
+    Empty,
+    Spin,
+    Input,
+    message,
+    Pagination,
+    Button,
+} from "antd";
 import Layout from "@/Layout";
 import Router from "next/router";
 import { get, post } from "$ACTIONS/TlcRequest";
@@ -9,7 +18,7 @@ import {
     getQueryVariable,
     getE2BBValue,
     showSmallResultModal,
-    isWebPSupported
+    isWebPSupported,
 } from "$ACTIONS/helper";
 import {
     GetWalletList,
@@ -24,10 +33,7 @@ import MyRebate from "@/MyPromotion/MyRebate";
 import PromotionStatusButton from "@/MyPromotion/PromotionStatusButton";
 import dynamic from "next/dynamic";
 import moment from "moment";
-import {
-    AppliedDataModal,
-    TransferModal,
-} from "@/MyPromotionTabs/Modal";
+import { AppliedDataModal, TransferModal } from "@/MyPromotionTabs/Modal";
 import { connect, Provider } from "react-redux";
 import store from "$STORE/store";
 import { promotionActions } from "$STORE/promotionSlice";
@@ -40,8 +46,8 @@ import {
 import { getPromotionCategories } from "$ACTIONS/promotionRequest";
 import ImageWithFallback from "@/ImageWithFallback/";
 import { translate } from "$ACTIONS/Translate";
-import { getStaticPropsFromStrapiSEOSetting } from '$DATA/seo';
-import {pathNameList} from "$DATA/me.static";
+import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
+import { pathNameList } from "$DATA/me.static";
 const { TabPane } = Tabs;
 
 // Modal加载状态组件
@@ -54,7 +60,7 @@ const DynamicWallet = dynamic(import("@/Wallet"), {
     ssr: true,
 });
 export async function getStaticProps() {
-    return await getStaticPropsFromStrapiSEOSetting('/promotions'); //參數帶本頁的路徑
+    return await getStaticPropsFromStrapiSEOSetting("/promotions"); //參數帶本頁的路徑
 }
 class Main extends React.Component {
     constructor(props) {
@@ -120,7 +126,7 @@ class Main extends React.Component {
             sosAppllication: false, // 救援金申请Loading状态
             isOpenRealyName: false, // 是否打开完善姓名
             realyName: "", // 为了触发完善姓名后的value更新
-            manualResultMessage:"" //优惠申请提交结果 message
+            manualResultMessage: "", //优惠申请提交结果 message
         };
 
         this.setTlcGameIframeHeightCount = 0;
@@ -130,8 +136,8 @@ class Main extends React.Component {
         this.textareaValue = ""; // 自填表单备注信息值（每次都setState会有卡顿现象）
         this.finishRealyNameNextStepInfo = {}; // 完善真实姓名下一步所需（当前优惠详情信息）
         this.promotionIsLogin = false; // 为了避免静态登陆之后重复调用获取优惠的API，本地记录获取状态
-        this.setMemberInfo = function () { }; // HasHeader传递过来的方法（设置会员信息）
-        this.getBalance = function () { }; // HasHeader传递过来的方法（更新余额）
+        this.setMemberInfo = function () {}; // HasHeader传递过来的方法（设置会员信息）
+        this.getBalance = function () {}; // HasHeader传递过来的方法（更新余额）
 
         this.getBonusDetail = this.getBonusDetail.bind(this); //取得優惠對應之bonus資料
         this.searchPromotion = this.searchPromotion.bind(this); // 搜索优惠
@@ -175,7 +181,7 @@ class Main extends React.Component {
 
             const newSelectedPromotionItem = this.props.promotions.find(
                 (item) =>
-                    item.promoId === this.state.selectedPromotionItem.promoId
+                    item.promoId === this.state.selectedPromotionItem.promoId,
             );
             console.log(
                 "promotion update!!",
@@ -185,7 +191,7 @@ class Main extends React.Component {
                 this.props.promotions,
                 "\n",
                 "newSelectedPromotionItem",
-                newSelectedPromotionItem
+                newSelectedPromotionItem,
             );
 
             this.setState({
@@ -199,7 +205,7 @@ class Main extends React.Component {
             this.state.currentMoney.balanceList
         ) {
             const mainWallet = this.state.currentMoney.balanceList.find(
-                (account) => account.name === "MAIN"
+                (account) => account.name === "MAIN",
             );
             if (
                 mainWallet.balance >=
@@ -210,17 +216,30 @@ class Main extends React.Component {
                 this.setState({ isOneClickTransfer: true });
             }
         }
-        
-        if(prevProps.openPromotionDetail !== this.props.openPromotionDetail && typeof this.props.openPromotionDetail === "object" && this.props.openPromotionDetail !== "{}"){
-            if(Object.prototype.hasOwnProperty.call(this.props.openPromotionDetail,"promotionId")){
-                const promotionItem = {promoId:  this.props.openPromotionDetail.promotionId }
-                console.log("🚀 ~ Main ~ componentDidUpdate ~ promotionItem.promoId:", promotionItem.promoId)
-                this.openPromotionDetailHandler(promotionItem)
+
+        if (
+            prevProps.openPromotionDetail !== this.props.openPromotionDetail &&
+            typeof this.props.openPromotionDetail === "object" &&
+            this.props.openPromotionDetail !== "{}"
+        ) {
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    this.props.openPromotionDetail,
+                    "promotionId",
+                )
+            ) {
+                const promotionItem = {
+                    promoId: this.props.openPromotionDetail.promotionId,
+                };
+                console.log(
+                    "🚀 ~ Main ~ componentDidUpdate ~ promotionItem.promoId:",
+                    promotionItem.promoId,
+                );
+                this.openPromotionDetailHandler(promotionItem);
             }
         }
-        
     }
-    
+
     componentWillUnmount() {
         clearTimeout(this.timer);
         this.setState = () => false;
@@ -245,7 +264,7 @@ class Main extends React.Component {
 
             //篩選出需show在左邊Menu的item
             const categories = appliedHistories.filter(
-                (res) => res.parentName === "General"
+                (res) => res.parentName === "General",
             );
 
             this.props.setCategories([all, ...categories]);
@@ -265,9 +284,9 @@ class Main extends React.Component {
 
         this.setState({
             isRefreshingPromotion: true,
-        })
-        get(ApiPort.GETManualPromoMaxApplicant + "&promoid=" + promoID).then(
-            (res) => {
+        });
+        get(ApiPort.GETManualPromoMaxApplicant + "&promoid=" + promoID)
+            .then((res) => {
                 if (res && res.isSuccess) {
                     if (res.result) {
                         this.setState({ isManualFullOfApplicantsModal: true });
@@ -281,14 +300,15 @@ class Main extends React.Component {
                 } else {
                     message.error(
                         "something wrong with checking max applicant of promotion",
-                        2
+                        2,
                     );
                 }
-            }).finally(()=>{
+            })
+            .finally(() => {
                 this.setState({
                     isRefreshingPromotion: false,
-                })
-            })
+                });
+            });
     }
 
     setIframeHeight(iframe) {
@@ -314,7 +334,9 @@ class Main extends React.Component {
                 pageIndex: 1,
             });
         }
-        let filterdata = this.props.promotions.filter((item) => item.category.includes(this.props.categories[key].PromoCatCode));
+        let filterdata = this.props.promotions.filter((item) =>
+            item.category.includes(this.props.categories[key].PromoCatCode),
+        );
         this.setState({
             filterdata: filterdata,
             Tabkey: key.toString(),
@@ -348,7 +370,10 @@ class Main extends React.Component {
     }
 
     getBonusDetail = (wallet, promotionDetailItem, promotionItem) => {
-        console.log("🚀 ~ file: Promotions.js:381 ~ Main ~ promotionDetailItem:", promotionDetailItem)
+        console.log(
+            "🚀 ~ file: Promotions.js:381 ~ Main ~ promotionDetailItem:",
+            promotionDetailItem,
+        );
         if (
             promotionDetailItem.actionType === "NO_ACTION" ||
             promotionDetailItem.promoType === "Manual"
@@ -367,7 +392,10 @@ class Main extends React.Component {
                             String(bonusItem.id) === promotionDetailItem.bonusId
                         );
                     });
-                    console.log("🚀 ~ file: Promotions.js:400 ~ Main ~ bonus ~ bonus:", bonus)
+                    console.log(
+                        "🚀 ~ file: Promotions.js:400 ~ Main ~ bonus ~ bonus:",
+                        bonus,
+                    );
                     // if (!bonus && !promotionItem.history) {
                     //     message.error(
                     //         `api未回傳符合Bonus ID${promotionDetailItem.bonusId}的bonus`
@@ -383,7 +411,7 @@ class Main extends React.Component {
                     });
                 }
             },
-            "Transfer"
+            "Transfer",
         );
     };
 
@@ -398,8 +426,9 @@ class Main extends React.Component {
             content: (
                 <div>
                     <img
-                        src={`${process.env.BASE_PATH}/img/user/otpVerify/${status ? "icon-success" : "icon-error"
-                            }.png`}
+                        src={`${process.env.BASE_PATH}/img/user/otpVerify/${
+                            status ? "icon-success" : "icon-error"
+                        }.png`}
                     />
                     <p
                         style={{
@@ -459,7 +488,7 @@ class Main extends React.Component {
         } = data;
         const currentSelfContent = this.state.selectedPromotionDetail;
         const totalWalletBalance = this.state.currentMoney.balanceList.find(
-            (wallet) => wallet.name === "TotalBal"
+            (wallet) => wallet.name === "TotalBal",
         ).balance;
 
         if (fromWalletDetail.name === "") {
@@ -511,7 +540,9 @@ class Main extends React.Component {
                             <p>
                                 {translate("很抱歉，您的")}
                                 {fromWalletDetail.localizedName}
-                                {translate("余额不足，请先进行充值再申请此优惠。")}
+                                {translate(
+                                    "余额不足，请先进行充值再申请此优惠。",
+                                )}
                             </p>
                         </React.Fragment>
                     ),
@@ -565,7 +596,7 @@ class Main extends React.Component {
                         },
                         (status) => {
                             this.setState({ isRefreshingBalance: status });
-                        }
+                        },
                     );
                     // 若為一鍵轉帳成功
                     if (this.state.isOneClickTransfer) {
@@ -584,12 +615,13 @@ class Main extends React.Component {
                             isRefreshingPromotion: true,
                         });
                         this.props.updateBonusPromotionHistory(
-                            selectedPromotionDetail.promoId
+                            selectedPromotionDetail.promoId,
                         );
                     }
                     return;
                 } else {
-                    if (res.result.status === 1 &&
+                    if (
+                        res.result.status === 1 &&
                         res.result.bonusResult !== "" &&
                         res.result.messages !== ""
                     ) {
@@ -606,9 +638,12 @@ class Main extends React.Component {
                             },
                             (status) => {
                                 this.setState({ isRefreshingBalance: status });
-                            }
+                            },
                         );
-                        showSmallResultModal(true, translate(res.result.messages));
+                        showSmallResultModal(
+                            true,
+                            translate(res.result.messages),
+                        );
                         setTimeout(() => {
                             Modal.destroyAll();
                         }, 3000);
@@ -674,7 +709,7 @@ class Main extends React.Component {
         } else {
             params = "?id=" + item.promoId;
         }
-        get(ApiPort.PromotionContent + params ).then((res) => {
+        get(ApiPort.PromotionContent + params).then((res) => {
             if (res) {
                 (res.bonusMinAmount = parseInt(res.bonusMinAmount) || 0),
                     (res.bonusMaxAmount = parseInt(res.bonusMaxAmount) || 0);
@@ -683,11 +718,11 @@ class Main extends React.Component {
                     if (localStorage.getItem("access_token")) {
                         this.getBonusDetail(
                             item.bonusData?.account ||
-                            item.history?.wallet ||
-                            res.bonusProduct ||
-                            "",
+                                item.history?.wallet ||
+                                res.bonusProduct ||
+                                "",
                             res,
-                            item
+                            item,
                         );
                     } else {
                         this.setState({ getBonusLoading: false });
@@ -715,8 +750,8 @@ class Main extends React.Component {
                 if (res.isSuccess === true) {
                     post(
                         ApiPort.SosBonusApplications +
-                        "&SOSBonusId=" +
-                        SOSBonusId
+                            "&SOSBonusId=" +
+                            SOSBonusId,
                     ).then((res) => {
                         this.setState({ sosAppllication: false });
                         if (res.isSuccess === true) {
@@ -739,9 +774,9 @@ class Main extends React.Component {
 
     /**
      * 充值申请优惠
-     * @param {Object} item 
+     * @param {Object} item
      */
-    openDepositModal =(item={})=> {
+    openDepositModal = (item = {}) => {
         const reminderModal = Modal.confirm({
             icon: null,
             title: translate("余额不足"),
@@ -749,10 +784,13 @@ class Main extends React.Component {
             closable: false,
             content: (
                 <React.Fragment>
-                    {translate("抱歉，您的余额目前不足以参与本次活动，请“充值”并继续参与。")}
+                    {translate(
+                        "抱歉，您的余额目前不足以参与本次活动，请“充值”并继续参与。",
+                    )}
                 </React.Fragment>
             ),
-            className: "confirm-modal-of-public dont-show-close-button elementTextLeft",
+            className:
+                "confirm-modal-of-public dont-show-close-button elementTextLeft",
             okText: translate("存款"),
             cancelText: translate("取消"),
             onOk: () => {
@@ -763,20 +801,23 @@ class Main extends React.Component {
                         bonusProduct: item.bonusProduct ?? "",
                         bonusMinAmount: item.bonusMinAmount ?? "",
                         bonusTitle: item.promoTitle ?? "",
-                    })
+                    }),
                 );
-                this.setState({isPromotionDetailModal:false})
+                this.setState({ isPromotionDetailModal: false });
                 reminderModal.destroy();
                 global.showDialog({
                     key: 'wallet:{"type": "deposit"}',
                 });
             },
-        })
-    }
+        });
+    };
 
     // 申請優惠Handler
     Application(item) {
-        console.log("🚀 ~ Main ~ Application ~ item.promoType:", item.promoType)
+        console.log(
+            "🚀 ~ Main ~ Application ~ item.promoType:",
+            item.promoType,
+        );
         // 会员未登录
         if (!this.state.isLogin) {
             global.goUserSign(getQueryVariable("isAgent") === "1" ? "2" : "1");
@@ -797,7 +838,7 @@ class Main extends React.Component {
                         break;
                     case "Deposit Page Only":
                     case "DEPOSIT_PAGE_ONLY":
-                        this.openDepositModal(item)
+                        this.openDepositModal(item);
                         break;
                     case "Withdrawal":
                         global.showDialog({
@@ -816,12 +857,12 @@ class Main extends React.Component {
                         ) {
                             const totalBal =
                                 this.state.currentMoney.balanceList.find(
-                                    (account) => (account.name = "TotalBal")
+                                    (account) => (account.name = "TotalBal"),
                                 );
 
                             const mainWallet =
                                 this.state.currentMoney.balanceList.find(
-                                    (account) => account.name === "MAIN"
+                                    (account) => account.name === "MAIN",
                                 );
 
                             if (
@@ -830,11 +871,11 @@ class Main extends React.Component {
                             ) {
                                 console.log("跳轉至存款頁");
                                 // this.setState({ isDepositWarningModel: true });
-                                this.openDepositModal(item)
+                                this.openDepositModal(item);
                             } else {
                                 const bonusProductResult =
                                     this.state.fromWalletList.find(
-                                        (v) => v.key === item.bonusProduct
+                                        (v) => v.key === item.bonusProduct,
                                     );
 
                                 if (
@@ -870,7 +911,7 @@ class Main extends React.Component {
                             console.log("isSBlance", isSBbalance);
                             const bonusProductResult =
                                 this.state.fromWalletList.find(
-                                    (v) => v.key === item.bonusProduct
+                                    (v) => v.key === item.bonusProduct,
                                 );
 
                             // 获取会员是否持有服务奖金 (疑似沒用到)
@@ -943,7 +984,9 @@ class Main extends React.Component {
                     this.setState({
                         isManualApplySuccess: false,
                         isShowManualResultModal: true,
-                        manualResultMessage: data.errors && data.errors[0]?.message || translate("系统错误，请联系在线支持！")
+                        manualResultMessage:
+                            (data.errors && data.errors[0]?.message) ||
+                            translate("系统错误，请联系在线支持！"),
                     });
                 }
                 this.setState({
@@ -957,7 +1000,8 @@ class Main extends React.Component {
                     isManualApplySuccess: false,
                     isShowManualResultModal: true,
                     manualApplyFormSpinning: false,
-                    manualResultMessage: translate("系统错误，请联系在线支持！")
+                    manualResultMessage:
+                        translate("系统错误，请联系在线支持！"),
                 });
             });
     }
@@ -992,7 +1036,7 @@ class Main extends React.Component {
             isRefreshingBalance,
             isRefreshingPromotion,
             getBonusLoading,
-            manualResultMessage
+            manualResultMessage,
         } = this.state;
         const appliedPromotion = appliedPromotionHistory.find((item) => {
             return (
@@ -1001,11 +1045,11 @@ class Main extends React.Component {
             );
         });
         console.log(
-            "🚀 ~ file: Promotions.js:1155 ~ Main ~ render ~ this.props.categories:", 
-            isRefreshingPromotion ,
-            !selectedPromotionDetail.body ,
-            getBonusLoading
-        )
+            "🚀 ~ file: Promotions.js:1155 ~ Main ~ render ~ this.props.categories:",
+            isRefreshingPromotion,
+            !selectedPromotionDetail.body,
+            getBonusLoading,
+        );
         return (
             <Layout
                 title="FUN88"
@@ -1040,7 +1084,7 @@ class Main extends React.Component {
                     this.setState({ isLogin: v });
                 }}
                 seoData={this.props.seoData}
-            > 
+            >
                 <div className="promotions-banner">
                     <img
                         src={`${process.env.BASE_PATH}/img/promotions/Banner-for-promotion.${isWebPSupported() ? "webp" : "jpg"}`}
@@ -1051,18 +1095,18 @@ class Main extends React.Component {
                     <div className="common-distance promotion-tabs">
                         {(!this.props.promotions?.length ||
                             !this.props.categories?.length) && (
-                                <ul className="loading_card_list">
-                                    {[...Array(9)].map((item, index) => {
-                                        return (
-                                            <li key={index}>
-                                                <div className="box">
-                                                    <div className="box_title" />
-                                                </div>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            )}
+                            <ul className="loading_card_list">
+                                {[...Array(9)].map((item, index) => {
+                                    return (
+                                        <li key={index}>
+                                            <div className="box">
+                                                <div className="box_title" />
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
                         {this.props.promotions != "" &&
                             this.props.categories.length != 0 && (
                                 <React.Fragment>
@@ -1087,14 +1131,14 @@ class Main extends React.Component {
                                                 if (!this.state.isLogin) {
                                                     global.goUserSign(
                                                         getQueryVariable(
-                                                            "isAgent"
+                                                            "isAgent",
                                                         ) === "1"
                                                             ? "2"
-                                                            : "1"
+                                                            : "1",
                                                     );
                                                 } else {
                                                     this.props.changeTab(
-                                                        `${tabKey}`
+                                                        `${tabKey}`,
                                                     );
                                                 }
                                             }
@@ -1124,10 +1168,11 @@ class Main extends React.Component {
                                                             tab={
                                                                 <span className="icon-list">
                                                                     <img
-                                                                        className={`icon-image ${Tabkey ===
-                                                                            index.toString() &&
+                                                                        className={`icon-image ${
+                                                                            Tabkey ===
+                                                                                index.toString() &&
                                                                             "icon-image-active"
-                                                                            }`}
+                                                                        }`}
                                                                         src={
                                                                             item.promoCatImageUrl
                                                                         }
@@ -1148,7 +1193,9 @@ class Main extends React.Component {
                                                                     spinning={
                                                                         isRefreshingPromotion
                                                                     }
-                                                                    tip={translate("加载中")}
+                                                                    tip={translate(
+                                                                        "加载中",
+                                                                    )}
                                                                 >
                                                                     <ul className="Pms_data_list">
                                                                         {filterdata.length ? (
@@ -1156,14 +1203,14 @@ class Main extends React.Component {
                                                                                 .slice(
                                                                                     (pageIndex -
                                                                                         1) *
-                                                                                    9,
+                                                                                        9,
                                                                                     pageIndex *
-                                                                                    9
+                                                                                        9,
                                                                                 )
                                                                                 .map(
                                                                                     (
                                                                                         item,
-                                                                                        key
+                                                                                        key,
                                                                                     ) => {
                                                                                         return (
                                                                                             <li
@@ -1173,12 +1220,12 @@ class Main extends React.Component {
                                                                                                 }
                                                                                                 onClick={() => {
                                                                                                     this.openPromotionDetailHandler(
-                                                                                                        item
+                                                                                                        item,
                                                                                                     );
                                                                                                     Pushgtagdata(
                                                                                                         "Promo Click",
                                                                                                         "View",
-                                                                                                        `${item.promoId}_PromoPage`
+                                                                                                        `${item.promoId}_PromoPage`,
                                                                                                     );
                                                                                                 }}
                                                                                                 className="promotion-item-box"
@@ -1209,16 +1256,18 @@ class Main extends React.Component {
                                                                                                             </p>
                                                                                                             <div className="period">
                                                                                                                 <span>
-                                                                                                                    <img src={`${process.env.BASE_PATH}/img/promotions/time.svg`} />
+                                                                                                                    <img
+                                                                                                                        src={`${process.env.BASE_PATH}/img/promotions/time.svg`}
+                                                                                                                    />
                                                                                                                 </span>
                                                                                                                 <p>{`${moment(
-                                                                                                                    item.startDate
+                                                                                                                    item.startDate,
                                                                                                                 ).format(
-                                                                                                                    "DD-MM-YYYY HH:mm:ss"
+                                                                                                                    "DD-MM-YYYY HH:mm:ss",
                                                                                                                 )}-${moment(
-                                                                                                                    item.endDate
+                                                                                                                    item.endDate,
                                                                                                                 ).format(
-                                                                                                                    "DD-MM-YYYY HH:mm:ss"
+                                                                                                                    "DD-MM-YYYY HH:mm:ss",
                                                                                                                 )}`}</p>
                                                                                                             </div>
                                                                                                         </div>
@@ -1226,7 +1275,7 @@ class Main extends React.Component {
                                                                                                 </div>
                                                                                             </li>
                                                                                         );
-                                                                                    }
+                                                                                    },
                                                                                 )
                                                                         ) : (
                                                                             <Empty
@@ -1235,7 +1284,9 @@ class Main extends React.Component {
                                                                                 }
                                                                                 description={
                                                                                     <p>
-                                                                                        {translate("目前没有促销活动。")}
+                                                                                        {translate(
+                                                                                            "目前没有促销活动。",
+                                                                                        )}
                                                                                     </p>
                                                                                 }
                                                                             />
@@ -1244,47 +1295,54 @@ class Main extends React.Component {
                                                                 </Spin>
                                                                 {filterdata.length >
                                                                     9 && (
-                                                                        <Pagination
-                                                                            className="general-pagination"
-                                                                            style={{
-                                                                                textAlign:
-                                                                                    "left",
-                                                                            }}
-                                                                            defaultCurrent={
-                                                                                1
-                                                                            }
-                                                                            pageSize={
-                                                                                9
-                                                                            }
-                                                                            onChange={(
-                                                                                e
-                                                                            ) => {
-                                                                                this.setState(
-                                                                                    {
-                                                                                        pageIndex:
-                                                                                            e,
-                                                                                    }
-                                                                                );
-                                                                            }}
-                                                                            total={
-                                                                                filterdata.length
-                                                                            }
-                                                                        />
-                                                                    )}
+                                                                    <Pagination
+                                                                        className="general-pagination"
+                                                                        style={{
+                                                                            textAlign:
+                                                                                "left",
+                                                                        }}
+                                                                        defaultCurrent={
+                                                                            1
+                                                                        }
+                                                                        pageSize={
+                                                                            9
+                                                                        }
+                                                                        onChange={(
+                                                                            e,
+                                                                        ) => {
+                                                                            this.setState(
+                                                                                {
+                                                                                    pageIndex:
+                                                                                        e,
+                                                                                },
+                                                                            );
+                                                                        }}
+                                                                        total={
+                                                                            filterdata.length
+                                                                        }
+                                                                    />
+                                                                )}
                                                             </div>
                                                         </TabPane>
-                                                    )
+                                                    ),
                                                 )}
                                             </Tabs>
                                         </TabPane>
                                         <TabPane
-                                            tab={<div>{translate("我的优惠")}</div>}
+                                            tab={
+                                                <div>
+                                                    {translate("我的优惠")}
+                                                </div>
+                                            }
                                             key="2"
                                         >
                                             <MyPromotionTabs />
                                         </TabPane>
 
-                                        <TabPane tab={<div>{translate("返水")}</div>} key="3">
+                                        <TabPane
+                                            tab={<div>{translate("返水")}</div>}
+                                            key="3"
+                                        >
                                             <MyRebate />
                                         </TabPane>
                                     </Tabs>
@@ -1311,16 +1369,13 @@ class Main extends React.Component {
                         if (Router.router.query.jumpfrom) {
                             Router.push("/");
                         }
-                        this.props.openPromotionDetail({})
+                        this.props.openPromotionDetail({});
                     }}
                     destroyOnClose={true}
                 >
                     <Provider store={store}>
                         <Spin
-                            spinning={
-                                isRefreshingPromotion ||
-                                getBonusLoading
-                            }
+                            spinning={isRefreshingPromotion || getBonusLoading}
                             tip={translate("加载中")}
                         >
                             <iframe
@@ -1334,7 +1389,7 @@ class Main extends React.Component {
                                 srcDoc={
                                     selectedPromotionDetail.body
                                         ? "<style>html,body{margin:0;padding:0;}body{padding:15px;}</style>" +
-                                        selectedPromotionDetail.body
+                                          selectedPromotionDetail.body
                                         : ""
                                 }
                             ></iframe>
@@ -1351,23 +1406,25 @@ class Main extends React.Component {
                                             if (!isLogin) {
                                                 global.goUserSign(
                                                     getQueryVariable(
-                                                        "isAgent"
+                                                        "isAgent",
                                                     ) === "1"
                                                         ? "2"
-                                                        : "1"
+                                                        : "1",
                                                 );
                                                 return;
                                             }
-                                            this.getIsManualApplicantFull(selectedPromotionDetail.promoId);
+                                            this.getIsManualApplicantFull(
+                                                selectedPromotionDetail.promoId,
+                                            );
                                         }}
                                         applyBonusPromotion={() => {
                                             this.Application(
-                                                selectedPromotionDetail
+                                                selectedPromotionDetail,
                                             );
                                             Pushgtagdata(
                                                 "Promo Application",
                                                 "Submit",
-                                                `Apply_${selectedPromotionDetail.promoId}_PromoPage`
+                                                `Apply_${selectedPromotionDetail.promoId}_PromoPage`,
                                             );
                                         }}
                                     />
@@ -1393,25 +1450,30 @@ class Main extends React.Component {
                         });
                     }}
                     footer={[
-                        <Button onClick={
-                            () => {
+                        <Button
+                            onClick={() => {
                                 this.setState({
                                     isTransferSuccessModal: false,
                                     isTransferModal: false,
                                     isPromotionDetailModal: false,
                                 });
-                            }
-                        }>
+                            }}
+                        >
                             {translate("关闭")}
                         </Button>,
-                        <Button type="primary" onClick={()=>{
-                            global.PopUpLiveChat()
-                        }}>
+                        <Button
+                            type="primary"
+                            onClick={() => {
+                                global.PopUpLiveChat();
+                            }}
+                        >
                             {translate("在线客服")}
-                        </Button>
+                        </Button>,
                     ]}
                 >
-                    <img src={`${process.env.BASE_PATH}/img/icons/icon-checked.png`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/icons/icon-checked.png`}
+                    />
                     <h4>{translate("转账及优惠申请成功")}</h4>
                 </Modal>
 
@@ -1452,12 +1514,15 @@ class Main extends React.Component {
                                             addonBefore={translate("邮箱")}
                                             defaultValue={mailConversion(
                                                 this.state.memberInfo
-                                                    ?.isVerifiedEmail?.[0] ?? ""
+                                                    ?.isVerifiedEmail?.[0] ??
+                                                    "",
                                             )}
                                             disabled
                                         />
                                         <p>
-                                            {translate("如果您想更新您的电子邮件地址，请联系我们的")}
+                                            {translate(
+                                                "如果您想更新您的电子邮件地址，请联系我们的",
+                                            )}
                                             <span
                                                 onClick={() =>
                                                     global.PopUpLiveChat()
@@ -1469,15 +1534,20 @@ class Main extends React.Component {
                                     </div>
                                     <div>
                                         <Input
-                                            addonBefore={translate("联系电话(大写)")}
+                                            addonBefore={translate(
+                                                "联系电话(大写)",
+                                            )}
                                             defaultValue={numberConversion(
                                                 this.state.memberInfo
-                                                    ?.isVerifiedPhone?.[0] ?? ""
+                                                    ?.isVerifiedPhone?.[0] ??
+                                                    "",
                                             )}
                                             disabled
                                         />
                                         <p>
-                                            {translate("如果您想更新您的电话号码，请联系我们的")}
+                                            {translate(
+                                                "如果您想更新您的电话号码，请联系我们的",
+                                            )}
                                             <span
                                                 onClick={() =>
                                                     global.PopUpLiveChat()
@@ -1514,14 +1584,14 @@ class Main extends React.Component {
                                             "Promo Application​",
                                             "Submit",
                                             "Apply_" +
-                                            selectedPromotionDetail.promoId
+                                                selectedPromotionDetail.promoId,
                                         );
                                     }}
                                 >
                                     {selectedPromotionDetail.actionType ===
-                                        "LiveChat"
+                                    "LiveChat"
                                         ? translate("在线客服")
-                                        :translate( "提交")}
+                                        : translate("提交")}
                                 </button>
                             </div>
                         </Spin>
@@ -1615,7 +1685,7 @@ class Main extends React.Component {
                                 visible={this.state.walletVisible}
                                 goUserCenter={(key) => {
                                     const path = `/me/${pathNameList[key]}`;
-                                    if(path){
+                                    if (path) {
                                         this.props.changeUserCenterTabKey(key);
                                         Router.push(path);
                                     }
@@ -1652,10 +1722,14 @@ class Main extends React.Component {
                         });
                     }}
                 >
-                    <img src={`${process.env.BASE_PATH}/img/icons/failed-filled.png`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/icons/failed-filled.png`}
+                    />
                     <h1>{translate("无法领取奖励")}</h1>
                     <span style={{ textAlign: "center" }}>
-                        {translate("抱歉，此促销活动目前已超额认购，请尝试注册其他促销活动。")}
+                        {translate(
+                            "抱歉，此促销活动目前已超额认购，请尝试注册其他促销活动。",
+                        )}
                     </span>
                 </Modal>
 
@@ -1678,10 +1752,11 @@ class Main extends React.Component {
                     />
                     <div className="result-content-box">
                         <img
-                            src={`${process.env.BASE_PATH}/img/promotions/${this.state.isManualApplySuccess
+                            src={`${process.env.BASE_PATH}/img/promotions/${
+                                this.state.isManualApplySuccess
                                     ? "success"
                                     : "error"
-                                }.png`}
+                            }.png`}
                         />
                         <p className="text-status">
                             {this.state.isManualApplySuccess
@@ -1772,7 +1847,11 @@ class Main extends React.Component {
                         tip={translate("加载中")}
                     />
                     <div className="result-content-box">
-                        <p>{translate("抱歉，目前您的余额不足以参与本次活动，请“充值”并继续参与。")}</p>
+                        <p>
+                            {translate(
+                                "抱歉，目前您的余额不足以参与本次活动，请“充值”并继续参与。",
+                            )}
+                        </p>
                     </div>
                 </Modal>
                 <RealyName
@@ -1786,7 +1865,7 @@ class Main extends React.Component {
                     realyNameVisible={this.state.isOpenRealyName}
                 />
                 {/* 紧急公告弹窗 */}
-                <Announcement/>
+                <Announcement />
             </Layout>
         );
     }
@@ -1822,12 +1901,12 @@ const mapDispatchToProps = function (dispatch) {
         getAllPromotionRelatedData: () => {
             dispatch(getAllPromotionRelatedDataAction());
         },
-        changeUserCenterTabKey:(tabkey)=>{
-            dispatch(userCenterActions.changeUserCenterTabKey(tabkey))
+        changeUserCenterTabKey: (tabkey) => {
+            dispatch(userCenterActions.changeUserCenterTabKey(tabkey));
         },
-        openPromotionDetail:(item) => {
+        openPromotionDetail: (item) => {
             dispatch(promotionActions.openPromotionDetail(item));
-        }
+        },
     };
 };
 

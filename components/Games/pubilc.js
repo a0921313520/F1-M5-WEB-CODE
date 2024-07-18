@@ -20,7 +20,7 @@ function staticHeaderGtag(gameCatCode, providerCode, providerId) {
                 Pushgtagdata(
                     "Game",
                     "Launch",
-                    "OW_Sports_ProductPage(沙巴体育)"
+                    "OW_Sports_ProductPage(沙巴体育)",
                 );
                 break;
             case "AIS":
@@ -43,7 +43,7 @@ function staticHeaderGtag(gameCatCode, providerCode, providerId) {
                 Pushgtagdata(
                     "Game​",
                     "Launch",
-                    "IM_Esports_ProductPage(乐天堂电竞)"
+                    "IM_Esports_ProductPage(乐天堂电竞)",
                 );
                 break;
             case "TFG":
@@ -72,21 +72,21 @@ function staticHeaderGtag(gameCatCode, providerCode, providerId) {
                 Pushgtagdata(
                     "Game",
                     "Launch",
-                    "OBG_Lottery_ProductPage(醉心彩票)"
+                    "OBG_Lottery_ProductPage(醉心彩票)",
                 );
                 break;
             case "SGW":
                 Pushgtagdata(
                     "Game",
                     "Launch",
-                    "SGW_Lottery_ProductPage(双赢彩票)"
+                    "SGW_Lottery_ProductPage(双赢彩票)",
                 );
                 break;
             case "LBK":
                 Pushgtagdata(
                     "Game",
                     "Launch",
-                    "LB_Lottery_ProductPage(LB 快乐彩)"
+                    "LB_Lottery_ProductPage(LB 快乐彩)",
                 );
                 break;
             default:
@@ -107,8 +107,8 @@ export class Gamesmaintop extends React.Component {
         const data = AllGameID.find(
             (item) =>
                 this.props.Routertype.toLowerCase().indexOf(
-                    item.gameCatCode.toLowerCase()
-                ) !== -1
+                    item.gameCatCode.toLowerCase(),
+                ) !== -1,
         );
         console.log("--->", data);
         this.setState({
@@ -166,7 +166,7 @@ export class Gamesmain extends React.Component {
 
     Howtoplay() {
         get(
-            `${CMSAPIUrl}/vi-vn/api/v1/web/faq/detail/${this.props.staticdata.howtoplayid}`
+            `${CMSAPIUrl}/vi-vn/api/v1/web/faq/detail/${this.props.staticdata.howtoplayid}`,
         ).then((res) => {
             if (res) {
                 console.log(res);
@@ -195,11 +195,11 @@ export class Gamesmain extends React.Component {
 
         if (datatype.providerGameId != "-1") {
             Router.push(
-                `${Router.router.pathname}/game?name=${datatype.providerCode}&type=${datatype.providerGameId}`
+                `${Router.router.pathname}/game?name=${datatype.providerCode}&type=${datatype.providerGameId}`,
             );
         } else {
             Router.push(
-                `${Router.router.pathname}/lobby?name=${datatype.providerCode}&type=${datatype.providerId}`
+                `${Router.router.pathname}/lobby?name=${datatype.providerCode}&type=${datatype.providerId}`,
             );
         }
         // if (this.props.Routertype === 'Sportsbook') {
@@ -369,7 +369,7 @@ export class Gamesmain extends React.Component {
                                                 staticHeaderGtag(
                                                     item.gameCatCode,
                                                     item.providerCode,
-                                                    item.providerId
+                                                    item.providerId,
                                                 );
                                             }}
                                             // style={{ background: `${staticdata.color[0]}` }}

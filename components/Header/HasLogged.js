@@ -15,7 +15,7 @@ import { promotionActions } from "../../store/promotionSlice";
 import { userCenterActions } from "../../store/userCenterSlice";
 import store from "../../store/store";
 import classNames from "classnames";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 // Modal加载状态组件
 const ModalLoading = (
@@ -78,10 +78,7 @@ class HasLogged extends React.Component {
 
         if (localStorage.getItem("memberInfo")) {
             const memberdate = JSON.parse(localStorage.getItem("memberInfo"));
-            if (
-                !localStorage.getItem("login-otp") &&
-                memberdate.loginOTP
-            ) {
+            if (!localStorage.getItem("login-otp") && memberdate.loginOTP) {
                 //Login OTP流程
                 this.setState({
                     isLoadOtpModal: true,
@@ -117,7 +114,7 @@ class HasLogged extends React.Component {
         this.checkHasReadMessage();
         this.messageIntervalTimer = setInterval(
             this.checkHasReadMessage,
-            360000
+            360000,
         );
 
         // 默认呼出组件（开发需要）
@@ -144,30 +141,30 @@ class HasLogged extends React.Component {
                 (v) => {
                     this.setState({ memberInfo: v });
                 },
-                this.getBalance
+                this.getBalance,
             );
     }
     checkHasReadMessage() {
         get(
             ApiPort.Announcements +
-                "&messageTypeOptionID=0&pageSize=1&pageIndex=1"
+                "&messageTypeOptionID=0&pageSize=1&pageIndex=1",
         ).then((res) => {
             if (res && res.result?.totalUnreadCount !== 0) {
                 this.setHasUnRead(res.result.totalUnreadCount !== 0);
             } else {
                 get(
                     ApiPort.InboxMessages +
-                        "&MessageTypeID=2&messageTypeOptionID=0&pageSize=1&pageIndex=1"
+                        "&MessageTypeID=2&messageTypeOptionID=0&pageSize=1&pageIndex=1",
                 ).then((res) => {
                     if (res && res.result?.totalUnreadCount !== 0) {
                         this.setHasUnRead(res.result.totalUnreadCount !== 0);
                     } else {
                         get(
                             ApiPort.InboxMessages +
-                                "&MessageTypeID=1&messageTypeOptionID=0&pageSize=1&pageIndex=1"
+                                "&MessageTypeID=1&messageTypeOptionID=0&pageSize=1&pageIndex=1",
                         ).then((res) => {
                             this.setHasUnRead(
-                                res && res.result?.totalUnreadCount !== 0
+                                res && res.result?.totalUnreadCount !== 0,
                             );
                         });
                     }
@@ -236,8 +233,8 @@ class HasLogged extends React.Component {
             [dialogKey + "Visible"]: true,
             modalTabKey: currentParentModalMap,
         });
-        if(dialogKey === "wallet"){
-            this.props.setRefreshCurrentPage("")
+        if (dialogKey === "wallet") {
+            this.props.setRefreshCurrentPage("");
         }
     }
     showSimple(type, positionType) {
@@ -323,18 +320,20 @@ class HasLogged extends React.Component {
         localStorage.removeItem("MemberToken");
         localStorage.removeItem("login-otp");
         localStorage.removeItem("login-otpPwd");
-        
+
         this.props.resetPromotionData();
         this.props.resetMemberData();
 
         // 因为多语言目录层级关系，配置了默认页面位/vn/index.js，此处为了应对开发时退出会刷新界面，使用强刷！
         // process.env.LANGUAGE_PREFIX ? Router.push('/vn/') : window.location.href = "/vn/";
         // 此处为了测试退出后的一些状态时是否及时更新预留
-        IsSnapExitStatus && Router.push("/").then(()=>{
-            IsSnapExitStatus && message.success(translate("您已退出登录！"));
-            sessionStorage.clear();
-        });
-        
+        IsSnapExitStatus &&
+            Router.push("/").then(() => {
+                IsSnapExitStatus &&
+                    message.success(translate("您已退出登录！"));
+                sessionStorage.clear();
+            });
+
         if (IsSnapExitStatus) {
             if (this.state.checkSafeHouse || Cookie.Get("isLoginS")) {
                 window.location.href = "/vn/Safehouse";
@@ -344,7 +343,7 @@ class HasLogged extends React.Component {
             }
         }
         if (!!localStorage.getItem("BankcardBlacklist")) {
-            return
+            return;
             //银行卡黑名单
             const removeBankcardBlacklist = () => {
                 localStorage.removeItem("BankcardBlacklist");
@@ -519,7 +518,12 @@ class HasLogged extends React.Component {
                             <Col span={12} className="tlc-sign">
                                 <div className="login-wrap">
                                     <div className="good-greeting">
-                                        Hi. &nbsp; {memberInfo?.userName ? <span>{memberInfo.userName}</span> : <div className="nameLoading"/>}
+                                        Hi. &nbsp;{" "}
+                                        {memberInfo?.userName ? (
+                                            <span>{memberInfo.userName}</span>
+                                        ) : (
+                                            <div className="nameLoading" />
+                                        )}
                                     </div>
                                     <div className="Right-Login-Action">
                                         <div className="input-wrap">
@@ -537,11 +541,13 @@ class HasLogged extends React.Component {
                                                 }
                                                 onClick={() => {
                                                     Pushgtagdata(
-                                                        "Profile_homepage"
+                                                        "Profile_homepage",
                                                     );
                                                 }}
                                             >
-                                                <span>{translate("个人中心")}</span>
+                                                <span>
+                                                    {translate("个人中心")}
+                                                </span>
                                                 <i
                                                     className={`tlc-sprite user-message ${
                                                         this.state.messageIsRead
@@ -565,7 +571,7 @@ class HasLogged extends React.Component {
                                                 }
                                                 onClick={() => {
                                                     Pushgtagdata(
-                                                        "Accountwallet_homepage"
+                                                        "Accountwallet_homepage",
                                                     );
                                                 }}
                                             >
@@ -587,7 +593,7 @@ class HasLogged extends React.Component {
                                                     Pushgtagdata(
                                                         "Home",
                                                         "Go to Deposit",
-                                                        "Home_C_Deposit"
+                                                        "Home_C_Deposit",
                                                     );
                                                 }}
                                             >
@@ -603,7 +609,7 @@ class HasLogged extends React.Component {
                                                     Pushgtagdata(
                                                         "Home",
                                                         "Go to Transfer",
-                                                        "Home_C_Transfer"
+                                                        "Home_C_Transfer",
                                                     );
                                                 }}
                                             >
@@ -619,7 +625,7 @@ class HasLogged extends React.Component {
                                                     Pushgtagdata(
                                                         "Home",
                                                         "Go to Withdrawal",
-                                                        "Home_C_Withdraw"
+                                                        "Home_C_Withdraw",
                                                     );
                                                 }}
                                             >
@@ -665,11 +671,16 @@ class HasLogged extends React.Component {
                                     <div className="header-popover-inner-title user-title-wrap">
                                         <div className="inline-block">
                                             <div className="user-picture-wrap">
-                                                <img src={`${process.env.BASE_PATH}/img/icons/head.svg`} alt="useravatar"/>
+                                                <img
+                                                    src={`${process.env.BASE_PATH}/img/icons/head.svg`}
+                                                    alt="useravatar"
+                                                />
                                             </div>
                                         </div>
                                         <div className="inline-block">
-                                            <h4>{memberInfo?.userName || ""}</h4>
+                                            <h4>
+                                                {memberInfo?.userName || ""}
+                                            </h4>
                                             <div className="user-info-thumb">
                                                 <div className="inline-block">
                                                     <i
@@ -726,7 +737,7 @@ class HasLogged extends React.Component {
                                                 //  this.Exit();
                                                 this.globalExit();
                                                 Pushgtagdata(
-                                                    "Logout_accountbar_homepage"
+                                                    "Logout_accountbar_homepage",
                                                 );
                                             }}
                                         >
@@ -737,11 +748,13 @@ class HasLogged extends React.Component {
                                         <li
                                             className="userinfo"
                                             onClick={() => {
-                                                this.props.goUserCenter("userinfo");
+                                                this.props.goUserCenter(
+                                                    "userinfo",
+                                                );
                                                 Pushgtagdata(
                                                     "Account",
                                                     "Click",
-                                                    "Profile_TopNav"
+                                                    "Profile_TopNav",
                                                 );
                                             }}
                                         >
@@ -755,9 +768,11 @@ class HasLogged extends React.Component {
                                                     : ""
                                             }`}
                                             onClick={() => {
-                                                this.props.goUserCenter("message");
+                                                this.props.goUserCenter(
+                                                    "message",
+                                                );
                                                 Pushgtagdata(
-                                                    "PMA_accountbar_homepage"
+                                                    "PMA_accountbar_homepage",
                                                 );
                                             }}
                                         >
@@ -766,9 +781,12 @@ class HasLogged extends React.Component {
                                         </li>
                                         <li
                                             className="records"
-                                            onClick={() => {this.props.goUserCenter("records");
+                                            onClick={() => {
+                                                this.props.goUserCenter(
+                                                    "records",
+                                                );
                                                 Pushgtagdata(
-                                                    "Transactionrecord_accountbar_homepage"
+                                                    "Transactionrecord_accountbar_homepage",
                                                 );
                                             }}
                                         >
@@ -778,9 +796,11 @@ class HasLogged extends React.Component {
                                         <li
                                             className="bankaccount"
                                             onClick={() => {
-                                                this.props.goUserCenter("bankaccount");
+                                                this.props.goUserCenter(
+                                                    "bankaccount",
+                                                );
                                                 Pushgtagdata(
-                                                    "Bankacc_accountbar_homepage"
+                                                    "Bankacc_accountbar_homepage",
                                                 );
                                             }}
                                         >
@@ -793,7 +813,7 @@ class HasLogged extends React.Component {
                                                 this.props.changeTab("2");
                                                 Router.push("/promotions");
                                                 Pushgtagdata(
-                                                    "Promorecord_accountbar_homepage"
+                                                    "Promorecord_accountbar_homepage",
                                                 );
                                             }}
                                         >
@@ -803,11 +823,13 @@ class HasLogged extends React.Component {
                                         <li
                                             className="betrecords"
                                             onClick={() => {
-                                                this.props.goUserCenter("betrecords");
+                                                this.props.goUserCenter(
+                                                    "betrecords",
+                                                );
                                                 Pushgtagdata(
                                                     "Account",
                                                     "Click",
-                                                    "BetRecord_TopNav"
+                                                    "BetRecord_TopNav",
                                                 );
                                             }}
                                         >
@@ -820,7 +842,7 @@ class HasLogged extends React.Component {
                                                 this.props.changeTab("3");
                                                 Router.push("/promotions");
                                                 Pushgtagdata(
-                                                    "Rebaterecord_accountbar_homepage"
+                                                    "Rebaterecord_accountbar_homepage",
                                                 );
                                             }}
                                         >
@@ -866,7 +888,7 @@ class HasLogged extends React.Component {
                                                 onClick={() => {
                                                     this.getBalance();
                                                     Pushgtagdata(
-                                                        "Refresh_amountbar_homepage"
+                                                        "Refresh_amountbar_homepage",
                                                     );
                                                 }}
                                             >
@@ -890,7 +912,7 @@ class HasLogged extends React.Component {
                                                                           UnderMaintenance:
                                                                               val.state ==
                                                                               "UnderMaintenance",
-                                                                      }
+                                                                      },
                                                                   )}
                                                               >
                                                                   <span>
@@ -985,15 +1007,19 @@ class HasLogged extends React.Component {
                                                                       ) : null} */}
                                                                   </span>
                                                                   <span className="balance">
-                                                                    {val.state ===
-                                                                        "UnderMaintenance"
-                                                                            ? translate("维护中")
-                                                                            : formatAmount(val.balance) + " đ"
-                                                                    }
+                                                                      {val.state ===
+                                                                      "UnderMaintenance"
+                                                                          ? translate(
+                                                                                "维护中",
+                                                                            )
+                                                                          : formatAmount(
+                                                                                val.balance,
+                                                                            ) +
+                                                                            " đ"}
                                                                   </span>
                                                               </li>
                                                           );
-                                                      }
+                                                      },
                                                   )
                                                 : null}
                                         </ul>
@@ -1088,9 +1114,9 @@ const mapDispatchToProps = function (dispatch) {
         resetMemberData: () => {
             dispatch(userCenterActions.resetData());
         },
-        setRefreshCurrentPage:(v)=>{
-            dispatch(userCenterActions.setRefreshCurrentPage(v))
-        }
+        setRefreshCurrentPage: (v) => {
+            dispatch(userCenterActions.setRefreshCurrentPage(v));
+        },
     };
 };
 

@@ -124,25 +124,26 @@ class FreePromotion extends React.Component {
             },
             successBonusId: "",
         };
-        const failModal =()=> showLargeResultModal(
-            false,
-            "OK",
-            translate("在线聊天"),
-            translate("无法领取奖励"),
-            translate("似乎有问题，请重试或联系在线聊天寻求支持。"),
-            () => {
-                this.setState({ HintVisible: false });
-            },
-            () => {
-                global.PopUpLiveChat();
-            },
-            true
-        );
+        const failModal = () =>
+            showLargeResultModal(
+                false,
+                "OK",
+                translate("在线聊天"),
+                translate("无法领取奖励"),
+                translate("似乎有问题，请重试或联系在线聊天寻求支持。"),
+                () => {
+                    this.setState({ HintVisible: false });
+                },
+                () => {
+                    global.PopUpLiveChat();
+                },
+                true,
+            );
         post(ApiPort.POSTBonusApplications, data)
             .then((res) => {
-                if(res?.isSuccess && res?.result?.bonusResult?.message){
+                if (res?.isSuccess && res?.result?.bonusResult?.message) {
                     const msg = res.result.bonusResult.message.toLowerCase();
-                    if(msg === "success"){
+                    if (msg === "success") {
                         showLargeResultModal(
                             true,
                             translate("我的优惠"),
@@ -155,7 +156,7 @@ class FreePromotion extends React.Component {
                                     ApplyVisible: false,
                                 });
                             },
-                            () => {}
+                            () => {},
                         );
                         this.props.setAppliedPromotions();
                     } else {
@@ -168,9 +169,9 @@ class FreePromotion extends React.Component {
             .catch((error) => {
                 console.log(error);
             })
-            .finally(()=>{
+            .finally(() => {
                 this.setState({ isLoading: false });
-            })
+            });
     }
 
     render() {
@@ -181,10 +182,11 @@ class FreePromotion extends React.Component {
             HintVisible,
             isLoading,
         } = this.state;
-        console.log("this.props.freePromotions: ",this.props.freePromotions )
+        console.log("this.props.freePromotions: ", this.props.freePromotions);
         return (
             <>
-                {this.props.freePromotions && this.props.freePromotions.length ? (
+                {this.props.freePromotions &&
+                this.props.freePromotions.length ? (
                     <div className="PromotionsFreeBet">
                         {this.props.freePromotions.map((item, index) => {
                             return (
@@ -209,14 +211,20 @@ class FreePromotion extends React.Component {
                                                     }
                                                     onVisibleChange={() => {
                                                         this.handleOpenChange(
-                                                            index
+                                                            index,
                                                         );
                                                     }}
                                                     trigger="click"
                                                     content={
                                                         <>
-                                                            <div style={{width:"260px"}}>
-                                                                {translate("为您提供特别的免费投注奖金。 单击以在优惠到期前领取奖励。")}
+                                                            <div
+                                                                style={{
+                                                                    width: "260px",
+                                                                }}
+                                                            >
+                                                                {translate(
+                                                                    "为您提供特别的免费投注奖金。 单击以在优惠到期前领取奖励。",
+                                                                )}
                                                             </div>
                                                             <button
                                                                 className="btn-close-popover"
@@ -238,7 +246,7 @@ class FreePromotion extends React.Component {
                                             <small className="Time">
                                                 {translate("结束于")}:{" "}
                                                 {moment(item.endDate).format(
-                                                    "DD-MM-YYYY HH:mm:ss"
+                                                    "DD-MM-YYYY HH:mm:ss",
                                                 )}
                                             </small>
                                         </div>
@@ -290,14 +298,17 @@ class FreePromotion extends React.Component {
                         >
                             <div className="promotion-info-box">
                                 <h3>
-                                    {selectedWalletIndex !== null ?
-                                        selectedFreebet.bonusData[
-                                            selectedWalletIndex
-                                        ].bonusGroupTitle: "--"}
+                                    {selectedWalletIndex !== null
+                                        ? selectedFreebet.bonusData[
+                                              selectedWalletIndex
+                                          ].bonusGroupTitle
+                                        : "--"}
                                 </h3>
                                 <div className="amount-status-box">
                                     <div>
-                                        <p className="title">{translate("投注金额2")}</p>
+                                        <p className="title">
+                                            {translate("投注金额2")}
+                                        </p>
                                         <p className="amount">
                                             {selectedWalletIndex !== null
                                                 ? "￥" +
@@ -308,7 +319,9 @@ class FreePromotion extends React.Component {
                                         </p>
                                     </div>
                                     <div>
-                                        <p className="title">{translate("所需流水")}</p>
+                                        <p className="title">
+                                            {translate("所需流水")}
+                                        </p>
                                         <p className="amount">
                                             {selectedWalletIndex !== null
                                                 ? selectedFreebet.bonusData[
@@ -382,7 +395,9 @@ class FreePromotion extends React.Component {
                                 tip={translate("加载中")}
                             >
                                 <span>
-                                    {translate("请注意，确认奖励后，钱包将被暂时锁定，直到达到要求的流水后才能转账。")}
+                                    {translate(
+                                        "请注意，确认奖励后，钱包将被暂时锁定，直到达到要求的流水后才能转账。",
+                                    )}
                                 </span>
                             </Spin>
                         </Modal>

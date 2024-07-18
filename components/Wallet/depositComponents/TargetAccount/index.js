@@ -44,7 +44,7 @@ class TargetAccount extends React.Component {
                 // 父级传递默认目标账户修改默认目标账户
                 if (targetAccount) {
                     let toWalletListAggregation = toWalletList.find(
-                        (val) => val.key === targetAccount
+                        (val) => val.key === targetAccount,
                     );
                     (targetVal = targetAccount),
                         (targetName = toWalletListAggregation.name);

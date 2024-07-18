@@ -79,7 +79,7 @@ class SelfExclusionModal extends React.Component {
         let dateDuration = "永久";
         if (this.props.ModalType == 1 && this.state.SelfExclusionsData) {
             setupDate = moment(
-                this.state.SelfExclusionsData.selfExcludeSetDate + "+08:00"
+                this.state.SelfExclusionsData.selfExcludeSetDate + "+08:00",
             ).format("YYYY/MM/DD");
             if (this.state.SelfExclusionsData.selfExclusionSettingID == 3) {
                 dateDuration = "永久";

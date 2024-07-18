@@ -9,27 +9,27 @@ import {
     message,
     Modal,
     Spin,
-    Icon
+    Icon,
 } from "antd";
 import { formItemLayout } from "$ACTIONS/constantsData";
 import { getMemberInfo, setMemberInfo } from "$DATA/userinfo";
-import { memberId,realyNameReg } from "$ACTIONS/reg";
+import { memberId, realyNameReg } from "$ACTIONS/reg";
 import moment from "moment";
 import dynamic from "next/dynamic";
 import { connect } from "react-redux";
 import { getMaskHandler } from "$ACTIONS/helper";
 import { replaceMultipleSpacesWithSingle } from "$ACTIONS/util";
 import { translate } from "$ACTIONS/Translate";
-import 'moment/locale/vi';
-moment.updateLocale('vi',{
-    weekdays: ['Chủ nhật', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
-    weekdaysShort: ['CN', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
-    weekdaysMin:  ["CN", "Hai", "Ba", "Tu", "Năm", "Sáu", "Bảy"],
+import "moment/locale/vi";
+moment.updateLocale("vi", {
+    weekdays: ["Chủ nhật", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+    weekdaysShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+    weekdaysMin: ["CN", "Hai", "Ba", "Tu", "Năm", "Sáu", "Bảy"],
     week: {
         dow: 1,
-    }
+    },
 });
-moment.locale('vi');
+moment.locale("vi");
 const DatePicker = dynamic(import("antd/lib/date-picker"), {
     loading: () => (
         <div className="ant-skeleton ant-skeleton-with-avatar ant-skeleton-active">
@@ -89,9 +89,9 @@ class UserInfo extends React.Component {
                                     } else {
                                         reject(res);
                                     }
-                                }
+                                },
                             );
-                        })
+                        }),
                     );
                 }
 
@@ -100,8 +100,8 @@ class UserInfo extends React.Component {
                         new Promise((resolve, reject) => {
                             setMemberInfo(
                                 {
-                                   key:"dob",
-                                   value1:values.birthday
+                                    key: "dob",
+                                    value1: values.birthday,
                                 },
                                 (res) => {
                                     if (res && res.isSuccess) {
@@ -109,9 +109,9 @@ class UserInfo extends React.Component {
                                     } else {
                                         reject(res);
                                     }
-                                }
+                                },
                             );
-                        })
+                        }),
                     );
                 }
 
@@ -120,7 +120,7 @@ class UserInfo extends React.Component {
                         new Promise((resolve, reject) => {
                             setMemberInfo(
                                 {
-                                    key:"gender",
+                                    key: "gender",
                                     value1: values.sex,
                                 },
                                 (res) => {
@@ -129,9 +129,9 @@ class UserInfo extends React.Component {
                                     } else {
                                         reject(res);
                                     }
-                                }
+                                },
                             );
-                        })
+                        }),
                     );
                 }
 
@@ -175,9 +175,7 @@ class UserInfo extends React.Component {
                                 // if (v.message == "MEM00050") {
                                 //     message.error("您并未修改资料。");
                                 // } else {
-                                    message.error(
-                                        v.message || v.result.Message
-                                    );
+                                message.error(v.message || v.result.Message);
                                 // }
                             });
                     })
@@ -256,27 +254,42 @@ class UserInfo extends React.Component {
                                     {getFieldDecorator("RealName", {
                                         initialValue: getMaskHandler(
                                             "RealName",
-                                            firstName
+                                            firstName,
                                         ),
                                         rules: [
                                             {
                                                 required: true,
-                                                message: translate("真实姓名不能为空"),
+                                                message:
+                                                    translate(
+                                                        "真实姓名不能为空",
+                                                    ),
                                             },
                                             {
                                                 validator: (
                                                     rule,
                                                     value,
-                                                    callback
+                                                    callback,
                                                 ) => {
-                                                    this.props.form.setFieldsValue({
-                                                        RealName: value && replaceMultipleSpacesWithSingle(value)
-                                                    })
+                                                    this.props.form.setFieldsValue(
+                                                        {
+                                                            RealName:
+                                                                value &&
+                                                                replaceMultipleSpacesWithSingle(
+                                                                    value,
+                                                                ),
+                                                        },
+                                                    );
                                                     if (
-                                                        value && !realyNameReg.test(value) && !firstName
+                                                        value &&
+                                                        !realyNameReg.test(
+                                                            value,
+                                                        ) &&
+                                                        !firstName
                                                     ) {
                                                         callback(
-                                                            translate("格式错误")
+                                                            translate(
+                                                                "格式错误",
+                                                            ),
                                                         );
                                                     }
                                                     callback();
@@ -286,13 +299,15 @@ class UserInfo extends React.Component {
                                     })(
                                         <Input
                                             className="user-center-account-profile-input realName"
-                                            placeholder={translate("请输入您的真实姓名")}
+                                            placeholder={translate(
+                                                "请输入您的真实姓名",
+                                            )}
                                             disabled={!!firstName}
                                             minLength={2}
                                             maxLength={50}
                                             size="large"
                                             autoComplete="off"
-                                        />
+                                        />,
                                     )}
                                 </Item>
                             </Col>
@@ -357,13 +372,13 @@ class UserInfo extends React.Component {
                                                 validator: (
                                                     rule,
                                                     value,
-                                                    callback
+                                                    callback,
                                                 ) => {
-                                                    if (
-                                                        !value && !dob
-                                                    ) {
+                                                    if (!value && !dob) {
                                                         callback(
-                                                            translate("请选择您的出生日期")
+                                                            translate(
+                                                                "请选择您的出生日期",
+                                                            ),
                                                         );
                                                     }
                                                     callback();
@@ -389,18 +404,20 @@ class UserInfo extends React.Component {
                                             }`}
                                             placeholder={
                                                 !dob
-                                                    ? translate("请选择您的出生日期")
+                                                    ? translate(
+                                                          "请选择您的出生日期",
+                                                      )
                                                     : getMaskHandler(
                                                           "Date",
                                                           moment(dob).format(
-                                                              "DD/MM/YYYY"
-                                                          )
+                                                              "DD/MM/YYYY",
+                                                          ),
                                                       )
                                             }
                                             format="DD-MM-YYYY"
                                             dropdownClassName="user-info-dob-picker-dropdown"
                                             defaultPickerValue={moment(
-                                                this.defaultMinDate
+                                                this.defaultMinDate,
                                             )}
                                             disabledDate={this.disabledDate}
                                             showToday={false}
@@ -408,7 +425,7 @@ class UserInfo extends React.Component {
                                             style={{ width: "100%" }}
                                             size="large"
                                             locale={moment.locale()}
-                                        />
+                                        />,
                                     )}
                                 </Item>
                             </Col>
@@ -422,7 +439,8 @@ class UserInfo extends React.Component {
                                         rules: [
                                             {
                                                 required: true,
-                                                message: translate("请选择性别"),
+                                                message:
+                                                    translate("请选择性别"),
                                             },
                                         ],
                                     })(
@@ -434,11 +452,17 @@ class UserInfo extends React.Component {
                                             dropdownClassName="usercenter-dropdown"
                                             dropdownAlign={{ offset: [1, -4] }}
                                             style={{ width: 100 }}
-                                            suffixIcon={<Icon type="caret-down" />}
+                                            suffixIcon={
+                                                <Icon type="caret-down" />
+                                            }
                                         >
-                                            <Option value="Male">{translate("男")}</Option>
-                                            <Option value="Female">{translate("女")}</Option>
-                                        </Select>
+                                            <Option value="Male">
+                                                {translate("男")}
+                                            </Option>
+                                            <Option value="Female">
+                                                {translate("女")}
+                                            </Option>
+                                        </Select>,
                                     )}
                                 </Item>
                             </Col>
@@ -462,7 +486,7 @@ class UserInfo extends React.Component {
                                         // this.setState({
                                         //     isConfirmSubmitModal: true,
                                         // });
-                                        this.handleSubmit(e)
+                                        this.handleSubmit(e);
                                     }}
                                     className="btn-submit"
                                     disabled={!isSubmitable}
@@ -531,5 +555,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(Form.create({ name: "UserInfo" })(UserInfo));

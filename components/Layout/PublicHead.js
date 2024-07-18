@@ -3,16 +3,20 @@ import { translate } from "$ACTIONS/Translate";
 import Router from "next/router";
 
 // 404 ip地区限制 维护中 访问限制等账户限制等页面公用head
-export default function PublicHead({notFound}) {
-    const navigatorPage = ()=>{
-        if(notFound){
-            Router.push("/")
+export default function PublicHead({ notFound }) {
+    const navigatorPage = () => {
+        if (notFound) {
+            Router.push("/");
         }
-    } 
+    };
     return (
         <React.Fragment>
             <div className="common-distance">
-                <div className="logo-wrap inline-block" onClick={navigatorPage} style={{cursor: notFound ? "pointer":"default"}}>
+                <div
+                    className="logo-wrap inline-block"
+                    onClick={navigatorPage}
+                    style={{ cursor: notFound ? "pointer" : "default" }}
+                >
                     <img
                         src={`${process.env.BASE_PATH}/img/logo/logo.svg`}
                         alt="FUN88"
@@ -58,5 +62,5 @@ export default function PublicHead({notFound}) {
                 </div>
             </div>
         </React.Fragment>
-    )
+    );
 }

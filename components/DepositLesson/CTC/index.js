@@ -22,13 +22,13 @@ class DepositLesson extends React.Component {
                 event.stopPropagation();
                 console.log(event);
             },
-            true
+            true,
         );
     }
-    componentWillUnmount(){
-        this.setState =()=> false;
-        this.ctcRapidSliderListWrapRef  = null;
-        this.ctcOtcSliderListWrapRef = null
+    componentWillUnmount() {
+        this.setState = () => false;
+        this.ctcRapidSliderListWrapRef = null;
+        this.ctcOtcSliderListWrapRef = null;
     }
     handleChange = (key) => {
         this.props.handleChangeDepositLessonTab(key);
@@ -61,10 +61,7 @@ class DepositLesson extends React.Component {
     handleClick = () => {
         this.props.onhandleCancel();
     };
-   
 
-   
-    
     render() {
         const defaultTabNum = this.props.tabNum;
 
@@ -99,35 +96,53 @@ class DepositLesson extends React.Component {
         const rapidCryptoComment = [
             {
                 id: 1,
-                title: translate("步骤")+" "+1,
-                content: translate("选择您要充值的端口“快捷支付”和“加密货币”。"),
+                title: translate("步骤") + " " + 1,
+                content: translate(
+                    "选择您要充值的端口“快捷支付”和“加密货币”。",
+                ),
             },
             {
                 id: 2,
-                title: translate("步骤")+" "+2,
+                title: translate("步骤") + " " + 2,
                 content: translate("点击“确认”确认存款。"),
             },
             {
                 id: 3,
-                title: translate("步骤")+" "+3,
-                content: <>
-                    {translate("使用加密货币钱包扫描二维码或转账至步骤2中的收款地址。")}<br/>
-                    {translate("*注：该钱包地址是为您保留的，可以多次使用。")}
-                </>
+                title: translate("步骤") + " " + 3,
+                content: (
+                    <>
+                        {translate(
+                            "使用加密货币钱包扫描二维码或转账至步骤2中的收款地址。",
+                        )}
+                        <br />
+                        {translate(
+                            "*注：该钱包地址是为您保留的，可以多次使用。",
+                        )}
+                    </>
+                ),
             },
             {
                 id: 4,
-                title: translate("步骤")+" "+4,
-                content: <>
-                    {translate("在充值历史中，点击“查看交易明细”即可查看交易明细。")} <br/> 
-                    {translate("一旦您的加密钱包成功确认交易，存入的金额将成功存入您的 Fun88 账户。")}
-                </>,
+                title: translate("步骤") + " " + 4,
+                content: (
+                    <>
+                        {translate(
+                            "在充值历史中，点击“查看交易明细”即可查看交易明细。",
+                        )}{" "}
+                        <br />
+                        {translate(
+                            "一旦您的加密钱包成功确认交易，存入的金额将成功存入您的 Fun88 账户。",
+                        )}
+                    </>
+                ),
             },
             {
                 id: 5,
-                title: translate("步骤")+" "+5,
-                content: translate("想要了解更多有关加密货币的信息。 您可以访问这些网站。"),
-            }
+                title: translate("步骤") + " " + 5,
+                content: translate(
+                    "想要了解更多有关加密货币的信息。 您可以访问这些网站。",
+                ),
+            },
         ];
 
         const otcCryptoLessons = [
@@ -161,53 +176,75 @@ class DepositLesson extends React.Component {
         const otcCryptoComment = [
             {
                 id: 1,
-                title: translate("步骤")+" "+1,
-                content: translate("选择“定期付款”端口。 输入存款金额并点击“发送”。"),
+                title: translate("步骤") + " " + 1,
+                content: translate(
+                    "选择“定期付款”端口。 输入存款金额并点击“发送”。",
+                ),
             },
             {
                 id: 2,
-                title: translate("步骤")+" "+2,
+                title: translate("步骤") + " " + 2,
                 content: translate("点击“确认”确认存款。"),
             },
             {
                 id: 3,
-                title: translate("步骤")+" "+3,
-                content: 
+                title: translate("步骤") + " " + 3,
+                content: (
                     <>
-                        {translate("使用加密钱包扫描二维码或转账至第三页收款地址。")}
-                        <br/>
+                        {translate(
+                            "使用加密钱包扫描二维码或转账至第三页收款地址。",
+                        )}
+                        <br />
                         {translate("*汇款注意事项：")}
                         <ul className="list-style">
                             <li>
-                                {translate("二维码和钱包地址只能使用一次，请勿重复使用，以免资金汇入您的Fun88账户。")}
+                                {translate(
+                                    "二维码和钱包地址只能使用一次，请勿重复使用，以免资金汇入您的Fun88账户。",
+                                )}
                             </li>
                             <li>
-                                {translate("Fun88充值页面输入的充值金额必须与实际转账金额一致")}
+                                {translate(
+                                    "Fun88充值页面输入的充值金额必须与实际转账金额一致",
+                                )}
                             </li>
                             <li>
-                                {translate("有些交易所会收取手续费，第3页会显示充值金额+手续费。 转账时请输入总金额。 例如：您要转账15 USDT，手续费为3 USDT，那么您转账时输入的总金额为18 USDT。")}
+                                {translate(
+                                    "有些交易所会收取手续费，第3页会显示充值金额+手续费。 转账时请输入总金额。 例如：您要转账15 USDT，手续费为3 USDT，那么您转账时输入的总金额为18 USDT。",
+                                )}
                             </li>
                         </ul>
-                    </>,
+                    </>
+                ),
             },
             {
                 id: 4,
-                title: translate("步骤")+" "+4,
-                content: 
+                title: translate("步骤") + " " + 4,
+                content: (
                     <>
-                        {translate("在充值历史中，点击“查看交易明细”即可查看交易明细。")} <br/> 
-                        {translate("一旦您的加密钱包成功确认交易，存入的金额将成功存入您的 Fun88 账户。")}
-                    </>,
+                        {translate(
+                            "在充值历史中，点击“查看交易明细”即可查看交易明细。",
+                        )}{" "}
+                        <br />
+                        {translate(
+                            "一旦您的加密钱包成功确认交易，存入的金额将成功存入您的 Fun88 账户。",
+                        )}
+                    </>
+                ),
             },
             {
                 id: 5,
-                title: translate("步骤")+" "+5,
-                content: translate("想要了解更多有关加密货币的信息。 您可以访问这些网站。"),
+                title: translate("步骤") + " " + 5,
+                content: translate(
+                    "想要了解更多有关加密货币的信息。 您可以访问这些网站。",
+                ),
             },
         ];
         return (
             <React.Fragment>
-                <div className="lesson-box deposit-ctc" style={{ textAlign: "center" }}>
+                <div
+                    className="lesson-box deposit-ctc"
+                    style={{ textAlign: "center" }}
+                >
                     <Tabs
                         defaultActiveKey={defaultTabNum.toString()}
                         activeKey={this.props.tabNum.toString()}
@@ -239,9 +276,7 @@ class DepositLesson extends React.Component {
                                             >
                                                 <img
                                                     className="arrowLeftRight"
-                                                    src={
-                                                        `${process.env.BASE_PATH}/img/depositlesson/icon-left.svg`
-                                                    }
+                                                    src={`${process.env.BASE_PATH}/img/depositlesson/icon-left.svg`}
                                                     alt="left"
                                                 />
                                             </div>
@@ -254,9 +289,7 @@ class DepositLesson extends React.Component {
                                             >
                                                 <img
                                                     className="arrowLeftRight"
-                                                    src={
-                                                        `${process.env.BASE_PATH}/img/depositlesson/icon-right.svg`
-                                                    }
+                                                    src={`${process.env.BASE_PATH}/img/depositlesson/icon-right.svg`}
                                                     alt="right"
                                                 />
                                             </div>
@@ -273,15 +306,20 @@ class DepositLesson extends React.Component {
                                     }
                                 </div>
                             }
-                            <div className="deposit-comment-content">{rapidCryptoComment[this.state.rapidIndex].content}</div>
+                            <div className="deposit-comment-content">
+                                {
+                                    rapidCryptoComment[this.state.rapidIndex]
+                                        .content
+                                }
+                            </div>
                             <button
                                 className="deposit-comment-button"
                                 onClick={() => {
-                                this.handleClick();
-                                console.log("clicked");
+                                    this.handleClick();
+                                    console.log("clicked");
                                 }}
                             >
-                                    {translate("下一个")}
+                                {translate("下一个")}
                             </button>
                         </TabPane>
                         <TabPane tab={translate("定期转账")} key="2">
@@ -308,9 +346,7 @@ class DepositLesson extends React.Component {
                                             >
                                                 <img
                                                     className="arrowLeftRight"
-                                                    src={
-                                                        `${process.env.BASE_PATH}/img/depositlesson/icon-left.svg`
-                                                    }
+                                                    src={`${process.env.BASE_PATH}/img/depositlesson/icon-left.svg`}
                                                     alt="left"
                                                 />
                                             </div>
@@ -323,9 +359,7 @@ class DepositLesson extends React.Component {
                                             >
                                                 <img
                                                     className="arrowLeftRight"
-                                                    src={
-                                                        `${process.env.BASE_PATH}/img/depositlesson/icon-right.svg`
-                                                    }
+                                                    src={`${process.env.BASE_PATH}/img/depositlesson/icon-right.svg`}
                                                     alt="right"
                                                 />
                                             </div>
@@ -341,11 +375,13 @@ class DepositLesson extends React.Component {
                                     }
                                 </div>
                             }
-                            <div className="deposit-comment-content">{otcCryptoComment[this.state.otcIndex].content}</div>
+                            <div className="deposit-comment-content">
+                                {otcCryptoComment[this.state.otcIndex].content}
+                            </div>
                             <button
                                 className="deposit-comment-button"
                                 onClick={() => {
-                                this.handleClick();
+                                    this.handleClick();
                                 }}
                             >
                                 {translate("下一个")}

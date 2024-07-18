@@ -67,20 +67,24 @@ class SecondStep extends React.Component {
                         value="小额充值"
                     />
                 </Item> */}
-                <div className="modal-prompt-info" style={{margin: '0px 0px 1rem 0'}}>
-
-                            <div>
-                                交易生成时间{" "}
-                                {Cookie("dateTime") || dateFormat()}
-                            </div>
-                            <div>
-                                请在{" "}
-                                <span style={{color: '#EB2121', fontSize: '16px', fontWeight: 'bold'}}>
-                                    {this.props.remainingTime}
-                                </span>{" "}
-                                倒数时间内完成支付，或系统自动延迟交易。
-                            </div>
-
+                <div
+                    className="modal-prompt-info"
+                    style={{ margin: "0px 0px 1rem 0" }}
+                >
+                    <div>交易生成时间 {Cookie("dateTime") || dateFormat()}</div>
+                    <div>
+                        请在{" "}
+                        <span
+                            style={{
+                                color: "#EB2121",
+                                fontSize: "16px",
+                                fontWeight: "bold",
+                            }}
+                        >
+                            {this.props.remainingTime}
+                        </span>{" "}
+                        倒数时间内完成支付，或系统自动延迟交易。
+                    </div>
                 </div>
                 <div className="tlc-deposit-receipt">
                     <ul>
@@ -95,7 +99,9 @@ class SecondStep extends React.Component {
                                     text={this.props.depositMoney}
                                     onCopy={this.copySuccessCall}
                                 >
-                                    <Button type="link"><img src={`/cn/img/icons/Copys.svg`}/></Button>
+                                    <Button type="link">
+                                        <img src={`/cn/img/icons/Copys.svg`} />
+                                    </Button>
                                 </CopyToClipboard>
                             </span>
                         </li>
@@ -112,7 +118,12 @@ class SecondStep extends React.Component {
                 <div className="tlc-deposit-receipt">
                     <ul>
                         <li>
-                            <span className="item-label" style={{fontWeight: 'bold'}}>我们的收款账户：</span>
+                            <span
+                                className="item-label"
+                                style={{ fontWeight: "bold" }}
+                            >
+                                我们的收款账户：
+                            </span>
                         </li>
                         <li className="item-wrap">
                             <span className="item-label">银行名称</span>
@@ -125,7 +136,9 @@ class SecondStep extends React.Component {
                                     }
                                     onCopy={this.copySuccessCall}
                                 >
-                                    <Button type="link"><img src={`/cn/img/icons/Copys.svg`}/></Button>
+                                    <Button type="link">
+                                        <img src={`/cn/img/icons/Copys.svg`} />
+                                    </Button>
                                 </CopyToClipboard>
                             </span>
                         </li>
@@ -141,7 +154,9 @@ class SecondStep extends React.Component {
                                     }
                                     onCopy={this.copySuccessCall}
                                 >
-                                    <Button type="link"><img src={`/cn/img/icons/Copys.svg`}/></Button>
+                                    <Button type="link">
+                                        <img src={`/cn/img/icons/Copys.svg`} />
+                                    </Button>
                                 </CopyToClipboard>
                             </span>
                         </li>
@@ -157,63 +172,101 @@ class SecondStep extends React.Component {
                                     }
                                     onCopy={this.copySuccessCall}
                                 >
-                                    <Button type="link"><img src={`/cn/img/icons/Copys.svg`}/></Button>
+                                    <Button type="link">
+                                        <img src={`/cn/img/icons/Copys.svg`} />
+                                    </Button>
                                 </CopyToClipboard>
                             </span>
                         </li>
-                        {currBankAccount && (currBankAccount.province || currBankAccount.city || currBankAccount.branch) &&
-                            <li>
-                                {currBankAccount && currBankAccount.province && (
-                                    <div className="item-wrap">
-                                        <span className="item-label">
-                                            省/自治区
-                                        </span>
-                                        <span>
-                                            {currBankAccount.province}
-                                            <CopyToClipboard
-                                                text={currBankAccount.province}
-                                                onCopy={this.copySuccessCall}
-                                            >
-                                                <Button type="link"><img src={`/cn/img/icons/Copys.svg`}/></Button>
-                                            </CopyToClipboard>
-                                        </span>
-                                    </div>
-                                )}
-                                {currBankAccount && currBankAccount.city && (
-                                    <div className="item-wrap">
-                                        <span className="item-label">
-                                            城市/城镇
-                                        </span>
-                                        <span>
-                                            {currBankAccount.city}
-                                            <CopyToClipboard
-                                                text={currBankAccount.city}
-                                                onCopy={this.copySuccessCall}
-                                            >
-                                                <Button type="link"><img src={`/cn/img/icons/Copys.svg`}/></Button>
-                                            </CopyToClipboard>
-                                        </span>
-                                    </div>
-                                )}
-                                {currBankAccount && currBankAccount.branch && (
-                                    <div className="item-wrap">
-                                        <span className="item-label">分行</span>
-                                        <span>
-                                            {currBankAccount.branch}
-                                            <CopyToClipboard
-                                                text={currBankAccount.branch}
-                                                onCopy={this.copySuccessCall}
-                                            >
-                                                <Button type="link"><img src={`/cn/img/icons/Copys.svg`}/></Button>
-                                            </CopyToClipboard>
-                                        </span>
-                                    </div>
-                                )}
-                            </li>
-                        }
+                        {currBankAccount &&
+                            (currBankAccount.province ||
+                                currBankAccount.city ||
+                                currBankAccount.branch) && (
+                                <li>
+                                    {currBankAccount &&
+                                        currBankAccount.province && (
+                                            <div className="item-wrap">
+                                                <span className="item-label">
+                                                    省/自治区
+                                                </span>
+                                                <span>
+                                                    {currBankAccount.province}
+                                                    <CopyToClipboard
+                                                        text={
+                                                            currBankAccount.province
+                                                        }
+                                                        onCopy={
+                                                            this.copySuccessCall
+                                                        }
+                                                    >
+                                                        <Button type="link">
+                                                            <img
+                                                                src={`/cn/img/icons/Copys.svg`}
+                                                            />
+                                                        </Button>
+                                                    </CopyToClipboard>
+                                                </span>
+                                            </div>
+                                        )}
+                                    {currBankAccount &&
+                                        currBankAccount.city && (
+                                            <div className="item-wrap">
+                                                <span className="item-label">
+                                                    城市/城镇
+                                                </span>
+                                                <span>
+                                                    {currBankAccount.city}
+                                                    <CopyToClipboard
+                                                        text={
+                                                            currBankAccount.city
+                                                        }
+                                                        onCopy={
+                                                            this.copySuccessCall
+                                                        }
+                                                    >
+                                                        <Button type="link">
+                                                            <img
+                                                                src={`/cn/img/icons/Copys.svg`}
+                                                            />
+                                                        </Button>
+                                                    </CopyToClipboard>
+                                                </span>
+                                            </div>
+                                        )}
+                                    {currBankAccount &&
+                                        currBankAccount.branch && (
+                                            <div className="item-wrap">
+                                                <span className="item-label">
+                                                    分行
+                                                </span>
+                                                <span>
+                                                    {currBankAccount.branch}
+                                                    <CopyToClipboard
+                                                        text={
+                                                            currBankAccount.branch
+                                                        }
+                                                        onCopy={
+                                                            this.copySuccessCall
+                                                        }
+                                                    >
+                                                        <Button type="link">
+                                                            <img
+                                                                src={`/cn/img/icons/Copys.svg`}
+                                                            />
+                                                        </Button>
+                                                    </CopyToClipboard>
+                                                </span>
+                                            </div>
+                                        )}
+                                </li>
+                            )}
                         <li className="item-wrap">
                             <Button
-                                style={{color: '#1C8EFF', textAlign: 'center', width: '100%'}}
+                                style={{
+                                    color: "#1C8EFF",
+                                    textAlign: "center",
+                                    width: "100%",
+                                }}
                                 className="inline"
                                 type="link"
                                 onClick={global.PopUpLiveChat}
@@ -238,13 +291,18 @@ class SecondStep extends React.Component {
                 <div className="deposit-help-wrap">
                     <span>乐天使温馨提醒：</span>
                     <ul>
-                        <li>只允许本地银行进行交易，请按照银行账户信息进行存款，请必须以选定的金额存款，否则将无法到账。 </li>
-                        <li>必须在30分钟内转账，若30分钟内未完成，交易将​被拒绝，若在30分钟后交易，金额将不予退还。 </li>
-                        <li>每次存款之前需先检查看最新的存款账号信息，避免存款过程中出现错误导致您的权益受损。 </li>
+                        <li>
+                            只允许本地银行进行交易，请按照银行账户信息进行存款，请必须以选定的金额存款，否则将无法到账。{" "}
+                        </li>
+                        <li>
+                            必须在30分钟内转账，若30分钟内未完成，交易将​被拒绝，若在30分钟后交易，金额将不予退还。{" "}
+                        </li>
+                        <li>
+                            每次存款之前需先检查看最新的存款账号信息，避免存款过程中出现错误导致您的权益受损。{" "}
+                        </li>
                         <li>小额存款不支持一卡通或超级网银交易。</li>
                     </ul>
                 </div>
-
             </Form>
         );
     }

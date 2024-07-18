@@ -9,7 +9,7 @@ const { Panel } = Collapse;
 export default function BankBusinessTime() {
     const [showMore, changeShowMore] = useState(false);
     const [activeKey, setActiveKey] = useState([]);
-    const [bankMaintenanceInfo,setBankMaintenanceInfo] = useState([]);
+    const [bankMaintenanceInfo, setBankMaintenanceInfo] = useState([]);
     const defaultImage = "/vn/img/bank/generic.png";
     const weeksName = [
         translate("周日"),
@@ -20,26 +20,33 @@ export default function BankBusinessTime() {
         translate("周五"),
         translate("周六"),
     ];
-    useEffect(()=>{
+    useEffect(() => {
         getBankMaintenanceInfo();
-        return ()=>{
+        return () => {
             setBankMaintenanceInfo([]);
         };
-    },[])
-    
-    const getBankMaintenanceInfo =()=> {
-        get(ApiPort.GetBankMaintenanceInfo)
-            .then((res) => {
-                if(res?.isSuccess && Array.isArray(res.result) && res.result.length){
-                    setBankMaintenanceInfo(res.result)
-                }
-            })
-    }
+    }, []);
+
+    const getBankMaintenanceInfo = () => {
+        get(ApiPort.GetBankMaintenanceInfo).then((res) => {
+            if (
+                res?.isSuccess &&
+                Array.isArray(res.result) &&
+                res.result.length
+            ) {
+                setBankMaintenanceInfo(res.result);
+            }
+        });
+    };
     return (
-        <div 
-            className="bankBusinessTime" 
-            onMouseEnter={() => {bankMaintenanceInfo.length && changeShowMore(true)}}
-            onMouseLeave={() => {changeShowMore(false),setActiveKey([])}}
+        <div
+            className="bankBusinessTime"
+            onMouseEnter={() => {
+                bankMaintenanceInfo.length && changeShowMore(true);
+            }}
+            onMouseLeave={() => {
+                changeShowMore(false), setActiveKey([]);
+            }}
         >
             <div
                 className={`default ${showMore ? "moveToLeft" : ""}`}
@@ -67,22 +74,32 @@ export default function BankBusinessTime() {
                                             />
                                         </Col>
                                         <Col span={16}>{value.tabBankName}</Col>
-                                        <Col span={6} className={`${value.isUnderMaintenance ? "Offline" : "Online"}`}>
-                                            {value.isUnderMaintenance ? "Offline" : "Online"}
+                                        <Col
+                                            span={6}
+                                            className={`${value.isUnderMaintenance ? "Offline" : "Online"}`}
+                                        >
+                                            {value.isUnderMaintenance
+                                                ? "Offline"
+                                                : "Online"}
                                         </Col>
                                     </Row>
                                 }
                                 key={index + 1}
                                 // disabled={value.isUnderMaintenance}
                             >
-                                <Row gutter={[40,10]}>
+                                <Row gutter={[40, 10]}>
                                     <Col>
                                         <h4>{translate("营业时间")}</h4>
                                     </Col>
                                     <Col>
                                         {value.item.map((v, i) =>
                                             v.recordType === "R" ? (
-                                                <p key={"maintenanceSD#23LdiO" + i}>
+                                                <p
+                                                    key={
+                                                        "maintenanceSD#23LdiO" +
+                                                        i
+                                                    }
+                                                >
                                                     <span>
                                                         {weeksName[v.dayOfWeek]}
                                                     </span>
@@ -90,15 +107,21 @@ export default function BankBusinessTime() {
                                                     <span>{v.startTime}</span>
                                                     <span> - </span>
                                                     <span>
-                                                        {weeksName[v.dayOfWeekEnd]}
+                                                        {
+                                                            weeksName[
+                                                                v.dayOfWeekEnd
+                                                            ]
+                                                        }
                                                     </span>
                                                     <span> : </span>
                                                     <span>{v.endTime}</span>
                                                 </p>
-                                            ) : null
+                                            ) : null,
                                         )}
                                     </Col>
-                                    <Col>{translate("时间按照GMT+8更新。")}</Col>
+                                    <Col>
+                                        {translate("时间按照GMT+8更新。")}
+                                    </Col>
                                 </Row>
                             </Panel>
                         ))}

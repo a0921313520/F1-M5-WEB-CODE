@@ -7,7 +7,13 @@ import { Cookie } from "$ACTIONS/util";
 import Router from "next/router";
 import Drawer from "@/Drawer";
 import { getUrlVars } from "$ACTIONS/util";
-import { isWebPSupported ,getQueryVariable, isGuest, isThisAllowGuestOpenGame,whichUseHttpForGameLaunch} from "$ACTIONS/helper";
+import {
+    isWebPSupported,
+    getQueryVariable,
+    isGuest,
+    isThisAllowGuestOpenGame,
+    whichUseHttpForGameLaunch,
+} from "$ACTIONS/helper";
 import { isWindowOpenGame, isCookieNoOpenGame } from "$ACTIONS/constantsData";
 import { translate } from "$ACTIONS/Translate";
 import OpenGame from "@/Games/openGame";
@@ -52,7 +58,10 @@ class iframebox extends React.Component {
     }
 
     componentDidMount() {
-        const IS_THIS_ALLOW_GUEST_OPEN_GAME = isThisAllowGuestOpenGame(Router.router?.query?.vendor, Router.router?.query?.name);
+        const IS_THIS_ALLOW_GUEST_OPEN_GAME = isThisAllowGuestOpenGame(
+            Router.router?.query?.vendor,
+            Router.router?.query?.name,
+        );
         if (isGuest() && !IS_THIS_ALLOW_GUEST_OPEN_GAME) {
             Router.push("/");
         }
@@ -62,21 +71,28 @@ class iframebox extends React.Component {
             },
             () => {
                 this.startGame();
-            }
+            },
         );
     }
     componentDidUpdate(prevProps, prevState) {
-        const { productCode,isTriggerFromGameLobbyButton } = this.props;
-        if (productCode && productCode !== prevProps.productCode|| isTriggerFromGameLobbyButton!==prevProps.isTriggerFromGameLobbyButton) {
+        const { productCode, isTriggerFromGameLobbyButton } = this.props;
+        if (
+            (productCode && productCode !== prevProps.productCode) ||
+            isTriggerFromGameLobbyButton !==
+                prevProps.isTriggerFromGameLobbyButton
+        ) {
             this.startGame();
-            console.log("🚀 ~ iframebox ~ componentDidUpdate ~ this.props.willOpenGameParams:", this.props.willOpenGameParams)
+            console.log(
+                "🚀 ~ iframebox ~ componentDidUpdate ~ this.props.willOpenGameParams:",
+                this.props.willOpenGameParams,
+            );
         }
     }
 
     componentWillUnmount() {
         window.onresize = null;
         sessionStorage.removeItem("isGamePage");
-        this.setState = () => false
+        this.setState = () => false;
     }
     startGame = () => {
         let teststatus = !localStorage.getItem("access_token");
@@ -158,9 +174,11 @@ class iframebox extends React.Component {
 
     frameload() {
         const ifr = document.getElementById("setIframe");
-        if (!ifr) { return; }
-        if (typeof ifr.setAttribute==='function') {
-            ifr.setAttribute('src', this.state.gameUrl)
+        if (!ifr) {
+            return;
+        }
+        if (typeof ifr.setAttribute === "function") {
+            ifr.setAttribute("src", this.state.gameUrl);
             return;
         }
         ifr.src = this.state.gameUrl;
@@ -188,7 +206,7 @@ class iframebox extends React.Component {
             el.msRequestFullscreen;
         el.setAttribute(
             "style",
-            "text-align: center; position: relative; height: 100vh;"
+            "text-align: center; position: relative; height: 100vh;",
         );
         if (typeof rfs !== "undefined" && rfs) {
             rfs.call(el);
@@ -218,7 +236,7 @@ class iframebox extends React.Component {
             el.msExitFullscreen;
         this.fullScreen.current.setAttribute(
             "style",
-            "text-align: center; position: relative;"
+            "text-align: center; position: relative;",
         );
         if (typeof cfs != "undefined" && cfs) {
             cfs.call(el);
@@ -245,7 +263,7 @@ class iframebox extends React.Component {
         let gameId = getUrlVars()["gameid"];
 
         let Demostatus = isdemo || false;
-        if (typeof isdemo==='string' && isdemo.toLowerCase()==='false') {
+        if (typeof isdemo === "string" && isdemo.toLowerCase() === "false") {
             Demostatus = false;
         }
         // if (
@@ -261,26 +279,32 @@ class iframebox extends React.Component {
         const PRODUCT_CODE = getQueryVariable("name");
         const EVENT_ID = getQueryVariable("eventid");
         let thirdPartyCookie = JSON.parse(
-            localStorage.getItem("thirdPartyCookie")
+            localStorage.getItem("thirdPartyCookie"),
         );
-        let boolIsThisWindowOpenGame = (thirdPartyCookie == false &&
-            isCookieNoOpenGame.find(
-                (v) => v == PRODUCT_CODE
-            )) ||
-        isWindowOpenGame.find((v) => v == PRODUCT_CODE);
+        let boolIsThisWindowOpenGame =
+            (thirdPartyCookie == false &&
+                isCookieNoOpenGame.find((v) => v == PRODUCT_CODE)) ||
+            isWindowOpenGame.find((v) => v == PRODUCT_CODE);
 
         if (IS_LOGINNED_MEMBER && !boolIsThisWindowOpenGame) {
-            let IS_NO_NEED_CHECK_BALANCE = global.dataAboutCheckBalanceModalOpenedFromIframeOpenGame?.isTriggerFromGameLobbyButton;
+            let IS_NO_NEED_CHECK_BALANCE =
+                global.dataAboutCheckBalanceModalOpenedFromIframeOpenGame
+                    ?.isTriggerFromGameLobbyButton;
             if (
-                !IS_NO_NEED_CHECK_BALANCE && 
-                this.QuickStartGame &&  
-                !await this.QuickStartGame.checkBalanceNeedAsyncAPIChecking(getQueryVariable("vendor"),PRODUCT_CODE)
-            ){
-                return
-            };
+                !IS_NO_NEED_CHECK_BALANCE &&
+                this.QuickStartGame &&
+                !(await this.QuickStartGame.checkBalanceNeedAsyncAPIChecking(
+                    getQueryVariable("vendor"),
+                    PRODUCT_CODE,
+                ))
+            ) {
+                return;
+            }
             if (IS_NO_NEED_CHECK_BALANCE) {
                 if (global.dataAboutCheckBalanceModalOpenedFromIframeOpenGame) {
-                    delete global.dataAboutCheckBalanceModalOpenedFromIframeOpenGame.isTriggerFromGameLobbyButton; // use once then delete
+                    delete global
+                        .dataAboutCheckBalanceModalOpenedFromIframeOpenGame
+                        .isTriggerFromGameLobbyButton; // use once then delete
                 }
             }
         }
@@ -303,24 +327,30 @@ class iframebox extends React.Component {
             sportid: "",
             eventId: "",
         };
-        post(`${ApiPort.Opengame}?isDemo=${Demostatus}${APISETS}`, data).then(
-            (res) => {
+        post(`${ApiPort.Opengame}?isDemo=${Demostatus}${APISETS}`, data)
+            .then((res) => {
                 if (res?.result) {
-                    const errorModalInfo = function (){
+                    const errorModalInfo = function () {
                         Modal.info({
-                            className: "confirm-modal-of-public oneButton elementTextLeft",
+                            className:
+                                "confirm-modal-of-public oneButton elementTextLeft",
                             icon: null,
                             okText: translate("同意"),
                             title: translate("通知"),
-                            content: res.message || translate("您打开的游戏正在维护中，请稍后再回来。 如果您有任何疑问，请联系在线聊天以获得支持"),
-                            centered: true
+                            content:
+                                res.message ||
+                                translate(
+                                    "您打开的游戏正在维护中，请稍后再回来。 如果您有任何疑问，请联系在线聊天以获得支持",
+                                ),
+                            centered: true,
                         });
-                    }
+                    };
                     if (
-                        (res.result.isGameMaintenance || !res.result.gameLobbyUrl) &&
+                        (res.result.isGameMaintenance ||
+                            !res.result.gameLobbyUrl) &&
                         PRODUCT_CODE !== "PGS"
                     ) {
-                        errorModalInfo()
+                        errorModalInfo();
                         Router.push("/");
                         return;
                     }
@@ -336,30 +366,46 @@ class iframebox extends React.Component {
                     if (PRODUCT_CODE === "PGS" && res.result?.contents?.body) {
                         try {
                             const decoded = atob(res.result.contents.body);
-                            if(decoded && /<!DOCTYPE html>|<html/i.test(decoded)){
+                            if (
+                                decoded &&
+                                /<!DOCTYPE html>|<html/i.test(decoded)
+                            ) {
                                 gameUrlString = decoded;
-                            }
-                            else {
+                            } else {
                                 errorModalInfo();
                                 Router.push("/");
-                                return
+                                return;
                             }
                         } catch (error) {
-                            console.error('Error decoding Base64 data:', error.message);
+                            console.error(
+                                "Error decoding Base64 data:",
+                                error.message,
+                            );
                             errorModalInfo();
                             Router.push("/");
-                            return
+                            return;
                         }
                     }
                     if (PRODUCT_CODE === "SBT") {
-                        function replaceCharInUrl(url, targetChar, replacementChar) {
+                        function replaceCharInUrl(
+                            url,
+                            targetChar,
+                            replacementChar,
+                        ) {
                             if (url.indexOf(targetChar) !== -1) {
-                                const newUrl = url.replace(targetChar, replacementChar);
+                                const newUrl = url.replace(
+                                    targetChar,
+                                    replacementChar,
+                                );
                                 return newUrl;
                             }
                             return url;
                         }
-                        const tempUrl = replaceCharInUrl(gameUrlString,"btiv3.js","btiv3vn.js");
+                        const tempUrl = replaceCharInUrl(
+                            gameUrlString,
+                            "btiv3.js",
+                            "btiv3vn.js",
+                        );
                         gameUrlString =
                             tempUrl +
                             "&ReferURL=" +
@@ -375,7 +421,9 @@ class iframebox extends React.Component {
                     const _this = this;
                     if (
                         boolIsThisWindowOpenGame ||
-                        (IS_GUEST && typeof localStorage!=='undefined' && localStorage.getItem('forceUseNewWindowToOpenGame'))
+                        (IS_GUEST &&
+                            typeof localStorage !== "undefined" &&
+                            localStorage.getItem("forceUseNewWindowToOpenGame"))
                     ) {
                         if (IS_GUEST) {
                             Modal.info({
@@ -384,16 +432,21 @@ class iframebox extends React.Component {
                                 title: translate("注意"),
                                 content: (
                                     <p>
-                                        {translate("为了提升更好的用户游戏体验，平台页面将会为您开启新的窗口。")}
+                                        {translate(
+                                            "为了提升更好的用户游戏体验，平台页面将会为您开启新的窗口。",
+                                        )}
                                     </p>
                                 ),
                                 okText: translate("同意"),
-                                className: "confirm-modal-of-public oneButton elementTextLeft",
+                                className:
+                                    "confirm-modal-of-public oneButton elementTextLeft",
                                 onOk: () => {
-                                    this.setState({gameUrlOpen: gameUrlString},
+                                    this.setState(
+                                        { gameUrlOpen: gameUrlString },
                                         () => {
                                             this.openWindow(gameUrlString);
-                                        });
+                                        },
+                                    );
                                 },
                                 onCancel: () => {
                                     Router.push("/");
@@ -406,11 +459,14 @@ class iframebox extends React.Component {
                                 title: translate("注意"),
                                 content: (
                                     <p>
-                                        {translate("为了提升更好的用户游戏体验，平台页面将会为您开启新的窗口。")}
+                                        {translate(
+                                            "为了提升更好的用户游戏体验，平台页面将会为您开启新的窗口。",
+                                        )}
                                     </p>
                                 ),
                                 okText: translate("同意"),
-                                className: "confirm-modal-of-public oneButton elementTextLeft",
+                                className:
+                                    "confirm-modal-of-public oneButton elementTextLeft",
                                 onOk: () => {
                                     this.setState(
                                         {
@@ -421,13 +477,13 @@ class iframebox extends React.Component {
                                                 this.QuickStartGame &&
                                                 !this.QuickStartGame.checkBalance(
                                                     getQueryVariable("vendor"),
-                                                    PRODUCT_CODE
+                                                    PRODUCT_CODE,
                                                 )
                                             ) {
                                                 return;
                                             }
                                             this.openWindow(gameUrlString);
-                                        }
+                                        },
                                     );
                                 },
                                 onCancel: () => {
@@ -439,8 +495,7 @@ class iframebox extends React.Component {
                             });
                             return;
                         }
-                    } 
-                    else {
+                    } else {
                         if (document.getElementById("setIframe")) {
                             this.setState({ gameUrl: gameUrlString });
                             const ImsportsIframe =
@@ -450,7 +505,7 @@ class iframebox extends React.Component {
                                     ImsportsIframe.onreadystatechange =
                                         function (e) {
                                             if (
-                                                e.type!='load' &&
+                                                e.type != "load" &&
                                                 this.readyState &&
                                                 this.readyState != "complete"
                                             )
@@ -469,12 +524,12 @@ class iframebox extends React.Component {
                     message.error(translate("系统错误，请联系在线支持！"));
                     Router.push("/");
                 }
-            }
-        ).finally(()=>{
-            this.setState({
-                visible: false,
+            })
+            .finally(() => {
+                this.setState({
+                    visible: false,
+                });
             });
-        })
     }
 
     //新窗口打开
@@ -487,7 +542,7 @@ class iframebox extends React.Component {
                 (window.screen.availWidth - 10) +
                 ",height=" +
                 (window.screen.availHeight - 30) +
-                ",top=0,left=0,resizable=yes,status=yes,menubar=no,scrollbars=yes"
+                ",top=0,left=0,resizable=yes,status=yes,menubar=no,scrollbars=yes",
         );
         popup.document.title = Router.router.query.name;
         popup.focus();
@@ -679,7 +734,9 @@ class iframebox extends React.Component {
                         <div className="tlc-user-info">
                             <div className="tlc-user-picture-wrap">
                                 <div className="tlc-user-picture">
-                                    <img src={`${process.env.BASE_PATH}/img/icon/fun.svg`} />
+                                    <img
+                                        src={`${process.env.BASE_PATH}/img/icon/fun.svg`}
+                                    />
                                 </div>
                                 <h4 className="tlc-user-name">
                                     {this.state.userName}
@@ -710,8 +767,12 @@ class iframebox extends React.Component {
                             </div>
                         </div>
                         <ul className="tlc-iframe-bar">
-                            <li onClick={this.openDeposit}>{translate("存款")}</li>
-                            <li onClick={this.frameload}>{translate("刷新游戏")}</li>
+                            <li onClick={this.openDeposit}>
+                                {translate("存款")}
+                            </li>
+                            <li onClick={this.frameload}>
+                                {translate("刷新游戏")}
+                            </li>
                         </ul>
                         <div
                             className="tlc-iframe-live-btn"
@@ -734,10 +795,10 @@ class iframebox extends React.Component {
         );
     }
 }
-const mapStateToProps = function(state){
-    return{
-        willOpenGameParams : state.willOpenGameParams,
-    }
-}
+const mapStateToProps = function (state) {
+    return {
+        willOpenGameParams: state.willOpenGameParams,
+    };
+};
 
 export default connect(mapStateToProps, null)(iframebox);

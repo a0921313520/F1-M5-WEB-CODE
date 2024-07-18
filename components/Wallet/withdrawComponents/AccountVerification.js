@@ -3,7 +3,7 @@ import { Steps, Spin, Modal } from "antd";
 import EmailVerify from "./WithdrawalVerify/EmailVerify";
 import PhoneVerify from "./WithdrawalVerify/PhoneVerify";
 import ExceedVerify from "@/OTP/ExceedVerify";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 const { Step } = Steps;
 function OtpPopUp({
@@ -17,7 +17,7 @@ function OtpPopUp({
 }) {
     const [attemptRemaining, setAttemptRemaining] = useState(5); // 电话剩餘次數
     const [emailattemptRemaining, setEmailAttemptRemaining] = useState(5); // 邮箱剩餘次數
-    const [exceedVisible,setExceedVisible] = useState(false);   // otp 超過驗證次數判斷
+    const [exceedVisible, setExceedVisible] = useState(false); // otp 超過驗證次數判斷
 
     const prams = {
         // 引用參數
@@ -29,7 +29,10 @@ function OtpPopUp({
         setEmailAttemptRemaining: setEmailAttemptRemaining,
         otpModal: otpModal,
     };
-    const title = readStep == 1 ? translate("认证方式电子邮件") : translate("电话号码认证");
+    const title =
+        readStep == 1
+            ? translate("认证方式电子邮件")
+            : translate("电话号码认证");
     return (
         <React.Fragment>
             <Modal
@@ -55,32 +58,46 @@ function OtpPopUp({
                     {readStep == 1 && (
                         <EmailVerify
                             {...prams}
-                            getMemberData={()=>{getMemberData()}}
-                            setExceedVisible={()=>{setExceedVisible(true),this.props.coloseVisible()}}
+                            getMemberData={() => {
+                                getMemberData();
+                            }}
+                            setExceedVisible={() => {
+                                setExceedVisible(true),
+                                    this.props.coloseVisible();
+                            }}
                         />
                     )}
                     {/* 手机验证 */}
                     {readStep == 2 && (
                         <PhoneVerify
                             {...prams}
-                            getMemberData={()=>{getMemberData()}}
-                            setExceedVisible={()=>{setExceedVisible(true),this.props.coloseVisible()}}
+                            getMemberData={() => {
+                                getMemberData();
+                            }}
+                            setExceedVisible={() => {
+                                setExceedVisible(true),
+                                    this.props.coloseVisible();
+                            }}
                         />
                     )}
                 </div>
             </Modal>
 
             {/* otp 超過次數彈窗 */}
-            {exceedVisible && <ExceedVerify 
-                exceedVisible={exceedVisible}
-                onCancel={() => {
-                    setExceedVisible(false);
-                    setTimeout(() => {
-                        global.globalExit();
-                    }, 1500);
-                }}
-                setExceedVisible={()=>{setExceedVisible(true),this.props.coloseVisible()}}
-            />}
+            {exceedVisible && (
+                <ExceedVerify
+                    exceedVisible={exceedVisible}
+                    onCancel={() => {
+                        setExceedVisible(false);
+                        setTimeout(() => {
+                            global.globalExit();
+                        }, 1500);
+                    }}
+                    setExceedVisible={() => {
+                        setExceedVisible(true), this.props.coloseVisible();
+                    }}
+                />
+            )}
         </React.Fragment>
     );
 }

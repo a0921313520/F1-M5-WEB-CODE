@@ -12,9 +12,9 @@ import {
 import { get, post } from "$ACTIONS/TlcRequest";
 import { ApiPort, APISET, APISETS } from "$ACTIONS/TLCAPI";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { formatYearMonthDate,formatAmount } from "$ACTIONS/util";
+import { formatYearMonthDate, formatAmount } from "$ACTIONS/util";
 import SmallCountDown from "@/Records/SmallCountDown";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 class WithdrawRecords extends React.Component {
     constructor(props) {
@@ -25,11 +25,11 @@ class WithdrawRecords extends React.Component {
             statusId: -1, // 当前列状态展开元素
             visible: false,
             transactionId: "", //交易id
-            subId: '',
-            subAmt: '',
+            subId: "",
+            subAmt: "",
             showlist: false,
             showSubMithdrawModal: false,
-            showSubMithdrawRes: ''
+            showSubMithdrawRes: "",
         };
 
         this.NoCancellation = this.NoCancellation.bind(this); // 撤销提款
@@ -105,15 +105,16 @@ class WithdrawRecords extends React.Component {
             })
             .catch((error) => {
                 console.log("POSTNoCancellation" + error);
-            }).finally(()=>{
-                this.props.setLoading(false);
             })
+            .finally(() => {
+                this.props.setLoading(false);
+            });
     }
     formatRecords() {
         this.props.withdrawData.forEach((val) => {
             val.pendingDateTimeTo = formatYearMonthDate(val.pendingDateTime);
             val.processingDatetimeTo = formatYearMonthDate(
-                val.processingDateTime
+                val.processingDateTime,
             );
             val.approvedDatetimeTo = formatYearMonthDate(val.approvedDateTime);
             val.rejectedDateTimeTo = formatYearMonthDate(val.rejectedDateTime);
@@ -185,17 +186,17 @@ class WithdrawRecords extends React.Component {
             // val.isContactCS=true
             // val.ConfirmReceipt=true
             // val.isUploadDocument = true;
-            const { 
-                Cancel, 
-                isContactCS, 
+            const {
+                Cancel,
+                isContactCS,
                 // ConfirmReceipt,
-                isUploadDocument
+                isUploadDocument,
             } = val;
-            const btns = { 
-                Cancel, 
-                isContactCS, 
+            const btns = {
+                Cancel,
+                isContactCS,
                 // ConfirmReceipt,
-                isUploadDocument
+                isUploadDocument,
             };
             val.btns = Object.keys(btns).filter((ele) => btns[ele]);
         });
@@ -208,7 +209,7 @@ class WithdrawRecords extends React.Component {
         this.setState({
             currentList: this.props.withdrawData.slice(
                 startIndex,
-                startIndex + this.onePageSize
+                startIndex + this.onePageSize,
             ), // 当前展示数据
         });
     }
@@ -220,7 +221,7 @@ class WithdrawRecords extends React.Component {
             currentPage: index,
             currentList: this.props.withdrawData.slice(
                 startIndex,
-                startIndex + this.onePageSize
+                startIndex + this.onePageSize,
             ), // 当前展示数据
         });
     }
@@ -230,7 +231,7 @@ class WithdrawRecords extends React.Component {
             ApiPort.GetTransactionDetail +
                 "&transactionID=" +
                 recordItem.transactionId +
-                "&transactionType=Withdrawal"
+                "&transactionType=Withdrawal",
         )
             .then((res) => {
                 this.props.setLoading(false);
@@ -246,14 +247,21 @@ class WithdrawRecords extends React.Component {
                                     <>
                                         <li>
                                             <div>{translate("金额")}</div>
-                                            <div>{formatAmount(res.result.amount)} đ</div>
+                                            <div>
+                                                {formatAmount(
+                                                    res.result.amount,
+                                                )}{" "}
+                                                đ
+                                            </div>
                                         </li>
                                         <li>
                                             <div>{translate("汇率")}</div>
                                             <div>
-                                                {translate("等级")} 1: 1USDT-ERC20 = xxx,xxx.xx VND
-                                                <br/>
-                                                {translate("等级")} 2: 1USDT-ERC20 = xxx,xxx.xx VND
+                                                {translate("等级")} 1:
+                                                1USDT-ERC20 = xxx,xxx.xx VND
+                                                <br />
+                                                {translate("等级")} 2:
+                                                1USDT-ERC20 = xxx,xxx.xx VND
                                             </div>
                                         </li>
                                         {res.result.reasonMsg ? (
@@ -261,10 +269,12 @@ class WithdrawRecords extends React.Component {
                                                 {res.result.reasonMsg || ""}
                                             </li>
                                         ) : null}
-                                        <li >
+                                        <li>
                                             <div>{translate("钱包地址")}</div>
                                             <div>
-                                                {res.result.withdrawalWalletAddress || ""}
+                                                {res.result
+                                                    .withdrawalWalletAddress ||
+                                                    ""}
                                             </div>
                                         </li>
                                     </>
@@ -273,11 +283,13 @@ class WithdrawRecords extends React.Component {
                                 {recordItem.paymentMethodId === "LB" ? (
                                     <ul className="t-resubmit-list">
                                         <li>
-                                            <div>{translate("账户持有者姓名")}</div>
+                                            <div>
+                                                {translate("账户持有者姓名")}
+                                            </div>
                                             <div>
                                                 {res.result.accountHolderName.replace(
                                                     /[^a-zA-Z ]/g,
-                                                    "*"
+                                                    "*",
                                                 )}
                                             </div>
                                         </li>
@@ -288,7 +300,13 @@ class WithdrawRecords extends React.Component {
                                         <li>
                                             <div>{translate("金额")}</div>
                                             <div>
-                                                <b>¥ {formatAmount(res.result.amount)} đ</b>
+                                                <b>
+                                                    ¥{" "}
+                                                    {formatAmount(
+                                                        res.result.amount,
+                                                    )}{" "}
+                                                    đ
+                                                </b>
                                             </div>
                                         </li>
                                         {/* <li>
@@ -347,7 +365,8 @@ class WithdrawRecords extends React.Component {
                     title: translate("取消提款"),
                     content: (
                         <div>
-                            {translate("您确定想取消该金额的提款")} {formatAmount(recordItem.amount)} ?
+                            {translate("您确定想取消该金额的提款")}{" "}
+                            {formatAmount(recordItem.amount)} ?
                         </div>
                     ),
                     okText: translate("确定"),
@@ -356,8 +375,8 @@ class WithdrawRecords extends React.Component {
                     onOk: () => {
                         this.NoCancellation(
                             recordItem.transactionId,
-                            recordItem.amount
-                        )
+                            recordItem.amount,
+                        );
                     },
                 });
                 break;
@@ -368,18 +387,18 @@ class WithdrawRecords extends React.Component {
                 global.PopUpLiveChat();
                 break;
             // case "ConfirmReceipt":
-                // this.setState({
-                //     transactionId: recordItem.transactionId,
-                //     visible: true,
-                // });
-                // break;
+            // this.setState({
+            //     transactionId: recordItem.transactionId,
+            //     visible: true,
+            // });
+            // break;
             case "isUploadDocument":
-                this.props.navigationPage("uploadFiles")
+                this.props.navigationPage("uploadFiles");
             default:
                 break;
         }
     };
-   
+
     /**
      * @param {*} 提现ID
      */
@@ -387,36 +406,43 @@ class WithdrawRecords extends React.Component {
         return;
         if (!this.state.transactionId) return;
         this.setState({ visible: false });
-        let url = ''
+        let url = "";
         if (this.state.subId) {
-            url = "?withdrawalId=" + this.state.transactionId + "&subWithdrawalId=" + this.state.subId + "&splitWithdrawalAmt=" + this.state.subAmt
+            url =
+                "?withdrawalId=" +
+                this.state.transactionId +
+                "&subWithdrawalId=" +
+                this.state.subId +
+                "&splitWithdrawalAmt=" +
+                this.state.subAmt;
         } else {
-            url = "?withdrawalId=" + this.state.transactionId
+            url = "?withdrawalId=" + this.state.transactionId;
         }
         this.props.setLoading(true);
-        post(
-            ApiPort.ConfirmWithdrawalComplete + url + APISETS
-        )
+        post(ApiPort.ConfirmWithdrawalComplete + url + APISETS)
             .then((res) => {
                 this.props.setLoading(false);
                 if (res && res.isSuccess) {
                     if (res.result.rebateAmount * 1 > 0) {
-                        this.setState({ showSubMithdrawModal: false})
+                        this.setState({ showSubMithdrawModal: false });
                         //有奖金
                         Modal.info({
                             title: "",
                             centered: true,
                             okText: "查看交易记录",
-                            className: 'confirmModalRecord',
+                            className: "confirmModalRecord",
                             closable: true,
                             content: (
                                 <div>
                                     <i className="lbwicon-success">
-                                        <img src={`${process.env.BASE_PATH}/img/icons/icon-checked.png`} />
+                                        <img
+                                            src={`${process.env.BASE_PATH}/img/icons/icon-checked.png`}
+                                        />
                                     </i>
                                     <p>
-                                        额外奖励 {res.result.rebateAmount} 元已到账
-                                        <br/>
+                                        额外奖励 {res.result.rebateAmount}{" "}
+                                        元已到账
+                                        <br />
                                         可以前往交易记录里查询
                                     </p>
                                 </div>
@@ -427,9 +453,9 @@ class WithdrawRecords extends React.Component {
                         });
                     } else {
                         //没有有奖金
-                        message.success('确认到账', 2);
+                        message.success("确认到账", 2);
                         setTimeout(() => {
-                            this.setState({ showSubMithdrawModal: false})
+                            this.setState({ showSubMithdrawModal: false });
                         }, 2000);
                         // Modal.info({
                         //     title: ``,
@@ -450,25 +476,26 @@ class WithdrawRecords extends React.Component {
                             title: "",
                             centered: true,
                             okText: "联系在线客服",
-                            className: 'confirmModalRecord',
+                            className: "confirmModalRecord",
                             closable: true,
                             content: (
                                 <div>
                                     <i className="lbwicon-success">
-                                        <img src={`${process.env.BASE_PATH}/img/icons/icon-error.png`} />
+                                        <img
+                                            src={`${process.env.BASE_PATH}/img/icons/icon-error.png`}
+                                        />
                                     </i>
-                                    {res.ErrorCode === "P111002" ? 
+                                    {res.ErrorCode === "P111002" ? (
                                         <p>
                                             {res.ErrorMessage ||
                                                 `确认到账更新失败，此笔交易仍在进行中。请确保您已收到提现金额后，再点击“确认到账”按钮。如需要任何协助，请联系在线客服。`}
                                         </p>
-                                    :
+                                    ) : (
                                         <p>
                                             {res.ErrorMessage ||
                                                 `系统错误，确认到账更新失败，请稍后再重试或联络在线客服。`}
                                         </p>
-                                    }
-                
+                                    )}
                                 </div>
                             ),
                             onOk: () => {
@@ -487,30 +514,32 @@ class WithdrawRecords extends React.Component {
         Pushgtagdata(
             "Transaction Record",
             "Submit",
-            "Receive_SmallRiver_Withdrawal"
+            "Receive_SmallRiver_Withdrawal",
         );
     };
 
-    getSubWithdrawal (id) {
+    getSubWithdrawal(id) {
         this.props.setLoading(true);
-        get(ApiPort.SubWithdrawal +                 
-            "/" +
-            id + 
-            "/SubWithdrawalTransactionDetails" +
-            APISET
-        ).then((res) => {
-            this.props.setLoading(false);
-            if (!!res && res.result) {
-                this.setState({
-                    showSubMithdrawRes: res,
-                    showSubMithdrawModal: true
-                })
-            }
-        })
-        .catch((err) => {
-            this.props.setLoading(false);
-            console.log(err);
-        });
+        get(
+            ApiPort.SubWithdrawal +
+                "/" +
+                id +
+                "/SubWithdrawalTransactionDetails" +
+                APISET,
+        )
+            .then((res) => {
+                this.props.setLoading(false);
+                if (!!res && res.result) {
+                    this.setState({
+                        showSubMithdrawRes: res,
+                        showSubMithdrawModal: true,
+                    });
+                }
+            })
+            .catch((err) => {
+                this.props.setLoading(false);
+                console.log(err);
+            });
     }
 
     confirmSubWithdrawal(subId, subAmt, id) {
@@ -518,22 +547,48 @@ class WithdrawRecords extends React.Component {
             transactionId: id,
             visible: true,
             subId: subId,
-            subAmt: subAmt
+            subAmt: subAmt,
         });
     }
     render() {
-        let {showSubMithdrawRes} = this.state;
-        let payoutMin = showSubMithdrawRes && showSubMithdrawRes.result && showSubMithdrawRes.result.PayoutDuration;
+        let { showSubMithdrawRes } = this.state;
+        let payoutMin =
+            showSubMithdrawRes &&
+            showSubMithdrawRes.result &&
+            showSubMithdrawRes.result.PayoutDuration;
         let payoutTime;
         if (payoutMin && payoutMin < 60) {
-            payoutTime = <span><span style={{color: '#00A6FF'}}>{payoutMin}</span> {translate("分钟")}</span>
-        } else if (payoutMin && payoutMin / 60 >= 1) { 
+            payoutTime = (
+                <span>
+                    <span style={{ color: "#00A6FF" }}>{payoutMin}</span>{" "}
+                    {translate("分钟")}
+                </span>
+            );
+        } else if (payoutMin && payoutMin / 60 >= 1) {
             if (payoutMin % 60 == 0) {
-                payoutTime = <span><span style={{color: '#00A6FF'}}>{payoutMin / 60}</span> {translate("小时")}</span>
+                payoutTime = (
+                    <span>
+                        <span style={{ color: "#00A6FF" }}>
+                            {payoutMin / 60}
+                        </span>{" "}
+                        {translate("小时")}
+                    </span>
+                );
             } else {
-                payoutTime = <span><span style={{color: '#00A6FF'}}>{parseInt(payoutMin / 60)}</span> {translate("小时")} <span style={{color: '#00A6FF'}}>{payoutMin % 60}</span> {translate("分钟")}</span>
+                payoutTime = (
+                    <span>
+                        <span style={{ color: "#00A6FF" }}>
+                            {parseInt(payoutMin / 60)}
+                        </span>{" "}
+                        {translate("小时")}{" "}
+                        <span style={{ color: "#00A6FF" }}>
+                            {payoutMin % 60}
+                        </span>{" "}
+                        {translate("分钟")}
+                    </span>
+                );
             }
-        } 
+        }
         return (
             <div className="records-list-wrap">
                 {this.state.currentList.length ? (
@@ -567,14 +622,17 @@ class WithdrawRecords extends React.Component {
                                         <CopyToClipboard
                                             text={val.transactionId}
                                             onCopy={() => {
-                                                this.props.recordAlert(translate("复制成功"));
+                                                this.props.recordAlert(
+                                                    translate("复制成功"),
+                                                );
                                             }}
                                         >
                                             <img
-                                                style={{ paddingLeft: "10px", cursor:"pointer" }}
-                                                src={
-                                                    `${process.env.BASE_PATH}/img/wallet/Copy_icon.svg`
-                                                }
+                                                style={{
+                                                    paddingLeft: "10px",
+                                                    cursor: "pointer",
+                                                }}
+                                                src={`${process.env.BASE_PATH}/img/wallet/Copy_icon.svg`}
                                             />
                                         </CopyToClipboard>
                                     </div>
@@ -595,13 +653,23 @@ class WithdrawRecords extends React.Component {
                                             </p>
                                             <div>¥ {val.amount}</div>
                                         </div>
-                                    ) : (val.paymentMethodId == 'LB' && (val.statusId == 2 || val.statusId == 3 || val.statusId == 7 || val.statusId == 8 || val.statusId == 9))? ( 
+                                    ) : val.paymentMethodId == "LB" &&
+                                      (val.statusId == 2 ||
+                                          val.statusId == 3 ||
+                                          val.statusId == 7 ||
+                                          val.statusId == 8 ||
+                                          val.statusId == 9) ? (
                                         <div>
                                             <p className="w-amount-tip">
                                                 处理中金额
                                             </p>
-                                            <div>¥ {val.processingSplitWithdrawalAmount}</div>
-                                            <br/>
+                                            <div>
+                                                ¥{" "}
+                                                {
+                                                    val.processingSplitWithdrawalAmount
+                                                }
+                                            </div>
+                                            <br />
                                             <p className="w-amount-tip">
                                                 实际到账
                                             </p>
@@ -660,9 +728,9 @@ class WithdrawRecords extends React.Component {
                                             <div className="small-sign">
                                                 {val.statusType === "r-pending"
                                                     ? ""
-                                                    // : val.subTransactionCount && val.statusType !== "r-process" 
-                                                    // ? val.processingDatetimeTo
-                                                    : val.processingDatetimeTo}
+                                                    : // : val.subTransactionCount && val.statusType !== "r-process"
+                                                      // ? val.processingDatetimeTo
+                                                      val.processingDatetimeTo}
                                             </div>
                                             <div className="small-circle 445">
                                                 {translate("成功")}
@@ -749,32 +817,41 @@ class WithdrawRecords extends React.Component {
                                                 {val.reasonMsgLine1}
                                             </div>
                                         )}
-                                    {val.statusId == 6 && val.paymentMethodId == 'LB' && (
+                                    {val.statusId == 6 &&
+                                        val.paymentMethodId == "LB" && (
+                                            <div
+                                                className="reason-msg"
+                                                style={{
+                                                    textAlign: "left",
+                                                }}
+                                            >
+                                                {translate(
+                                                    "您的交易已按要求取消。",
+                                                )}
+                                            </div>
+                                        )}
+                                    {val.isShowSubWithdrawalDetails && (
                                         <div
-                                            className="reason-msg"
-                                            style={{
-                                                textAlign: 'left'
-                                            }}
-                                        >
-                                           {translate("您的交易已按要求取消。")}
-                                        </div>
-                                    )}
-                                    {val.isShowSubWithdrawalDetails &&
-                                        <div 
                                             style={{
                                                 textAlign: "left",
                                                 marginLeft: "-3px",
-                                            }}> 
-                                                <Button
-                                                    type="primary"
-                                                    ghost={false}
-                                                    className="record-btn"
-                                                    size="small"
-                                                    onClick={()=> {this.getSubWithdrawal(val.transactionId)}}>
-                                                    到账细节
-                                                </Button>
+                                            }}
+                                        >
+                                            <Button
+                                                type="primary"
+                                                ghost={false}
+                                                className="record-btn"
+                                                size="small"
+                                                onClick={() => {
+                                                    this.getSubWithdrawal(
+                                                        val.transactionId,
+                                                    );
+                                                }}
+                                            >
+                                                到账细节
+                                            </Button>
                                         </div>
-                                    }
+                                    )}
 
                                     <div
                                         style={{
@@ -787,7 +864,7 @@ class WithdrawRecords extends React.Component {
                                             this.btnsInfo.some(
                                                 (vIn) =>
                                                     vIn.id === v &&
-                                                    (currentBtn = vIn)
+                                                    (currentBtn = vIn),
                                             );
 
                                             return !!currentBtn ? (
@@ -800,7 +877,7 @@ class WithdrawRecords extends React.Component {
                                                     onClick={() => {
                                                         this.btnClick(
                                                             currentBtn.id,
-                                                            val
+                                                            val,
                                                         );
                                                         if (Pushgtagdata) {
                                                             Pushgtagdata(
@@ -809,7 +886,7 @@ class WithdrawRecords extends React.Component {
                                                                 currentBtn
                                                                     .piwik[1],
                                                                 currentBtn
-                                                                    .piwik[2]
+                                                                    .piwik[2],
                                                             );
                                                         }
                                                     }}
@@ -833,116 +910,284 @@ class WithdrawRecords extends React.Component {
                     </Col>
                 )}
                 <div className="line-distance"></div>
-                <Modal 
+                <Modal
                     footer={null}
                     closable={true}
                     visible={this.state.showSubMithdrawModal}
                     title="到账细节"
                     className="blueHeaderModal"
-                    centered= {true}
+                    centered={true}
                     wrapClassName="blueHeaderModal"
                     width="380px"
-                    onCancel={()=> this.setState({
-                        showSubMithdrawModal: false
-                    })}>
-
-                    {showSubMithdrawRes &&
-                        <ul className="t-resubmit-list" style={{textAlign: 'left', color: '#222222', padding: '1.5rem'}}>
-                            {showSubMithdrawRes.result.RebatePercentage != 0 ? 
-                            <div>
-                                {showSubMithdrawRes.result.Amount >= showSubMithdrawRes.result.MinWithdrawalAmount ? 
-                                    <div>
-                                        1. 当提交金额大于 <span style={{color: '#00A6FF'}}>{showSubMithdrawRes.result.MinWithdrawalAmount}</span> 时，系统将会拆分成 <span style={{color: '#00A6FF'}}>{showSubMithdrawRes.result.MinSplitWithdrawalCount}</span> 笔交易以上分批出款。 
-                                        <br/>
-                                        2. 此笔预约提款享有 <span style={{color: '#00A6FF'}}>{showSubMithdrawRes.result.RebatePercentage}%</span> 红利，交易将于 {payoutTime}内完成，并于所有交易完成后一次性派发红利。
-                                    </div>
-                                : 
-                                    <div>
-                                        1. 此笔预约提款享有 <span style={{color: '#00A6FF'}}>{showSubMithdrawRes.result.RebatePercentage}%</span> 红利，交易将于 {payoutTime}内完成，并于所有交易完成后一次性派发红利。
-                                    </div>
-                                }
-                            </div>
-                            :
-                            <div>
-                                {showSubMithdrawRes.result.Amount >= showSubMithdrawRes.result.MinWithdrawalAmount ? 
-                                    <div>
-                                        1. 当提交金额大于 <span style={{color: '#00A6FF'}}>{showSubMithdrawRes.result.MinWithdrawalAmount}</span> 时，系统将会拆分成 <span style={{color: '#00A6FF'}}>{showSubMithdrawRes.result.MinSplitWithdrawalCount}</span> 笔交易以上分批出款。 
-                                        <br/>
-                                        2. 交易将于 {payoutTime}内完成。
-                                    </div>
-                                :
-                                    <div>
-                                        1. 交易将于 {payoutTime}内完成。
-                                    </div>
-                                }
-                            </div>
-                            }
+                    onCancel={() =>
+                        this.setState({
+                            showSubMithdrawModal: false,
+                        })
+                    }
+                >
+                    {showSubMithdrawRes && (
+                        <ul
+                            className="t-resubmit-list"
+                            style={{
+                                textAlign: "left",
+                                color: "#222222",
+                                padding: "1.5rem",
+                            }}
+                        >
+                            {showSubMithdrawRes.result.RebatePercentage != 0 ? (
+                                <div>
+                                    {showSubMithdrawRes.result.Amount >=
+                                    showSubMithdrawRes.result
+                                        .MinWithdrawalAmount ? (
+                                        <div>
+                                            1. 当提交金额大于{" "}
+                                            <span style={{ color: "#00A6FF" }}>
+                                                {
+                                                    showSubMithdrawRes.result
+                                                        .MinWithdrawalAmount
+                                                }
+                                            </span>{" "}
+                                            时，系统将会拆分成{" "}
+                                            <span style={{ color: "#00A6FF" }}>
+                                                {
+                                                    showSubMithdrawRes.result
+                                                        .MinSplitWithdrawalCount
+                                                }
+                                            </span>{" "}
+                                            笔交易以上分批出款。
+                                            <br />
+                                            2. 此笔预约提款享有{" "}
+                                            <span style={{ color: "#00A6FF" }}>
+                                                {
+                                                    showSubMithdrawRes.result
+                                                        .RebatePercentage
+                                                }
+                                                %
+                                            </span>{" "}
+                                            红利，交易将于 {payoutTime}
+                                            内完成，并于所有交易完成后一次性派发红利。
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            1. 此笔预约提款享有{" "}
+                                            <span style={{ color: "#00A6FF" }}>
+                                                {
+                                                    showSubMithdrawRes.result
+                                                        .RebatePercentage
+                                                }
+                                                %
+                                            </span>{" "}
+                                            红利，交易将于 {payoutTime}
+                                            内完成，并于所有交易完成后一次性派发红利。
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div>
+                                    {showSubMithdrawRes.result.Amount >=
+                                    showSubMithdrawRes.result
+                                        .MinWithdrawalAmount ? (
+                                        <div>
+                                            1. 当提交金额大于{" "}
+                                            <span style={{ color: "#00A6FF" }}>
+                                                {
+                                                    showSubMithdrawRes.result
+                                                        .MinWithdrawalAmount
+                                                }
+                                            </span>{" "}
+                                            时，系统将会拆分成{" "}
+                                            <span style={{ color: "#00A6FF" }}>
+                                                {
+                                                    showSubMithdrawRes.result
+                                                        .MinSplitWithdrawalCount
+                                                }
+                                            </span>{" "}
+                                            笔交易以上分批出款。
+                                            <br />
+                                            2. 交易将于 {payoutTime}内完成。
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            1. 交易将于 {payoutTime}内完成。
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                             <ul className="t-resubmit-list2">
-                                <li style={{borderBottom: 'none'}}>
+                                <li style={{ borderBottom: "none" }}>
                                     <div>处理中金额</div>
                                     <div>实际到账</div>
                                 </li>
-                                <li style={{fontWeight: 'bold', fontSize: '16px'}}>
-                                    <div style={{color: '#222222'}}>￥{showSubMithdrawRes.result.ProcessingSplitWithdrawalAmount}</div>
-                                    <div style={{color: '#222222'}}>￥{showSubMithdrawRes.result.ApprovedSplitWithdrawalAmount}</div>
+                                <li
+                                    style={{
+                                        fontWeight: "bold",
+                                        fontSize: "16px",
+                                    }}
+                                >
+                                    <div style={{ color: "#222222" }}>
+                                        ￥
+                                        {
+                                            showSubMithdrawRes.result
+                                                .ProcessingSplitWithdrawalAmount
+                                        }
+                                    </div>
+                                    <div style={{ color: "#222222" }}>
+                                        ￥
+                                        {
+                                            showSubMithdrawRes.result
+                                                .ApprovedSplitWithdrawalAmount
+                                        }
+                                    </div>
                                     {/* <div>{res.result.bankName}</div> */}
                                 </li>
-                                {showSubMithdrawRes.result.SubWithdrawalList && showSubMithdrawRes.result.SubWithdrawalList.map((list, index) => {
-                                    return (
-                                        <li key={index} style={{display: index > 4 ? this.state.showlist ? '' : 'none' : ''}}>
-                                            <div>
-                                                ￥{list.SplitWithdrawalAmount}
-                                            </div>
-                                            <div>
-                                                {list.RebateAmount ? 
-                                                    <div className="greyWord">
-                                                        <span>获得额外红利 {list.RebateAmount} 元 </span> 
-                                                    </div>
-                                                : list.IsAllowUIComplete ?
-                                                    <div className="greyWord">
-                                                        <span>请点击 【确认到账】</span>
-                                                    </div>
-                                                : null
-                                                }
-                                                {list.IsAllowUIComplete ? 
+                                {showSubMithdrawRes.result.SubWithdrawalList &&
+                                    showSubMithdrawRes.result.SubWithdrawalList.map(
+                                        (list, index) => {
+                                            return (
+                                                <li
+                                                    key={index}
+                                                    style={{
+                                                        display:
+                                                            index > 4
+                                                                ? this.state
+                                                                      .showlist
+                                                                    ? ""
+                                                                    : "none"
+                                                                : "",
+                                                    }}
+                                                >
                                                     <div>
-                                                        <Button
-                                                            type="primary"
-                                                            ghost={false}
-                                                            className="record-btn"
-                                                            size="small"
-                                                            onClick={()=> {this.confirmSubWithdrawal(list.SubWithdrawalID, list.SplitWithdrawalAmount, showSubMithdrawRes.result.WithdrawalID)}}>
-                                                            确认到账
-                                                        </Button>
+                                                        ￥
+                                                        {
+                                                            list.SplitWithdrawalAmount
+                                                        }
                                                     </div>
-                                                : 
-                                                    <div style={{fontSize: '13px', width: '4rem', textAlign: 'center'}}>
-                                                        {list.StatusId == 1 || list.StatusId == 2 || list.StatusId == 5 || list.StatusId == 6 || list.StatusId == 7 ? 
-                                                            <span style={{color: '#F0A800'}}>处理中</span>
-                                                        : list.StatusId == 3 ?
-                                                            <span style={{color: '#F12F2F'}}>提款失败</span>
-                                                        : 
-                                                            <span style={{color: '#23CC3C'}}>提款成功</span>} 
+                                                    <div>
+                                                        {list.RebateAmount ? (
+                                                            <div className="greyWord">
+                                                                <span>
+                                                                    获得额外红利{" "}
+                                                                    {
+                                                                        list.RebateAmount
+                                                                    }{" "}
+                                                                    元{" "}
+                                                                </span>
+                                                            </div>
+                                                        ) : list.IsAllowUIComplete ? (
+                                                            <div className="greyWord">
+                                                                <span>
+                                                                    请点击
+                                                                    【确认到账】
+                                                                </span>
+                                                            </div>
+                                                        ) : null}
+                                                        {list.IsAllowUIComplete ? (
+                                                            <div>
+                                                                <Button
+                                                                    type="primary"
+                                                                    ghost={
+                                                                        false
+                                                                    }
+                                                                    className="record-btn"
+                                                                    size="small"
+                                                                    onClick={() => {
+                                                                        this.confirmSubWithdrawal(
+                                                                            list.SubWithdrawalID,
+                                                                            list.SplitWithdrawalAmount,
+                                                                            showSubMithdrawRes
+                                                                                .result
+                                                                                .WithdrawalID,
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    确认到账
+                                                                </Button>
+                                                            </div>
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    fontSize:
+                                                                        "13px",
+                                                                    width: "4rem",
+                                                                    textAlign:
+                                                                        "center",
+                                                                }}
+                                                            >
+                                                                {list.StatusId ==
+                                                                    1 ||
+                                                                list.StatusId ==
+                                                                    2 ||
+                                                                list.StatusId ==
+                                                                    5 ||
+                                                                list.StatusId ==
+                                                                    6 ||
+                                                                list.StatusId ==
+                                                                    7 ? (
+                                                                    <span
+                                                                        style={{
+                                                                            color: "#F0A800",
+                                                                        }}
+                                                                    >
+                                                                        处理中
+                                                                    </span>
+                                                                ) : list.StatusId ==
+                                                                  3 ? (
+                                                                    <span
+                                                                        style={{
+                                                                            color: "#F12F2F",
+                                                                        }}
+                                                                    >
+                                                                        提款失败
+                                                                    </span>
+                                                                ) : (
+                                                                    <span
+                                                                        style={{
+                                                                            color: "#23CC3C",
+                                                                        }}
+                                                                    >
+                                                                        提款成功
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                }
-                                            </div>
-                                        </li>
-                                    )
-                                })}
-                                {showSubMithdrawRes.result.SubWithdrawalList.length > 5 ? 
+                                                </li>
+                                            );
+                                        },
+                                    )}
+                                {showSubMithdrawRes.result.SubWithdrawalList
+                                    .length > 5 ? (
                                     <Button
-                                        style={{width: '100%', margin: '0.5rem 0'}}
+                                        style={{
+                                            width: "100%",
+                                            margin: "0.5rem 0",
+                                        }}
                                         type="primary"
                                         ghost={true}
                                         className="record-btn"
                                         size="default"
-                                        onClick={()=> {this.setState({showlist: !this.state.showlist})}}>
-                                        {this.state.showlist ? <span>隐藏部分 <img src="/vn/img/icon/blueDown.svg" /></span> : <span>显示全部 <img src="/vn/img/icon/blueUp.svg" /></span>}
+                                        onClick={() => {
+                                            this.setState({
+                                                showlist: !this.state.showlist,
+                                            });
+                                        }}
+                                    >
+                                        {this.state.showlist ? (
+                                            <span>
+                                                隐藏部分{" "}
+                                                <img src="/vn/img/icon/blueDown.svg" />
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                显示全部{" "}
+                                                <img src="/vn/img/icon/blueUp.svg" />
+                                            </span>
+                                        )}
                                     </Button>
-                                : null}
+                                ) : null}
                             </ul>
                         </ul>
-                    }
+                    )}
                 </Modal>
                 <Pagination
                     className="gray-pagination"

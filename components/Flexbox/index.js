@@ -36,7 +36,7 @@ const Flexbox = styled(
         paddingTop,
         width,
         ...props
-    }) => React.createElement(element, props, children)
+    }) => React.createElement(element, props, children),
 )`
     ${(props) =>
         props.alignContent ? `align-content: ${props.alignContent};` : ""}

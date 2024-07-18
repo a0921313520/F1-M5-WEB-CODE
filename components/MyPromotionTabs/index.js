@@ -36,8 +36,12 @@ class MyPromotionTabs extends React.Component {
                     value={this.state.promotionsType}
                     onChange={this.filterPromotionsType}
                 >
-                    <Radio.Button value="1">{translate("已申请优惠")}</Radio.Button>
-                    <Radio.Button value="2">{translate("免费投注")}</Radio.Button>
+                    <Radio.Button value="1">
+                        {translate("已申请优惠")}
+                    </Radio.Button>
+                    <Radio.Button value="2">
+                        {translate("免费投注")}
+                    </Radio.Button>
                 </Radio.Group>
 
                 {this.state.promotionsType === "1" ? (

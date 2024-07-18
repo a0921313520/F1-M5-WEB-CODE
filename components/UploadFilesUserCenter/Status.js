@@ -18,7 +18,9 @@ export default class UploadStatus extends Component {
             <div>
                 <div className="Title">
                     <div className="name">
-                        <img src={`${process.env.BASE_PATH}/img/icons/${DocData.icon}`} />{" "}
+                        <img
+                            src={`${process.env.BASE_PATH}/img/icons/${DocData.icon}`}
+                        />{" "}
                         {DocData.name}
                     </div>
                 </div>
@@ -29,9 +31,13 @@ export default class UploadStatus extends Component {
                             alignItems="center"
                             width="100%"
                         >
-                            <img src={`${process.env.BASE_PATH}/img/icons/review.svg`} />
+                            <img
+                                src={`${process.env.BASE_PATH}/img/icons/review.svg`}
+                            />
                             <h2>{translate("审核中")}</h2>
-                            <p className="note">{translate("您的文件正在审核中")}</p>
+                            <p className="note">
+                                {translate("您的文件正在审核中")}
+                            </p>
                         </Flexbox>
                     )}
 
@@ -41,9 +47,13 @@ export default class UploadStatus extends Component {
                             alignItems="center"
                             width="100%"
                         >
-                            <img src={`${process.env.BASE_PATH}/img/icons/verified.svg`} />
+                            <img
+                                src={`${process.env.BASE_PATH}/img/icons/verified.svg`}
+                            />
                             <h2>{translate("认证成功")}</h2>
-                            <p className="note">{translate("您的文档已成功验证")}</p>
+                            <p className="note">
+                                {translate("您的文档已成功验证")}
+                            </p>
                         </Flexbox>
                     )}
 
@@ -53,15 +63,21 @@ export default class UploadStatus extends Component {
                             alignItems="center"
                             width="100%"
                         >
-                            <img src={`${process.env.BASE_PATH}/img/icons/rejected.svg`} />
+                            <img
+                                src={`${process.env.BASE_PATH}/img/icons/rejected.svg`}
+                            />
                             <h2>{translate("验证失败")}</h2>
                             {RemainingUploadTries != 0 ? (
                                 <React.Fragment>
-                                    <p className="note">{translate("您的文档验证失败")}</p>
+                                    <p className="note">
+                                        {translate("您的文档验证失败")}
+                                    </p>
                                     <small style={{ marginTop: "10px" }}>
-                                        {translate("还有")}
-                                        (<span className="blue">{RemainingUploadTries}</span>)
-                                        {translate("尝试次数")}
+                                        {translate("还有")}(
+                                        <span className="blue">
+                                            {RemainingUploadTries}
+                                        </span>
+                                        ){translate("尝试次数")}
                                     </small>
                                     <Button
                                         onClick={() => {
@@ -76,11 +92,13 @@ export default class UploadStatus extends Component {
                             ) : (
                                 <React.Fragment>
                                     <p className="note">
-                                        {translate("您的身份验证尝试次数已超过 3 次。 请联系在线聊天")}
+                                        {translate(
+                                            "您的身份验证尝试次数已超过 3 次。 请联系在线聊天",
+                                        )}
                                     </p>
                                     <small style={{ marginTop: "10px" }}>
-                                        {translate("还有")}
-                                        (<span className="blue">0</span>)
+                                        {translate("还有")}(
+                                        <span className="blue">0</span>)
                                         {translate("尝试次数")}
                                     </small>
                                     <Button

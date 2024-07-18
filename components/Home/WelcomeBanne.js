@@ -11,11 +11,11 @@ export default function WelcomeBanne() {
     // const registerEvent = typeof window !=="undefined" && !!sessionStorage.getItem("isRegisterEvent") && sessionStorage.getItem("isRegisterEvent");
     useEffect(() => {
         !localStorage.getItem(`WelcomeBanne`) &&
-        // localStorage.getItem("access_token") &&  
-        // registerEvent &&
-        setCheck(true);
+            // localStorage.getItem("access_token") &&
+            // registerEvent &&
+            setCheck(true);
         // setUserName(name);
-    }, [])
+    }, []);
 
     return (
         <Modal
@@ -25,10 +25,10 @@ export default function WelcomeBanne() {
             zIndex={2001}
             visible={visible}
             onOk={() => {
-                setCheck(false)
+                setCheck(false);
             }}
             onCancel={() => {
-                setCheck(false)
+                setCheck(false);
             }}
             width={600}
             footer={null}
@@ -36,8 +36,9 @@ export default function WelcomeBanne() {
             maskClosable={false}
         >
             <ImageWithFallback
-                src={`/vn/img/home/WelcomeBanner${isWebPSupported() ? ".webp" : "jpg"
-                    }`}
+                src={`/vn/img/home/WelcomeBanner${
+                    isWebPSupported() ? ".webp" : "jpg"
+                }`}
                 width={600}
                 height={400}
                 alt={"乐天堂FUN88全新升级"}
@@ -54,7 +55,7 @@ export default function WelcomeBanne() {
                         marginTop: "30px",
                     }}
                     onClick={() => {
-                        setCheck(false)
+                        setCheck(false);
                         localStorage.setItem(`WelcomeBanne`, true);
                     }}
                 >
@@ -62,5 +63,5 @@ export default function WelcomeBanne() {
                 </Button>
             </center>
         </Modal>
-    )
+    );
 }

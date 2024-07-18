@@ -97,7 +97,7 @@ export default class USDTintroduce extends React.Component {
         get(
             CMSAPIUrl +
                 "/vi-vn/api/v1/web/webbanners/position/USDT_intro?login=after" +
-                isSupportWebp
+                isSupportWebp,
         ).then((res) => {
             if (Array.isArray(res)) {
                 this.setState({
@@ -325,7 +325,7 @@ export default class USDTintroduce extends React.Component {
                                 key={i}
                                 onClick={this.sectionScrollHandler.bind(
                                     this,
-                                    i
+                                    i,
                                 )}
                                 className={`navi-dot ${
                                     sections[this.state.currentSection].href ===
@@ -618,14 +618,14 @@ export default class USDTintroduce extends React.Component {
                                             onClick={() => {
                                                 if (
                                                     faqSelectedList.includes(
-                                                        v.id
+                                                        v.id,
                                                     )
                                                 ) {
                                                     this.setState({
                                                         faqSelectedList:
                                                             faqSelectedList.filter(
                                                                 (id) =>
-                                                                    id !== v.id
+                                                                    id !== v.id,
                                                             ),
                                                     });
                                                 } else {
@@ -648,7 +648,7 @@ export default class USDTintroduce extends React.Component {
                                                 <h3>
                                                     {v.title}
                                                     {faqSelectedList.includes(
-                                                        v.id
+                                                        v.id,
                                                     ) ? (
                                                         <DownOutlined />
                                                     ) : (
@@ -656,7 +656,7 @@ export default class USDTintroduce extends React.Component {
                                                     )}
                                                 </h3>
                                                 {faqSelectedList.includes(
-                                                    v.id
+                                                    v.id,
                                                 ) && (
                                                     <div
                                                         className="faqInfo"
@@ -719,7 +719,7 @@ export default class USDTintroduce extends React.Component {
                                                 用户名不得为空。
                                             </p>
                                         ) : !nameReg.test(
-                                              this.state.username
+                                              this.state.username,
                                           ) ? (
                                             <p className="errorTip">
                                                 5 -
@@ -760,11 +760,11 @@ export default class USDTintroduce extends React.Component {
                                             type="primary"
                                             disabled={
                                                 !nameReg.test(
-                                                    this.state.username
+                                                    this.state.username,
                                                 ) ||
                                                 !this.state.feedback ||
                                                 trimReg.test(
-                                                    this.state.feedback
+                                                    this.state.feedback,
                                                 ) ||
                                                 this.state.feedback.trim()
                                                     .length > 200

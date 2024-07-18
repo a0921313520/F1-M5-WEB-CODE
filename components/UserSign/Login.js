@@ -2,17 +2,22 @@ import React from "react";
 import { get, post } from "$ACTIONS/TlcRequest";
 import { Button, Input, message, Spin, Row, Col, Modal, Form } from "antd";
 import { ApiPort } from "$ACTIONS/TLCAPI";
-import { regforLogin, regforLoginReg,pwdReg,nameReg} from "$ACTIONS/reg";
+import { regforLogin, regforLoginReg, pwdReg, nameReg } from "$ACTIONS/reg";
 import Router from "next/router";
 import CryptoJS from "crypto-js";
-import { getQueryVariable, Cookie, getDisplayPublicError,getE2BBValue } from "$ACTIONS/helper";
+import {
+    getQueryVariable,
+    Cookie,
+    getDisplayPublicError,
+    getE2BBValue,
+} from "$ACTIONS/helper";
 import { Cookie as CookieUtil } from "$ACTIONS/util";
 import Captcha from "../Captcha";
 import { getMemberInfo } from "$DATA/userinfo";
 import { SuccessIcon } from "./RegisterIcnoSvg";
 import { toast } from "react-toastify";
 import ForgotPwd from "@/ForgotPwd/";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 const CustomToast = ({ message }) => (
     <div className="custom-toast">
@@ -75,7 +80,7 @@ class _Login extends React.Component {
             this.RefreshTokenApi(
                 tokenObject.refreshToken,
                 "Bearer " + tokenObject.token,
-                tokenObject.isRegistration
+                tokenObject.isRegistration,
             );
         }
 
@@ -126,7 +131,7 @@ class _Login extends React.Component {
                 () =>
                     setTimeout(() => {
                         this.Login();
-                    }, 3000)
+                    }, 3000),
             );
         }
 
@@ -170,14 +175,19 @@ class _Login extends React.Component {
         post(ApiPort.RefreshTokenapi, data, memberToken)
             .then((res) => {
                 if (res?.isSuccess && res.result) {
-                    if (res.result.accessToken?.accessToken && res.result.accessToken?.refreshToken) {
+                    if (
+                        res.result.accessToken?.accessToken &&
+                        res.result.accessToken?.refreshToken
+                    ) {
                         localStorage.setItem(
                             "access_token",
-                            JSON.stringify("bearer " + res.result.accessToken.accessToken)
+                            JSON.stringify(
+                                "bearer " + res.result.accessToken.accessToken,
+                            ),
                         );
                         localStorage.setItem(
                             "refresh_token",
-                            JSON.stringify(res.result.accessToken.refreshToken)
+                            JSON.stringify(res.result.accessToken.refreshToken),
                         );
                         get(ApiPort.GETMemberlistAPI)
                             .then((memeberInfoResponse) => {
@@ -197,7 +207,7 @@ class _Login extends React.Component {
                                             .toLocaleLowerCase() +
                                             property.substr(
                                                 1,
-                                                property.length - 1
+                                                property.length - 1,
                                             )
                                     ] =
                                         memeberInfoResponseResultMemberInfo[
@@ -207,7 +217,7 @@ class _Login extends React.Component {
                                 this.successLogin(
                                     res,
                                     tokenMemberInfo,
-                                    isOldAccount ? "refresh" : undefined
+                                    isOldAccount ? "refresh" : undefined,
                                 );
                             })
                             .catch((error) => {
@@ -231,7 +241,7 @@ class _Login extends React.Component {
 
     Login(name, pwd, Register) {
         const { UserName, Password, loginAt } = this.state;
-        if(UserName.trim().length === 0 && Password.trim().length === 0){
+        if (UserName.trim().length === 0 && Password.trim().length === 0) {
             if (loginAt === "homepage") {
                 message.error(translate("请填写您的登录信息"), 3);
                 return;
@@ -270,36 +280,37 @@ class _Login extends React.Component {
                 this.setState({ captchaVisible: true });
                 return;
             }
-        }
-        else if(loggedInTimes >= limitTries){
+        } else if (loggedInTimes >= limitTries) {
             Modal.info({
                 icon: "",
                 okText: translate("在线客服"),
                 className: "confirm-modal-of-forgetuser",
                 title: translate("登录次数超出"),
                 content: (
-                    <div style={{ textAlign: "center",padding:"0 20px" }}>
-                        <img src={`${process.env.BASE_PATH}/img/icons/icon-warn.svg`} />
+                    <div style={{ textAlign: "center", padding: "0 20px" }}>
+                        <img
+                            src={`${process.env.BASE_PATH}/img/icons/icon-warn.svg`}
+                        />
                         <div className="line-distance"></div>
                         {translate("您已登录失败 5 次，请联系在线聊天寻求支持")}
                     </div>
                 ),
-                centered:true,
-                zIndex:2001,
+                centered: true,
+                zIndex: 2001,
                 onOk: () => {
                     global.PopUpLiveChat();
                     Cookie.Delete("FaileCoun" + UserName);
                 },
-                onCancel: ()=>{
+                onCancel: () => {
                     Cookie.Delete("FaileCoun" + UserName);
-                }
-            })
+                },
+            });
             return;
         }
         this.continueToLogin(name, pwd, Register);
         if (this.Captcha) {
-			this.Captcha.getCaptchaInfo(UserName);
-		}
+            this.Captcha.getCaptchaInfo(UserName);
+        }
     }
     continueToLogin = (name, pwd, Register) => {
         this.setState({
@@ -330,7 +341,7 @@ class _Login extends React.Component {
                           validate: "",
                       }
                     : "",
-            ipAddress:""
+            ipAddress: "",
         };
         let responseData = {};
         post(ApiPort.PostLogin, Postdata)
@@ -338,11 +349,13 @@ class _Login extends React.Component {
                 if (res?.isSuccess && res.result) {
                     this.successLogin(
                         res.result,
-                        Register == "Register" ? name : UserName
+                        Register == "Register" ? name : UserName,
                     );
                 } else {
-                    let errorMsg = getDisplayPublicError(res) || translate("用户名或密码无效");
-                    this.props.home  ? message.error(errorMsg) : "";
+                    let errorMsg =
+                        getDisplayPublicError(res) ||
+                        translate("用户名或密码无效");
+                    this.props.home ? message.error(errorMsg) : "";
                     this.setState({
                         loadinglogin: false,
                         errorMessage: errorMsg,
@@ -350,48 +363,69 @@ class _Login extends React.Component {
                     });
                 }
                 responseData = res;
-            }).catch((error) => {
-                let errorMsg = getDisplayPublicError(error) || translate("用户名或密码无效")
-                this.props.home  ? message.error(errorMsg) : "";
+            })
+            .catch((error) => {
+                let errorMsg =
+                    getDisplayPublicError(error) ||
+                    translate("用户名或密码无效");
+                this.props.home ? message.error(errorMsg) : "";
                 this.setState({
                     loadinglogin: false,
                     challengeUuid: "",
-                    errorMessage: errorMsg
+                    errorMessage: errorMsg,
                 });
                 responseData = error;
-            }).finally(() => {
+            })
+            .finally(() => {
                 if (this.isCaptchaOn && !responseData?.isSuccess) {
                     this.logInputFaile();
                 }
-                const messages = responseData?.isSuccess ? "" : getDisplayPublicError(responseData);
-                if(this.props.home){
+                const messages = responseData?.isSuccess
+                    ? ""
+                    : getDisplayPublicError(responseData);
+                if (this.props.home) {
                     Pushgtagdata(
                         "Home",
                         "Submit Login",
                         "Home_S_Login",
                         responseData?.isSuccess ? 2 : 1,
                         [
-                            {customVariableKey: responseData?.isSuccess ? false : "Login_S_Login_ErroMsg",
-                            customVariableValue: responseData?.isSuccess ? false : messages || translate("用户名或密码无效")}
-                        ]
+                            {
+                                customVariableKey: responseData?.isSuccess
+                                    ? false
+                                    : "Login_S_Login_ErroMsg",
+                                customVariableValue: responseData?.isSuccess
+                                    ? false
+                                    : messages || translate("用户名或密码无效"),
+                            },
+                        ],
                     );
-                } else{
+                } else {
                     Pushgtagdata(
-                        "Login", 
-                        "Password Login", 
+                        "Login",
+                        "Password Login",
                         "Login_S_Login",
                         responseData?.isSuccess ? 2 : 1,
                         [
-                            {customVariableKey: responseData?.isSuccess ? false : "Login_S_Login_ErroMsg",
-                            customVariableValue: responseData?.isSuccess ? false : messages || translate("用户名或密码无效")}
-                        ]
+                            {
+                                customVariableKey: responseData?.isSuccess
+                                    ? false
+                                    : "Login_S_Login_ErroMsg",
+                                customVariableValue: responseData?.isSuccess
+                                    ? false
+                                    : messages || translate("用户名或密码无效"),
+                            },
+                        ],
                     );
                 }
-            })
-    }
+            });
+    };
 
     successLogin(result, userName, isRedirect) {
-        if (result.accessToken?.accessToken  && result.accessToken.refreshToken) {
+        if (
+            result.accessToken?.accessToken &&
+            result.accessToken.refreshToken
+        ) {
             this.setState({
                 isLogin: true,
                 UserName: userName,
@@ -401,11 +435,11 @@ class _Login extends React.Component {
             localStorage.setItem("UserName", userName);
             localStorage.setItem(
                 "access_token",
-                JSON.stringify("bearer " + result.accessToken.accessToken)
+                JSON.stringify("bearer " + result.accessToken.accessToken),
             );
             localStorage.setItem(
                 "refresh_token",
-                JSON.stringify(result.accessToken.refreshToken)
+                JSON.stringify(result.accessToken.refreshToken),
             );
             //获取会员资料
             getMemberInfo((res) => {
@@ -414,7 +448,9 @@ class _Login extends React.Component {
                     console.log("hi~");
                 } else {
                     toast.info(
-                        <CustomToast message={translate("欢迎光临") +":"+ userName} />,
+                        <CustomToast
+                            message={translate("欢迎光临") + ":" + userName}
+                        />,
                         {
                             position: toast.POSITION.TOP_CENTER,
                             toastClassName: "login-success",
@@ -426,7 +462,7 @@ class _Login extends React.Component {
                             draggable: false,
                             closeButton: false,
                             odyClassName: "login-success",
-                        }
+                        },
                     );
                 }
                 if (isRedirect) {
@@ -452,18 +488,23 @@ class _Login extends React.Component {
             }
             if (this.state.isRegister || this.isFirstLogin) {
                 Router.push("/");
-                toast.info(<CustomToast message={translate("欢迎光临") +":"+ userName} />, {
-                    position: toast.POSITION.TOP_CENTER,
-                    toastClassName: "register-success",
-                    toastId: "register-success",
-                    autoClose: 1000,
-                    hideProgressBar: true,
-                    closeOnClick: false,
-                    pauseOnHover: false,
-                    draggable: false,
-                    closeButton: false,
-                    odyClassName: "register-success",
-                });
+                toast.info(
+                    <CustomToast
+                        message={translate("欢迎光临") + ":" + userName}
+                    />,
+                    {
+                        position: toast.POSITION.TOP_CENTER,
+                        toastClassName: "register-success",
+                        toastId: "register-success",
+                        autoClose: 1000,
+                        hideProgressBar: true,
+                        closeOnClick: false,
+                        pauseOnHover: false,
+                        draggable: false,
+                        closeButton: false,
+                        odyClassName: "register-success",
+                    },
+                );
                 sessionStorage.setItem("isRegisterEvent", true);
                 return;
             }
@@ -487,18 +528,24 @@ class _Login extends React.Component {
         let tempValue = e.target.value;
         tempValue = tempValue.replace(/[<>.\s\/\\="']/, "");
         if (t == "USER") {
-            this.setState({
-                UserName: tempValue,
-                userNameInputLengthIsValid: tempValue.length != 0,
-                // tempValue.length >= 6 && tempValue.length <= 14,
-            },()=>this.OnBlur());
+            this.setState(
+                {
+                    UserName: tempValue,
+                    userNameInputLengthIsValid: tempValue.length != 0,
+                    // tempValue.length >= 6 && tempValue.length <= 14,
+                },
+                () => this.OnBlur(),
+            );
             localStorage.setItem("userName", tempValue);
         } else if (t == "PWD") {
-            this.setState({
-                Password: tempValue,
-                passwordInputLengthIsValid: tempValue.length != 0,
-                // tempValue.length >= 6 && tempValue.length <= 20,
-            },()=>this.OnBlur());
+            this.setState(
+                {
+                    Password: tempValue,
+                    passwordInputLengthIsValid: tempValue.length != 0,
+                    // tempValue.length >= 6 && tempValue.length <= 20,
+                },
+                () => this.OnBlur(),
+            );
             localStorage.setItem("userNum", tempValue);
         } else {
             this.setState({
@@ -510,13 +557,15 @@ class _Login extends React.Component {
     OnBlur = () => {
         const { UserName, Password } = this.state;
         if (UserName.trim().length === 0 && Password.trim().length === 0) {
-            this.setState({ errorMessage: translate("请填写您的用户名和密码") });
+            this.setState({
+                errorMessage: translate("请填写您的用户名和密码"),
+            });
             return;
         }
         if (UserName.trim().length === 0) {
             this.setState({ errorMessage: translate("请输入用户名") });
             return;
-        }  
+        }
         if (Password.trim().length === 0) {
             this.setState({ errorMessage: translate("请输入密码") });
             return;
@@ -548,7 +597,7 @@ class _Login extends React.Component {
 
     logInputFaile = () => {
         const { UserName } = this.state;
-		const FaileCounName = 'FaileCoun' + UserName;
+        const FaileCounName = "FaileCoun" + UserName;
         /* 输入错误次数 */
         var count = Cookie.Get(FaileCounName);
         if (count == null || count == "") {
@@ -572,7 +621,7 @@ class _Login extends React.Component {
             },
             () => {
                 this.Login();
-            }
+            },
         );
     };
     render() {
@@ -586,8 +635,8 @@ class _Login extends React.Component {
                     }}
                     onMatch={this.onMatch}
                     getCaptchaInfo={(props) => {
-						this.Captcha = props;
-					}}
+                        this.Captcha = props;
+                    }}
                     type="Login"
                 />
 
@@ -663,7 +712,7 @@ class _Login extends React.Component {
                                 Pushgtagdata(
                                     "Home",
                                     "Go to Register",
-                                    "Home_C_Register"
+                                    "Home_C_Register",
                                 );
                             }}
                         >
@@ -687,7 +736,9 @@ class _Login extends React.Component {
                                     size="large"
                                     placeholder={translate("用户名")}
                                     prefix={
-                                        <img src={`${process.env.BASE_PATH}/img/icons/user.svg`} />
+                                        <img
+                                            src={`${process.env.BASE_PATH}/img/icons/user.svg`}
+                                        />
                                     }
                                     onChange={(e) => {
                                         this.setState({ loginAt: "modal" });
@@ -707,7 +758,9 @@ class _Login extends React.Component {
                                     size="large"
                                     placeholder={translate("密码")}
                                     prefix={
-                                        <img src={`${process.env.BASE_PATH}/img/icons/password.svg`} />
+                                        <img
+                                            src={`${process.env.BASE_PATH}/img/icons/password.svg`}
+                                        />
                                     }
                                     onChange={(e) => {
                                         this.setState({ loginAt: "modal" });
@@ -726,7 +779,11 @@ class _Login extends React.Component {
                                     type="link"
                                     onClick={() => {
                                         this.props.openForgotPwd();
-                                        Pushgtagdata("Login","Go to Forget Password","Login_C_ForgetPassword");
+                                        Pushgtagdata(
+                                            "Login",
+                                            "Go to Forget Password",
+                                            "Login_C_ForgetPassword",
+                                        );
                                     }}
                                 >
                                     {translate("忘记用户名或密码？")}

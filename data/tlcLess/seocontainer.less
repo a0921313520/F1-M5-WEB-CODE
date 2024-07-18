@@ -1,29 +1,35 @@
 //seo footer 的less
-.footer-seo-wrap{
+.footer-seo-wrap {
     background-color: @theme;
     color: @white;
     overflow: hidden;
-    .common-distance{
+    .common-distance {
         padding: 0;
     }
-    h1,h2,h3{
+    h1,
+    h2,
+    h3 {
         color: @white;
         padding-top: 0.5em;
     }
-    h1{
+    h1 {
         text-align: center;
     }
-    .seo-container{
+    .seo-container {
         padding: 50px 0;
         position: relative;
-        .button-more{
+        .button-more {
             width: 100%;
             position: absolute;
             left: 0;
             top: 145px;
-            background: linear-gradient(0deg,rgba(0,166,255,.878) 37.3%,rgba(0,166,255,0) 100%);
+            background: linear-gradient(
+                0deg,
+                rgba(0, 166, 255, 0.878) 37.3%,
+                rgba(0, 166, 255, 0) 100%
+            );
             height: 145px;
-            .show-more-arrow{
+            .show-more-arrow {
                 position: absolute;
                 width: 94px;
                 left: calc(50% - 47px);
@@ -35,19 +41,19 @@
                 line-height: 36px;
                 cursor: pointer;
                 transition-duration: 2s;
-                &:hover{
+                &:hover {
                     transform: scale(1.1);
-                    transition-duration: 1.5s
+                    transition-duration: 1.5s;
                 }
             }
         }
-        .button-up{
+        .button-up {
             position: absolute;
             left: calc(50% - 18px);
             bottom: 15px;
             cursor: pointer;
             font-size: 18px;
-            .anticon-up{
+            .anticon-up {
                 width: 36px;
                 height: 36px;
                 background-color: rgba(0, 0, 0, 0.2);
@@ -55,7 +61,7 @@
                 text-align: center;
                 line-height: 36px;
                 transition-duration: 2s;
-                &:hover{
+                &:hover {
                     transform: scale(1.2);
                     transition-duration: 1.5s;
                 }
@@ -63,9 +69,9 @@
         }
         ol {
             padding-left: 25px;
-            li{
-                list-style: disc
-            };
+            li {
+                list-style: disc;
+            }
         }
     }
 }

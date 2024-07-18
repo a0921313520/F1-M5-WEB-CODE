@@ -42,7 +42,7 @@
             : function (w) {
                   if (!w.document) {
                       throw new Error(
-                          "Geetest requires a window with a document"
+                          "Geetest requires a window with a document",
                       );
                   }
                   return factory(w);
@@ -251,7 +251,7 @@
                 if (err) {
                     callback(config._get_fallback_config());
                 }
-            }
+            },
         );
     };
     var throwError = function (errorType, config) {
@@ -316,7 +316,7 @@
                                 }
                                 callbacks[type] = [];
                             }
-                        }
+                        },
                     );
                 } else if (s === "loaded") {
                     init();
@@ -325,7 +325,7 @@
                 } else if (s === "loading") {
                     callbacks[type].push(init);
                 }
-            }
+            },
         );
     };
     window.initGeetest = initGeetest;
@@ -371,7 +371,7 @@ var FunpodiumGeetest = function () {
                     type: "web", // or "type":"h5"
                     userId: uniqueUId,
                 },
-                postData
+                postData,
             );
 
             firstCallBack = block.getAttribute("data-first-callback");
@@ -411,7 +411,7 @@ var FunpodiumGeetest = function () {
             var charactersLength = characters.length;
             for (var i = 0; i < length; i++) {
                 result += characters.charAt(
-                    Math.floor(Math.random() * charactersLength)
+                    Math.floor(Math.random() * charactersLength),
                 );
             }
             return result;
@@ -426,7 +426,7 @@ var FunpodiumGeetest = function () {
                 xdr.open("post", apiUrl + "/extendRegisterTime");
                 xdr.onload = function () {
                     console.log(
-                        "Extending the session for: " + extendTime + "secs"
+                        "Extending the session for: " + extendTime + "secs",
                     );
                 };
                 xdr.send(urlParams(extendData));
@@ -438,7 +438,7 @@ var FunpodiumGeetest = function () {
                     data: JSON.stringify(extendData),
                     success: function (data) {
                         console.log(
-                            "Extending the session for: " + extendTime + "secs"
+                            "Extending the session for: " + extendTime + "secs",
                         );
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
@@ -509,7 +509,7 @@ var FunpodiumGeetest = function () {
             if (parseInt(extendTime) < 180) extendTime = 180;
             timeInterval = setInterval(
                 extendTimeRequest,
-                (extendTime - 30) * 1000
+                (extendTime - 30) * 1000,
             );
         };
 
@@ -556,7 +556,7 @@ var FunpodiumGeetest = function () {
                             new_captcha: data.new_captcha,
                             offline: !data.success,
                         }),
-                        handlerEmbed
+                        handlerEmbed,
                     );
                 };
                 xdr.send();
@@ -588,12 +588,12 @@ var FunpodiumGeetest = function () {
                                 new_captcha: data.new_captcha,
                                 offline: !data.success,
                             }),
-                            handlerEmbed
+                            handlerEmbed,
                         );
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $(block).html(
-                            "<div class='form-group col-md-4'><input class='validation-error' value='captcha not found!' readonly></div>"
+                            "<div class='form-group col-md-4'><input class='validation-error' value='captcha not found!' readonly></div>",
                         );
                         firstCallBack({
                             code: xhr.status,
@@ -630,7 +630,7 @@ var FunpodiumGeetest = function () {
                     console.error(
                         "Cannot resolve prefix " +
                             id[0] +
-                            " , only support '.' for class and '#' for id"
+                            " , only support '.' for class and '#' for id",
                     );
                     break;
             }
@@ -643,7 +643,7 @@ var FunpodiumGeetest = function () {
             if (!gtBlocks[index]) {
                 console.error(
                     "Can not find geeTest object (element with data-gt) with ID: " +
-                        index
+                        index,
                 );
                 return false;
             }
@@ -681,7 +681,7 @@ var FunpodiumGeetest = function () {
             }
             if (typeof gtObj != "object" || !gtObj.apiUrl) {
                 console.error(
-                    "Initiation parameters neet to be an object that requires to contain apiUrl"
+                    "Initiation parameters neet to be an object that requires to contain apiUrl",
                 );
                 return false;
             }

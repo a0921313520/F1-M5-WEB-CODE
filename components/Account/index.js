@@ -1,6 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 const DynamicUserInfo = dynamic(import("./UserInfo"), {
     loading: () => "",
@@ -22,15 +22,14 @@ const DynamicOther = dynamic(import("./Other"), {
 class Account extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
+        this.state = {};
     }
     componentDidMount() {
         // this.props.setLoading(false);
         global.Pushgtagpiwikurl && global.Pushgtagpiwikurl("profile");
     }
-    componentWillUnmount(){
-        this.setState = ()=> false;
+    componentWillUnmount() {
+        this.setState = () => false;
     }
     render() {
         const childrenProps = {

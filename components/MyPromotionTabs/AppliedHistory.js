@@ -38,7 +38,7 @@ class MyPromotion extends React.Component {
             selectedValidPopoverIndex: null, // 選擇Popover之valid Promotion index
             selectedInvalidPopoverIndex: null, // 選擇Popover之ivvalid Promotion index
             appliedHistoryList: JSON.parse(
-                localStorage.getItem("appliedHistoryList")
+                localStorage.getItem("appliedHistoryList"),
             ),
 
             // news
@@ -209,46 +209,41 @@ class MyPromotion extends React.Component {
         //         Pushgtagdata("Cancel_cancelapply_myreward");
         //     },
         //     onOk: () => {
-                // this.props.setLoading(true);
-                this.setState({ isRefreshingHistory: true });
-                post(
-                    ApiPort.CancelBonusPromotion,
-                    data
-                )
-                    .then((res) => {
-                        if (res.isSuccess) {
-                            if (res.result.isSuccess) {
-                                message.success("取消优惠成功！");
-                                this.setState({
-                                    ShowCancellPopup: false,
-                                    remark: null,
-                                    remarkKey: null,
-                                });
-                                this.getDepositlist();
-                                this.props.setAppliedPromotions(() => {
-                                    this.setState({
-                                        isRefreshingHistory: false,
-                                    });
-                                });
-                            } else {
-                                this.setState({
-                                    ShowCancellPopup: false,
-                                    isRefreshingHistory: false,
-                                });
-                                message.error(res.result.message);
-                            }
-                        } else {
-                            this.setState({ isRefreshingHistory: false });
-                            message.error(
-                                res.result.message || "撤销申请失败！"
-                            );
-                        }
-                    })
-                    .catch((error) => {
-                        this.setState({ isRefreshingHistory: false });
-                        console.log("POSTBonusClaim" + error);
-                    });
-                Pushgtagdata("Submit_cancelapply_myreward");
+        // this.props.setLoading(true);
+        this.setState({ isRefreshingHistory: true });
+        post(ApiPort.CancelBonusPromotion, data)
+            .then((res) => {
+                if (res.isSuccess) {
+                    if (res.result.isSuccess) {
+                        message.success("取消优惠成功！");
+                        this.setState({
+                            ShowCancellPopup: false,
+                            remark: null,
+                            remarkKey: null,
+                        });
+                        this.getDepositlist();
+                        this.props.setAppliedPromotions(() => {
+                            this.setState({
+                                isRefreshingHistory: false,
+                            });
+                        });
+                    } else {
+                        this.setState({
+                            ShowCancellPopup: false,
+                            isRefreshingHistory: false,
+                        });
+                        message.error(res.result.message);
+                    }
+                } else {
+                    this.setState({ isRefreshingHistory: false });
+                    message.error(res.result.message || "撤销申请失败！");
+                }
+            })
+            .catch((error) => {
+                this.setState({ isRefreshingHistory: false });
+                console.log("POSTBonusClaim" + error);
+            });
+        Pushgtagdata("Submit_cancelapply_myreward");
         //     },
         // });
     }
@@ -412,7 +407,7 @@ class MyPromotion extends React.Component {
                                         >
                                             {this.props.ValidAppliedList.slice(
                                                 (pageValidIndex - 1) * 9,
-                                                pageValidIndex * 9
+                                                pageValidIndex * 9,
                                             ).map((item, index) => {
                                                 return (
                                                     <AppliedHistoryCard
@@ -465,9 +460,11 @@ class MyPromotion extends React.Component {
                                                                     null,
                                                             });
                                                         }}
-                                                        openPromotionDetail={()=>{
+                                                        openPromotionDetail={() => {
                                                             //这个是打开优惠详情的modal
-                                                            this.props.openPromotionDetail(item)
+                                                            this.props.openPromotionDetail(
+                                                                item,
+                                                            );
                                                         }}
                                                     />
                                                 );
@@ -480,7 +477,9 @@ class MyPromotion extends React.Component {
                                                     "/vn/img/icon/img-no-record.svg"
                                                 }
                                                 className="big-empty-box"
-                                                description={translate("您暂无任何优惠纪录，先去优惠页面申请吧!")}
+                                                description={translate(
+                                                    "您暂无任何优惠纪录，先去优惠页面申请吧!",
+                                                )}
                                             />
                                         </li>
                                     )}
@@ -507,7 +506,9 @@ class MyPromotion extends React.Component {
                                     <div className="invalid-list-box">
                                         {HideInvalid && (
                                             <p>
-                                                {translate("要显示已收到、已过期和无效的促销活动，")}
+                                                {translate(
+                                                    "要显示已收到、已过期和无效的促销活动，",
+                                                )}
                                                 <span
                                                     onClick={() => {
                                                         this.setState({
@@ -522,7 +523,9 @@ class MyPromotion extends React.Component {
                                         )}
                                         {!HideInvalid && (
                                             <p>
-                                                {translate("要隐藏已收到、已过期和无效的促销活动，")}
+                                                {translate(
+                                                    "要隐藏已收到、已过期和无效的促销活动，",
+                                                )}
                                                 <span
                                                     style={{
                                                         margin: " 0 10px 0 0",
@@ -550,7 +553,7 @@ class MyPromotion extends React.Component {
                                             {this.props.inValidAppliedList
                                                 .slice(
                                                     (pageInvalidIndex - 1) * 9,
-                                                    pageInvalidIndex * 9
+                                                    pageInvalidIndex * 9,
                                                 )
                                                 .map((item, index) => {
                                                     return (
@@ -592,7 +595,7 @@ class MyPromotion extends React.Component {
                                                             onOpenAppliedDataModal={() => {
                                                                 //这个是申请优惠时候填写资料的详情
                                                                 console.log(
-                                                                    "Open Detail Modal"
+                                                                    "Open Detail Modal",
                                                                 );
                                                                 this.setState({
                                                                     isShowApplyDataModal: true,
@@ -604,9 +607,11 @@ class MyPromotion extends React.Component {
                                                                         null,
                                                                 });
                                                             }}
-                                                            openPromotionDetail={()=>{
+                                                            openPromotionDetail={() => {
                                                                 //这个是打开优惠详情的modal
-                                                                this.props.openPromotionDetail(item)
+                                                                this.props.openPromotionDetail(
+                                                                    item,
+                                                                );
                                                             }}
                                                         />
                                                     );
@@ -617,7 +622,7 @@ class MyPromotion extends React.Component {
                                                 .length > 9 && (
                                                 <Pagination
                                                     className="general-pagination"
-                                                    style={{    
+                                                    style={{
                                                         textAlign: "left",
                                                     }}
                                                     defaultCurrent={1}
@@ -643,7 +648,9 @@ class MyPromotion extends React.Component {
                             <Empty
                                 image={"/vn/img/icon/img-no-record.svg"}
                                 className="big-empty-box"
-                                description={translate("您暂无任何优惠纪录，先去优惠页面申请吧!")}
+                                description={translate(
+                                    "您暂无任何优惠纪录，先去优惠页面申请吧!",
+                                )}
                             />
                         ))}
 
@@ -670,7 +677,7 @@ class MyPromotion extends React.Component {
                     >
                         {console.log(
                             "cancelPromotionItem",
-                            this.state.cancelPromotionItem
+                            this.state.cancelPromotionItem,
                         )}
                         {/* <label>取消原因</label> */}
                         <Row>
@@ -768,10 +775,9 @@ class MyPromotion extends React.Component {
                                     }
                                     onClick={() => {
                                         this.cancelBonusPromotion(
-                                            this.state.cancelPromotionItem
+                                            this.state.cancelPromotionItem,
                                         );
                                     }}
-                                   
                                 >
                                     {translate("提交")}
                                 </button>
@@ -801,9 +807,9 @@ const mapDispatchToProps = function (dispatch) {
         setAppliedPromotions: (stopLoading) => {
             dispatch(getAppliedHistoryAction(stopLoading));
         },
-        openPromotionDetail:(item) => {
+        openPromotionDetail: (item) => {
             dispatch(promotionActions.openPromotionDetail(item));
-        }
+        },
     };
 };
 

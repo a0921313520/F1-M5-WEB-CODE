@@ -41,7 +41,7 @@ export default class Main extends React.PureComponent {
                     },
                     () => {
                         this.counterEndTimeRun();
-                    }
+                    },
                 );
             })
             .catch((error) => console.log(error));

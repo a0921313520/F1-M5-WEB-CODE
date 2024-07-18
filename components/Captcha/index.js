@@ -4,7 +4,7 @@ import { get, post } from "$ACTIONS/TlcRequest";
 import { Cookie } from "$ACTIONS/helper";
 import { message } from "antd";
 import FpCaptcha from "./fpcaptcha";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 class _Captcha extends React.Component {
     constructor(props) {
         super(props);
@@ -18,33 +18,39 @@ class _Captcha extends React.Component {
         };
     }
     componentDidMount() {
-		this.props.getCaptchaInfo(this);
-	}
+        this.props.getCaptchaInfo(this);
+    }
     componentDidUpdate(prevProps) {
         if (
             prevProps.captchaVisible !== this.props.captchaVisible &&
             this.props.captchaVisible === true
         ) {
             this.getCaptchaChallengeId();
-            global.Pushgtagpiwikurl && global.Pushgtagpiwikurl("captcha_code",this.props.type === "Login" ? "Wrong Password 3 Times Pop Up Captcha":"Register Capcha Verification");
+            global.Pushgtagpiwikurl &&
+                global.Pushgtagpiwikurl(
+                    "captcha_code",
+                    this.props.type === "Login"
+                        ? "Wrong Password 3 Times Pop Up Captcha"
+                        : "Register Capcha Verification",
+                );
         }
     }
     getCaptchaInfo(name) {
-		get(ApiPort.CaptchaInfo + `&username=${name}`)
-			.then((data) => {
-				if (data.isSuccess) {
-					this.setState({
-						attempts: data.result.attempts,
-						apiURL: data.result.serviceUrl,
-						isEnabled: data.result.isEnabled //是否开启了 滑动验证
-					});
-				}
-			})
-			.catch((error) => {
-				message.error(translate('网络错误，请重试'));
-				console.log(error);
-			});
-	}
+        get(ApiPort.CaptchaInfo + `&username=${name}`)
+            .then((data) => {
+                if (data.isSuccess) {
+                    this.setState({
+                        attempts: data.result.attempts,
+                        apiURL: data.result.serviceUrl,
+                        isEnabled: data.result.isEnabled, //是否开启了 滑动验证
+                    });
+                }
+            })
+            .catch((error) => {
+                message.error(translate("网络错误，请重试"));
+                console.log(error);
+            });
+    }
     /**
      * 获取Uuid,这个Uuid是验证中用到的唯一Key
      */
@@ -61,7 +67,10 @@ class _Captcha extends React.Component {
                     this.setState({
                         challengeUuid: res.challengeUuid,
                     });
-                    this.getFpCaptcha(this.state.apiURL, res.result.challengeUuId);
+                    this.getFpCaptcha(
+                        this.state.apiURL,
+                        res.result.challengeUuId,
+                    );
                 }
             })
             .catch((error) => {
@@ -152,9 +161,10 @@ class _Captcha extends React.Component {
             .catch((error) => {
                 message.error(translate("网络错误，请重试"));
                 this.getCaptchaChallengeId();
-            }).finally(()=>{
-                this.setState({ loading: false });
             })
+            .finally(() => {
+                this.setState({ loading: false });
+            });
     };
     onclosed = (id) => {
         this.props.onMatch(id);

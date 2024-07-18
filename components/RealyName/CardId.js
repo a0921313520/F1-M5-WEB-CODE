@@ -3,7 +3,7 @@ import { Modal, Icon, Spin, Form, Input, Button, Select, message } from "antd";
 import { get, post, patch } from "$ACTIONS/TlcRequest";
 import { ApiPort, APISETS } from "$ACTIONS/TLCAPI";
 import { dateFormat, formatSeconds } from "$ACTIONS/util";
-import { Cookie,showResultModal } from "$ACTIONS/helper";
+import { Cookie, showResultModal } from "$ACTIONS/helper";
 import { formItemLayout, tailFormItemLayout } from "$ACTIONS/constantsData";
 import { getMemberInfo, setMemberInfo } from "$DATA/userinfo";
 import { memberId, bankNumberReg, realyNameReg } from "$ACTIONS/reg";
@@ -110,7 +110,7 @@ class CardId extends React.Component {
                                     .map((mapObj) => mapObj.Name)
                                     .indexOf(obj.Name) == pos
                             );
-                        }
+                        },
                     );
                     this.setState({
                         bankList: filterDupBank,
@@ -129,7 +129,7 @@ class CardId extends React.Component {
 
         if (this.inputSelection) {
             const banknumber = this.props.form.getFieldValue(
-                this.fullInfoFormNames[2]
+                this.fullInfoFormNames[2],
             );
             if (
                 banknumber &&
@@ -170,7 +170,7 @@ class CardId extends React.Component {
                         this.setState({ isLoading: true });
                         get(
                             ApiPort.GetOTPAttempts +
-                                "&serviceAction=BankCardValidation&channelType=SMS"
+                                "&serviceAction=BankCardValidation&channelType=SMS",
                         ).then((remain) => {
                             this.props.setLoading(false);
                             this.setState({ isLoading: false });
@@ -186,7 +186,7 @@ class CardId extends React.Component {
                         this.bankAccountVerifySuccess();
                     }
                 }
-            }
+            },
         );
 
         Pushgtagdata("Verification​", "Submit", "ID_Bank_PII_DepositPage​");
@@ -199,7 +199,7 @@ class CardId extends React.Component {
                 this.setState({ isLoading: true });
 
                 this.postPhoneTAC(
-                    values.verifyCode, 
+                    values.verifyCode,
                     () => {
                         // 更新用户信息
                         getMemberInfo((memberRes) => {
@@ -223,13 +223,13 @@ class CardId extends React.Component {
                                 message.error(
                                     res.result.message ||
                                         res.result.errorMessage ||
-                                        "系统错误"
+                                        "系统错误",
                                 );
                         }
 
                         this.setState({ isLoading: false });
                         this.props.setLoading && this.props.setLoading(false);
-                    }
+                    },
                 );
             }
         });
@@ -243,14 +243,14 @@ class CardId extends React.Component {
         }
         if (!this.values) {
             return alert(
-                "请检查个人信息是否完善，如仍无法提交请联系客服回馈错误！"
+                "请检查个人信息是否完善，如仍无法提交请联系客服回馈错误！",
             );
         }
         this.props.setLoading(true);
         this.setState({ isLoading: true });
 
         let [accountHolderName, bankName, accountNumber] = Object.values(
-            this.values
+            this.values,
         );
         post(ApiPort.POSTRememberBanks, {
             accountHolderName,
@@ -347,7 +347,7 @@ class CardId extends React.Component {
                             { setBankCard: { searchValue: "" } },
                             () => {
                                 this.handleFormChange();
-                            }
+                            },
                         );
                         this.props.exceedTryNumber();
                     } else {
@@ -436,7 +436,7 @@ class CardId extends React.Component {
 
                     console.log(
                         "result.remainedAttempt: ",
-                        result.remainingAttempt
+                        result.remainingAttempt,
                     );
 
                     this.props.setSubmitOTPAttempts(result.remainingAttempt);
@@ -502,7 +502,7 @@ class CardId extends React.Component {
             let lastSeconds = parseInt(
                 300 -
                     (new Date().getTime() - new Date(phoneTime).getTime()) /
-                        1000
+                        1000,
             );
             this.setState({ defaultDisable: true });
             this.timeTimer = setInterval(() => {
@@ -531,7 +531,7 @@ class CardId extends React.Component {
                     CurrencyCode: currency,
                     isMandatoryStep: false,
                     serviceAction: "DepositVerification",
-                }
+                },
             )
                 .then((res) => {
                     this.setState({ isLoading: false });
@@ -568,7 +568,7 @@ class CardId extends React.Component {
                 "Request",
                 isResend
                     ? "ResendCode_Phone_DepositPage"
-                    : "SendCode_Phone_DepositPage"
+                    : "SendCode_Phone_DepositPage",
             );
         }
     }
@@ -608,7 +608,7 @@ class CardId extends React.Component {
                         Pushgtagdata(
                             "Verification​",
                             "Click",
-                            "Confirm_Skip_PII_DepositPage"
+                            "Confirm_Skip_PII_DepositPage",
                         );
                     },
                 },
@@ -626,7 +626,7 @@ class CardId extends React.Component {
                         Pushgtagdata(
                             "Verification​",
                             "Click",
-                            "Confirm_Skip_Phone_DepositPage"
+                            "Confirm_Skip_Phone_DepositPage",
                         );
                     },
                 },
@@ -684,7 +684,7 @@ class CardId extends React.Component {
                         Pushgtagdata(
                             "Verification​",
                             "Click",
-                            "Confirm_Skip_PII_DepositPage"
+                            "Confirm_Skip_PII_DepositPage",
                         );
                     },
                 },
@@ -704,7 +704,7 @@ class CardId extends React.Component {
     handleFormChange = () => {
         let status =
             Object.entries(
-                this.props.form.getFieldsError(this.fullInfoFormNames)
+                this.props.form.getFieldsError(this.fullInfoFormNames),
             ).every((v) => v[1] === undefined) &&
             this.props.form.getFieldValue(this.fullInfoFormNames[0]) !==
                 undefined &&
@@ -724,7 +724,7 @@ class CardId extends React.Component {
         this.setState({ fullInfoBtnDisable: !status });
         console.log(
             "完善姓名身份证银行账户卡号按钮禁用:",
-            this.props.form.getFieldsValue(this.fullInfoFormNames)
+            this.props.form.getFieldsValue(this.fullInfoFormNames),
         );
     };
     // 记录银行卡号输入光标位置
@@ -754,7 +754,7 @@ class CardId extends React.Component {
             },
             () => {
                 this.handleFormChange();
-            }
+            },
         );
         if (value) {
             this.props.form.resetFields(this.fullInfoFormNames[1]);
@@ -763,7 +763,7 @@ class CardId extends React.Component {
         }
         console.log(
             "getFieldValue",
-            this.props.form.getFieldsValue(this.fullInfoFormNames)
+            this.props.form.getFieldsValue(this.fullInfoFormNames),
         );
     };
     openUploadModal = () => {
@@ -814,13 +814,13 @@ class CardId extends React.Component {
     verificationManual = () => {
         if (!this.values && !this.props.form.getFieldValue("cardId")) {
             return alert(
-                "请检查个人信息是否完善，如仍无法提交请联系客服回馈错误！"
+                "请检查个人信息是否完善，如仍无法提交请联系客服回馈错误！",
             );
         }
         this.setState({ isLoading: true });
         const { fileId1, fileId2, fileId3 } = this.state;
         let [accountHolderName, bankName, accountNumber] = Object.values(
-            this.values
+            this.values,
         );
         const cardId = this.props.form.getFieldValue("cardId");
         const data = {
@@ -848,7 +848,7 @@ class CardId extends React.Component {
                             false,
                             1501,
                             "otp",
-                            "depositLoading"
+                            "depositLoading",
                         );
                     } else if (res.errorCode == "BV00005") {
                         // 黑名单
@@ -920,7 +920,7 @@ class CardId extends React.Component {
                             false,
                             1501,
                             "otp",
-                            "depositLoading"
+                            "depositLoading",
                         );
                     }
                 }
@@ -932,7 +932,7 @@ class CardId extends React.Component {
                     false,
                     1501,
                     "otp",
-                    "depositLoading"
+                    "depositLoading",
                 );
             });
     };
@@ -1021,7 +1021,7 @@ class CardId extends React.Component {
                                 {getFieldDecorator("userNames", {
                                     initialValue: userInfo.realyName.replace(
                                         /[\u4E00-\u9FA5]/g,
-                                        "*"
+                                        "*",
                                     ),
                                     rules: [
                                         { required: true, message: "格式错误" },
@@ -1029,7 +1029,7 @@ class CardId extends React.Component {
                                             validator: (
                                                 rule,
                                                 value,
-                                                callback
+                                                callback,
                                             ) => {
                                                 if (
                                                     !userInfo.realyName &&
@@ -1037,7 +1037,7 @@ class CardId extends React.Component {
                                                     !realyNameReg.test(value)
                                                 ) {
                                                     callback(
-                                                        "真实姓名格式错误"
+                                                        "真实姓名格式错误",
                                                     );
                                                     this.setState({
                                                         userNamesStatus: false,
@@ -1070,8 +1070,8 @@ class CardId extends React.Component {
                                             !userInfo.realyName
                                                 ? "active"
                                                 : !!userInfo.realyName
-                                                ? "havename"
-                                                : ""
+                                                  ? "havename"
+                                                  : ""
                                         }`}
                                         autoComplete="off"
                                         disabled={!!userInfo.realyName}
@@ -1100,7 +1100,7 @@ class CardId extends React.Component {
                                                 <div>提交</div>
                                             )
                                         }
-                                    />
+                                    />,
                                 )}
                             </Item>
                             <Item
@@ -1197,7 +1197,7 @@ class CardId extends React.Component {
                                                     validator: (
                                                         rule,
                                                         value,
-                                                        callback
+                                                        callback,
                                                     ) => {
                                                         // 默认禁用提交验证码按钮
                                                         this.setState({
@@ -1205,18 +1205,18 @@ class CardId extends React.Component {
                                                         });
                                                         if (!value) {
                                                             callback(
-                                                                "请输入验证码"
+                                                                "请输入验证码",
                                                             );
                                                             return;
                                                         }
                                                         if (
                                                             value &&
                                                             !/^[0-9]{6}$/.test(
-                                                                value
+                                                                value,
                                                             )
                                                         ) {
                                                             callback(
-                                                                "验证码有误，请检查并确保您输入了正确的验证码。"
+                                                                "验证码有误，请检查并确保您输入了正确的验证码。",
                                                             );
                                                             return;
                                                         }
@@ -1249,7 +1249,7 @@ class CardId extends React.Component {
                                                             重发
                                                             {formatSeconds(
                                                                 this.state
-                                                                    .remainingTime
+                                                                    .remainingTime,
                                                             )}
                                                         </div>
                                                     ) : (
@@ -1260,7 +1260,7 @@ class CardId extends React.Component {
                                                                     this.sendVerifyCode(
                                                                         null,
                                                                         null,
-                                                                        true
+                                                                        true,
                                                                     );
                                                                 }}
                                                             >
@@ -1278,12 +1278,12 @@ class CardId extends React.Component {
                                                         0 || sendBtnDisable
                                                         ? "disabled-time"
                                                         : isWalletDeposit
-                                                        ? "forWalletDeposit"
-                                                        : ""
+                                                          ? "forWalletDeposit"
+                                                          : ""
                                                 }
                                                 placeholder="输入验证码"
                                                 maxLength={6}
-                                            />
+                                            />,
                                         )}
                                     </Item>
                                     <p className="otp-cs-tip last-cs-tip">
@@ -1367,13 +1367,13 @@ class CardId extends React.Component {
                                             validator: (
                                                 rule,
                                                 value,
-                                                callback
+                                                callback,
                                             ) => {
                                                 if (
                                                     !userInfo.realyName &&
                                                     value &&
                                                     !/^[\u4E00-\u9FA5]+$/.test(
-                                                        value
+                                                        value,
                                                     )
                                                 ) {
                                                     callback("开户名格式错误");
@@ -1390,7 +1390,7 @@ class CardId extends React.Component {
                                         className="tlc-input-disabled"
                                         autoComplete="off"
                                         disabled={!!userInfo.realyName}
-                                    />
+                                    />,
                                 )}
                             </Item>
                             {this.needUploadImages && (
@@ -1406,7 +1406,7 @@ class CardId extends React.Component {
                                                 validator: (
                                                     rule,
                                                     value,
-                                                    callback
+                                                    callback,
                                                 ) => {
                                                     if (
                                                         !userInfo.cardId &&
@@ -1414,7 +1414,7 @@ class CardId extends React.Component {
                                                         !memberId.test(value)
                                                     ) {
                                                         callback(
-                                                            "请输入18位有效身份证号码"
+                                                            "请输入18位有效身份证号码",
                                                         );
                                                         return;
                                                     }
@@ -1430,7 +1430,7 @@ class CardId extends React.Component {
                                             className="tlc-input-disabled"
                                             autoComplete="off"
                                             disabled={!!userInfo.cardId}
-                                        />
+                                        />,
                                     )}
                                 </Item>
                             )}
@@ -1453,21 +1453,21 @@ class CardId extends React.Component {
                                             validator: (
                                                 rule,
                                                 value,
-                                                callback
+                                                callback,
                                             ) => {
                                                 if (
                                                     setBankCard.searchValue &&
                                                     value &&
                                                     /^[\u4E00-\u9FA5]+$/.test(
-                                                        value
+                                                        value,
                                                     )
                                                 ) {
                                                     this.props.form.setFieldsValue(
-                                                        { bankaccount: value }
+                                                        { bankaccount: value },
                                                     );
                                                     console.log(
                                                         "value:",
-                                                        value
+                                                        value,
                                                     );
                                                 }
                                                 callback();
@@ -1532,10 +1532,10 @@ class CardId extends React.Component {
                                                 optionFilterProp="children"
                                                 filterOption={(
                                                     input,
-                                                    option
+                                                    option,
                                                 ) => {
                                                     return option.props.value.includes(
-                                                        input
+                                                        input,
                                                     );
                                                 }}
                                                 className="bankNameSelect"
@@ -1563,7 +1563,7 @@ class CardId extends React.Component {
                                                             BankList.filter(
                                                                 (item) =>
                                                                     item.Name ===
-                                                                    val.Name
+                                                                    val.Name,
                                                             );
                                                         return (
                                                             <Option
@@ -1588,11 +1588,11 @@ class CardId extends React.Component {
                                                                 {val.Name}
                                                             </Option>
                                                         );
-                                                    }
+                                                    },
                                                 )}
                                             </Select>
                                         )}
-                                    </div>
+                                    </div>,
                                 )}
                             </Item>
                             <Item label="银行卡号">
@@ -1612,16 +1612,19 @@ class CardId extends React.Component {
                                             validator: (
                                                 rule,
                                                 value,
-                                                callback
+                                                callback,
                                             ) => {
                                                 if (
                                                     value &&
                                                     !bankNumberReg.test(
-                                                        value.replace(/\s/g, "")
+                                                        value.replace(
+                                                            /\s/g,
+                                                            "",
+                                                        ),
                                                     )
                                                 ) {
                                                     callback(
-                                                        "银行卡号应为14到19位"
+                                                        "银行卡号应为14到19位",
                                                     );
                                                     return;
                                                 }
@@ -1642,7 +1645,7 @@ class CardId extends React.Component {
                                         onChange={(e) => {
                                             this.handleChange(e);
                                         }}
-                                    />
+                                    />,
                                 )}
                             </Item>
                             {this.needUploadImages && (
@@ -1697,7 +1700,7 @@ class CardId extends React.Component {
                     btnValue={this.state.btnValue}
                     setbtnValue={(v) => {
                         this.setState({ btnValue: v }, () =>
-                            this.handleFormChange()
+                            this.handleFormChange(),
                         );
                     }}
                     setfileId1={(v) => this.setState({ fileId1: v })}

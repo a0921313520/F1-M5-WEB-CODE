@@ -19,7 +19,7 @@ import TITLEX from "$DATA/platform.chinese.code.static";
 import DateRange from "@/DateRange";
 import moment from "moment";
 import { Decimal } from "decimal.js";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 const { Option } = Select;
 
 class BetRecords extends React.Component {
@@ -56,11 +56,10 @@ class BetRecords extends React.Component {
     }
     componentDidMount() {
         this.props.setLoading(true);
-       
+
         const newLen = this.isFinishFrontData.push(0);
         get(ApiPort.GetProductCategories)
             .then((res) => {
-             
                 this.setState({
                     fromWalletList: res.result,
                 });
@@ -124,7 +123,7 @@ class BetRecords extends React.Component {
                 "&dateFrom=" +
                 this.state.definedDate.startTime +
                 "&dateTo=" +
-                this.state.definedDate.endTime
+                this.state.definedDate.endTime,
         )
             .then((res) => {
                 if (res.isSuccess && res.result) {
@@ -192,13 +191,13 @@ class BetRecords extends React.Component {
             },
             () => {
                 this.getRecordslist();
-            }
+            },
         );
     }
     showDetail(type, name) {
         console.log("type =========> ", type);
         let List = this.state.recordsData.dailyTurnoverDetails.filter(
-            (item) => item.providerCode == type
+            (item) => item.providerCode == type,
         );
         let sequenceList = List.sort(function (a, b) {
             return b.dateLabel < a.dateLabel ? -1 : 1;
@@ -208,7 +207,7 @@ class BetRecords extends React.Component {
             recordsDetailData: sequenceList,
             localCurrentBetDetail: sequenceList.slice(
                 startIndex,
-                startIndex + this.onePageSize
+                startIndex + this.onePageSize,
             ),
             bonusTypeString: name || TITLEX[type] || type,
             showDetail: true,
@@ -220,7 +219,7 @@ class BetRecords extends React.Component {
         this.setState({
             localCurrentBetDetail: this.state.recordsDetailData.slice(
                 startIndex,
-                startIndex + this.onePageSize
+                startIndex + this.onePageSize,
             ),
         });
     }
@@ -251,7 +250,7 @@ class BetRecords extends React.Component {
         let hash = {};
         console.log(
             " --------------------------> 投注紀錄",
-            this.state.recordsData.dailyTurnoverDetails
+            this.state.recordsData.dailyTurnoverDetails,
         );
         return (
             <React.Fragment>
@@ -261,7 +260,7 @@ class BetRecords extends React.Component {
                         onClick={() => {
                             localStorage.setItem(
                                 "isShowBetRecordsPopover",
-                                "true"
+                                "true",
                             );
                             this.setState({
                                 isShowPopover: false,
@@ -295,15 +294,25 @@ class BetRecords extends React.Component {
                                         this.setState({ isShowPopover: false });
                                     }}
                                 >
-                                    {translate("[投注总额]是指您在Fun88所有产品的投注总额。")}
+                                    {translate(
+                                        "[投注总额]是指您在Fun88所有产品的投注总额。",
+                                    )}
                                     <br />
-                                    {translate("[总赢/输]是您在 Fun88 上所有提供商中所产生的赢或输的总金额。")}
+                                    {translate(
+                                        "[总赢/输]是您在 Fun88 上所有提供商中所产生的赢或输的总金额。",
+                                    )}
                                     <br />
-                                    {translate("[总收入]为Fun88各产品类型指定的有效总收入。")}
+                                    {translate(
+                                        "[总收入]为Fun88各产品类型指定的有效总收入。",
+                                    )}
                                     <br />
-                                    {translate("体育、电子竞技、赌场、3D赌场和彩票产品的收入计算公式是根据投注票的实际输赢金额计算的。 此外，合格流水总额不能超过总投注额的两倍。")}
+                                    {translate(
+                                        "体育、电子竞技、赌场、3D赌场和彩票产品的收入计算公式是根据投注票的实际输赢金额计算的。 此外，合格流水总额不能超过总投注额的两倍。",
+                                    )}
                                     <br />
-                                    {translate("注：对于游戏和射鱼产品，总收益是根据总投注金额计算的。 取消的赛事以及任何违反投注规则或通过促销活动牟取暴利的投注将不被视为有效投注。")}
+                                    {translate(
+                                        "注：对于游戏和射鱼产品，总收益是根据总投注金额计算的。 取消的赛事以及任何违反投注规则或通过促销活动牟取暴利的投注将不被视为有效投注。",
+                                    )}
                                     <br />
                                 </div>
                             }
@@ -313,7 +322,7 @@ class BetRecords extends React.Component {
                             trigger="hover"
                         >
                             <span className="question-popover-tip">
-                                <Icon type="info"/>
+                                <Icon type="info" />
                             </span>
                         </Popover>
                     </h2>
@@ -325,9 +334,10 @@ class BetRecords extends React.Component {
                                     ? this.numberWithCommas(
                                           this.state.recordsData.totalBetAmount,
                                           2,
-                                          true
+                                          true,
                                       )
-                                    : "0"}{" đ"}
+                                    : "0"}
+                                {" đ"}
                             </strong>
                         </p>
                         <p className="clear-margin-bottom">
@@ -335,33 +345,32 @@ class BetRecords extends React.Component {
                             <strong
                                 className={
                                     this.state.recordsData.totalWinLoss < 0
-                                        ?  "red-color"
+                                        ? "red-color"
                                         : this.state.recordsData
-                                              .totalWinLoss === 0
-                                        ? ""
-                                        : "success-color"
+                                                .totalWinLoss === 0
+                                          ? ""
+                                          : "success-color"
                                 }
                             >
                                 {" "}
                                 {this.state.recordsData.totalWinLoss
                                     ? this.state.recordsData.totalWinLoss < 0
-                                        ?
-                                          this.numberWithCommas(
+                                        ? this.numberWithCommas(
                                               Math.abs(
                                                   this.state.recordsData
-                                                      .totalWinLoss
+                                                      .totalWinLoss,
                                               ),
                                               2,
-                                              true
+                                              true,
                                           )
-                                        :
-                                          this.numberWithCommas(
+                                        : this.numberWithCommas(
                                               this.state.recordsData
                                                   .totalWinLoss,
                                               2,
-                                              true
+                                              true,
                                           )
-                                    : " 0"}{" đ"}
+                                    : " 0"}
+                                {" đ"}
                             </strong>
                         </p>
                         <p>
@@ -372,9 +381,10 @@ class BetRecords extends React.Component {
                                           this.state.recordsData
                                               .totalValidTurnover,
                                           2,
-                                          true
+                                          true,
                                       )
-                                    : "0"}{" đ"}
+                                    : "0"}
+                                {" đ"}
                             </strong>
                         </p>
                     </div>
@@ -388,7 +398,7 @@ class BetRecords extends React.Component {
                                 suffixIcon={<Icon type="caret-down" />}
                                 onFocus={() => {
                                     Pushgtagdata(
-                                        "Sorting_betrecord_profilepage"
+                                        "Sorting_betrecord_profilepage",
                                     );
                                 }}
                                 onChange={this.handleChange}
@@ -415,17 +425,25 @@ class BetRecords extends React.Component {
                             value={this.state.dateRadio}
                             onChange={this.changeRadio}
                         >
-                            <Radio.Button value="1">{translate("今天")}</Radio.Button>
-                            <Radio.Button value="7">{translate("7天内")}</Radio.Button>
-                            <Radio.Button value="30">{translate("30天内")}</Radio.Button>
-                            <Radio.Button value="0">{translate("自定义")}</Radio.Button>
+                            <Radio.Button value="1">
+                                {translate("今天")}
+                            </Radio.Button>
+                            <Radio.Button value="7">
+                                {translate("7天内")}
+                            </Radio.Button>
+                            <Radio.Button value="30">
+                                {translate("30天内")}
+                            </Radio.Button>
+                            <Radio.Button value="0">
+                                {translate("自定义")}
+                            </Radio.Button>
                         </Radio.Group>
                     </div>
                     {this.state.dateRadio === "0" ? (
                         <p className="defined-time-wrap">
-                            {translate("从")} 
-                            {`${moment(definedDate.startTime).format("DD/MM/YYYY")}`} 
-                            {translate("至")} 
+                            {translate("从")}
+                            {`${moment(definedDate.startTime).format("DD/MM/YYYY")}`}
+                            {translate("至")}
                             {`${moment(definedDate.endTime).format("DD/MM/YYYY")}`}
                             <span
                                 className="change"
@@ -470,17 +488,17 @@ class BetRecords extends React.Component {
                                                     item.providerCode +
                                                         item.productType ==
                                                     betItem.providerCode +
-                                                        betItem.productType
+                                                        betItem.productType,
                                             );
                                         //总投注金额
                                         let TotalbetAmount = filterData.reduce(
                                             (c, R) => c + R.betAmount,
-                                            0
+                                            0,
                                         );
                                         //总输赢金额
                                         let TotalwinLoss = filterData.reduce(
                                             (c, R) => c + R.winLoss,
-                                            0
+                                            0,
                                         );
 
                                         return (
@@ -492,8 +510,8 @@ class BetRecords extends React.Component {
                                                             providerCode,
                                                             providerCodeLocalizedName.replace(
                                                                 "（",
-                                                                "("
-                                                            )
+                                                                "(",
+                                                            ),
                                                         );
                                                     }}
                                                 >
@@ -519,7 +537,7 @@ class BetRecords extends React.Component {
                                                             >
                                                                 {providerCodeLocalizedName.replace(
                                                                     "（",
-                                                                    "("
+                                                                    "(",
                                                                 ) ||
                                                                     TITLEX[
                                                                         providerCode
@@ -527,37 +545,51 @@ class BetRecords extends React.Component {
                                                                     providerCode}
                                                             </h3>
                                                             <p>
-                                                                {definedDate.startTime} ~{" "}
-                                                                {definedDate.endTime}
+                                                                {
+                                                                    definedDate.startTime
+                                                                }{" "}
+                                                                ~{" "}
+                                                                {
+                                                                    definedDate.endTime
+                                                                }
                                                             </p>
                                                         </div>
                                                         <Icon type="right" />
                                                     </div>
                                                     <div className="brief-detail-wrap">
                                                         <div className="brief-detail inline-block">
-                                                            <p>{translate("总投注金额")}</p>
+                                                            <p>
+                                                                {translate(
+                                                                    "总投注金额",
+                                                                )}
+                                                            </p>
                                                             <strong>
                                                                 {Number(
-                                                                    TotalbetAmount
+                                                                    TotalbetAmount,
                                                                 ) < 0
                                                                     ? "-"
                                                                     : ""}
                                                                 &nbsp;&nbsp;
                                                                 {Math.abs(
-                                                                    TotalbetAmount
+                                                                    TotalbetAmount,
                                                                 )
                                                                     ? this.numberWithCommas(
                                                                           Math.abs(
-                                                                              TotalbetAmount
+                                                                              TotalbetAmount,
                                                                           ),
                                                                           2,
-                                                                          true
+                                                                          true,
                                                                       )
-                                                                    : "0"}{" đ"}
+                                                                    : "0"}
+                                                                {" đ"}
                                                             </strong>
                                                         </div>
                                                         <div className="brief-detail inline-block">
-                                                            <p>{translate("总输/赢")}</p>
+                                                            <p>
+                                                                {translate(
+                                                                    "总输/赢",
+                                                                )}
+                                                            </p>
                                                             <strong
                                                                 className={
                                                                     winLoss < 0
@@ -566,22 +598,23 @@ class BetRecords extends React.Component {
                                                                 }
                                                             >
                                                                 {Number(
-                                                                    TotalwinLoss
+                                                                    TotalwinLoss,
                                                                 ) < 0
                                                                     ? "-"
                                                                     : "+"}
                                                                 &nbsp;&nbsp;
                                                                 {Math.abs(
-                                                                    TotalwinLoss
+                                                                    TotalwinLoss,
                                                                 )
                                                                     ? this.numberWithCommas(
                                                                           Math.abs(
-                                                                              TotalwinLoss
+                                                                              TotalwinLoss,
                                                                           ),
                                                                           2,
-                                                                          true
+                                                                          true,
                                                                       )
-                                                                    : "0"}{" đ"}
+                                                                    : "0"}
+                                                                {" đ"}
                                                             </strong>
                                                         </div>
                                                     </div>
@@ -626,22 +659,24 @@ class BetRecords extends React.Component {
                                         <Row key={item.ID}>
                                             <Col span={6}>
                                                 {moment(
-                                                    new Date(item.dateLabel)
+                                                    new Date(item.dateLabel),
                                                 ).format("DD/MM/YYYY")}
                                             </Col>
                                             <Col span={6}>
                                                 {this.numberWithCommas(
                                                     item.betAmount,
                                                     2,
-                                                    true
-                                                )}{" đ"}
+                                                    true,
+                                                )}
+                                                {" đ"}
                                             </Col>
                                             <Col span={6}>
                                                 {this.numberWithCommas(
                                                     item.validTurnoverAmount,
                                                     2,
-                                                    true
-                                                )}{" đ"}
+                                                    true,
+                                                )}
+                                                {" đ"}
                                             </Col>
                                             <Col
                                                 span={6}
@@ -658,12 +693,13 @@ class BetRecords extends React.Component {
                                                 {Math.abs(item.winLoss)
                                                     ? this.numberWithCommas(
                                                           Math.abs(
-                                                              item.winLoss
+                                                              item.winLoss,
                                                           ),
                                                           2,
-                                                          true
+                                                          true,
                                                       )
-                                                    : "0"}{" đ"}
+                                                    : "0"}
+                                                {" đ"}
                                             </Col>
                                         </Row>
                                     );
@@ -698,7 +734,7 @@ class BetRecords extends React.Component {
                                 { definedDate: v, dateRadio: "0" },
                                 () => {
                                     this.getRecordslist();
-                                }
+                                },
                             );
                         }}
                     />

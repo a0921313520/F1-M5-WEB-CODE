@@ -3,7 +3,7 @@ import { Row, Col, Pagination, Button, Empty } from "antd";
 import { formatAmount } from "$ACTIONS/util";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { formatYearMonthDate } from "$ACTIONS/util";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 class TransferRecords extends React.Component {
     constructor(props) {
@@ -62,7 +62,7 @@ class TransferRecords extends React.Component {
             currentPage: index,
             currentList: this.props.transferData.slice(
                 startIndex,
-                startIndex + this.onePageSize
+                startIndex + this.onePageSize,
             ), // 当前展示数据
         });
     }
@@ -88,7 +88,8 @@ class TransferRecords extends React.Component {
                                 </Col>
                                 <Col span={5} className="left">
                                     <div>
-                                        {val.fromAccountLocalizedName} {translate("至")}{" "}
+                                        {val.fromAccountLocalizedName}{" "}
+                                        {translate("至")}{" "}
                                         {val.toAccountLocalizedName}
                                     </div>
                                     <div>
@@ -96,11 +97,16 @@ class TransferRecords extends React.Component {
                                         <CopyToClipboard
                                             text={val.transactionId}
                                             onCopy={() => {
-                                                this.props.recordAlert(translate("复制成功"));
+                                                this.props.recordAlert(
+                                                    translate("复制成功"),
+                                                );
                                             }}
                                         >
                                             <img
-                                                style={{ paddingLeft: "10px",cursor:"pointer" }}
+                                                style={{
+                                                    paddingLeft: "10px",
+                                                    cursor: "pointer",
+                                                }}
                                                 src={`${process.env.BASE_PATH}/img/wallet/Copy_icon.svg`}
                                             />
                                         </CopyToClipboard>
@@ -116,7 +122,9 @@ class TransferRecords extends React.Component {
                                             {val.statusName}
                                         </div>
                                         <div className="small-sign">
-                                            {formatYearMonthDate(val.transactionDate)}
+                                            {formatYearMonthDate(
+                                                val.transactionDate,
+                                            )}
                                         </div>
                                     </div>
                                 </Col>

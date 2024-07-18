@@ -3,7 +3,7 @@ import { Modal, Form, Input, Spin, Row, Col, Button } from "antd";
 import { formItemLayout, tailFormItemLayout } from "$ACTIONS/constantsData";
 import { patch } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "$ACTIONS/TLCAPI";
-import {showSmallResultModal} from "$ACTIONS/helper";
+import { showSmallResultModal } from "$ACTIONS/helper";
 const { Item } = Form;
 
 class BankAccountModals extends React.Component {
@@ -108,7 +108,7 @@ class BankAccountModals extends React.Component {
                 if (res.isSuccess) {
                     this.props.closeModal(false);
                     this.props.getMemberWithdrawalThresho();
-                    showSmallResultModal(true,"更新成功");
+                    showSmallResultModal(true, "更新成功");
                 } else {
                     this.props.closeModal(false);
                     showSmallResultModal(false, res.description || "保存失败");
@@ -209,15 +209,15 @@ class BankAccountModals extends React.Component {
                         this.initValueHandler(
                             "numberOfWithdrawals",
                             this.props.memberWithdrawalThresho
-                                .numberOfWithdrawals
+                                .numberOfWithdrawals,
                         );
                         this.initValueHandler(
                             "withdrawalAmount",
-                            this.props.memberWithdrawalThresho.withdrawalAmount
+                            this.props.memberWithdrawalThresho.withdrawalAmount,
                         );
                         this.initValueHandler(
                             "percentageLimit",
-                            this.props.memberWithdrawalThresho.percentageLimit
+                            this.props.memberWithdrawalThresho.percentageLimit,
                         );
                     })
                 }
@@ -253,7 +253,7 @@ class BankAccountModals extends React.Component {
                                         onChange={(e) =>
                                             this.changeNumberTest(
                                                 e,
-                                                "numberOfWithdrawals"
+                                                "numberOfWithdrawals",
                                             )
                                         }
                                     />
@@ -283,7 +283,7 @@ class BankAccountModals extends React.Component {
                                         onChange={(e) =>
                                             this.changeNumberTest(
                                                 e,
-                                                "withdrawalAmount"
+                                                "withdrawalAmount",
                                             )
                                         }
                                     />
@@ -313,7 +313,7 @@ class BankAccountModals extends React.Component {
                                         onChange={(e) =>
                                             this.changeNumberTest(
                                                 e,
-                                                "percentageLimit"
+                                                "percentageLimit",
                                             )
                                         }
                                     />

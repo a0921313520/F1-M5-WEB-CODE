@@ -83,7 +83,7 @@ class UnfinishedGamePopUp extends React.Component {
                                                     ghost
                                                     onClick={() => {
                                                         this.QuickStartGame.openGame(
-                                                            gameInfo
+                                                            gameInfo,
                                                         );
                                                     }}
                                                     block

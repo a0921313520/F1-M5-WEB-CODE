@@ -192,7 +192,7 @@ export default class Main extends React.PureComponent {
                 list &&
                     list.length > 1 &&
                     marqueeAnimate(this.marquee.current, "top", 10);
-            }
+            },
         );
     };
     render() {
@@ -377,7 +377,7 @@ export default class Main extends React.PureComponent {
                                                             ? this.state.winnerList.map(
                                                                   (
                                                                       val,
-                                                                      idx
+                                                                      idx,
                                                                   ) => (
                                                                       <li
                                                                           data-marquee-item
@@ -391,7 +391,7 @@ export default class Main extends React.PureComponent {
                                                                           <p>
                                                                               {
                                                                                   val.split(
-                                                                                      "赢了"
+                                                                                      "赢了",
                                                                                   )[0]
                                                                               }
                                                                           </p>
@@ -399,12 +399,12 @@ export default class Main extends React.PureComponent {
                                                                               赢了
                                                                               {
                                                                                   val.split(
-                                                                                      "赢了"
+                                                                                      "赢了",
                                                                                   )[1]
                                                                               }
                                                                           </p>
                                                                       </li>
-                                                                  )
+                                                                  ),
                                                               )
                                                             : null}
                                                     </ul>
@@ -592,7 +592,7 @@ export default class Main extends React.PureComponent {
                                     onClick={() =>
                                         Router.push(
                                             "/help?type=Sub7&key=" +
-                                                CMSOBJ[HostConfig.CMS_ID][25]
+                                                CMSOBJ[HostConfig.CMS_ID][25],
                                         )
                                     }
                                 >
@@ -644,7 +644,7 @@ export default class Main extends React.PureComponent {
                                     </li>
                                     {this.state.luckRecordsData.map((v, i) => {
                                         const tempName = this.prizeList.find(
-                                            (ele) => ele.cnName === v.prizesWon
+                                            (ele) => ele.cnName === v.prizesWon,
                                         );
                                         if (!tempName) return;
                                         return (
@@ -653,7 +653,7 @@ export default class Main extends React.PureComponent {
                                                     {v.applyDate
                                                         ? v.applyDate.replace(
                                                               "T",
-                                                              " "
+                                                              " ",
                                                           )
                                                         : ""}
                                                 </div>
@@ -668,9 +668,9 @@ export default class Main extends React.PureComponent {
                                                         v.prizeStatus === 2
                                                             ? "success-color"
                                                             : v.prizeStatus ===
-                                                              1
-                                                            ? "green-color"
-                                                            : ""
+                                                                1
+                                                              ? "green-color"
+                                                              : ""
                                                     }
                                                 >
                                                     {v.prizeStatusText}

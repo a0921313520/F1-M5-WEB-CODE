@@ -133,9 +133,9 @@
             left: 94%;
         }
         .anticon-left-circle,
-        .anticon-right-circle{
+        .anticon-right-circle {
             transition-duration: 1s;
-            &:hover{
+            &:hover {
                 transform: scale(1.1);
                 transition-duration: 1s;
             }
@@ -209,7 +209,7 @@ h1.title {
         background-repeat: no-repeat;
         background-position: center center;
         background-size: 100%;
-        .AppDownloadSection{
+        .AppDownloadSection {
             position: absolute;
             top: -78px;
         }
@@ -465,9 +465,15 @@ h1.title {
 
     .tlc-banner-item .img-left {
         width: 30%;
-        background: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%);
+        background: linear-gradient(
+            90deg,
+            #f2f2f2 25%,
+            #e6e6e6 37%,
+            #f2f2f2 63%
+        );
         background-size: 400% 100%;
-        -webkit-animation: ant-skeleton-loading 1.4s ease infinite;animation: ant-skeleton-loading 1.4s ease infinite;
+        -webkit-animation: ant-skeleton-loading 1.4s ease infinite;
+        animation: ant-skeleton-loading 1.4s ease infinite;
     }
 
     .tlc-banner-item .txt-right h3 {
@@ -565,7 +571,7 @@ h1.title {
 /* 合作伙伴 */
 .cooperate-wrap {
     padding-top: 20px;
-    h2{
+    h2 {
         padding-left: 230px;
         font-size: 32px;
     }
@@ -799,17 +805,16 @@ h1.title {
     }
 }
 
-
-.GameReferImg{
-    .GameName{
+.GameReferImg {
+    .GameName {
         display: none !important;
     }
 }
 
 // 银行营业时间
-.bankBusinessTime{
+.bankBusinessTime {
     z-index: 3;
-    .default{
+    .default {
         width: 80px !important;
         height: 80px;
         position: fixed;
@@ -823,13 +828,13 @@ h1.title {
         cursor: pointer;
         transition: transform 1s ease;
         z-index: 3;
-        &.moveToLeft{
+        &.moveToLeft {
             transform: translateX(-367px);
             transition: transform 2s ease;
         }
     }
-    
-    .showMore{
+
+    .showMore {
         width: 367px !important;
         position: fixed;
         right: -367px;
@@ -839,7 +844,7 @@ h1.title {
         z-index: 3;
         overflow: auto;
         max-height: 700px;
-        &.moveToLeft{
+        &.moveToLeft {
             transform: translateX(-367px);
             transition: transform 2s ease;
         }
@@ -847,25 +852,25 @@ h1.title {
             background-color: @white;
             border: 0;
             border-radius: 20px;
-            .ant-collapse-header{
+            .ant-collapse-header {
                 color: @black;
                 .ant-row {
                     line-height: 36px;
-                    .ant-col-2{
-                        div{
+                    .ant-col-2 {
+                        div {
                             display: flex;
                             align-items: center;
                             height: 36px;
                         }
                     }
-                    .ant-col-16{
+                    .ant-col-16 {
                         font-weight: bold;
                     }
-                    .ant-col-6{
-                        color: #35C95B;
+                    .ant-col-6 {
+                        color: #35c95b;
                         font-weight: bold;
-                        &.Offline{
-                            color: #BCBEC3;
+                        &.Offline {
+                            color: #bcbec3;
                         }
                     }
                 }
@@ -874,18 +879,18 @@ h1.title {
                 width: 90%;
                 margin: auto;
                 border-top: 1px solid #eee;
-                .ant-row .ant-col{
-                    &:last-child{
+                .ant-row .ant-col {
+                    &:last-child {
                         color: #999;
                     }
                 }
             }
-            .ant-collapse-item{
+            .ant-collapse-item {
                 border: 0;
-                .ant-collapse-arrow svg{
+                .ant-collapse-arrow svg {
                     transform: rotate(-90deg);
                 }
             }
-        } 
+        }
     }
 }

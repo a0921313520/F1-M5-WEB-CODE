@@ -42,7 +42,7 @@ export default class Main extends React.PureComponent {
                         const prize = [-1, 1, 0, 8, 7, 6, 5, 4, 3, 2];
 
                         let currentValue = this.props.prizeList.find(
-                            (ele) => ele.cnName === res.wonPrizes.prizeName
+                            (ele) => ele.cnName === res.wonPrizes.prizeName,
                         );
                         let remainderAngle = this.speedAngle % 360;
                         let prizeAngle = currentValue
@@ -167,7 +167,7 @@ export default class Main extends React.PureComponent {
                                                                 Pushgtagdata(
                                                                     "Deposit Nav​",
                                                                     "Click",
-                                                                    "Deposit_MidAutumn2021"
+                                                                    "Deposit_MidAutumn2021",
                                                                 );
                                                             }}
                                                         >
@@ -240,7 +240,7 @@ export default class Main extends React.PureComponent {
                                         break;
                                 }
                             },
-                            !!currentValue ? resultAnimation * 1000 : 0
+                            !!currentValue ? resultAnimation * 1000 : 0,
                         );
                     } else {
                         switch (res.responseStatus) {
@@ -267,7 +267,7 @@ export default class Main extends React.PureComponent {
                                         Pushgtagdata(
                                             "Deposit Nav​",
                                             "Click",
-                                            "Deposit_MidAutumn2021"
+                                            "Deposit_MidAutumn2021",
                                         );
                                         this.showDepositModal();
                                     },
@@ -295,7 +295,7 @@ export default class Main extends React.PureComponent {
                                         Pushgtagdata(
                                             "Deposit Nav​",
                                             "Click",
-                                            "Deposit_MidAutumn2021"
+                                            "Deposit_MidAutumn2021",
                                         );
                                         this.showDepositModal();
                                     },
@@ -343,7 +343,7 @@ export default class Main extends React.PureComponent {
                                         Pushgtagdata(
                                             "Deposit Nav​",
                                             "Click",
-                                            "Deposit_MidAutumn2021"
+                                            "Deposit_MidAutumn2021",
                                         );
                                         this.showDepositModal();
                                     },

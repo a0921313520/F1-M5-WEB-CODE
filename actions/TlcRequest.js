@@ -1,7 +1,11 @@
 import { Modal, message } from "antd";
 import Router from "next/router";
 import fetch from "isomorphic-unfetch";
-import { getQueryVariable,Cookie,getDisplayPublicError } from "$ACTIONS/helper";
+import {
+    getQueryVariable,
+    Cookie,
+    getDisplayPublicError,
+} from "$ACTIONS/helper";
 import { LogPost } from "./Log";
 import { translate } from "$ACTIONS/Translate";
 
@@ -11,8 +15,8 @@ const APIERRORLIST = [
     "api/Member/InfoValidity",
     // "api/Promotion/ManualPromo",
     "api/Auth/ForgetUsername/Email",
-    "api/Auth/ChangePassword"   //otp重置密码
-]
+    "api/Auth/ChangePassword", //otp重置密码
+];
 message.config({
     top: 50,
     maxCount: 1,
@@ -30,7 +34,7 @@ export default function request(method, url, body, token) {
     }
     //区分两种Api CMS/Flash
     let isCms = url.indexOf("vi-vn/api/v1/") != -1;
-    let isCaptcha = url.indexOf('/api/v1.0/') != -1;
+    let isCaptcha = url.indexOf("/api/v1.0/") != -1;
 
     let header;
     header = {
@@ -61,7 +65,7 @@ export default function request(method, url, body, token) {
             method,
             headers: header,
             body,
-        })
+        }),
     )
         .then((res) => {
             //記下 responseStatus
@@ -140,7 +144,8 @@ export default function request(method, url, body, token) {
             }
             // 公共错误处理
             if (
-                APIERRORLIST.some((apiErrVal) => ~url.indexOf(apiErrVal)) && getDisplayPublicError(error)
+                APIERRORLIST.some((apiErrVal) => ~url.indexOf(apiErrVal)) &&
+                getDisplayPublicError(error)
             ) {
                 return Promise.reject(error);
             }
@@ -149,12 +154,16 @@ export default function request(method, url, body, token) {
                 const ERRORCODE = error.errors[0].errorCode;
 
                 switch (ERRORCODE) {
-                    case 'GEN0001':
-                    	// 维护界面
-                        Cookie.Create("maintainTime", error.error_details.RetryAfter,1)
-                    	HttpStatus = 3;
-                    	Router.push('/');
-                    	break;
+                    case "GEN0001":
+                        // 维护界面
+                        Cookie.Create(
+                            "maintainTime",
+                            error.error_details.RetryAfter,
+                            1,
+                        );
+                        HttpStatus = 3;
+                        Router.push("/");
+                        break;
                     case "GEN0002":
                         // 不允许访问（地域限制）
                         HttpStatus = 4;
@@ -167,7 +176,10 @@ export default function request(method, url, body, token) {
                     case "VAL18014":
                     case "VAL99903":
                         if (!redirectToken) {
-                            message.error(translate("请重新登录，访问过期！"), 3);
+                            message.error(
+                                translate("请重新登录，访问过期！"),
+                                3,
+                            );
                             setTimeout(() => {
                                 global.globalExit();
                                 Router.push("/");
@@ -177,11 +189,12 @@ export default function request(method, url, body, token) {
                     case "MEM00141":
                     case "MEM00140":
                         message.error(
-                            error.errors[0].message || translate( "您的账户已根据账户管理政策关闭了。")
+                            error.errors[0].message ||
+                                translate("您的账户已根据账户管理政策关闭了。"),
                         );
                         localStorage.setItem(
                             "RestrictAccessCode",
-                            error.error_details.Code
+                            error.error_details.Code,
                         );
                         Router.push(`/RestrictAccess`);
                         break;
@@ -236,7 +249,11 @@ export default function request(method, url, body, token) {
                     //     global.globalBlackListExit();
                     //     break;
                     case "VAL11056":
-                        message.error(error.errors[0]?.message || translate("系统错误，请联系在线支持！"), 3);
+                        message.error(
+                            error.errors[0]?.message ||
+                                translate("系统错误，请联系在线支持！"),
+                            3,
+                        );
                         break;
                     // 忘記密碼/忘記用戶名
                     case "VAL00001":
@@ -322,12 +339,9 @@ export const timeout_fetch = (fetch_promise, timeout = 600000) => {
         };
     });
     let abortable_promise = Promise.race([fetch_promise, timeout_promise]);
-    setTimeout(
-        function () {
-            timeout_fn();
-        },
-        timeout
-    );
+    setTimeout(function () {
+        timeout_fn();
+    }, timeout);
 
     return abortable_promise;
 };

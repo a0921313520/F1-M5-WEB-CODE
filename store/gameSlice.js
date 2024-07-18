@@ -12,7 +12,7 @@ const gameSlice = createSlice({
     name: "game",
     initialState: {
         //需要隐藏过滤的游戏
-        gamesToFilter: ["SB2", "YBS","IPSB-Virtual"],
+        gamesToFilter: ["SB2", "YBS", "IPSB-Virtual"],
         isLoading: false,
         topTabIndex: "1",
         //页面顶部的导航菜单数据
@@ -32,7 +32,7 @@ const gameSlice = createSlice({
         provider_InstantGames: [],
         provider_KenoLottery: [],
         provider_Sportsbook: [],
-        willOpenGameParams:{}   //要打开游戏的数据
+        willOpenGameParams: {}, //要打开游戏的数据
     },
     reducers: {
         updateGameHide(state, action) {
@@ -77,12 +77,12 @@ const gameSlice = createSlice({
         set_Sportsbook_ProviderData(state, action) {
             state.provider_Sportsbook = action.payload;
         },
-        setWillOpenGameParams(state,action){
+        setWillOpenGameParams(state, action) {
             state.willOpenGameParams = action.payload;
         },
         resetData(state) {
-            state.gamesToFilter = ["SB2", "YBS","IPSB-Virtual"];
-            state.willOpenGameParams = {}
+            state.gamesToFilter = ["SB2", "YBS", "IPSB-Virtual"];
+            state.willOpenGameParams = {};
         },
     },
 });

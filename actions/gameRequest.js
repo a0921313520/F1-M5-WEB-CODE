@@ -10,11 +10,8 @@ export async function GetCategoryList() {
     let mergedArray = JSON.parse(localStorage.getItem("GameMergeData")) || [];
     try {
         const res = await get(ApiPort.GameCategory);
-        if(res && res.isSuccess && Array.isArray(res.result)){
-            localStorage.setItem(
-                "GameMergeData",
-                JSON.stringify(res.result)
-            );
+        if (res && res.isSuccess && Array.isArray(res.result)) {
+            localStorage.setItem("GameMergeData", JSON.stringify(res.result));
             localStorage.setItem("AllGameID", JSON.stringify(res.result));
             mergedArray = res.result;
         }
@@ -30,21 +27,24 @@ export async function GetCategoryList() {
  * @param {*} gameCatId 当前游戏分类的 ID
  * @return {*}
  */
-export async function GetFlashProviderList(categoryType,isShowFishingGames = false) {
+export async function GetFlashProviderList(
+    categoryType,
+    isShowFishingGames = false,
+) {
     let providerList = JSON.parse(
-        localStorage.getItem(`Flash_${categoryType}_Provider`) || "[]"
+        localStorage.getItem(`Flash_${categoryType}_Provider`) || "[]",
     );
     try {
         const res = await get(
             ApiPort.ProvidersDetails +
-                `&gameType=${categoryType}&isShowFishingGames=${isShowFishingGames}`
+                `&gameType=${categoryType}&isShowFishingGames=${isShowFishingGames}`,
         );
 
         if (res && res.isSuccess) {
             providerList = res.result;
             localStorage.setItem(
                 `Flash_${categoryType}_Provider`,
-                JSON.stringify(providerList)
+                JSON.stringify(providerList),
             );
         }
     } catch (e) {
@@ -62,7 +62,7 @@ export async function GetFlashProviderList(categoryType,isShowFishingGames = fal
  */
 export async function GetCmsProviderList(categoryType, gameCatId) {
     let providerList = JSON.parse(
-        localStorage.getItem(`${categoryType}Provider`) || "[]"
+        localStorage.getItem(`${categoryType}Provider`) || "[]",
     );
     try {
         const res = await get(ApiPort.GameCategory);
@@ -71,7 +71,7 @@ export async function GetCmsProviderList(categoryType, gameCatId) {
             providerList = res.providers;
             localStorage.setItem(
                 `${categoryType}Provider`,
-                JSON.stringify(providerList)
+                JSON.stringify(providerList),
             );
         }
     } catch (e) {
@@ -88,18 +88,18 @@ export async function GetCmsProviderList(categoryType, gameCatId) {
  */
 export async function GetGameNavStatus(categoryType) {
     let NavStatus = JSON.parse(
-        localStorage.getItem(`${categoryType}_NavStatus`) || "{}"
+        localStorage.getItem(`${categoryType}_NavStatus`) || "{}",
     );
     try {
         const res = await get(
-            ApiPort.GetGameMaintenanceStatus + `&providerCode=${categoryType}`
+            ApiPort.GetGameMaintenanceStatus + `&providerCode=${categoryType}`,
         );
 
         if (res && res.isSuccess) {
             NavStatus = res.result;
             localStorage.setItem(
                 `${categoryType}_NavStatus`,
-                JSON.stringify(NavStatus)
+                JSON.stringify(NavStatus),
             );
         }
     } catch (e) {

@@ -57,7 +57,7 @@ class SecondStep extends React.Component {
             .replace("-", "/")
             .replace("-", "/");
         let lastSeconds = parseInt(
-            1200 - (new Date().getTime() - new Date(time).getTime()) / 1000
+            1200 - (new Date().getTime() - new Date(time).getTime()) / 1000,
         );
         this.setState({ remainingTime: lastSeconds });
         time !== null && time !== ""

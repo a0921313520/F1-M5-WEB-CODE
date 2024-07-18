@@ -3,14 +3,14 @@ import { Row, Col, Button, Modal, Spin } from "antd";
 import ReadMore from "@/OTP/ReadMore";
 import { get } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "$ACTIONS/TLCAPI";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 function OtpPopUp({
     otpVisible,
     memberInfo,
     otpModal,
     allowClose,
     setPhoneVisible,
-    setEmailVisible
+    setEmailVisible,
 }) {
     // 初次彈窗顯示，控制彈窗，彈窗類別參數，會員信息
     const [readStep, setReadStep] = useState(0); // 0 選擇驗證框、1 了解更多框   4.密码修改
@@ -29,7 +29,7 @@ function OtpPopUp({
         verifyList = [
             {
                 name: "Email",
-                content:  translate("认证方式电子邮件"),
+                content: translate("认证方式电子邮件"),
                 defaultImg: "/vn/img/user/otpVerify/e.svg",
             },
         ];
@@ -52,18 +52,21 @@ function OtpPopUp({
                 name: "Email",
                 content: translate("认证方式电子邮件"),
                 defaultImg: "/vn/img/user/otpVerify/e.svg",
-            }
+            },
         ];
     }
 
     /**
      * 获取剩余验证次数
-     * @param {String} verifyType 
+     * @param {String} verifyType
      */
     const GetVerificationAttempt = (verifyType) => {
         setloading(true);
         let channelType = verifyType == "Phone" ? "SMS" : "Email";
-        get(ApiPort.VerificationAttempt +`&channelType=${channelType}&serviceAction=ContactVerification`)
+        get(
+            ApiPort.VerificationAttempt +
+                `&channelType=${channelType}&serviceAction=ContactVerification`,
+        )
             .then((data) => {
                 setloading(false);
                 if (data.isSuccess) {
@@ -81,16 +84,16 @@ function OtpPopUp({
 
     /**
      * 关闭弹窗
-     * @param {String} param 
+     * @param {String} param
      * @param {Boolean} otpVisible
-     * @param {Boolean} status 
-     * @returns 
+     * @param {Boolean} status
+     * @returns
      */
     const VerifyCategory = (param, otpVisible, status) => {
-        otpModal(otpVisible)
+        otpModal(otpVisible);
         if (param == "Phone") return memberInfo && setPhoneVisible(status);
         if (param == "Email") return memberInfo && setEmailVisible(status);
-        if (param == "CS" ) return otpModal(false) && global.PopUpLiveChat();
+        if (param == "CS") return otpModal(false) && global.PopUpLiveChat();
     };
 
     return (
@@ -101,13 +104,15 @@ function OtpPopUp({
                     readStep == 1 ? "SecurityAnnouncement" : ""
                 } modal-pubilc  OTP-modal `}
                 visible={!memberInfo.isVerifiedEmail ? false : otpVisible} //会有老会员没有邮箱的情况
-                closable={readStep == 1||allowClose ? true : false}
+                closable={readStep == 1 || allowClose ? true : false}
                 centered={true}
                 width={readStep == 0 ? 400 : 500}
                 footer={null}
                 zIndex={1500}
                 onCancel={() => {
-                    allowClose ? VerifyCategory("",false,false) :setReadStep(0);
+                    allowClose
+                        ? VerifyCategory("", false, false)
+                        : setReadStep(0);
                 }}
             >
                 {loading && <Spin size="large" tip="加载中" />}
@@ -116,8 +121,12 @@ function OtpPopUp({
                         <Row>
                             <Col span={24}>
                                 <div className="otp-modal-description">
-                                <h3 className="otp-modal-title">{translate("身份验证保护帐户")}</h3>
-                                    {translate("请验证您的信息，以确保您的账户安全可靠，防止信息被盗，降低交易风险。")}
+                                    <h3 className="otp-modal-title">
+                                        {translate("身份验证保护帐户")}
+                                    </h3>
+                                    {translate(
+                                        "请验证您的信息，以确保您的账户安全可靠，防止信息被盗，降低交易风险。",
+                                    )}
                                     <Button
                                         className="otpBtn"
                                         onClick={() => {
@@ -135,7 +144,11 @@ function OtpPopUp({
                                 {memberInfo &&
                                     verifyList &&
                                     verifyList.map((item, index) => {
-                                        if (!memberInfo.isVerifiedEmail && item.name == "Email") return;
+                                        if (
+                                            !memberInfo.isVerifiedEmail &&
+                                            item.name == "Email"
+                                        )
+                                            return;
                                         return (
                                             <div key={index} className="otpBox">
                                                 <div
@@ -148,12 +161,12 @@ function OtpPopUp({
                                                         VerifyCategory(
                                                             item.name,
                                                             false,
-                                                            true
+                                                            true,
                                                         );
                                                         Pushgtagdata(
                                                             "Verification",
                                                             "Click",
-                                                            `${item.name}_LoginOTP`
+                                                            `${item.name}_LoginOTP`,
                                                         );
                                                     }}
                                                     onMouseEnter={() =>
@@ -175,12 +188,12 @@ function OtpPopUp({
                                                         VerifyCategory(
                                                             item.name,
                                                             false,
-                                                            true
+                                                            true,
                                                         );
                                                         Pushgtagdata(
                                                             "Verification",
                                                             "Click",
-                                                            `${item.name}_LoginOTP`
+                                                            `${item.name}_LoginOTP`,
                                                         );
                                                     }}
                                                 >

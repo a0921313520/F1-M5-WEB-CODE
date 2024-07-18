@@ -8,12 +8,9 @@
  */
 import React from "react";
 import { Row, Col, Button, Modal } from "antd";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
-function ExceedVerify({
-    exceedVisible,
-    onCancel
-}) {
+function ExceedVerify({ exceedVisible, onCancel }) {
     return (
         <Modal
             title={translate("验证次数超出")}
@@ -41,7 +38,7 @@ function ExceedVerify({
                     onClick={() => global.PopUpLiveChat()}
                 >
                     {translate("在线客服")}
-                </Button>
+                </Button>,
             ]}
         >
             <Row>
@@ -51,9 +48,13 @@ function ExceedVerify({
                         src={`${process.env.BASE_PATH}/img/icons/icon-warn.svg`}
                         alt="icon-warn"
                     />
-                    <h3 className="otp-modal-title">{translate("你超过了允许的验证次数")}</h3>
+                    <h3 className="otp-modal-title">
+                        {translate("你超过了允许的验证次数")}
+                    </h3>
                     <div className="otp-cs-tip-exceed">
-                        {translate("您的验证尝试次数已超过 5 次。 请在 24 小时后重试或联系在线聊天")}
+                        {translate(
+                            "您的验证尝试次数已超过 5 次。 请在 24 小时后重试或联系在线聊天",
+                        )}
                     </div>
                 </Col>
             </Row>

@@ -48,7 +48,7 @@ if (strReferURL != "" && strReferURL != undefined) {
     function whl() {}
     function getUrlVars(name) {
         var match = RegExp("[?&]" + name + "=([^&]*)").exec(
-            window.location.search
+            window.location.search,
         );
         var myVar = match && decodeURIComponent(match[1].replace(/\+/g, " "));
         if (myVar != undefined) {
@@ -148,7 +148,7 @@ if (strReferURL != "" && strReferURL != undefined) {
                     strToken +
                     "&r=" +
                     new Date().getTime(),
-                true
+                true,
             );
             xmlhttp.responseType = "json";
             xmlhttp.setRequestHeader("Authorization", "bearer " + MemberToken);
@@ -196,7 +196,7 @@ if (strReferURL != "" && strReferURL != undefined) {
                     strToken +
                     "&r=" +
                     new Date().getTime(),
-                true
+                true,
             );
             xmlhttp.responseType = "json";
             xmlhttp.setRequestHeader("Authorization", "bearer " + MemberToken);

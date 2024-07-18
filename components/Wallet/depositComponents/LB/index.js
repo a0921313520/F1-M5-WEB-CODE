@@ -70,7 +70,7 @@ class LB extends React.Component {
             Pushgtagdata(
                 "Transaction Record",
                 "View",
-                "View_TransactionRecord_Deposit"
+                "View_TransactionRecord_Deposit",
             );
     };
     startCountDown() {
@@ -111,7 +111,7 @@ class LB extends React.Component {
             this.props.currDepositDetail.bankAccounts.find(
                 (v) =>
                     v.bankCode === this.state.bankCodeState ||
-                    v.enBankName === this.state.bankCodeState
+                    v.enBankName === this.state.bankCodeState,
             );
         // this.currBankAccount = Paybank; // 第二步收款银行数据初始化
         const isAutoAssign =
@@ -121,7 +121,7 @@ class LB extends React.Component {
         if (
             typeof this.props.depositStatusCheck(
                 this.payTypeCode,
-                this.state.bankCodeState
+                this.state.bankCodeState,
             ) === "undefined"
         )
             return; // 未完成真实姓名验证则呼出完善弹窗
@@ -225,7 +225,7 @@ class LB extends React.Component {
                                     .split(".")[0],
                                 {
                                     expires: 30,
-                                }
+                                },
                             );
                             this.setState({
                                 lbStep: 2,
@@ -275,12 +275,12 @@ class LB extends React.Component {
                                         post(
                                             ApiPort.CancelPaybnbDeposit +
                                                 "depositId=" +
-                                                res.transactionId
+                                                res.transactionId,
                                         )
                                             .then((res) => {
                                                 if (res) {
                                                     console.log(
-                                                        res.errorMessage
+                                                        res.errorMessage,
                                                     );
                                                 }
                                             })
@@ -297,7 +297,7 @@ class LB extends React.Component {
                         } else if (res.errorCode === "P101007") {
                             tryOtherDialog();
                         }
-                    }
+                    },
                 );
             }
         });
@@ -319,7 +319,7 @@ class LB extends React.Component {
             Pushgtagdata(
                 "Transaction Record",
                 "View",
-                "View_TransactionRecord_Deposit"
+                "View_TransactionRecord_Deposit",
             );
     };
     render() {
@@ -424,7 +424,7 @@ class LB extends React.Component {
                             initialValue: this.getMaskedText(
                                 this.props.localMemberName
                                     ? this.props.localMemberName.length
-                                    : 0
+                                    : 0,
                             ),
                             //initialValue: this.props.localMemberName,
                             rules: [
@@ -466,7 +466,7 @@ class LB extends React.Component {
                             <Button
                                 disabled={
                                     Object.values(getFieldsError()).some(
-                                        (v) => v !== undefined
+                                        (v) => v !== undefined,
                                     ) ||
                                     getFieldValue("money") == "" ||
                                     getFieldValue("lbRealName") == "" ||

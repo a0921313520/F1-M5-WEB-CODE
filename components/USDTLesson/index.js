@@ -28,7 +28,7 @@ class USDTLesson extends React.Component {
                 event.stopPropagation();
                 console.log(event);
             },
-            true
+            true,
         );
     }
 

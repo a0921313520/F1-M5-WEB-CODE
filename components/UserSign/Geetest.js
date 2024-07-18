@@ -65,14 +65,14 @@ class _Geetest extends React.Component {
                 "member.staging7p4.china.tlc88.biz",
                 "member.staging8p4.china.tlc88.biz",
                 "member.staging9p4.china.tlc88.biz",
-            ].find((v) => global.location.href.includes(v))
+            ].find((v) => global.location.href.includes(v)),
         );
         this.FunpodiumGT.init({
             apiUrl: ApiDevGeetDomain
                 ? "https://shstlckpf.funpo.com:2041/captcha-service/api/v1.0"
                 : global.location.host == "react.tlc161.com"
-                ? "https://shsltlckpf.funpo.com:2041/captcha-service/api/v1.0" //'https://shsltlckpf.funpo.com:2041/captcha-service/api/v1.0'
-                : "https://shptlckpftp.zbbcr216.com:2041/captcha-service/api/v1.0", //'https://shptlckpf.funpo.com:2041/captcha-service/api/v1.0',
+                  ? "https://shsltlckpf.funpo.com:2041/captcha-service/api/v1.0" //'https://shsltlckpf.funpo.com:2041/captcha-service/api/v1.0'
+                  : "https://shptlckpftp.zbbcr216.com:2041/captcha-service/api/v1.0", //'https://shptlckpf.funpo.com:2041/captcha-service/api/v1.0',
             extendTime: 180,
             gtParams: {
                 lang: "zh",
@@ -92,7 +92,7 @@ class _Geetest extends React.Component {
                         if (captchaObject.SubmitGeet.isValidated) {
                             _this.props.OpenGeetest(false);
                         }
-                    }
+                    },
                 );
                 $("#SubmitGeet").length && $("#SubmitGeet").off();
             }
@@ -107,7 +107,7 @@ class _Geetest extends React.Component {
                         if (captchaObject.SubmitGeetPopUp.isValidated) {
                             _this.props.OpenGeetest(false);
                         }
-                    }
+                    },
                 );
                 $("#SubmitGeetPopUp").length && $("#SubmitGeetPopUp").off();
             }
@@ -170,7 +170,7 @@ class _Geetest extends React.Component {
                         "FaileCoun",
                         num,
                         expireDate.toGMTString(),
-                        "/"
+                        "/",
                     );
                     return false;
                 } else {
@@ -180,7 +180,7 @@ class _Geetest extends React.Component {
                         "FaileLoc",
                         "MemberLock",
                         expireDate.toGMTString(),
-                        "/"
+                        "/",
                     );
                     this.GeetOpen();
                     return true;

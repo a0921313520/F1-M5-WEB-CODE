@@ -6,8 +6,8 @@ import ModalRedirector from "@/ModalRedirector";
 import { Cookie } from "$ACTIONS/util";
 import { LEARN_TIME } from "$ACTIONS/constantsData";
 import { translate } from "$ACTIONS/Translate";
-import DepositPage from './DepositPage'
-import {Methods} from '$Deposits/Web/deposit'
+import DepositPage from "./DepositPage";
+import { Methods } from "$Deposits/Web/deposit";
 import { connect } from "react-redux";
 
 function depositMethodGtag(key) {
@@ -97,7 +97,7 @@ class Main extends React.Component {
         this.bcTypeList = []; // 在线支付类别（网银存款，快捷支付）（移动到父元素是为了切换大分类保留此处充值方式数据）
         this.promptTimer = null;
     }
-    componentDidMount(){}
+    componentDidMount() {}
     componentDidUpdate(prevProps) {
         if (this.props.dialogTabKey.type !== prevProps.dialogTabKey.type) {
             this.currentModalMap = { ...this.props.dialogTabKey };
@@ -110,14 +110,14 @@ class Main extends React.Component {
             }
         }
 
-        if(
-            prevProps.Methods !== this.props.Methods && 
-            this.props.Methods && 
-            this.props.Methods.paymentMethods && 
-            Array.isArray(this.props.Methods.paymentMethods) && 
+        if (
+            prevProps.Methods !== this.props.Methods &&
+            this.props.Methods &&
+            this.props.Methods.paymentMethods &&
+            Array.isArray(this.props.Methods.paymentMethods) &&
             this.props.Methods.paymentMethods.length &&
             this.props.dialogTabKey.type === DEPOSIT
-        ){
+        ) {
             this.toggleDepositList(true);
         }
     }
@@ -132,13 +132,13 @@ class Main extends React.Component {
         LearnArr.splice(
             this.state.showLearnType === "withdraw" ? 5 : 6,
             1,
-            "1"
+            "1",
         );
         Cookie("learnStep", LearnArr.join(""), { expires: LEARN_TIME });
         Pushgtagdata(
             this.state.showLearnType === "withdraw"
                 ? "Withdrawal_userguide"
-                : "Transfer_userguide"
+                : "Transfer_userguide",
         );
     }
 
@@ -178,7 +178,10 @@ class Main extends React.Component {
 
     // 设置提款方式并处理提款方式列表
     setWithdrawList(list, currentKey) {
-        console.log("🚀 ~ file: index.js:169 ~ Main ~ setWithdrawList ~ list:", list)
+        console.log(
+            "🚀 ~ file: index.js:169 ~ Main ~ setWithdrawList ~ list:",
+            list,
+        );
         this.setState({ withdrawMethodsList: list }, () => {
             this.toggleWithdrawList(true);
             let type = "";
@@ -216,7 +219,7 @@ class Main extends React.Component {
                 Pushgtagdata(
                     "Withdrawal Nav",
                     "Click",
-                    "AstroPay_WithdrawPage"
+                    "AstroPay_WithdrawPage",
                 );
                 break;
         }
@@ -354,7 +357,7 @@ class Main extends React.Component {
                             this.setState({ promptsAfterBoot: v });
                         }}
                     />
-                )
+                );
                 break;
             case "transfer":
                 contentComponent = (
@@ -414,7 +417,9 @@ class Main extends React.Component {
                                 className="deposit-list"
                                 ref={this.depositListRef}
                             >
-                                {this.props.dialogTabKey.type === DEPOSIT ? <Methods /> : null}
+                                {this.props.dialogTabKey.type === DEPOSIT ? (
+                                    <Methods />
+                                ) : null}
                             </div>
                         </div>
                         <div
@@ -442,14 +447,13 @@ class Main extends React.Component {
                                         return (
                                             <div
                                                 key={val.code + idx}
-                                                className={
-                                                    `deposit-item ${val.isFast ? "isFast": val.isNew ? "isNew" : ""}
-                                                    ${this.state.currentWithdrawKey === val.code ? " active" : ""}`
-                                                }
-                                                onClick={() =>{
-                                                    this.setCurrentWithdrawMethod(val.code)
-                                                }
-                                                }
+                                                className={`deposit-item ${val.isFast ? "isFast" : val.isNew ? "isNew" : ""}
+                                                    ${this.state.currentWithdrawKey === val.code ? " active" : ""}`}
+                                                onClick={() => {
+                                                    this.setCurrentWithdrawMethod(
+                                                        val.code,
+                                                    );
+                                                }}
                                             >
                                                 <i
                                                     className={`deposit-sprite ${val.code}`}
@@ -457,7 +461,7 @@ class Main extends React.Component {
                                                 <span>{val.name}</span>
                                             </div>
                                         );
-                                    }
+                                    },
                                 )}
                             </div>
                         </div>
@@ -485,7 +489,7 @@ class Main extends React.Component {
         );
     }
 }
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     Methods: state.Methods,
     MethodsActive: state.MethodsActive,
 });

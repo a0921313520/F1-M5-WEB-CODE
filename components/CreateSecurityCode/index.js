@@ -4,7 +4,7 @@ import { post } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "$ACTIONS/TLCAPI";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Cookie, formatSeconds } from "$ACTIONS/util";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 class CreateSecurityCode extends React.Component {
     constructor(props) {
         super(props);
@@ -49,7 +49,7 @@ class CreateSecurityCode extends React.Component {
 
             if (securityCodeUUID) {
                 const securityCodeUUIDArr = securityCodeUUID.split(
-                    this.cookieInterval
+                    this.cookieInterval,
                 );
                 this.setState({
                     isInit: false,
@@ -94,7 +94,7 @@ class CreateSecurityCode extends React.Component {
                             data.result.passcode +
                                 this.cookieInterval +
                                 backTimeCount,
-                            { expires: 20 }
+                            { expires: 20 },
                         );
                         this.startCountDown(backTimeCount);
                     } else {
@@ -117,7 +117,7 @@ class CreateSecurityCode extends React.Component {
         Pushgtagdata(
             "Verification",
             "Click",
-            isNew ? "Regenerate_Passcode" : "Generate_Passcode"
+            isNew ? "Regenerate_Passcode" : "Generate_Passcode",
         );
     }
     /**
@@ -164,7 +164,9 @@ class CreateSecurityCode extends React.Component {
                 <h2>{translate("创建安全码")}</h2>
                 <div className="security-code-wrap">
                     <p>
-                        {translate("需要取消促销、流水、输赢投注或自我禁入设置吗？ 请点击生成安全代码并将该代码提供给部门")}
+                        {translate(
+                            "需要取消促销、流水、输赢投注或自我禁入设置吗？ 请点击生成安全代码并将该代码提供给部门",
+                        )}
                         <Button
                             type="link"
                             className="inline"
@@ -187,8 +189,12 @@ class CreateSecurityCode extends React.Component {
                                         <div className="code-box">
                                             {codeStatus === "copied" && (
                                                 <div className="copy-result-box">
-                                                    <img src={`${process.env.BASE_PATH}/img/icons/icon-checked.png`} />
-                                                    <p>{translate("复制成功")}</p>
+                                                    <img
+                                                        src={`${process.env.BASE_PATH}/img/icons/icon-checked.png`}
+                                                    />
+                                                    <p>
+                                                        {translate("复制成功")}
+                                                    </p>
                                                 </div>
                                             )}
                                             <div
@@ -208,12 +214,16 @@ class CreateSecurityCode extends React.Component {
                                                 onCopy={this.copyEvent}
                                             >
                                                 <button className="btn-copy">
-                                                    <img src={`${process.env.BASE_PATH}/img/icons/copy.png`} />
+                                                    <img
+                                                        src={`${process.env.BASE_PATH}/img/icons/copy.png`}
+                                                    />
                                                 </button>
                                             </CopyToClipboard>
                                         </div>
                                         <p className="countdown-message">
-                                            {translate("安全码将在以下时间内过期")}
+                                            {translate(
+                                                "安全码将在以下时间内过期",
+                                            )}
                                             <strong
                                                 style={{ color: "#EE0001" }}
                                             >
@@ -225,7 +235,9 @@ class CreateSecurityCode extends React.Component {
                                 )}
                                 {codeStatus === "failed" && (
                                     <div className="expired-reminder-box">
-                                        <img src={`${process.env.BASE_PATH}/img/icons/failed-filled.png`} />
+                                        <img
+                                            src={`${process.env.BASE_PATH}/img/icons/failed-filled.png`}
+                                        />
                                         <p>{translate("安全码已过期")}</p>
                                     </div>
                                 )}
@@ -233,7 +245,9 @@ class CreateSecurityCode extends React.Component {
                                 <div className="line-distance" />
                                 {isStillValid && (
                                     <div className="still-valid-text">
-                                        {translate("该安全码仍然可以使用。 请使用此安全码或等待超时生成新的安全码。")}
+                                        {translate(
+                                            "该安全码仍然可以使用。 请使用此安全码或等待超时生成新的安全码。",
+                                        )}
                                     </div>
                                 )}
 
@@ -280,10 +294,16 @@ class CreateSecurityCode extends React.Component {
                         }}
                     >
                         <>
-                            <img src={`${process.env.BASE_PATH}/img/icons/icon-warn.svg`} />
-                            <span className="sub-title">{translate("安全代码生成失败")}</span>
+                            <img
+                                src={`${process.env.BASE_PATH}/img/icons/icon-warn.svg`}
+                            />
+                            <span className="sub-title">
+                                {translate("安全代码生成失败")}
+                            </span>
                             <p>
-                               {translate("不幸的是，我们目前无法生成安全代码。 请稍后重试或联系在线聊天寻求帮助。")}
+                                {translate(
+                                    "不幸的是，我们目前无法生成安全代码。 请稍后重试或联系在线聊天寻求帮助。",
+                                )}
                             </p>
                         </>
                     </Modal>

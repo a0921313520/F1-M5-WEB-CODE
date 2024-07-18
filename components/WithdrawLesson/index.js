@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel, Tabs ,Button} from "antd";
+import { Carousel, Tabs, Button } from "antd";
 import { translate } from "$ACTIONS/Translate";
 const { TabPane } = Tabs;
 
@@ -10,8 +10,8 @@ class WithdrawLesson extends React.Component {
             rapidIndex: 0,
             generalIndex: 0,
         };
-        this.RapidSlider = React.createRef()
-        this.GeneralSlider = React.createRef()
+        this.RapidSlider = React.createRef();
+        this.GeneralSlider = React.createRef();
     }
 
     componentDidMount() {
@@ -21,7 +21,7 @@ class WithdrawLesson extends React.Component {
                 event.stopPropagation();
                 console.log(event);
             },
-            true
+            true,
         );
     }
 
@@ -88,24 +88,30 @@ class WithdrawLesson extends React.Component {
         const withdrawCryptoComment = [
             {
                 id: 1,
-                title: translate("步骤")+"1",
-                content: translate("输入 VND 金额并检查等值加密货币金额。 请注意，交易将按交易时的实际汇率计算。"),
+                title: translate("步骤") + "1",
+                content: translate(
+                    "输入 VND 金额并检查等值加密货币金额。 请注意，交易将按交易时的实际汇率计算。",
+                ),
             },
             {
                 id: 2,
-                title: translate("步骤")+"2",
-                content: translate("点击添加USDT钱包地址，输入钱包名称和钱包地址，然后点击保存。"),
+                title: translate("步骤") + "2",
+                content: translate(
+                    "点击添加USDT钱包地址，输入钱包名称和钱包地址，然后点击保存。",
+                ),
             },
             {
                 id: 3,
-                title: translate("步骤")+"3",
+                title: translate("步骤") + "3",
                 content: translate("点击“提交”，查看交易状态。"),
             },
             {
                 id: 4,
-                title: translate("步骤")+"4",
-                content: translate("想要了解更多有关加密货币的信息。 您可以访问这些网站。"),
-            }
+                title: translate("步骤") + "4",
+                content: translate(
+                    "想要了解更多有关加密货币的信息。 您可以访问这些网站。",
+                ),
+            },
         ];
 
         const addressCryptoLessons = [
@@ -139,28 +145,32 @@ class WithdrawLesson extends React.Component {
         const addressCryptoComment = [
             {
                 id: 1,
-                title: translate("步骤")+"1",
+                title: translate("步骤") + "1",
                 content: translate("点击“添加钱包地址”。"),
             },
             {
                 id: 2,
-                title: translate("步骤")+"2",
+                title: translate("步骤") + "2",
                 content: translate("输入有效的钱包名称和钱包地址。"),
             },
             {
                 id: 3,
-                title: translate("步骤")+"3",
+                title: translate("步骤") + "3",
                 content: translate("点击“确认”确认存款。"),
             },
             {
                 id: 4,
-                title: translate("步骤")+"4",
-                content: translate("钱包地址可以从您的加密货币帐户的接收钱包中复制。"),
+                title: translate("步骤") + "4",
+                content: translate(
+                    "钱包地址可以从您的加密货币帐户的接收钱包中复制。",
+                ),
             },
             {
                 id: 5,
-                title: translate("步骤")+"5",
-                content: translate("想要了解更多有关加密货币的信息。 您可以访问这些网站。"),
+                title: translate("步骤") + "5",
+                content: translate(
+                    "想要了解更多有关加密货币的信息。 您可以访问这些网站。",
+                ),
             },
         ];
 
@@ -226,7 +236,15 @@ class WithdrawLesson extends React.Component {
                                     }
                                 </div>
                             }
-                            {<div className="deposit-comment-content">{withdrawCryptoComment[this.state.rapidIndex].content}</div>}
+                            {
+                                <div className="deposit-comment-content">
+                                    {
+                                        withdrawCryptoComment[
+                                            this.state.rapidIndex
+                                        ].content
+                                    }
+                                </div>
+                            }
                             <Button
                                 type="primary"
                                 size="large"
@@ -292,7 +310,15 @@ class WithdrawLesson extends React.Component {
                                     }
                                 </div>
                             }
-                            {<div className="deposit-comment-content">{addressCryptoComment[this.state.generalIndex].content}</div>}
+                            {
+                                <div className="deposit-comment-content">
+                                    {
+                                        addressCryptoComment[
+                                            this.state.generalIndex
+                                        ].content
+                                    }
+                                </div>
+                            }
                             <Button
                                 type="primary"
                                 size="large"

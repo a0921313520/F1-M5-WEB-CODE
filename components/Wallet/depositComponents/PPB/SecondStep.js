@@ -22,7 +22,7 @@ class SecondStep extends React.Component {
         const { collectionInfo, hasTimeoutSeconds } = this.props;
         console.log(
             "🚀 ~ file: SecondStep.js:23 ~ SecondStep ~ componentDidUpdate ~ hasTimeoutSeconds",
-            hasTimeoutSeconds
+            hasTimeoutSeconds,
         );
         if (prevProps.collectionInfo !== collectionInfo && collectionInfo) {
             // 二维码地址格式化
@@ -37,52 +37,52 @@ class SecondStep extends React.Component {
                                 vendorDepositBankDetails &&
                                     vendorDepositBankDetails.transferAmount
                                     ? vendorDepositBankDetails.transferAmount
-                                    : ""
+                                    : "",
                             )}&` +
                             `bankName=${encodeURIComponent(
                                 vendorDepositBankDetails &&
                                     vendorDepositBankDetails.bankName
                                     ? vendorDepositBankDetails.bankName
-                                    : ""
+                                    : "",
                             )}&` +
                             `bankAccountName=${encodeURIComponent(
                                 vendorDepositBankDetails &&
                                     vendorDepositBankDetails.bankAccountName
                                     ? vendorDepositBankDetails.bankAccountName
-                                    : ""
+                                    : "",
                             )}&` +
                             `bankAccountNumber=${encodeURIComponent(
                                 vendorDepositBankDetails &&
                                     vendorDepositBankDetails.bankAccountNumber
                                     ? vendorDepositBankDetails.bankAccountNumber
-                                    : ""
+                                    : "",
                             )}&` +
                             `bankProvince=${encodeURIComponent(
                                 vendorDepositBankDetails &&
                                     vendorDepositBankDetails.bankProvince
                                     ? vendorDepositBankDetails.bankProvince
-                                    : ""
+                                    : "",
                             )}&` +
                             `bankCity=${encodeURIComponent(
                                 vendorDepositBankDetails &&
                                     vendorDepositBankDetails.bankCity
                                     ? vendorDepositBankDetails.bankCity
-                                    : ""
+                                    : "",
                             )}&` +
                             `bankBranch=${encodeURIComponent(
                                 vendorDepositBankDetails &&
                                     vendorDepositBankDetails.bankBranch
                                     ? vendorDepositBankDetails.bankBranch
-                                    : ""
+                                    : "",
                             )}&` +
                             `pgRemark=${encodeURIComponent(
                                 vendorDepositBankDetails &&
                                     vendorDepositBankDetails.pgRemark
                                     ? vendorDepositBankDetails.pgRemark
-                                    : ""
-                            )}`
-                    )
-                )
+                                    : "",
+                            )}`,
+                    ),
+                ),
             );
 
             this.setState({

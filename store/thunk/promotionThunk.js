@@ -15,17 +15,17 @@ export function updateBonusPromotionHistoryAction(promoId) {
             console.log("thunk", appliedHistories);
             const justCreatedHistoryIndex =
                 getState().promotion.promotions.findIndex(
-                    (history) => history.promotionId === promoId
+                    (history) => history.promotionId === promoId,
                 );
             const justCreatedHistory = appliedHistories.find(
-                (history) => history.promotionId === promoId
+                (history) => history.promotionId === promoId,
             );
 
             dispatch(
                 promotionActions.updatePromotionHistroy({
                     index: justCreatedHistoryIndex,
                     history: justCreatedHistory,
-                })
+                }),
             );
         } catch (e) {
             console.error(e.message);
@@ -74,7 +74,7 @@ export function getRebateListAction(
     startDate,
     endDate,
     selectedCategory = "All",
-    stopLoading
+    stopLoading,
 ) {
     console.log("thunk11", stopLoading);
     return async function getRebateListThunk(dispatch, getState) {
@@ -89,7 +89,7 @@ export function getRebateListAction(
                 promotionActions.setRebateData({
                     data: rebateList.filter((item) => !!item.promotionCategory),
                     selectedCategory,
-                })
+                }),
             );
         } catch (e) {
             console.error("thunk getRebateList error", e.message);

@@ -1,5 +1,5 @@
-import {translate} from "$ACTIONS/Translate";
-import {isWebPSupported} from "$ACTIONS/helper"
+import { translate } from "$ACTIONS/Translate";
+import { isWebPSupported } from "$ACTIONS/helper";
 
 //Header中非游戏类列表
 export const menuRightBarData = [

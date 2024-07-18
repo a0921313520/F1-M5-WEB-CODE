@@ -116,8 +116,8 @@ class Main extends React.Component {
             visibleDateRange: false, // 自定义时间范围
             pageIndex: 1, //返水頁碼
             isLoading: false, //是否換日期區間Loading中
-            openModalDetail:[],
-            PromotionCategories:""
+            openModalDetail: [],
+            PromotionCategories: "",
         };
 
         this.setTlcGameIframeHeightCount = 0;
@@ -155,7 +155,7 @@ class Main extends React.Component {
                 this.state.SelectedCategory,
                 () => {
                     this.setState({ isLoading: false });
-                }
+                },
             );
             return;
         }
@@ -176,7 +176,7 @@ class Main extends React.Component {
                     filterdata: this.props.rebateData.filter(
                         (item) =>
                             item.promotionCategory ===
-                            this.state.SelectedCategory
+                            this.state.SelectedCategory,
                     ),
                 });
             }
@@ -184,7 +184,8 @@ class Main extends React.Component {
 
         if (prevState.SelectedCategory !== this.state.SelectedCategory) {
             const filterdata = this.props.rebateData.filter(
-                (item) => item.promotionCategory === this.state.SelectedCategory
+                (item) =>
+                    item.promotionCategory === this.state.SelectedCategory,
             );
             console.log("filterdata", filterdata);
 
@@ -223,7 +224,7 @@ class Main extends React.Component {
         const appliedHistories = await getPromotionCategories();
         if (appliedHistories && appliedHistories.length > 0) {
             const rebateCategory = appliedHistories.filter(
-                (item) => item.parentName === "Rebate"
+                (item) => item.parentName === "Rebate",
             );
             const all = {
                 PromoCatID: "",
@@ -297,7 +298,7 @@ class Main extends React.Component {
                 "/vi-vn/api/v1/web/webbanners/position/promo_main?login=" +
                 (loginStatus
                     ? `after${isSupportWebp}`
-                    : `before${isSupportWebp}`)
+                    : `before${isSupportWebp}`),
         ).then((res) => {
             // res && Array.isArray(res) && this.setState({ cmsBanner: res[0].cmsImageUrl });
         });
@@ -340,7 +341,7 @@ class Main extends React.Component {
                         () => {
                             if (queryId) {
                                 let index = res.data.findIndex(
-                                    (x) => x.promoId == queryId
+                                    (x) => x.promoId == queryId,
                                 );
                                 if (
                                     !queryIsLogin &&
@@ -353,7 +354,7 @@ class Main extends React.Component {
                                     let intkey = this.Categoriesdata.findIndex(
                                         (x) =>
                                             x.PromoCatCode ==
-                                            res.data[index].category[0]
+                                            res.data[index].category[0],
                                     );
                                     this.openmodal(res.data[index]);
                                     this.callback(intkey == "-1" ? 0 : intkey);
@@ -364,10 +365,10 @@ class Main extends React.Component {
                             } else {
                                 this.callback(0);
                             }
-                        }
+                        },
                     );
                 }
-            }
+            },
         );
     }
     imSportPrompt = (value, status, callback) => {
@@ -506,13 +507,13 @@ class Main extends React.Component {
                 turnover: resultItem.totalBetAmount,
                 rebate: `￥${resultItem.totalGivenAmount}`,
                 rebateId: resultItem.rebateId,
-                date: moment(resultItem.applyDate).format('DD/MM/YYYY'),
+                date: moment(resultItem.applyDate).format("DD/MM/YYYY"),
             });
         }
         this.setState({
             visible: true,
             sameRebateItems: rebateData,
-            openModalDetail:selectedItem,
+            openModalDetail: selectedItem,
         });
     }
 
@@ -608,9 +609,9 @@ class Main extends React.Component {
                     this.state.SelectedCategory,
                     () => {
                         this.setState({ isLoading: false });
-                    }
+                    },
                 );
-            }
+            },
         );
     }
 
@@ -619,24 +620,33 @@ class Main extends React.Component {
      * @param {*} data  返水数据
      * @return {*}
      */
-    RebateData(data,categories) {
+    RebateData(data, categories) {
         // console.log("返水数据--------------------->", data);
         if (!categories) return null;
         let aggregatedData = [];
 
-        categories.forEach(category => {
+        categories.forEach((category) => {
             let filterData = data.filter((element) => {
-                return element.promotionCategory.includes(category.PromoCatCode);
+                return element.promotionCategory.includes(
+                    category.PromoCatCode,
+                );
             });
             if (filterData && filterData.length > 0) {
                 aggregatedData.push({
                     ...category,
                     datas: [...filterData],
-                    totalGivenAmount: filterData.reduce((acc, currentItem) => acc + currentItem.totalGivenAmount, 0),
-                    totalBetAmount: filterData.reduce((acc, currentItem) => acc + currentItem.totalBetAmount, 0),
-                })
+                    totalGivenAmount: filterData.reduce(
+                        (acc, currentItem) =>
+                            acc + currentItem.totalGivenAmount,
+                        0,
+                    ),
+                    totalBetAmount: filterData.reduce(
+                        (acc, currentItem) => acc + currentItem.totalBetAmount,
+                        0,
+                    ),
+                });
             }
-        })
+        });
 
         return (
             <React.Fragment>
@@ -653,7 +663,11 @@ class Main extends React.Component {
                                         src={item.promoCatImageUrl}
                                     />
                                     <div>
-                                        <h3>{this.changeCategoryName(item.PromoCatCode)}</h3>
+                                        <h3>
+                                            {this.changeCategoryName(
+                                                item.PromoCatCode,
+                                            )}
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
@@ -667,11 +681,15 @@ class Main extends React.Component {
                         </div>
                         <div className="rebate-info-box">
                             <div className="content_item">
-                                <p className="title">{translate("1天内投注")}</p>
+                                <p className="title">
+                                    {translate("1天内投注")}
+                                </p>
                                 <p> {item.totalBetAmount}</p>
                             </div>
                             <div className="content_item">
-                                <p className="title">{translate("1天内返水")}</p>
+                                <p className="title">
+                                    {translate("1天内返水")}
+                                </p>
                                 <p className="total-amount">
                                     ￥ {item.totalGivenAmount}
                                 </p>
@@ -685,8 +703,8 @@ class Main extends React.Component {
         );
     }
 
-    changeCategoryName(name){
-        switch(name){
+    changeCategoryName(name) {
+        switch (name) {
             case "Special":
                 return "独家";
             case "VIP":
@@ -702,7 +720,7 @@ class Main extends React.Component {
             case "P2P":
                 return "棋牌";
             case "Slot":
-                return "老虎机"
+                return "老虎机";
             case "Lottery":
                 return "彩票";
             default:
@@ -786,11 +804,12 @@ class Main extends React.Component {
                                             {filterdata.length && !isLoading ? (
                                                 <>
                                                     <p>
-                                                        {translate("返水总额")}：
+                                                        {translate("返水总额")}
+                                                        ：
                                                         <strong>
                                                             ￥
                                                             {this.props.rebateFilteredTotalAmount.toFixed(
-                                                                2
+                                                                2,
                                                             )}
                                                         </strong>
                                                     </p>
@@ -824,9 +843,9 @@ class Main extends React.Component {
                                     <div className="Pms_data_rebate">
                                         {isSelfDefined && (
                                             <p className="defined-date-description">
-                                                {translate("从")} 
-                                                {`${moment(definedDate.startTime).format("DD/MM/YYYY")}`} 
-                                                {translate("至")} 
+                                                {translate("从")}
+                                                {`${moment(definedDate.startTime).format("DD/MM/YYYY")}`}
+                                                {translate("至")}
                                                 {`${moment(definedDate.endTime).format("DD/MM/YYYY")}`}
                                                 <span
                                                     onClick={() => {
@@ -852,13 +871,17 @@ class Main extends React.Component {
                                             >
                                                 {!isLoading &&
                                                     this.RebateData(
-                                                        this.state.filterdata,this.state.PromotionCategories
+                                                        this.state.filterdata,
+                                                        this.state
+                                                            .PromotionCategories,
                                                     )}
                                                 {!this.state.filterdata
                                                     .length &&
                                                     !isLoading && (
                                                         <Empty
-                                                            description={translate("没有数据")}
+                                                            description={translate(
+                                                                "没有数据",
+                                                            )}
                                                             image={
                                                                 "/vn/img/icon/img-no-record.svg"
                                                             }
@@ -920,9 +943,9 @@ class Main extends React.Component {
                                                 this.setState({
                                                     isLoading: false,
                                                 });
-                                            }
+                                            },
                                         );
-                                    }
+                                    },
                                 );
                             }}
                         />
@@ -931,7 +954,10 @@ class Main extends React.Component {
 
                 <Modal
                     className="theme-modal promotion-modal promotion-detail"
-                    title={this.changeCategoryName(openModalDetail.PromoCatCode) || " "}
+                    title={
+                        this.changeCategoryName(openModalDetail.PromoCatCode) ||
+                        " "
+                    }
                     centered={true}
                     footer={false}
                     visible={this.state.visible}
@@ -973,8 +999,8 @@ function mapDispatchToProps(dispatch) {
                     startTime,
                     endTime,
                     selectedCategory,
-                    stopLoading
-                )
+                    stopLoading,
+                ),
             );
         },
         setRebateFilterTotalAmount: (result) => {

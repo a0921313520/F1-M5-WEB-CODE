@@ -13,10 +13,10 @@ import {
 import { get, post } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "$ACTIONS/TLCAPI";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { formatYearMonthDate,formatAmount,backToTop } from "$ACTIONS/util";
+import { formatYearMonthDate, formatAmount, backToTop } from "$ACTIONS/util";
 import UploadFile from "@/UploadFile";
 import DepositRecordsDetail from "./DetailModal";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 class DepsoitRecords extends React.Component {
     constructor(props) {
@@ -27,10 +27,10 @@ class DepsoitRecords extends React.Component {
             currentDetail: {}, // 当前详情数据
             statusId: -1, // 当前列状态展开元素
             resubmitRedirectUrl: "", // 重新提交充值Vendor Iframe Url
-            itemTransactionDetail:{
-                data:{},
-                visible: false
-            }
+            itemTransactionDetail: {
+                data: {},
+                visible: false,
+            },
         };
 
         this.formatRecords = this.formatRecords.bind(this); // 格式化充值记录
@@ -104,7 +104,9 @@ class DepsoitRecords extends React.Component {
     }
     formatRecords() {
         this.props.recordsData.forEach((val) => {
-            val.processingDatetimeTo = formatYearMonthDate(val.processingDateTime);
+            val.processingDatetimeTo = formatYearMonthDate(
+                val.processingDateTime,
+            );
             val.approvedDatetimeTo = formatYearMonthDate(val.approvedDateTime);
             val.rejectedDateTimeTo = formatYearMonthDate(val.rejectedDateTime);
             val.submittedAtTo = formatYearMonthDate(val.submittedAt);
@@ -159,11 +161,12 @@ class DepsoitRecords extends React.Component {
                 // 根据Api文档失败是使用rejectedDateTime，为了避免空白，多一个备用时间
                 val.resultTimeTo =
                     val.rejectedDateTimeTo || val.approvedDatetimeTo;
-            } else if (val.statusId === 5 ) {
+            } else if (val.statusId === 5) {
                 // 根据Api文档交易过期是使用TimeoutDatetime，为了避免空白，多一个备用时间
                 val.statusName = "交易过期";
                 val.statusType = "r-expired";
-                val.resultTimeTo = val.timeoutDatetime || val.processingDatetimeTo;
+                val.resultTimeTo =
+                    val.timeoutDatetime || val.processingDatetimeTo;
             } else {
                 val.statusName = "";
                 val.statusType = "";
@@ -178,7 +181,7 @@ class DepsoitRecords extends React.Component {
         this.setState({
             currentList: this.props.recordsData.slice(
                 startIndex,
-                startIndex + this.onePageSize
+                startIndex + this.onePageSize,
             ), // 当前展示数据
         });
     }
@@ -190,7 +193,7 @@ class DepsoitRecords extends React.Component {
             currentPage: index,
             currentList: this.props.recordsData.slice(
                 startIndex,
-                startIndex + this.onePageSize
+                startIndex + this.onePageSize,
             ), // 当前展示数据
         });
         backToTop();
@@ -200,7 +203,7 @@ class DepsoitRecords extends React.Component {
         post(
             ApiPort.MemberRequestDepositReject +
                 "&transactionId=" +
-                transactionId
+                transactionId,
         )
             .then((res) => {
                 // res.isSuccess
@@ -219,7 +222,7 @@ class DepsoitRecords extends React.Component {
                 "&resubmitDepositID=" +
                 transactionId +
                 "&returnUrl=" +
-                ApiPort.LOCAL_HOST
+                ApiPort.LOCAL_HOST,
         )
             .then((res) => {
                 if (res && res.result && res.result.resubmitRedirectUrl) {
@@ -230,7 +233,7 @@ class DepsoitRecords extends React.Component {
                     var RBWindow = window.open(
                         "",
                         "_blank",
-                        "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=1245, height=559"
+                        "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=1245, height=559",
                     );
                     RBWindow.document.write(res.result.resubmitRedirectUrl);
                     RBWindow.focus();
@@ -251,14 +254,15 @@ class DepsoitRecords extends React.Component {
                     title: translate("取消存款"),
                     content: (
                         <>
-                            {translate("您确定想取消该金额的存款")} {recordItem.amount} ?
+                            {translate("您确定想取消该金额的存款")}{" "}
+                            {recordItem.amount} ?
                         </>
                     ),
                     okText: translate("确定"),
                     cancelText: translate("不是"),
                     onOk: () => {
                         this.MemberRequestDepositReject(
-                            recordItem.transactionId
+                            recordItem.transactionId,
                         );
                     },
                 });
@@ -272,13 +276,20 @@ class DepsoitRecords extends React.Component {
                     content: (
                         <div className="deposit-help-wrap">
                             <ul style={{ textAlign: "left" }}>
-                                <p>{translate("请您按照以下提示操作重新提交：")} </p>
+                                <p>
+                                    {translate(
+                                        "请您按照以下提示操作重新提交：",
+                                    )}{" "}
+                                </p>
                                 <li>{translate("单击“了解，继续”。")}</li>
                                 <li>{translate("接下来，单击“完成”按钮。")}</li>
-                                <li>{translate("您无需转账任何金额，请等待交易页面显示并关闭页面。")}</li>
+                                <li>
+                                    {translate(
+                                        "您无需转账任何金额，请等待交易页面显示并关闭页面。",
+                                    )}
+                                </li>
                             </ul>
                         </div>
-                        
                     ),
                     okText: translate("明白了，继续"),
                     cancelText: translate("在线客服"),
@@ -291,7 +302,7 @@ class DepsoitRecords extends React.Component {
                             Pushgtagdata(
                                 "CS",
                                 "Click",
-                                "ContactCS_TransactionRecord"
+                                "ContactCS_TransactionRecord",
                             );
                         },
                     },
@@ -299,16 +310,17 @@ class DepsoitRecords extends React.Component {
                         Pushgtagdata(
                             "Deposit Nav",
                             "Next",
-                            "Resubmit_TransactionRecord"
+                            "Resubmit_TransactionRecord",
                         );
                         return get(
                             ApiPort.GetResubmitDepositDetails +
                                 "&resubmitDepositID=" +
-                                recordItem.transactionId
+                                recordItem.transactionId,
                         )
                             .then(({ result }) => {
                                 Modal.info({
-                                    className: "confirm-modal-of-public oneButton",
+                                    className:
+                                        "confirm-modal-of-public oneButton",
                                     icon: <div />,
                                     centered: true,
 
@@ -316,7 +328,9 @@ class DepsoitRecords extends React.Component {
                                     content: (
                                         <ul className="t-resubmit-list">
                                             <li>
-                                                <div>{translate("存款方式")}</div>
+                                                <div>
+                                                    {translate("存款方式")}
+                                                </div>
                                                 <div>
                                                     {result.paymentGatewayName}
                                                 </div>
@@ -324,7 +338,9 @@ class DepsoitRecords extends React.Component {
                                             {result.methodTypeName &&
                                             result.methodTypeNameEng ? (
                                                 <li>
-                                                    <div>{translate("支付渠道")}</div>
+                                                    <div>
+                                                        {translate("支付渠道")}
+                                                    </div>
                                                     <div>
                                                         {result.methodTypeName}
                                                     </div>
@@ -333,11 +349,16 @@ class DepsoitRecords extends React.Component {
                                             <li style={{ borderBottom: "0px" }}>
                                                 <div>{translate("金额")}</div>
                                                 <div>
-                                                    {formatAmount(result.resubmitAmount)} đ
+                                                    {formatAmount(
+                                                        result.resubmitAmount,
+                                                    )}{" "}
+                                                    đ
                                                 </div>
                                             </li>
                                             <li className="t-resubmit-tip ">
-                                                {translate("无需从银行重新转账真实资金。 只需点击“删除”按钮即可，在交易屏幕出现之前请勿关闭页面。 任何中断都可能导致交易失败。")}
+                                                {translate(
+                                                    "无需从银行重新转账真实资金。 只需点击“删除”按钮即可，在交易屏幕出现之前请勿关闭页面。 任何中断都可能导致交易失败。",
+                                                )}
                                             </li>
                                         </ul>
                                     ),
@@ -346,10 +367,10 @@ class DepsoitRecords extends React.Component {
                                         Pushgtagdata(
                                             "Deposit",
                                             "Submit",
-                                            "Resubmit_TransactionRecord"
+                                            "Resubmit_TransactionRecord",
                                         );
                                         return this.CreateResubmitOnlineDeposit(
-                                            recordItem.transactionId
+                                            recordItem.transactionId,
                                         );
                                     },
                                 });
@@ -375,13 +396,11 @@ class DepsoitRecords extends React.Component {
                 break;
             default:
                 break;
-        }    
+        }
     };
 
     render() {
-        const {
-            itemTransactionDetail
-        } = this.state;
+        const { itemTransactionDetail } = this.state;
         // 1	Pending - 待处理
         // 2	Approved - 交易成功
         // 3	Rejected - 交易失败
@@ -411,11 +430,11 @@ class DepsoitRecords extends React.Component {
                                             className="record-info-icon pointer"
                                             onClick={() => {
                                                 this.setState({
-                                                    itemTransactionDetail:{
+                                                    itemTransactionDetail: {
                                                         data: val,
-                                                        visible: true
-                                                    }
-                                                })
+                                                        visible: true,
+                                                    },
+                                                });
                                             }}
                                         ></i>
                                     </div>
@@ -424,12 +443,17 @@ class DepsoitRecords extends React.Component {
                                         <CopyToClipboard
                                             text={val.transactionId}
                                             onCopy={() => {
-                                                this.props.recordAlert(translate("复制成功"));
+                                                this.props.recordAlert(
+                                                    translate("复制成功"),
+                                                );
                                             }}
                                         >
                                             <img
                                                 width="12"
-                                                style={{ marginLeft: "0.5rem",cursor:"pointer"  }}
+                                                style={{
+                                                    marginLeft: "0.5rem",
+                                                    cursor: "pointer",
+                                                }}
                                                 src={`${process.env.BASE_PATH}/img/icons/copy.png`}
                                             />
                                         </CopyToClipboard>
@@ -519,7 +543,7 @@ class DepsoitRecords extends React.Component {
                                             this.btnsInfo.some(
                                                 (vIn) =>
                                                     vIn.id === v &&
-                                                    (currentBtn = vIn)
+                                                    (currentBtn = vIn),
                                             );
                                             if (!!currentBtn) {
                                                 if (
@@ -541,7 +565,7 @@ class DepsoitRecords extends React.Component {
                                                                 this.props.getRecordslist(
                                                                     false,
                                                                     this
-                                                                        .formatRecords
+                                                                        .formatRecords,
                                                                 );
                                                             }}
                                                             children={
@@ -564,7 +588,7 @@ class DepsoitRecords extends React.Component {
                                                                                 currentBtn
                                                                                     .piwik[1],
                                                                                 currentBtn
-                                                                                    .piwik[2]
+                                                                                    .piwik[2],
                                                                             );
                                                                         }
                                                                     }}
@@ -591,7 +615,7 @@ class DepsoitRecords extends React.Component {
                                                             onClick={() => {
                                                                 this.btnClick(
                                                                     currentBtn.id,
-                                                                    val
+                                                                    val,
                                                                 );
                                                                 if (
                                                                     Pushgtagdata
@@ -602,7 +626,7 @@ class DepsoitRecords extends React.Component {
                                                                         currentBtn
                                                                             .piwik[1],
                                                                         currentBtn
-                                                                            .piwik[2]
+                                                                            .piwik[2],
                                                                     );
                                                                 }
                                                             }}
@@ -652,19 +676,21 @@ class DepsoitRecords extends React.Component {
                     ></iframe>
                 </Modal>
 
-                {itemTransactionDetail.visible && <DepositRecordsDetail
-                    data={itemTransactionDetail.data}
-                    visible={itemTransactionDetail.visible}
-                    closeModal={()=>{
-                        this.setState({
-                            itemTransactionDetail:{
-                                data:{},
-                                visible:false
-                            }
-                        })
-                    }}
-                    setLoading={(v)=>this.props.setLoading(v)}
-                />}
+                {itemTransactionDetail.visible && (
+                    <DepositRecordsDetail
+                        data={itemTransactionDetail.data}
+                        visible={itemTransactionDetail.visible}
+                        closeModal={() => {
+                            this.setState({
+                                itemTransactionDetail: {
+                                    data: {},
+                                    visible: false,
+                                },
+                            });
+                        }}
+                        setLoading={(v) => this.props.setLoading(v)}
+                    />
+                )}
             </div>
         );
     }

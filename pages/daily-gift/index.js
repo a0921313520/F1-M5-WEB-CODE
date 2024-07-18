@@ -12,11 +12,11 @@ import Qs from "qs";
 import DateRange from "@/DateRange";
 import ImageWithFallback from "@/ImageWithFallback/";
 import { PromotionList } from "$ACTIONS/cmsApi";
-import {isWebPSupported} from "$ACTIONS/helper"
+import { isWebPSupported } from "$ACTIONS/helper";
 import { translate } from "$ACTIONS/Translate";
-import { getStaticPropsFromStrapiSEOSetting } from '$DATA/seo';
+import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 export async function getStaticProps() {
-    return await getStaticPropsFromStrapiSEOSetting('/daily-gift'); //參數帶本頁的路徑
+    return await getStaticPropsFromStrapiSEOSetting("/daily-gift"); //參數帶本頁的路徑
 }
 export default class Dailydeals extends Component {
     constructor(props) {
@@ -48,7 +48,7 @@ export default class Dailydeals extends Component {
         // this.getDailydealsHistory(true);
     }
     componentWillUnmount() {
-        this.setState = ()=>false;
+        this.setState = () => false;
     }
     //获取每日优惠
     getDailydealsList = (isLoad) => {
@@ -81,7 +81,7 @@ export default class Dailydeals extends Component {
         get(
             ApiPort.DailyDealsHistories +
                 "&" +
-                Qs.stringify(this.state.definedDate)
+                Qs.stringify(this.state.definedDate),
         )
             .then((res) => {
                 if (res.isSuccess && res.result) {
@@ -118,7 +118,7 @@ export default class Dailydeals extends Component {
                 },
                 () => {
                     this.getDailydealsHistory();
-                }
+                },
             );
         } else if (e.target.value == 0) {
             this.setState({
@@ -131,7 +131,7 @@ export default class Dailydeals extends Component {
                     definedDate: {
                         startDate: moment()
                             .day(
-                                moment().day() - (parseInt(e.target.value) - 1)
+                                moment().day() - (parseInt(e.target.value) - 1),
                             )
                             .utcOffset(8)
                             .format("YYYY-MM-DDTHH:mm:ss"),
@@ -142,7 +142,7 @@ export default class Dailydeals extends Component {
                 },
                 () => {
                     this.getDailydealsHistory();
-                }
+                },
             );
         }
     };
@@ -166,11 +166,16 @@ export default class Dailydeals extends Component {
         } = this.state;
         const renderer = ({ days, hours, minutes, seconds, completed }) => {
             if (completed) {
-                return <span>0 {translate("时")} 0 {translate("分")}</span>;
+                return (
+                    <span>
+                        0 {translate("时")} 0 {translate("分")}
+                    </span>
+                );
             } else {
                 return (
                     <span>
-                        {days} {translate("天")} {hours} {translate("时")} {minutes} {translate("分")}
+                        {days} {translate("天")} {hours} {translate("时")}{" "}
+                        {minutes} {translate("分")}
                     </span>
                 );
             }
@@ -258,7 +263,7 @@ export default class Dailydeals extends Component {
                                                                             ShowDetail: true,
                                                                             BonusData:
                                                                                 item,
-                                                                        }
+                                                                        },
                                                                     );
                                                                 }}
                                                             >
@@ -308,7 +313,7 @@ export default class Dailydeals extends Component {
                                                                                     }
                                                                                     date={
                                                                                         new Date(
-                                                                                            item.endDate
+                                                                                            item.endDate,
                                                                                         )
                                                                                     }
                                                                                     renderer={
@@ -320,21 +325,37 @@ export default class Dailydeals extends Component {
                                                                     </div>
                                                                     {item.bonusData ? (
                                                                         <div className="daily-deals-item-btn">
-                                                                            {item.bonusData.maxApplications == item.bonusData.currentApplications ? (
+                                                                            {item
+                                                                                .bonusData
+                                                                                .maxApplications ==
+                                                                            item
+                                                                                .bonusData
+                                                                                .currentApplications ? (
                                                                                 <button>
-                                                                                    {translate("缺货")}
+                                                                                    {translate(
+                                                                                        "缺货",
+                                                                                    )}
                                                                                 </button>
                                                                             ) : (
                                                                                 <button>
-                                                                                    {translate("剩余")}
-                                                                                    {item.bonusData.maxApplications - item.bonusData.currentApplications}
+                                                                                    {translate(
+                                                                                        "剩余",
+                                                                                    )}
+                                                                                    {item
+                                                                                        .bonusData
+                                                                                        .maxApplications -
+                                                                                        item
+                                                                                            .bonusData
+                                                                                            .currentApplications}
                                                                                 </button>
                                                                             )}
                                                                         </div>
                                                                     ) : (
                                                                         <div className="daily-deals-item-btn">
                                                                             <button>
-                                                                                {translate("没有数据")}
+                                                                                {translate(
+                                                                                    "没有数据",
+                                                                                )}
                                                                             </button>
                                                                         </div>
                                                                     )}
@@ -385,7 +406,10 @@ export default class Dailydeals extends Component {
                                         )}
                                     </Row>
                                 </TabPane>
-                                <TabPane tab={translate("奖励历史记录")} key="2">
+                                <TabPane
+                                    tab={translate("奖励历史记录")}
+                                    key="2"
+                                >
                                     <div className="message-button dailyGiftHistoryBtn">
                                         <Radio.Group
                                             buttonStyle="solid"
@@ -420,12 +444,24 @@ export default class Dailydeals extends Component {
                                     </div>
                                     <div className="history-list-wrap has-detail">
                                         <Row style={{ fontSize: "16px" }}>
-                                            <Col span={4}>{translate("交易日期")}</Col>
-                                            <Col span={4}>{translate("产品")}</Col>
-                                            <Col span={4}>{translate("参考编号(大写)")}</Col>
-                                            <Col span={4}>{translate("状态")}</Col>
-                                            <Col span={4}>{translate("优惠")}</Col>
-                                            <Col span={4}>{translate("备注")}</Col>
+                                            <Col span={4}>
+                                                {translate("交易日期")}
+                                            </Col>
+                                            <Col span={4}>
+                                                {translate("产品")}
+                                            </Col>
+                                            <Col span={4}>
+                                                {translate("参考编号(大写)")}
+                                            </Col>
+                                            <Col span={4}>
+                                                {translate("状态")}
+                                            </Col>
+                                            <Col span={4}>
+                                                {translate("优惠")}
+                                            </Col>
+                                            <Col span={4}>
+                                                {translate("备注")}
+                                            </Col>
                                         </Row>
 
                                         {historyList &&
@@ -441,10 +477,10 @@ export default class Dailydeals extends Component {
                                                             <Col span={4}>
                                                                 {moment(
                                                                     new Date(
-                                                                        item.createdDate
-                                                                    )
+                                                                        item.createdDate,
+                                                                    ),
                                                                 ).format(
-                                                                    "DD-MM-YYYY"
+                                                                    "DD-MM-YYYY",
                                                                 )}
                                                             </Col>
                                                             <Col span={4}>
@@ -474,7 +510,9 @@ export default class Dailydeals extends Component {
                                                                         color: "#00A6FF",
                                                                     }}
                                                                 >
-                                                                    {translate("查看更多")}
+                                                                    {translate(
+                                                                        "查看更多",
+                                                                    )}
                                                                 </Col>
                                                             ) : (
                                                                 "--"
@@ -511,7 +549,6 @@ export default class Dailydeals extends Component {
                                                 />
                                             </SkeletonTheme>
                                         )}
-
                                     </div>
                                 </TabPane>
                             </Tabs>
@@ -554,7 +591,7 @@ export default class Dailydeals extends Component {
                             },
                             () => {
                                 this.getDailydealsHistory();
-                            }
+                            },
                         );
                     }}
                 />

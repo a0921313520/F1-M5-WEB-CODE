@@ -18,12 +18,12 @@ class BankAccount extends React.Component {
         // 如果初始值存在，则设置第一个选项为默认值
         console.log(
             "this.props.bankAccounts===-------------------->",
-            this.props.bankAccounts
+            this.props.bankAccounts,
         );
         Array.isArray(this.props.bankAccounts) &&
             this.props.bankAccounts.length &&
             this.props.setBankCode(
-                this.props.bankAccounts[0][this.props.keyName[1]]
+                this.props.bankAccounts[0][this.props.keyName[1]],
             );
     }
     componentDidUpdate(prevProps, prevState) {
@@ -78,7 +78,8 @@ class BankAccount extends React.Component {
                                     {bankAccounts.map((value, index) => {
                                         let bankname = ABankList.find(
                                             (items) =>
-                                                items.Name === value[keyName[0]]
+                                                items.Name ===
+                                                value[keyName[0]],
                                         );
                                         return (
                                             <Option

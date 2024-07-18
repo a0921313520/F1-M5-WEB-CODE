@@ -2,13 +2,17 @@ import React from "react";
 import { Modal, Form, Input, Button, Spin, Steps } from "antd";
 import moment from "moment";
 import { formatAmount, sub, dateFormat, formatSeconds } from "$ACTIONS/util";
-import { Cookie,showResultModal,getDisplayPublicError} from "$ACTIONS/helper";
+import {
+    Cookie,
+    showResultModal,
+    getDisplayPublicError,
+} from "$ACTIONS/helper";
 import { put } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "$ACTIONS/TLCAPI";
 import { pwdReg } from "$ACTIONS/reg";
 import { formItemLayout, tailFormItemLayout } from "$ACTIONS/constantsData";
 import Router from "next/router";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 const { Item } = Form;
 const { Step } = Steps;
@@ -48,7 +52,7 @@ class PassWordVerify extends React.Component {
             .replace("-", "/")
             .replace("-", "/");
         let lastSeconds = parseInt(
-            600 - (new Date().getTime() - new Date(pwdTime).getTime()) / 1000
+            600 - (new Date().getTime() - new Date(pwdTime).getTime()) / 1000,
         );
         this.timeTimer = setInterval(() => {
             if (lastSeconds <= 0) {
@@ -78,7 +82,13 @@ class PassWordVerify extends React.Component {
                     });
                     this.setState({ firstModal: false });
                     this.props.setReadStep(0);
-                    showResultModal(translate("更新成功"), true, 1501, "otp",'authentication-succeeded');
+                    showResultModal(
+                        translate("更新成功"),
+                        true,
+                        1501,
+                        "otp",
+                        "authentication-succeeded",
+                    );
                     Cookie.Create("pwdTime", null);
                     setTimeout(() => {
                         localStorage.setItem("login-otpPwd", true); // 驗證成功
@@ -90,19 +100,23 @@ class PassWordVerify extends React.Component {
                             icon: null,
                             content: (
                                 <div className="note">
-                                    {translate("您已成功重置密码，请使用新密码登录！")}
+                                    {translate(
+                                        "您已成功重置密码，请使用新密码登录！",
+                                    )}
                                 </div>
                             ),
                             onOk: () => {
-                                global.globalExit()
+                                global.globalExit();
                             },
-                            zIndex:1502
+                            zIndex: 1502,
                         });
                     }, 3000);
                 } else {
                     if (res.errors) {
                         this.setState({
-                            apiError: getDisplayPublicError(error)||translate("密码重置失败"),
+                            apiError:
+                                getDisplayPublicError(error) ||
+                                translate("密码重置失败"),
                         });
                     }
                 }
@@ -110,7 +124,7 @@ class PassWordVerify extends React.Component {
             .catch((error) => {
                 console.log("updatePassword error:", error);
                 this.setState({ isLoading: false });
-                if(error?.result?.Code === "MEM00145"){
+                if (error?.result?.Code === "MEM00145") {
                     Modal.info({
                         title: translate("密码重置失败"),
                         centered: true,
@@ -123,66 +137,83 @@ class PassWordVerify extends React.Component {
                             </div>
                         ),
                         onOk: () => {},
-                        zIndex:1502
+                        zIndex: 1502,
                     });
-                } 
-                else {
+                } else {
                     this.setState({
-                        apiError: getDisplayPublicError(error)||translate("密码重置失败"),
+                        apiError:
+                            getDisplayPublicError(error) ||
+                            translate("密码重置失败"),
                     });
                 }
             });
     };
     changePassword = (e, v) => {
         if (v === "pwd") {
-            this.setState({ 
-                userPassWord: e.target.value 
-            },()=>{
-                if(e.target.value.length < 1){
-                    this.setState({
-                        userPassWordError: translate('新密码不能为空'),
-                        btnStatus: true,
-                    });
-                } else if (e.target.value && !pwdReg.test(e.target.value)) {
-                    this.setState({
-                        userPassWordError: translate("密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@"),
-                        btnStatus: true,
-                    });
-                } else if(e.target.value && pwdReg.test(e.target.value)){
-                    this.setState({ userPassWordError: ""});
-                    if ( e.target.value === this.state.confirmUserPwd ) {
-                        this.setState({ btnStatus: false,confirmUserPwdError: ""});
-                    } else{
-                        this.setState({ btnStatus: true });
+            this.setState(
+                {
+                    userPassWord: e.target.value,
+                },
+                () => {
+                    if (e.target.value.length < 1) {
+                        this.setState({
+                            userPassWordError: translate("新密码不能为空"),
+                            btnStatus: true,
+                        });
+                    } else if (e.target.value && !pwdReg.test(e.target.value)) {
+                        this.setState({
+                            userPassWordError: translate(
+                                "密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@",
+                            ),
+                            btnStatus: true,
+                        });
+                    } else if (e.target.value && pwdReg.test(e.target.value)) {
+                        this.setState({ userPassWordError: "" });
+                        if (e.target.value === this.state.confirmUserPwd) {
+                            this.setState({
+                                btnStatus: false,
+                                confirmUserPwdError: "",
+                            });
+                        } else {
+                            this.setState({ btnStatus: true });
+                        }
                     }
-                } 
-            });
+                },
+            );
         }
 
         if (v === "confirmpwd") {
-            this.setState({ 
-                confirmUserPwd: e.target.value 
-            },()=>{
-                if(e.target.value.length < 1){
-                    this.setState({
-                        confirmUserPwdError: translate('需要确认密码'),
-                        btnStatus: true,
-                    });
-                } else if (this.state.userPassWord !== e.target.value) {
-                    this.setState({
-                        confirmUserPwdError: translate('确认密码和新密码不一致'),
-                        btnStatus: true,
-                    });
-                } else {
-                    if (this.state.userPassWord === e.target.value) {
-                        this.setState({ btnStatus: false, confirmUserPwdError: "",userPassWordError:"" });
-                    } else{
-                        this.setState({ btnStatus: true });
+            this.setState(
+                {
+                    confirmUserPwd: e.target.value,
+                },
+                () => {
+                    if (e.target.value.length < 1) {
+                        this.setState({
+                            confirmUserPwdError: translate("需要确认密码"),
+                            btnStatus: true,
+                        });
+                    } else if (this.state.userPassWord !== e.target.value) {
+                        this.setState({
+                            confirmUserPwdError:
+                                translate("确认密码和新密码不一致"),
+                            btnStatus: true,
+                        });
+                    } else {
+                        if (this.state.userPassWord === e.target.value) {
+                            this.setState({
+                                btnStatus: false,
+                                confirmUserPwdError: "",
+                                userPassWordError: "",
+                            });
+                        } else {
+                            this.setState({ btnStatus: true });
+                        }
                     }
-                }
-            })
+                },
+            );
         }
-    }
+    };
 
     closeModal = () => {
         this.setState({ verificationTimedOut: false });
@@ -218,7 +249,7 @@ class PassWordVerify extends React.Component {
             iconName1,
             iconName2,
             apiError,
-            userPassWord
+            userPassWord,
         } = this.state;
         return (
             <React.Fragment>
@@ -248,13 +279,18 @@ class PassWordVerify extends React.Component {
                             >
                                 <div className="line-distance" />
                                 <div className="text-tip TextLightYellow">
-                                    {translate("您有")} {remainingTime} {translate("分钟更新新密码。 请在时间用完之前更改您的密码。")}
+                                    {translate("您有")} {remainingTime}{" "}
+                                    {translate(
+                                        "分钟更新新密码。 请在时间用完之前更改您的密码。",
+                                    )}
                                 </div>
                                 <div className="line-distance" />
                                 <Item label={translate("新的密码")}>
                                     <Input
                                         size="large"
-                                        placeholder={translate("新的密码(小写)")}
+                                        placeholder={translate(
+                                            "新的密码(小写)",
+                                        )}
                                         className="tlc-input-disabled"
                                         autoComplete="off"
                                         onChange={(e) =>
@@ -276,9 +312,11 @@ class PassWordVerify extends React.Component {
                                         <p className="error-tip TextLightRed">
                                             {userPassWordError}
                                         </p>
-                                    ) : userPassWordError && userPassWord ?
-                                        <p className="TextLight-Off-white">{userPassWordError}</p> : null
-                                    }
+                                    ) : userPassWordError && userPassWord ? (
+                                        <p className="TextLight-Off-white">
+                                            {userPassWordError}
+                                        </p>
+                                    ) : null}
                                 </Item>
                                 {apiError && (
                                     <p className="error-tip TextLightRed">
@@ -288,7 +326,9 @@ class PassWordVerify extends React.Component {
                                 <Item label={translate("重新输入新密码")}>
                                     <Input
                                         size="large"
-                                        placeholder={translate("重新输入新密码(小写)")}
+                                        placeholder={translate(
+                                            "重新输入新密码(小写)",
+                                        )}
                                         className="tlc-input-disabled"
                                         autoComplete="off"
                                         onChange={(e) =>

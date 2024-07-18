@@ -28,7 +28,7 @@ class Upload extends React.Component {
             BackimageList: [],
             FrontimageList: [],
             ShowType: null,
-            Loadingvisible:false,
+            Loadingvisible: false,
         };
     }
     componentDidMount() {
@@ -116,7 +116,7 @@ class Upload extends React.Component {
                 Loadingvisible: false,
             });
             if (res.isSuccess) {
-                message.success(translate("上传成功"))
+                message.success(translate("上传成功"));
                 this.setState({
                     showIDCardModal: false,
                 });
@@ -170,7 +170,9 @@ class Upload extends React.Component {
                     <div className="UploadFilesSet">
                         <div className="Title">
                             <div className="name">
-                                <img src={`${process.env.BASE_PATH}/img/icons/${DocData.icon}`} />
+                                <img
+                                    src={`${process.env.BASE_PATH}/img/icons/${DocData.icon}`}
+                                />
                                 {DocData.name}
                             </div>
                             <div
@@ -185,11 +187,16 @@ class Upload extends React.Component {
                             </div>
                         </div>
                         <p className="UploadNote">
-                            {translate("以正确的 .jng、.png、.jepg 文件格式上传文档。 文件大小为")} {imageRestriction.size} {translate("/文件")}
+                            {translate(
+                                "以正确的 .jng、.png、.jepg 文件格式上传文档。 文件大小为",
+                            )}{" "}
+                            {imageRestriction.size} {translate("/文件")}
                         </p>
                         {docTypeId == 3 && (
                             <p className="TextLightYellow">
-                                {translate("请手持公民身份证（CCCD）正面和背面拍摄身份证照片。 要求面部照片和CCCD上的信息清晰。")}
+                                {translate(
+                                    "请手持公民身份证（CCCD）正面和背面拍摄身份证照片。 要求面部照片和CCCD上的信息清晰。",
+                                )}
                             </p>
                         )}
                         <div className="Content">
@@ -252,7 +259,7 @@ class Upload extends React.Component {
                                         imageList={BackimageList}
                                         onChange={(
                                             imageList,
-                                            addUpdateIndex
+                                            addUpdateIndex,
                                         ) => {
                                             this.onChange({
                                                 BackimageList: imageList,
@@ -271,9 +278,11 @@ class Upload extends React.Component {
                             )}
                         </div>
                         <p className="tryTime">
-                            {translate("还有")}
-                            (<span className="blue">{Documents.remainingUploadTries}</span>)
-                            {translate("尝试次数")}
+                            {translate("还有")}(
+                            <span className="blue">
+                                {Documents.remainingUploadTries}
+                            </span>
+                            ){translate("尝试次数")}
                         </p>
                         <Button
                             size="large"
@@ -284,14 +293,14 @@ class Upload extends React.Component {
                                     docTypeId == 1
                                         ? "Identification"
                                         : docTypeId == 2
-                                        ? "Address"
-                                        : docTypeId == 3
-                                        ? "IdentificationWithRealTimeFace"
-                                        : docTypeId == 4
-                                        ? "Deposit"
-                                        : docTypeId == 5
-                                        ? "BankAccountOwner"
-                                        : "";
+                                          ? "Address"
+                                          : docTypeId == 3
+                                            ? "IdentificationWithRealTimeFace"
+                                            : docTypeId == 4
+                                              ? "Deposit"
+                                              : docTypeId == 5
+                                                ? "BankAccountOwner"
+                                                : "";
 
                                 Submit && this.ToUploadDocument(type);
                             }}
@@ -315,7 +324,7 @@ class Upload extends React.Component {
                         />
                     </div>
                 )}
-                
+
                 <DynamicUploadingModal
                     Loadingvisible={Loadingvisible}
                     loadText={translate("上传文件中")}
@@ -407,7 +416,8 @@ class Uploading extends React.Component {
                             style={{ marginTop: "-10px" }}
                         >
                             <span>
-                                {translate("文件大小超出")}{imageRestriction.size}
+                                {translate("文件大小超出")}
+                                {imageRestriction.size}
                             </span>
                         </div>
                     )}

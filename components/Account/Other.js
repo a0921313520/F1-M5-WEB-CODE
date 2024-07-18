@@ -45,7 +45,7 @@ class Other extends React.Component {
                     !~this.isFinishFrontData.indexOf(0) &&
                     this.props.memberInfoRefresh &&
                     this.props.setLoading(false);
-            }      
+            }
         });
 
         const newLen2 = this.isFinishFrontData.push(0);
@@ -59,7 +59,7 @@ class Other extends React.Component {
                         this.setState({
                             preferWallet: this.props.memberInfo.preferWallet,
                         });
-                }
+                },
             );
             this.isFinishFrontData.splice(newLen2 - 1, 1, 1);
             this.isFinishFrontData.length &&
@@ -70,13 +70,13 @@ class Other extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (
             prevProps.memberInfo.preferWallet !==
-            this.props.memberInfo.preferWallet &&
+                this.props.memberInfo.preferWallet &&
             this.props.memberInfo.preferWallet
         ) {
             this.setState({ preferWallet: this.props.memberInfo.preferWallet });
         }
     }
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState = () => false;
     }
     handleSubmit = (e) => {
@@ -95,7 +95,7 @@ class Other extends React.Component {
                         this.setState({ isEnable: false });
                         localStorage.setItem(
                             "PreferWallet",
-                            values.preferWallet
+                            values.preferWallet,
                         );
                         getMemberInfo((res) => {
                             this.props.setMemberInfo(res);
@@ -126,7 +126,7 @@ class Other extends React.Component {
                         ) {
                             memberCall(res);
                         }
-                    }
+                    },
                 );
 
                 if (!this.props.memberInfo.securityAnswer) {
@@ -146,7 +146,7 @@ class Other extends React.Component {
                             ) {
                                 memberCall(res);
                             }
-                        }
+                        },
                     );
                 }
             }
@@ -195,8 +195,9 @@ class Other extends React.Component {
                     onSubmit={this.handleSubmit}
                 >
                     <div
-                        className={`edit-disabeld${this.state.isEnable ? " enable" : ""
-                            }`}
+                        className={`edit-disabeld${
+                            this.state.isEnable ? " enable" : ""
+                        }`}
                     >
                         <Row className="ant-form-item" gutter={100}>
                             <Col span={12}>
@@ -241,7 +242,8 @@ class Other extends React.Component {
                                             rules: [
                                                 {
                                                     required: true,
-                                                    message: translate("请选择"),
+                                                    message:
+                                                        translate("请选择"),
                                                 },
                                             ],
                                         })(
@@ -255,7 +257,9 @@ class Other extends React.Component {
                                                     <Icon type="caret-down" />
                                                 }
                                                 size="large"
-                                                placeholder={translate("请选择")}
+                                                placeholder={translate(
+                                                    "请选择",
+                                                )}
                                                 dropdownStyle={{ zIndex: 1 }}
                                             >
                                                 {this.state.fromWalletList.map(
@@ -273,9 +277,9 @@ class Other extends React.Component {
                                                                 {value.name}
                                                             </Option>
                                                         );
-                                                    }
+                                                    },
                                                 )}
-                                            </Select>
+                                            </Select>,
                                         )
                                     ) : (
                                         <Select
@@ -298,7 +302,7 @@ class Other extends React.Component {
                                     className="user-center-account-profile-input-item"
                                 >
                                     {this.state.questionList &&
-                                        this.state.questionList.length ? (
+                                    this.state.questionList.length ? (
                                         getFieldDecorator("question", {
                                             initialValue: secretQID
                                                 ? secretQID
@@ -306,7 +310,10 @@ class Other extends React.Component {
                                             rules: [
                                                 {
                                                     required: true,
-                                                    message: translate("请选择一个安全问题"),
+                                                    message:
+                                                        translate(
+                                                            "请选择一个安全问题",
+                                                        ),
                                                 },
                                             ],
                                         })(
@@ -320,7 +327,9 @@ class Other extends React.Component {
                                                     <Icon type="caret-down" />
                                                 }
                                                 size="large"
-                                                placeholder={translate("请选择一个安全问题")}
+                                                placeholder={translate(
+                                                    "请选择一个安全问题",
+                                                )}
                                                 disabled={!!secretQID}
                                             >
                                                 {this.state.questionList.map(
@@ -338,9 +347,9 @@ class Other extends React.Component {
                                                                 }
                                                             </Option>
                                                         );
-                                                    }
+                                                    },
                                                 )}
-                                            </Select>
+                                            </Select>,
                                         )
                                     ) : (
                                         <Select
@@ -362,24 +371,29 @@ class Other extends React.Component {
                                     {getFieldDecorator("answer", {
                                         initialValue: getMaskHandler(
                                             "Security answer",
-                                            securityAnswer
+                                            securityAnswer,
                                         ),
                                         rules: [
                                             {
                                                 required: true,
-                                                message: translate("输入你的答案"),
+                                                message:
+                                                    translate("输入你的答案"),
                                             },
                                             {
                                                 validator: (
                                                     rule,
                                                     value,
-                                                    callback
+                                                    callback,
                                                 ) => {
                                                     if (
                                                         value &&
                                                         value.trim() === ""
                                                     ) {
-                                                        callback(translate("输入你的答案"));
+                                                        callback(
+                                                            translate(
+                                                                "输入你的答案",
+                                                            ),
+                                                        );
                                                     }
                                                     callback();
                                                 },
@@ -395,9 +409,11 @@ class Other extends React.Component {
                                             size="large"
                                             className="user-center-account-profile-input"
                                             autoComplete="off"
-                                            placeholder={translate("输入你的答案")}
+                                            placeholder={translate(
+                                                "输入你的答案",
+                                            )}
                                             disabled={!!secretQID}
-                                        />
+                                        />,
                                     )}
                                 </Item>
                             </Col>
@@ -468,5 +484,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(Form.create({ name: "Other" })(Other));

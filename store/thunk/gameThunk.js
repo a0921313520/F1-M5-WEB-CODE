@@ -33,7 +33,7 @@ export function getGameCategoryListAction(selectedCategory, stopLoading) {
 
             // 存储所有 Async Thunk 的 Promise
             const promises = [];
-            promises.push(GameList)
+            promises.push(GameList);
             // GameList.forEach((item) => {
             //     promises.push(
             //         dispatch(
@@ -52,12 +52,12 @@ export function getGameCategoryListAction(selectedCategory, stopLoading) {
                         acc[item.code] = result;
                         return acc;
                     },
-                    {}
+                    {},
                 );
                 dispatch(gameActions.setGameProviderListData(providerListData));
                 localStorage.setItem(
                     "CmsProviderArrayList",
-                    JSON.stringify(providerListData)
+                    JSON.stringify(providerListData),
                 );
             }
             dispatch(gameActions.setLoading(false));
@@ -80,12 +80,12 @@ export function getCmsProviderListAction(categoryType, gameCatId) {
         try {
             const CmsProviderList = await GetCmsProviderList(
                 categoryType,
-                gameCatId
+                gameCatId,
             );
 
             localStorage.setItem(
                 `${categoryType}Provider`,
-                JSON.stringify(CmsProviderList)
+                JSON.stringify(CmsProviderList),
             );
 
             return CmsProviderList;
@@ -107,13 +107,13 @@ export function getCmsProviderAction(categoryType, gameCatId) {
         try {
             const localProvider =
                 JSON.parse(
-                    localStorage.getItem(`${categoryType}Provider`) || "[]"
+                    localStorage.getItem(`${categoryType}Provider`) || "[]",
                 ) || [];
             if (localProvider) {
                 dispatch(
                     gameActions[`${categoryType}SetCmsProviderData`](
-                        localProvider
-                    )
+                        localProvider,
+                    ),
                 );
             } else {
                 dispatch(getCmsProviderListAction(categoryType, gameCatId));
@@ -130,13 +130,16 @@ export function getCmsProviderAction(categoryType, gameCatId) {
  * @param {*} gameCatId 游戏种类ID
  * @return {*}
  */
-export function getFlashProviderListAction(categoryType,isShowFishingGames) {
+export function getFlashProviderListAction(categoryType, isShowFishingGames) {
     return async function (dispatch, getState) {
         try {
-            const providerData = await GetFlashProviderList(categoryType,isShowFishingGames);
+            const providerData = await GetFlashProviderList(
+                categoryType,
+                isShowFishingGames,
+            );
 
             const filteredData = providerData.filter(
-                (provider) => !gamesToFilter.includes(provider.providerCode)
+                (provider) => !gamesToFilter.includes(provider.providerCode),
             );
             const savedProviders =
                 JSON.parse(localStorage.getItem(`${categoryType}Provider`)) ||
@@ -144,7 +147,7 @@ export function getFlashProviderListAction(categoryType,isShowFishingGames) {
 
             const updatedProviderData = filteredData.map((item) => {
                 const matchingSavedProvider = savedProviders.find(
-                    (savedItem) => savedItem.providerCode === item.providerCode
+                    (savedItem) => savedItem.providerCode === item.providerCode,
                 );
 
                 if (matchingSavedProvider) {
@@ -164,8 +167,8 @@ export function getFlashProviderListAction(categoryType,isShowFishingGames) {
 
             dispatch(
                 gameActions[`set_${categoryType}_ProviderData`](
-                    updatedProviderData
-                )
+                    updatedProviderData,
+                ),
             );
         } catch (error) {
             console.error(error.message);

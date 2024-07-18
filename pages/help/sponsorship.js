@@ -6,12 +6,11 @@ import { Carousel, Icon, Skeleton, Button } from "antd";
 import { PhotoProvider, PhotoConsumer } from "react-photo-view";
 import { translate } from "$ACTIONS/Translate";
 import { isWebPSupported } from "$ACTIONS/helper";
-import { getStaticPropsFromStrapiSEOSetting } from '$DATA/seo';
+import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 export async function getStaticProps() {
-    return await getStaticPropsFromStrapiSEOSetting('/help/sponsorship'); //參數帶本頁的路徑
+    return await getStaticPropsFromStrapiSEOSetting("/help/sponsorship"); //參數帶本頁的路徑
 }
-const linkForMoreVids =
-    "https://www.youtube.com/@funsportgame8887/";
+const linkForMoreVids = "https://www.youtube.com/@funsportgame8887/";
 const Sponsordata = [
     {
         title: translate("伊克尔·卡西利亚斯"),
@@ -88,8 +87,13 @@ const Carouseldata = [
         title: translate("传奇门将，世界杯、欧洲杯、欧冠冠军"),
         content: (
             <div>
-                {translate("我很高兴成为FUN88的形象大使。这是一个契合我的职业生涯和对足球的热情的品牌")}<br />
-                {translate("这种组合将有助于观众获得更有趣的比赛体验。 与 Fun88 一起释放你的激情")}
+                {translate(
+                    "我很高兴成为FUN88的形象大使。这是一个契合我的职业生涯和对足球的热情的品牌",
+                )}
+                <br />
+                {translate(
+                    "这种组合将有助于观众获得更有趣的比赛体验。 与 Fun88 一起释放你的激情",
+                )}
             </div>
         ),
         otherImagesUrl: [
@@ -122,8 +126,7 @@ const Carouseldata = [
         bannerImageUrl: `/vn/img/sponsor/Group 13576@2x.${isWebPSupported() ? "webp" : "jpg"}`,
         name: translate("托特纳姆热刺足球俱乐部(2)"),
         title: translate("自 2012 年起成为亚洲官方博彩合作伙伴。"),
-        content: translate("连续10年引领世界创造足球传奇。")
-        ,
+        content: translate("连续10年引领世界创造足球传奇。"),
         otherImagesUrl: [
             `/vn/img/sponsor/Gallery_SPURS-1.${isWebPSupported() ? "webp" : "jpg"}`,
             `/vn/img/sponsor/Gallery_SPURS-2.${isWebPSupported() ? "webp" : "jpg"}`,
@@ -150,7 +153,9 @@ const Carouseldata = [
         bannerImageUrl: `/vn/img/sponsor/Group 13574@2x.${isWebPSupported() ? "webp" : "jpg"}`,
         name: translate("科比·布莱恩特，NBA 篮球传奇人物"),
         title: translate("与 FUN88 一起梦想成真"),
-        content: translate("科比表示：“我真的很高兴有机会与FUN88合作，最让我兴奋的是有机会传达“让梦想成真”的信息"),
+        content: translate(
+            "科比表示：“我真的很高兴有机会与FUN88合作，最让我兴奋的是有机会传达“让梦想成真”的信息",
+        ),
         otherImagesUrl: [
             `/vn/img/sponsor/Gallery_KOBE-1.${isWebPSupported() ? "webp" : "jpg"}`,
             `/vn/img/sponsor/Gallery_KOBE-2.${isWebPSupported() ? "webp" : "jpg"}`,
@@ -165,7 +170,9 @@ const Carouseldata = [
         bannerImageUrl: `/vn/img/sponsor/burnley.${isWebPSupported() ? "webp" : "png"}`,
         name: translate("伯恩利足球俱乐部"),
         title: translate("伯恩利足球俱乐部官方球衣赞助商"),
-        content: translate("伯恩利足球俱乐部与FUN88合作后，取得了不俗的成绩，以93分的总分夺得冠军，这证实了两个品牌强强联手，引领在线体育行业渗透到国际市场。"),
+        content: translate(
+            "伯恩利足球俱乐部与FUN88合作后，取得了不俗的成绩，以93分的总分夺得冠军，这证实了两个品牌强强联手，引领在线体育行业渗透到国际市场。",
+        ),
         otherImagesUrl: [
             `/vn/img/sponsor/Gallery_BURNLEY-1.${isWebPSupported() ? "webp" : "jpg"}`,
             `/vn/img/sponsor/Gallery_BURNLEY-2.${isWebPSupported() ? "webp" : "jpg"}`,
@@ -259,7 +266,10 @@ export class Carouselbox extends React.Component {
 
         return (
             <div>
-                <Carousel afterChange={() => this.onChange} ref={this.sponsorCarousel}>
+                <Carousel
+                    afterChange={() => this.onChange}
+                    ref={this.sponsorCarousel}
+                >
                     <div>
                         {/* 不带整屏banner特殊样式的数据*/}
                         {/* {Carouseldata.id != 9999 ? ( */}
@@ -288,7 +298,7 @@ export class Carouselbox extends React.Component {
                                         className={
                                             "banner_right__sponsorBody-content"
                                         }
-                                    // dangerouslySetInnerHTML={{ __html: data.content }}
+                                        // dangerouslySetInnerHTML={{ __html: data.content }}
                                     >
                                         {data.content}
                                     </div>
@@ -466,7 +476,9 @@ export default class Main extends React.Component {
                                     className="Sponsortop-left-arrow-btn"
                                     onClick={this.slide.bind(this, "prev")}
                                 >
-                                    <img src={`${process.env.BASE_PATH}/img/sponsor/arrow-left.svg`} />
+                                    <img
+                                        src={`${process.env.BASE_PATH}/img/sponsor/arrow-left.svg`}
+                                    />
                                 </Button>
                             )}
                             <div className="Sponsortop">
@@ -493,7 +505,7 @@ export default class Main extends React.Component {
                                                             className="navbtn-container"
                                                             style={
                                                                 item.style[
-                                                                "navbtn-container"
+                                                                    "navbtn-container"
                                                                 ]
                                                             }
                                                         >
@@ -544,7 +556,9 @@ export default class Main extends React.Component {
                                     className="Sponsortop-right-arrow-btn"
                                     onClick={this.slide.bind(this, "next")}
                                 >
-                                    <img src={`${process.env.BASE_PATH}/img/sponsor/arrow-right.svg`} />
+                                    <img
+                                        src={`${process.env.BASE_PATH}/img/sponsor/arrow-right.svg`}
+                                    />
                                 </Button>
                             )}
                         </div>

@@ -5,8 +5,8 @@ import { message } from "antd";
 import { setGameHideAction } from "$STORE/thunk/gameThunk";
 import { checkIsRemoveShaba } from "$ACTIONS/util";
 import store from "../store/store";
-import { translate } from "$ACTIONS/Translate"; 
-import {userCenterActions} from "$STORE/userCenterSlice";
+import { translate } from "$ACTIONS/Translate";
+import { userCenterActions } from "$STORE/userCenterSlice";
 
 // 获取用户账户信息以及设置为LocalStorage
 export function getMemberInfo(call, refresh) {
@@ -19,7 +19,7 @@ export function getMemberInfo(call, refresh) {
             .then((res) => {
                 localStorage.setItem(
                     "memberCode",
-                    res.result.memberInfo.memberCode
+                    res.result.memberInfo.memberCode,
                 );
                 memberInfoIsLoad.splice(0, 1, 1);
 
@@ -29,15 +29,13 @@ export function getMemberInfo(call, refresh) {
                             [val.contact, val.status === "Verified"];
                     });
 
-                    const {
-                        isVerifiedEmail,
-                        isVerifiedPhone,
-                    } = res.result.memberInfo;
+                    const { isVerifiedEmail, isVerifiedPhone } =
+                        res.result.memberInfo;
                     /* 提款验证步骤 */
                     if (isVerifiedEmail && !isVerifiedEmail[1]) {
                         /* 第1步 邮箱验证 */
                         res.result.memberInfo.withdrawalVerifyStep = 1;
-                    } else if(isVerifiedPhone && !isVerifiedPhone[1]){
+                    } else if (isVerifiedPhone && !isVerifiedPhone[1]) {
                         /* 第2步 手机验证 */
                         res.result.memberInfo.withdrawalVerifyStep = 2;
                     } else {
@@ -47,15 +45,19 @@ export function getMemberInfo(call, refresh) {
                     Object.assign(
                         memberInfo,
                         res.result.memberInfo,
-                        res.result.memberNewInfo
+                        res.result.memberNewInfo,
                     );
                 }
                 const memberInfoString = JSON.stringify(memberInfo);
                 localStorage.setItem(
                     "memberInfo",
-                    memberInfoString === "{}" ? "" : memberInfoString
+                    memberInfoString === "{}" ? "" : memberInfoString,
                 );
-                store.dispatch(userCenterActions.setMemberInfo(memberInfoString === "{}" ? {} : memberInfo));
+                store.dispatch(
+                    userCenterActions.setMemberInfo(
+                        memberInfoString === "{}" ? {} : memberInfo,
+                    ),
+                );
                 if (typeof _paq === "object") {
                     _paq.push(["setUserId", memberInfo.memberCode]);
                 }
@@ -66,7 +68,7 @@ export function getMemberInfo(call, refresh) {
                 // }
 
                 //首选钱包
-                localStorage.setItem('PreferWallet', memberInfo.preferWallet);
+                localStorage.setItem("PreferWallet", memberInfo.preferWallet);
 
                 call(memberInfo);
             })
@@ -85,7 +87,11 @@ export function setUserRealyName(name, call) {
         return call(message.error(translate("请输入您的真实姓名2")));
     }
     if (!realyNameReg.test(name)) {
-        return call(message.error(translate("格式错误，真实姓名需要2-50个字母数字字符")));
+        return call(
+            message.error(
+                translate("格式错误，真实姓名需要2-50个字母数字字符"),
+            ),
+        );
     }
 
     patch(ApiPort.PATCHMemberlistAPI, {

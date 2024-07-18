@@ -1,22 +1,22 @@
 import React from "react";
 import Router from "next/router";
 import Layout from "@/Layout";
-import { getStaticPropsFromStrapiSEOSetting } from '$DATA/seo';
+import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 import MeModule from "@/Me";
 
-export async function getStaticPaths(){
+export async function getStaticPaths() {
     return {
-        paths:[
-            {params: {usercenterModule:"notification"}},
-            {params: {usercenterModule:"transaction-record"}},
-            {params: {usercenterModule:"betting-record"}},
+        paths: [
+            { params: { usercenterModule: "notification" } },
+            { params: { usercenterModule: "transaction-record" } },
+            { params: { usercenterModule: "betting-record" } },
         ],
-        fallback:false
-    }
+        fallback: false,
+    };
 }
 
 export async function getStaticProps(context) {
-    const seoPage = `/${context.params.usercenterModule}`
+    const seoPage = `/${context.params.usercenterModule}`;
     return await getStaticPropsFromStrapiSEOSetting(seoPage); //參數帶本頁的路徑
 }
 
@@ -38,15 +38,15 @@ class UserCenter extends React.PureComponent {
         }
     }
 
-    componentDidUpdate(prevProps, prevState){}
+    componentDidUpdate(prevProps, prevState) {}
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState = () => false;
     }
 
-    setUserCenterHasUnRead =bool=> {
+    setUserCenterHasUnRead = (bool) => {
         this.setState({ hasUnRead: bool });
-    }
+    };
 
     render() {
         return (
@@ -70,10 +70,10 @@ class UserCenter extends React.PureComponent {
                 seoData={this.props.seoData}
             >
                 <MeModule
-                    setHeaderIsRead={this.setHeaderIsRead}    // 更新HasHeader已读未读消息[小红点]
-                    hasUnRead={this.state.hasUnRead}                // Usercenter(消息中心) 是否有已读未读消息[小红点]
-                    setUserCenterHasUnRead={this.setUserCenterHasUnRead}    // 更新Usercenter已读未读消息[小红点]
-                    setUserCenterMemberInfo={this.setMemberInfo}    // 更新HadHeader组件的memberInfo，此memberInfo公用到个人信息弹出层和钱包弹出层
+                    setHeaderIsRead={this.setHeaderIsRead} // 更新HasHeader已读未读消息[小红点]
+                    hasUnRead={this.state.hasUnRead} // Usercenter(消息中心) 是否有已读未读消息[小红点]
+                    setUserCenterHasUnRead={this.setUserCenterHasUnRead} // 更新Usercenter已读未读消息[小红点]
+                    setUserCenterMemberInfo={this.setMemberInfo} // 更新HadHeader组件的memberInfo，此memberInfo公用到个人信息弹出层和钱包弹出层
                     getBalance={this.getBalance}
                     currentMoney={this.state.currentMoney}
                 />

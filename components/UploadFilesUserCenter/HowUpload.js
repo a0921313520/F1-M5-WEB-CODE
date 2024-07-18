@@ -1,6 +1,6 @@
 import React from "react";
 import { Carousel, Tabs, Modal, Button } from "antd";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 const { TabPane } = Tabs;
 class HowUpload extends React.Component {
     constructor(props) {
@@ -19,7 +19,7 @@ class HowUpload extends React.Component {
                 event.stopPropagation();
                 console.log(event);
             },
-            true
+            true,
         );
     }
 
@@ -35,7 +35,7 @@ class HowUpload extends React.Component {
     rapidOnChange = (n) => {
         console.log(n);
         this.setState({ rapidIndex: n });
-    }
+    };
 
     render() {
         const defaultTabNum = this.props.tabNum;
@@ -44,25 +44,33 @@ class HowUpload extends React.Component {
             {
                 index: 0,
                 id: "upload-ls-1",
-                text: translate("选择要上传的文件。 确保您的文件小于 7​​MB，且格式为 .JPG、JPEG 或 .PNG。 请参阅上传说明以了解您的文件是否受支持"),
+                text: translate(
+                    "选择要上传的文件。 确保您的文件小于 7​​MB，且格式为 .JPG、JPEG 或 .PNG。 请参阅上传说明以了解您的文件是否受支持",
+                ),
                 content: () => <div />,
             },
             {
                 index: 1,
                 id: "upload-ls-2",
-                text: translate("上传文件后，单击“提交”。 您最多可以发送文件 3 次。"),
+                text: translate(
+                    "上传文件后，单击“提交”。 您最多可以发送文件 3 次。",
+                ),
                 content: () => <div />,
             },
             {
                 index: 2,
                 id: "upload-ls-3",
-                text: translate("一旦您提交文件，我们的系统将对其进行验证，并在完成后通知您。"),
+                text: translate(
+                    "一旦您提交文件，我们的系统将对其进行验证，并在完成后通知您。",
+                ),
                 content: () => <div />,
             },
             {
                 index: 3,
                 id: "upload-ls-4",
-                text: translate("一旦您的文件获得批准，我们的系统将自动验证您的帐户。 如果您的文件被拒绝，您可以重试。"),
+                text: translate(
+                    "一旦您的文件获得批准，我们的系统将自动验证您的帐户。 如果您的文件被拒绝，您可以重试。",
+                ),
                 content: () => <div />,
             },
         ];

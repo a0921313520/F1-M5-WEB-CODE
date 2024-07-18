@@ -1,12 +1,5 @@
 import React from "react";
-import {
-    Modal,
-    Dropdown,
-    Button,
-    Icon,
-    message,
-    Spin,
-} from "antd";
+import { Modal, Dropdown, Button, Icon, message, Spin } from "antd";
 import Router from "next/router";
 import HostConfig from "$ACTIONS/Host.config";
 import CMSOBJ from "$DATA/stage.live.static.id";
@@ -21,9 +14,14 @@ import { ApiPort, APISET } from "$ACTIONS/TLCAPI";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { formatAmount } from "$ACTIONS/util";
 import { translate } from "$ACTIONS/Translate";
-import {usdtWalleNameReg, usdtERC20WalleAddressReg, usdtTRC20WalleAddressReg, usdtWalleAddressReg2} from "$ACTIONS/reg";
+import {
+    usdtWalleNameReg,
+    usdtERC20WalleAddressReg,
+    usdtTRC20WalleAddressReg,
+    usdtWalleAddressReg2,
+} from "$ACTIONS/reg";
 import dynamic from "next/dynamic";
-import {showResultModal} from "$ACTIONS/helper";
+import { showResultModal } from "$ACTIONS/helper";
 
 const AddBankCard = dynamic(import("./AddBankCard"), {
     loading: () => "",
@@ -115,8 +113,8 @@ class BankAccount extends React.Component {
         !localStorage.getItem("isShowPopover") &&
             this.setState({ isShowPopover: true, isShowPopoverMask: true });
     }
-    componentWillUnmount(){
-        sessionStorage.removeItem("withdrawalbankList")
+    componentWillUnmount() {
+        sessionStorage.removeItem("withdrawalbankList");
     }
     getMemberBanksList() {
         this.props.setLoading(true);
@@ -137,7 +135,7 @@ class BankAccount extends React.Component {
         };
         CheckExchangeRateWallet(datas, (res) => {
             this.props.setLoading(false);
-            if (res && res.result && res.result.length) { 
+            if (res && res.result && res.result.length) {
                 let DefaultCard = res.result.find((ele) => ele.isDefault);
                 if (!DefaultCard) {
                     this.setDetaultWallet("", res.result[0]["id"], usdtType);
@@ -149,8 +147,8 @@ class BankAccount extends React.Component {
                         notDefaultCard.length && DefaultCard
                             ? [DefaultCard, ...notDefaultCard]
                             : notDefaultCard.length
-                            ? [...notDefaultCard]
-                            : [DefaultCard];
+                              ? [...notDefaultCard]
+                              : [DefaultCard];
 
                     this.setState({
                         ["tDBWallet" + usdtType.substr(-5)]: BanksArr,
@@ -196,7 +194,7 @@ class BankAccount extends React.Component {
             className: "confirm-modal-of-public",
             onOk: () => {
                 this.props.setLoading(true);
-                this.setState({visibleDetail:false})
+                this.setState({ visibleDetail: false });
                 del(`${ApiPort.DELETEMemberBanksDefault}${APISET}&bankId=${id}`)
                     .then((res) => {
                         if (res.isSuccess == true) {
@@ -209,9 +207,10 @@ class BankAccount extends React.Component {
                     .catch((error) => {
                         console.log("DELETEMemberBanksDefault" + error);
                         message.error(translate("删除失败"));
-                    }).finally(()=>{
-                        this.props.setLoading(false);
                     })
+                    .finally(() => {
+                        this.props.setLoading(false);
+                    });
             },
         });
         Pushgtagdata("Deletecard_bankacc_profilepage");
@@ -232,9 +231,10 @@ class BankAccount extends React.Component {
             })
             .catch((error) => {
                 console.log("PATCHMemberBanksDefault" + error);
-            }).finally(()=>{
-                this.props.setLoading(false);
             })
+            .finally(() => {
+                this.props.setLoading(false);
+            });
 
         Pushgtagdata("Default_bankacc_profilepage");
     }
@@ -251,7 +251,7 @@ class BankAccount extends React.Component {
             type === "USDT-ERC20"
                 ? usdtERC20WalleAddressReg
                 : usdtTRC20WalleAddressReg;
-        
+
         let value = e.target.value;
         if (t == "name") {
             this.setState({ tDBName: value }, () => {
@@ -320,8 +320,14 @@ class BankAccount extends React.Component {
         };
         AddExchangeRateWallets(datas, (res) => {
             this.props.setLoading(false);
-            if (res.isSuccess == true) {;
-                showResultModal(translate("验证成功"),true,1501,'otp','authentication-succeeded');
+            if (res.isSuccess == true) {
+                showResultModal(
+                    translate("验证成功"),
+                    true,
+                    1501,
+                    "otp",
+                    "authentication-succeeded",
+                );
                 this.getTDBWallet(this.state.usdtWithdrawType);
                 this.setState({
                     tDBName: "",
@@ -330,11 +336,31 @@ class BankAccount extends React.Component {
                 });
             } else if (res.isSuccess == false) {
                 if (res.walletAddressErrorList?.length) {
-                    showResultModal(res.walletAddressErrorList[0].Description || translate("验证失败"),false,1501,'otp','authentication-succeeded');
+                    showResultModal(
+                        res.walletAddressErrorList[0].Description ||
+                            translate("验证失败"),
+                        false,
+                        1501,
+                        "otp",
+                        "authentication-succeeded",
+                    );
                 } else if (res.walletNameErrorList?.length) {
-                    showResultModal(res.walletNameErrorList[0].Description || translate("验证失败"),false,1501,'otp','authentication-succeeded');
+                    showResultModal(
+                        res.walletNameErrorList[0].Description ||
+                            translate("验证失败"),
+                        false,
+                        1501,
+                        "otp",
+                        "authentication-succeeded",
+                    );
                 } else {
-                    showResultModal(res.message || translate("验证失败"),false,1501,'otp','authentication-succeeded');
+                    showResultModal(
+                        res.message || translate("验证失败"),
+                        false,
+                        1501,
+                        "otp",
+                        "authentication-succeeded",
+                    );
                 }
             }
         });
@@ -343,7 +369,7 @@ class BankAccount extends React.Component {
         this.setState({ visibleExchangeRateWallet: true });
     }
     copyEvent() {
-        message.success(translate("复制成功"))
+        message.success(translate("复制成功"));
     }
     setDetaultWallet(event, id, type) {
         event != "" && event.domEvent.stopPropagation();
@@ -373,7 +399,9 @@ class BankAccount extends React.Component {
             cancelText: translate("取消"),
             content: (
                 <div style={{ textAlign: "left" }}>
-                    {translate("为保证您的账户安全，请在添加钱包地址前完成手机号码验证。")}
+                    {translate(
+                        "为保证您的账户安全，请在添加钱包地址前完成手机号码验证。",
+                    )}
                 </div>
             ),
             onOk: () => {
@@ -408,7 +436,10 @@ class BankAccount extends React.Component {
     };
 
     leaveWalletButtonHandle(pram) {
-        console.log("🚀 ~ file: index.js:406 ~ BankAccount ~ leaveWalletButtonHandle ~ pram:", pram)
+        console.log(
+            "🚀 ~ file: index.js:406 ~ BankAccount ~ leaveWalletButtonHandle ~ pram:",
+            pram,
+        );
         // 離開添加錢包控制
         if (pram) {
             this.setState({ leaveAddWalletVisible: false });
@@ -423,7 +454,7 @@ class BankAccount extends React.Component {
                 addTDBBtnStatue: false,
                 tDBNameError: false,
                 tDBAddressError: false,
-                tDBAddressError2:false
+                tDBAddressError2: false,
             });
         }
     }
@@ -434,20 +465,25 @@ class BankAccount extends React.Component {
      * @param {*} typekey  usdt 类型
      * @param {*} callback  短信和语言切换查询完次数后请求发送验证码
      */
-    judgeOTPVerification(type,typekey,cb,callback) {
+    judgeOTPVerification(type, typekey, cb, callback) {
         this.props.setLoading(true);
         get(ApiPort.CheckIsAbleSmsOTP)
             .then((res) => {
-                if (res?.isSuccess && res?.result?.isAbleSmsOTP && res?.result?.attempts) {
+                if (
+                    res?.isSuccess &&
+                    res?.result?.isAbleSmsOTP &&
+                    res?.result?.attempts
+                ) {
                     this.setState({
                         usdtWithdrawType: typekey,
                         checkAbleSmsOTP: {
                             isAbleSmsOTP: res.result.isAbleSmsOTP,
                             attempts: res.result.attempts,
                         },
-                        visibleExchangeRateWallet: true
+                        visibleExchangeRateWallet: true,
                     });
-                    typeof callback === "function" && callback(res.result.attempts)
+                    typeof callback === "function" &&
+                        callback(res.result.attempts);
                 } else {
                     this.setState({
                         phoneVisible: false,
@@ -455,15 +491,19 @@ class BankAccount extends React.Component {
                         usdtWithdrawType: typekey,
                     });
                 }
-            }).catch((error) => {
-                console.log("查询会员是否能够请求短信OTP:",error);
-            }).finally(()=>{
-                this.props.setLoading(false);
             })
+            .catch((error) => {
+                console.log("查询会员是否能够请求短信OTP:", error);
+            })
+            .finally(() => {
+                this.props.setLoading(false);
+            });
     }
 
     getVerificationCode(v) {
-        this.setState({ verificationCode: v },()=>{this.handleOk()});
+        this.setState({ verificationCode: v }, () => {
+            this.handleOk();
+        });
     }
 
     render() {
@@ -519,7 +559,9 @@ class BankAccount extends React.Component {
 					</a> */}
                 </h2>
 
-                <p className="home-section-title">{translate("银行账户(大写)")}</p>
+                <p className="home-section-title">
+                    {translate("银行账户(大写)")}
+                </p>
                 {/* <div className="bank-account-limit">
                     <p>
                         <span>
@@ -596,42 +638,48 @@ class BankAccount extends React.Component {
                         <span>{percentageLimit}%</span>
                     </p>
                 </div> */}
-                {Array.isArray(alreadyBindBanks) && alreadyBindBanks.length ? 
-                    (
-                        <React.Fragment>
-                            <div
-                                className="bank-list-wrap"
-                                style={{
-                                    height:
-                                        alreadyBindBanks.length < 3
-                                            ? "150px"
-                                            : "300px",
-                                }}
-                            >
-                                {alreadyBindBanks.map((val, index) => {
-                                    return (
-                                        <div
-                                            key={`bankitem${index}`}
-                                            className={`bank-list-item`}
-                                        >
-                                            <div className="bank-img inline-block">
-                                                <img
-                                                    src={
-                                                        `${process.env.BASE_PATH}/img/bank/${val.englishName
-                                                        ? val.englishName.toUpperCase().replace(/[^0-9a-zA-Z]/ig, '')
+                {Array.isArray(alreadyBindBanks) && alreadyBindBanks.length ? (
+                    <React.Fragment>
+                        <div
+                            className="bank-list-wrap"
+                            style={{
+                                height:
+                                    alreadyBindBanks.length < 3
+                                        ? "150px"
+                                        : "300px",
+                            }}
+                        >
+                            {alreadyBindBanks.map((val, index) => {
+                                return (
+                                    <div
+                                        key={`bankitem${index}`}
+                                        className={`bank-list-item`}
+                                    >
+                                        <div className="bank-img inline-block">
+                                            <img
+                                                src={`${process.env.BASE_PATH}/img/bank/${
+                                                    val.englishName
+                                                        ? val.englishName
+                                                              .toUpperCase()
+                                                              .replace(
+                                                                  /[^0-9a-zA-Z]/gi,
+                                                                  "",
+                                                              )
                                                         : "generic"
-                                                        }.png`
-                                                    }
-                                                />
+                                                }.png`}
+                                            />
+                                        </div>
+                                        <div className="bank-info inline-block">
+                                            <h3>{val.bankName}</h3>
+                                            <div className="bank-number">
+                                                {val.accountNumber.replace(
+                                                    /\d(?=\d{3})/g,
+                                                    "*",
+                                                )}
                                             </div>
-                                            <div className="bank-info inline-block">
-                                                <h3>{val.bankName}</h3>
-                                                <div className="bank-number">
-                                                    {val.accountNumber.replace(/\d(?=\d{3})/g,"*")}
-                                                </div>
-                                            </div>
-                                            <div className="bank-backgroundImg">
-                                                {/* <Dropdown
+                                        </div>
+                                        <div className="bank-backgroundImg">
+                                            {/* <Dropdown
 													placement="bottomRight"
 													overlayClassName="remove-promo-wrap small"
 													overlay={
@@ -648,73 +696,74 @@ class BankAccount extends React.Component {
 												>
 													<Icon type="setting" />
 												</Dropdown> */}
-                                                <div className="bank-background"></div>
-                                            </div>
-                                            <div className="bank-details">
-                                                {val.isDefault ? (
-                                                    <p className="default">
-                                                        <img
-                                                            style={{
-                                                                marginRight:
-                                                                    "0.4rem",
-                                                            }}
-                                                            src={`${process.env.BASE_PATH}/img/icon/whiteTick.svg`}
-                                                        />
-                                                        {translate("默认")}
-                                                    </p>
-                                                ) : (
-                                                    <p
-                                                        onClick={() => {
-                                                            this.setDetault(
-                                                                "",
-                                                                val.bankAccountID
-                                                            );
-                                                        }}
-                                                        className="default"
+                                            <div className="bank-background"></div>
+                                        </div>
+                                        <div className="bank-details">
+                                            {val.isDefault ? (
+                                                <p className="default">
+                                                    <img
                                                         style={{
-                                                            color: "#62c9ff",
-                                                            background: "white",
-                                                            borderRadius:
-                                                                "10px",
-                                                            width: "105px",
-                                                            lineHeight:
-                                                                "24px",
+                                                            marginRight:
+                                                                "0.4rem",
                                                         }}
-                                                    >
-                                                        {translate("设置默认")}
-                                                    </p>
-                                                )}
-                                                <div
-                                                    className="default bdetail"
+                                                        src={`${process.env.BASE_PATH}/img/icon/whiteTick.svg`}
+                                                    />
+                                                    {translate("默认")}
+                                                </p>
+                                            ) : (
+                                                <p
                                                     onClick={() => {
-                                                        this.showBankDetail(val);
+                                                        this.setDetault(
+                                                            "",
+                                                            val.bankAccountID,
+                                                        );
+                                                    }}
+                                                    className="default"
+                                                    style={{
+                                                        color: "#62c9ff",
+                                                        background: "white",
+                                                        borderRadius: "10px",
+                                                        width: "105px",
+                                                        lineHeight: "24px",
                                                     }}
                                                 >
-                                                    <img
-                                                        src={`${process.env.BASE_PATH}/img/icon/arrow.svg`}
-                                                    />
-                                                </div>
+                                                    {translate("设置默认")}
+                                                </p>
+                                            )}
+                                            <div
+                                                className="default bdetail"
+                                                onClick={() => {
+                                                    this.showBankDetail(val);
+                                                }}
+                                            >
+                                                <img
+                                                    src={`${process.env.BASE_PATH}/img/icon/arrow.svg`}
+                                                />
                                             </div>
                                         </div>
-                                    );
-                                })}
-                                {/* {alreadyBindBanks.length < 5 ? ( */}
-                                    <div
-                                        className="add-wallet-item"
-                                        onClick={() => {
-                                            this.setState({
-                                                showAddCard: true,
-                                            });
-                                            Pushgtagdata(
-                                                "Addbankcard_bankacc_profilepage"
-                                            );
-                                        }}
-                                    >
-                                        <p><Icon type="plus" />{" "}{translate("添加银行账户")}</p>
                                     </div>
-                                {/* ) : null} */}
+                                );
+                            })}
+                            {/* {alreadyBindBanks.length < 5 ? ( */}
+                            <div
+                                className="add-wallet-item"
+                                onClick={() => {
+                                    this.setState({
+                                        showAddCard: true,
+                                    });
+                                    Pushgtagdata(
+                                        "Addbankcard_bankacc_profilepage",
+                                    );
+                                }}
+                            >
+                                <p>
+                                    <Icon type="plus" />{" "}
+                                    {translate("添加银行账户")}
+                                </p>
                             </div>
-                            {/* <p className="walletTips">
+                            {/* ) : null} */}
+                        </div>
+                        {/* <p className="walletTips">
                                 {translate("您最多可以添加 5 张银行卡。 如果您需要删除银行卡，请联系")}
                                 <span
                                     type="link"
@@ -729,52 +778,60 @@ class BankAccount extends React.Component {
                                     {translate("在线客服")}
                                 </span>
                             </p> */}
-                        </React.Fragment>
-                    ) : (
-                        <React.Fragment>
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                        <div
+                            className="bank-list-wrap"
+                            style={{ height: "150px" }}
+                        >
                             <div
-                                className="bank-list-wrap"
-                                style={{ height: "150px" }}
+                                className="add-wallet-item"
+                                onClick={() => {
+                                    this.setState({ showAddCard: true });
+                                    Pushgtagdata(
+                                        "Addbankcard_bankacc_profilepage",
+                                    );
+                                }}
                             >
-                                <div
-                                    className="add-wallet-item"
-                                    onClick={() => {
-                                        this.setState({ showAddCard: true });
-                                        Pushgtagdata(
-                                            "Addbankcard_bankacc_profilepage"
-                                        );
-                                    }}
-                                >
-                                    <p><Icon type="plus" />{" "}{translate("添加银行账户")}</p>
-                                </div>
+                                <p>
+                                    <Icon type="plus" />{" "}
+                                    {translate("添加银行账户")}
+                                </p>
                             </div>
-                            <p className="walletTips">
-                                {translate("您最多可以添加 5 张银行卡。 如果您需要删除银行卡，请联系")}
-                                <span
-                                    type="link"
-                                    className="chatCs"
-                                    onClick={() => {
-                                        global.PopUpLiveChat();
-                                        Pushgtagdata(
-                                            "Contactcs_passcode_profilepage"
-                                        );
-                                    }}
-                                >
-                                    {translate("在线客服")}
-                                </span>
-                            </p>
-                        </React.Fragment>
-                    ) 
-                }
-                {this.state.showAddCard && <AddBankCard
-                    visible={this.state.showAddCard}
-                    closeModal={() => {
-                        this.setState({ showAddCard: false });
-                    }}
-                    getMemberBanksList={this.getMemberBanksList}
-                    alreadyBindBanks={alreadyBindBanks}
-                />}
-                <p className="home-section-title">{translate("泰达币 ERC20 提款​钱包")}</p>
+                        </div>
+                        <p className="walletTips">
+                            {translate(
+                                "您最多可以添加 5 张银行卡。 如果您需要删除银行卡，请联系",
+                            )}
+                            <span
+                                type="link"
+                                className="chatCs"
+                                onClick={() => {
+                                    global.PopUpLiveChat();
+                                    Pushgtagdata(
+                                        "Contactcs_passcode_profilepage",
+                                    );
+                                }}
+                            >
+                                {translate("在线客服")}
+                            </span>
+                        </p>
+                    </React.Fragment>
+                )}
+                {this.state.showAddCard && (
+                    <AddBankCard
+                        visible={this.state.showAddCard}
+                        closeModal={() => {
+                            this.setState({ showAddCard: false });
+                        }}
+                        getMemberBanksList={this.getMemberBanksList}
+                        alreadyBindBanks={alreadyBindBanks}
+                    />
+                )}
+                <p className="home-section-title">
+                    {translate("泰达币 ERC20 提款​钱包")}
+                </p>
                 {Array.isArray(tDBWalletERC20) ? (
                     tDBWalletERC20.length ? (
                         <React.Fragment>
@@ -824,7 +881,7 @@ class BankAccount extends React.Component {
                                                                 this.setDetaultWallet(
                                                                     "",
                                                                     val.id,
-                                                                    "USDT-ERC20"
+                                                                    "USDT-ERC20",
                                                                 );
                                                             }}
                                                             className="default"
@@ -841,7 +898,9 @@ class BankAccount extends React.Component {
                                                                     "center",
                                                             }}
                                                         >
-                                                            {translate("设置默认")}
+                                                            {translate(
+                                                                "设置默认",
+                                                            )}
                                                         </p>
                                                     )}
                                                     <CopyToClipboard
@@ -884,11 +943,16 @@ class BankAccount extends React.Component {
                                             onClick={() => {
                                                 this.judgeOTPVerification(
                                                     "usdt",
-                                                    "USDT-ERC20"
+                                                    "USDT-ERC20",
                                                 );
                                             }}
                                         >
-                                            <p><Icon type="plus" /> {translate("添加泰达币 ERC20 提款​钱包")}</p>
+                                            <p>
+                                                <Icon type="plus" />{" "}
+                                                {translate(
+                                                    "添加泰达币 ERC20 提款​钱包",
+                                                )}
+                                            </p>
                                         </div>
                                     ) : null}
                                 </Spin>
@@ -898,10 +962,13 @@ class BankAccount extends React.Component {
                         <div
                             className="add-wallet-item"
                             onClick={() => {
-                                this.judgeOTPVerification("usdt","USDT-ERC20");
+                                this.judgeOTPVerification("usdt", "USDT-ERC20");
                             }}
                         >
-                            <p><Icon type="plus" /> {translate("添加泰达币 ERC20 提款​钱包")}</p>
+                            <p>
+                                <Icon type="plus" />{" "}
+                                {translate("添加泰达币 ERC20 提款​钱包")}
+                            </p>
                         </div>
                     )
                 ) : null}
@@ -913,7 +980,9 @@ class BankAccount extends React.Component {
                         paddingBottom: "1em",
                     }}
                 >
-                    {translate("您最多可以添加 3 个钱包地址。 如果您需要删除钱包地址，请联系")}
+                    {translate(
+                        "您最多可以添加 3 个钱包地址。 如果您需要删除钱包地址，请联系",
+                    )}
                     <span
                         type="link"
                         className="chatCs"
@@ -925,7 +994,9 @@ class BankAccount extends React.Component {
                         {translate("在线客服")}
                     </span>
                 </p>
-                <p className="home-section-title">{translate("泰达币 TRC20 提款​钱包")}</p>
+                <p className="home-section-title">
+                    {translate("泰达币 TRC20 提款​钱包")}
+                </p>
                 {Array.isArray(tDBWalletTRC20) ? (
                     tDBWalletTRC20.length ? (
                         <React.Fragment>
@@ -975,7 +1046,7 @@ class BankAccount extends React.Component {
                                                                 this.setDetaultWallet(
                                                                     "",
                                                                     val.id,
-                                                                    "USDT-TRC20"
+                                                                    "USDT-TRC20",
                                                                 );
                                                             }}
                                                             className="default"
@@ -992,7 +1063,9 @@ class BankAccount extends React.Component {
                                                                     "center",
                                                             }}
                                                         >
-                                                            {translate("设置默认")}
+                                                            {translate(
+                                                                "设置默认",
+                                                            )}
                                                         </p>
                                                     )}
                                                     <CopyToClipboard
@@ -1033,11 +1106,16 @@ class BankAccount extends React.Component {
                                             onClick={() => {
                                                 this.judgeOTPVerification(
                                                     "usdt",
-                                                    "USDT-TRC20"
+                                                    "USDT-TRC20",
                                                 );
                                             }}
                                         >
-                                            <p><Icon type="plus" /> {translate("添加泰达币 TRC20 提款​钱包")}</p>
+                                            <p>
+                                                <Icon type="plus" />{" "}
+                                                {translate(
+                                                    "添加泰达币 TRC20 提款​钱包",
+                                                )}
+                                            </p>
                                         </div>
                                     ) : null}
                                 </Spin>
@@ -1047,16 +1125,21 @@ class BankAccount extends React.Component {
                         <div
                             className="add-wallet-item"
                             onClick={() => {
-                                this.judgeOTPVerification("usdt","USDT-TRC20");
+                                this.judgeOTPVerification("usdt", "USDT-TRC20");
                             }}
                         >
-                            <p><Icon type="plus" /> {translate("添加泰达币 TRC20 提款​钱包")}</p>
+                            <p>
+                                <Icon type="plus" />{" "}
+                                {translate("添加泰达币 TRC20 提款​钱包")}
+                            </p>
                         </div>
                     )
                 ) : null}
 
                 <p className="walletTip">
-                    {translate("您最多可以添加 3 个钱包地址。 如果您需要删除钱包地址，请联系")}
+                    {translate(
+                        "您最多可以添加 3 个钱包地址。 如果您需要删除钱包地址，请联系",
+                    )}
                     <span
                         type="link"
                         className="chatCs"
@@ -1068,7 +1151,7 @@ class BankAccount extends React.Component {
                         {translate("在线客服")}
                     </span>
                 </p>
-                
+
                 {/* 添加usdt钱包的电话验证，目前只需验证电话 */}
                 <PhoneVerify
                     memberInfo={memberInfo && memberInfo}
@@ -1089,7 +1172,7 @@ class BankAccount extends React.Component {
                         this.setState({ exceedVisible: false });
                         setTimeout(() => {
                             global.globalExit();
-                        }, 1500)
+                        }, 1500);
                     }}
                 />
 
@@ -1120,13 +1203,15 @@ class BankAccount extends React.Component {
                     className="leaveAddWalletModal"
                 >
                     <div className="content">
-                        {translate("为保证您的账户安全，请在添加钱包地址前完成手机号码验证。")}
+                        {translate(
+                            "为保证您的账户安全，请在添加钱包地址前完成手机号码验证。",
+                        )}
                     </div>
                     <div className="buttonWrap">
                         <Button
                             onClick={this.leaveWalletButtonHandle.bind(
                                 this,
-                                false
+                                false,
                             )}
                         >
                             {translate("取消")}
@@ -1134,7 +1219,7 @@ class BankAccount extends React.Component {
                         <Button
                             onClick={this.leaveWalletButtonHandle.bind(
                                 this,
-                                true
+                                true,
                             )}
                         >
                             {translate("立即验证")}
@@ -1157,9 +1242,9 @@ class BankAccount extends React.Component {
                     <BankWithdrawalDetails
                         visible={this.state.visibleDetail}
                         closeModal={(v) => {
-                            this.setState({ 
+                            this.setState({
                                 visibleDetail: v,
-                                bankDetail:{}
+                                bankDetail: {},
                             });
                         }}
                         itemBankDetail={this.state.bankDetail}

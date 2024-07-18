@@ -34,10 +34,10 @@ var RBInt = {
                     "^(?:.*[&\\?]" +
                         encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") +
                         "(?:\\=([^&]*))?)?.*$",
-                    "i"
+                    "i",
                 ),
-                "$1"
-            )
+                "$1",
+            ),
         );
     },
 };
@@ -233,7 +233,7 @@ if (strUrlToken != "" && strUrlToken != undefined) {
                     newHeight: newHeight,
                 },
             }),
-            "*"
+            "*",
         );
     };
 

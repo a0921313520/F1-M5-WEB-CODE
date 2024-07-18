@@ -9,16 +9,16 @@ import {
 } from "$ACTIONS/helper";
 import { isWebPSupported } from "$ACTIONS/helper";
 import { translate } from "$ACTIONS/Translate";
-import { getStaticPropsFromStrapiSEOSetting } from '$DATA/seo';
+import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 export async function getStaticProps() {
-    return await getStaticPropsFromStrapiSEOSetting('/download-app'); //參數帶本頁的路徑
+    return await getStaticPropsFromStrapiSEOSetting("/download-app"); //參數帶本頁的路徑
 }
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             activeKey: "1",
-            downloadLinks: ""
+            downloadLinks: "",
         };
     }
     componentDidMount() {
@@ -81,8 +81,14 @@ export default class Main extends React.Component {
                                             alt="app"
                                         />
                                         <div className="text-box">
-                                            <h1>{translate("新FUN88原创应用程序")}</h1>
-                                            <p>{translate("操作简易尽享指尖")}</p>
+                                            <h1>
+                                                {translate(
+                                                    "新FUN88原创应用程序",
+                                                )}
+                                            </h1>
+                                            <p>
+                                                {translate("操作简易尽享指尖")}
+                                            </p>
                                             <div className="qr-box">
                                                 <QRCode
                                                     size={100}
@@ -92,7 +98,9 @@ export default class Main extends React.Component {
                                                 />
                                             </div>
                                             <p className="app-description">
-                                                {translate("扫描二维码下载最新版本的FUN88 App并进入下载页面，查看下载说明并按照步骤下载安装")}
+                                                {translate(
+                                                    "扫描二维码下载最新版本的FUN88 App并进入下载页面，查看下载说明并按照步骤下载安装",
+                                                )}
                                             </p>
                                         </div>
                                     </div>
@@ -101,7 +109,9 @@ export default class Main extends React.Component {
                                     <div className="app-item">
                                         <div className="text-box">
                                             <h1>{translate("下载乐聊APP")}</h1>
-                                            <p>{translate("24/7随时为您服务")}</p>
+                                            <p>
+                                                {translate("24/7随时为您服务")}
+                                            </p>
                                             <div className="qr-box">
                                                 <QRCode
                                                     size={100}
@@ -111,7 +121,9 @@ export default class Main extends React.Component {
                                                 />
                                             </div>
                                             <p className="app-description">
-                                               {translate("扫描二维码下载乐聊APP乐天使客服贴心为您提供24小时服务。")}
+                                                {translate(
+                                                    "扫描二维码下载乐聊APP乐天使客服贴心为您提供24小时服务。",
+                                                )}
                                             </p>
                                         </div>
 

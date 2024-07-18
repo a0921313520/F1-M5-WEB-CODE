@@ -18,7 +18,8 @@
         "analyze": "rimraf build && cross-env BUNDLE_ANALYZE=true next build",
         "azexport": "next build && next export -o export",
         "_comment_azexport": "上面的azexport是用於打包，不要隨意修改",
-        "postinstall": "patch-package"
+        "postinstall": "patch-package",
+        "format": "prettier --write ."
     },
     "author": "",
     "license": "ISC",
@@ -38,6 +39,8 @@
         "crypto-js": "^4.2.0",
         "decimal.js": "^10.2.0",
         "downloadjs": "^1.4.7",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
         "html2canvas": "^1.4.1",
         "ignore-loader": "^0.1.2",
         "isomorphic-unfetch": "^3.0.0",
@@ -49,6 +52,7 @@
         "next-optimized-images": "^2.6.2",
         "next-progressbar": "^1.0.0",
         "patch-package": "^6.4.7",
+        "prettier": "^3.3.3",
         "qrcode": "^1.5.1",
         "qrcode-react": "^0.1.16",
         "qs": "^6.11.1",

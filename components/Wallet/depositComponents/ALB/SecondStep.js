@@ -406,7 +406,7 @@ class SecondStep extends React.Component {
                                                                         .isOtherAccount,
                                                             });
                                                             Pushgtagdata(
-                                                                "Otheracc_Localalipay_deposit"
+                                                                "Otheracc_Localalipay_deposit",
                                                             );
                                                         }}
                                                     />

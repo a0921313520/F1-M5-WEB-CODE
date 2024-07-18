@@ -12,14 +12,14 @@ class UploadFilesUserCenter extends React.Component {
         super(props);
         this.state = {
             documents: [],
-            visibleModal: false
+            visibleModal: false,
         };
     }
     componentDidMount() {
         this.DocumentApprovalStatus();
         this.VerificationMemberDocuments();
     }
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState = () => false;
     }
     /**
@@ -52,7 +52,7 @@ class UploadFilesUserCenter extends React.Component {
             if (res.isSuccess && res.result) {
                 this.setState({
                     documents: res.result.documents,
-                    imageRestriction: res.result.imageRestriction
+                    imageRestriction: res.result.imageRestriction,
                 });
                 this.props.setLoading(false);
             }
@@ -74,7 +74,7 @@ class UploadFilesUserCenter extends React.Component {
         let Doc3 = documents.find((item) => item.docTypeId == 3);
         let Doc4 = documents.find((item) => item.docTypeId == 4);
         let Doc5 = documents.find((item) => item.docTypeId == 5);
-        
+
         return (
             <div className="account-wrap UploadFilesUserCenter">
                 {/*  无需验证文件 */}
@@ -83,7 +83,11 @@ class UploadFilesUserCenter extends React.Component {
                         <div className="Top">
                             <div>
                                 <h2>{translate("帐户验证")}</h2>
-                                <p>{translate("上传所需文件以验证您的帐户信息")}</p>
+                                <p>
+                                    {translate(
+                                        "上传所需文件以验证您的帐户信息",
+                                    )}
+                                </p>
                             </div>
                             <span
                                 className="howtxt"
@@ -113,7 +117,11 @@ class UploadFilesUserCenter extends React.Component {
                         <div className="Top">
                             <div>
                                 <h2>{translate("帐户验证")}</h2>
-                                <p>{translate("上传所需文件以验证您的帐户信息")}</p>
+                                <p>
+                                    {translate(
+                                        "上传所需文件以验证您的帐户信息",
+                                    )}
+                                </p>
                             </div>
                             <span
                                 className="howtxt"
@@ -130,7 +138,7 @@ class UploadFilesUserCenter extends React.Component {
                             <Uploadfiles
                                 Documents={Doc1}
                                 DocData={{
-                                    name: translate( "公民身份证照片"),
+                                    name: translate("公民身份证照片"),
                                     title1: translate("正面照片"),
                                     title2: translate("背面照片"),
                                     docTypeId: 1,
@@ -142,7 +150,7 @@ class UploadFilesUserCenter extends React.Component {
                                 }}
                                 imageRestriction={imageRestriction}
                                 VerificationMemberDocuments={(
-                                    TryAgainUploadTries
+                                    TryAgainUploadTries,
                                 ) => {
                                     if (TryAgainUploadTries) {
                                         this.setState(TryAgainUploadTries);
@@ -168,7 +176,7 @@ class UploadFilesUserCenter extends React.Component {
                                 }}
                                 imageRestriction={imageRestriction}
                                 VerificationMemberDocuments={(
-                                    TryAgainUploadTries
+                                    TryAgainUploadTries,
                                 ) => {
                                     console.log(TryAgainUploadTries);
                                     if (TryAgainUploadTries) {
@@ -188,8 +196,20 @@ class UploadFilesUserCenter extends React.Component {
                                 Documents={Doc3}
                                 DocData={{
                                     name: translate("人脸识别照片"),
-                                    title1: <p>{translate("CCCD照片")}<br/>{translate("手持正面")}</p>,
-                                    title2: <p>{translate("CCCD照片")}<br/>{translate("手持反面")}</p>,
+                                    title1: (
+                                        <p>
+                                            {translate("CCCD照片")}
+                                            <br />
+                                            {translate("手持正面")}
+                                        </p>
+                                    ),
+                                    title2: (
+                                        <p>
+                                            {translate("CCCD照片")}
+                                            <br />
+                                            {translate("手持反面")}
+                                        </p>
+                                    ),
                                     docTypeId: 3,
                                     docStatusId: this.state["TryAgain3"]
                                         ? 0
@@ -199,7 +219,7 @@ class UploadFilesUserCenter extends React.Component {
                                 }}
                                 imageRestriction={imageRestriction}
                                 VerificationMemberDocuments={(
-                                    TryAgainUploadTries
+                                    TryAgainUploadTries,
                                 ) => {
                                     if (TryAgainUploadTries) {
                                         this.setState(TryAgainUploadTries);
@@ -226,7 +246,7 @@ class UploadFilesUserCenter extends React.Component {
                                 }}
                                 imageRestriction={imageRestriction}
                                 VerificationMemberDocuments={(
-                                    TryAgainUploadTries
+                                    TryAgainUploadTries,
                                 ) => {
                                     if (TryAgainUploadTries) {
                                         this.setState(TryAgainUploadTries);
@@ -253,7 +273,7 @@ class UploadFilesUserCenter extends React.Component {
                                 }}
                                 imageRestriction={imageRestriction}
                                 VerificationMemberDocuments={(
-                                    TryAgainUploadTries
+                                    TryAgainUploadTries,
                                 ) => {
                                     if (TryAgainUploadTries) {
                                         this.setState(TryAgainUploadTries);

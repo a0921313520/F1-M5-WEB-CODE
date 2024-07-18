@@ -11,15 +11,15 @@ export default ({
     title = "FUN88",
     description = "",
     Keywords = "",
-    notFound = false
+    notFound = false,
 }) => {
     const [contextValue, dispatch] = useReducer(
         (state, newState) => ({ ...state, ...newState }),
         {
             downloadLinks: "",
-        }
+        },
     );
-    
+
     return (
         <React.Fragment>
             <Head key="layout-otherpage-head">
@@ -36,7 +36,7 @@ export default ({
             </Head>
             <div id="maintain" className="common-distance-wrap">
                 <div className="maintain-header-wrap">
-                    <PublicHead notFound={notFound}/>
+                    <PublicHead notFound={notFound} />
                 </div>
                 <div className="common-distance">{children} </div>
             </div>

@@ -70,7 +70,7 @@ function Select(props) {
                 clickedOption,
                 clickOptionHandler,
                 isTempSwitchOption,
-            })
+            }),
     );
 
     return (
@@ -97,7 +97,9 @@ function Select(props) {
                                 <CloseOutlined />
                             </button>
                             <p>{props.menuTitle}</p>
-                            <button onClick={confirmHandler}>{translate("选择")}</button>
+                            <button onClick={confirmHandler}>
+                                {translate("选择")}
+                            </button>
                         </header>
                         <main className="options-box">
                             {childrenWithAdjustedProps}

@@ -57,7 +57,7 @@ class SecondStep extends React.Component {
         return (
             <Form
                 className="form-wrap"
-                style={{ display: 'block' }}
+                style={{ display: "block" }}
                 {...formItemLayout}
                 onSubmit={this.goThirdStep}
             >

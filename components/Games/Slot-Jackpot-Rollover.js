@@ -95,18 +95,18 @@ class Countdown extends Component {
                         this.state.count +
                         this.getRandomNumber(
                             Math.round(
-                                Math.random() * this.getRandomNumber(1, 100)
+                                Math.random() * this.getRandomNumber(1, 100),
                             ),
                             Math.round(
                                 Math.random() *
-                                    this.getRandomNumber(1, 99999999)
-                            )
+                                    this.getRandomNumber(1, 99999999),
+                            ),
                         ),
                 },
                 () => {
                     this.toJackpotNum(this.state.count);
                     //this.setNumberTransform();
-                }
+                },
             );
         }, 3000);
     }

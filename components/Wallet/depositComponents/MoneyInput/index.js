@@ -62,7 +62,7 @@ class MoneyInput extends React.Component {
                 this.props.setCurrDepositDetail(data.result);
                 this.props.setLoading(false);
             },
-            e.target.value
+            e.target.value,
         );
     };
 
@@ -132,15 +132,15 @@ class MoneyInput extends React.Component {
                                                     ? error != "Error"
                                                         ? error
                                                         : ""
-                                                    : ""
+                                                    : "",
                                             ),
                                         ],
                                     },
                                 });
-                            }
+                            },
                         );
                     }
-                }
+                },
             );
         }, 300);
     };
@@ -202,7 +202,7 @@ class MoneyInput extends React.Component {
                                         value={this.state.Channeldefault}
                                     >
                                         {deteleObject(
-                                            this.ispayMethod.availableMethods
+                                            this.ispayMethod.availableMethods,
                                         ).map((item, index) => {
                                             return (
                                                 item.methodCode !=
@@ -274,7 +274,7 @@ class MoneyInput extends React.Component {
                                 case "CTC":
                                     return event.target.value.replace(
                                         reg,
-                                        "$2$3$4"
+                                        "$2$3$4",
                                     );
                                 case "BCM":
                                 case "BC":
@@ -291,7 +291,7 @@ class MoneyInput extends React.Component {
                                 default:
                                     return event.target.value.replace(
                                         /[^\d]+/g,
-                                        ""
+                                        "",
                                     );
                             }
                         },
@@ -327,7 +327,7 @@ class MoneyInput extends React.Component {
                                         ) {
                                             !depositMoneyDecimal.test(value) &&
                                                 callback(
-                                                    "金额格式错误，最高保留1至2位小数"
+                                                    "金额格式错误，最高保留1至2位小数",
                                                 );
                                         } else {
                                             !depositMoneyInt.test(value) &&
@@ -335,12 +335,12 @@ class MoneyInput extends React.Component {
                                         }
                                         if (value < setting.minBal) {
                                             callback(
-                                                `最低存款金额 ${minBal} 元`
+                                                `最低存款金额 ${minBal} 元`,
                                             );
                                         }
                                         if (value > setting.maxBal) {
                                             callback(
-                                                `最高存款金额 ${maxBal} 元​`
+                                                `最高存款金额 ${maxBal} 元​`,
                                             );
                                         }
                                         if (
@@ -354,19 +354,19 @@ class MoneyInput extends React.Component {
                                             const isDecimalZero =
                                                 isDecimal &&
                                                 Number(
-                                                    String(value).split(".")[1]
+                                                    String(value).split(".")[1],
                                                 ) === 0;
                                             if (!isDecimal || isDecimalZero) {
                                                 // 只驗證整數部分
                                                 if (
                                                     !oddReg.test(
                                                         String(value).split(
-                                                            "."
-                                                        )[0]
+                                                            ".",
+                                                        )[0],
                                                     )
                                                 ) {
                                                     callback(
-                                                        "金额尾数必须为 3 , 4 , 5 , 6 , 7"
+                                                        "金额尾数必须为 3 , 4 , 5 , 6 , 7",
                                                     );
                                                 }
                                             }
@@ -401,10 +401,10 @@ class MoneyInput extends React.Component {
                                     return;
                                 this.Testamount(
                                     value.target.value,
-                                    payTypeCode
+                                    payTypeCode,
                                 );
                             }}
-                        />
+                        />,
                     )}
 
                     {/* 新需求 推荐金额 */}
@@ -439,7 +439,7 @@ class MoneyInput extends React.Component {
                                                     {value}
                                                 </li>
                                             );
-                                        }
+                                        },
                                     )}
                                 </ul>
                             </div>

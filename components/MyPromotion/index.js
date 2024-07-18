@@ -186,7 +186,7 @@ class MyPromotion extends React.Component {
                 this.props.setLoading(true);
                 post(
                     ApiPort.CancelBonusPromotion +
-                        `&remark=Cancel&bonusID=${bonusID}&playerBonusId=${playerBonusId}`
+                        `&remark=Cancel&bonusID=${bonusID}&playerBonusId=${playerBonusId}`,
                 )
                     .then((res) => {
                         if (res.isSuccess) {
@@ -231,7 +231,7 @@ class MyPromotion extends React.Component {
                         onClick={() => {
                             localStorage.setItem(
                                 "isShowPromotionPopover",
-                                "true"
+                                "true",
                             );
                             this.setState({
                                 isShowPopover: false,
@@ -256,7 +256,7 @@ class MyPromotion extends React.Component {
                             onClick={() => {
                                 Router.push(
                                     "/help?type=Sub2&key=" +
-                                        CMSOBJ[HostConfig.CMS_ID][27]
+                                        CMSOBJ[HostConfig.CMS_ID][27],
                                 );
                                 Pushgtagdata("Tutorial_myreward_profilepage");
                             }}
@@ -370,7 +370,7 @@ class MyPromotion extends React.Component {
                                                                                 val.bonusId,
                                                                             playerBonusId:
                                                                                 val.playerBonusId,
-                                                                        }
+                                                                        },
                                                                     );
                                                                 }}
                                                             >
@@ -395,7 +395,7 @@ class MyPromotion extends React.Component {
                                                 <h3>
                                                     可得
                                                     {~val.title.indexOf(
-                                                        "同乐币"
+                                                        "同乐币",
                                                     )
                                                         ? ""
                                                         : "红利"}
@@ -419,8 +419,8 @@ class MyPromotion extends React.Component {
                                                             共需{" "}
                                                             {formatAmount(
                                                                 parseFloat(
-                                                                    processSplit
-                                                                )
+                                                                    processSplit,
+                                                                ),
                                                             )}{" "}
                                                             流水
                                                         </span>
@@ -430,12 +430,12 @@ class MyPromotion extends React.Component {
                                                             {formatAmount(
                                                                 sub(
                                                                     parseFloat(
-                                                                        processSplit
+                                                                        processSplit,
                                                                     ),
                                                                     parseFloat(
-                                                                        processSplit
-                                                                    )
-                                                                )
+                                                                        processSplit,
+                                                                    ),
+                                                                ),
                                                             )}{" "}
                                                             流水
                                                         </span>
@@ -450,7 +450,7 @@ class MyPromotion extends React.Component {
                                                         className="tlc-btn-2"
                                                         onClick={() => {
                                                             this.BonusClaim(
-                                                                val.playerBonusId
+                                                                val.playerBonusId,
                                                             );
                                                         }}
                                                     >

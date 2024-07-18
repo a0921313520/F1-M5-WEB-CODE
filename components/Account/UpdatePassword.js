@@ -102,20 +102,25 @@ class UpdatePassword extends React.Component {
                                         rules: [
                                             {
                                                 required: true,
-                                                message: translate("当前密码不能为空"),
+                                                message:
+                                                    translate(
+                                                        "当前密码不能为空",
+                                                    ),
                                             },
                                             {
                                                 validator: (
                                                     rule,
                                                     value,
-                                                    callback
+                                                    callback,
                                                 ) => {
                                                     if (
                                                         value &&
                                                         !pwdReg.test(value)
                                                     ) {
                                                         callback(
-                                                            translate("当前密码不正确")
+                                                            translate(
+                                                                "当前密码不正确",
+                                                            ),
                                                         );
                                                     }
                                                     callback();
@@ -129,7 +134,7 @@ class UpdatePassword extends React.Component {
                                             placeholder={translate("输入密码")}
                                             maxLength={20}
                                             autoComplete="off"
-                                        />
+                                        />,
                                     )}
                                 </Item>
                             </Col>
@@ -142,29 +147,35 @@ class UpdatePassword extends React.Component {
                                         rules: [
                                             {
                                                 required: true,
-                                                message: translate("新密码不能为空"),
+                                                message:
+                                                    translate("新密码不能为空"),
                                             },
                                             {
                                                 validator: (
                                                     rule,
                                                     value,
-                                                    callback
+                                                    callback,
                                                 ) => {
                                                     if (
                                                         value &&
                                                         !pwdReg.test(value)
                                                     ) {
                                                         callback(
-                                                            translate("密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@")
+                                                            translate(
+                                                                "密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@",
+                                                            ),
                                                         );
                                                     }
                                                     if (
-                                                        value && getFieldValue(
-                                                            "oldPwd"
+                                                        value &&
+                                                        getFieldValue(
+                                                            "oldPwd",
                                                         ) === value
                                                     ) {
                                                         callback(
-                                                            translate("新密码不能与当前密码相同")
+                                                            translate(
+                                                                "新密码不能与当前密码相同",
+                                                            ),
                                                         );
                                                     }
                                                     callback();
@@ -175,10 +186,12 @@ class UpdatePassword extends React.Component {
                                         <Input.Password
                                             className="user-center-account-profile-input"
                                             size="large"
-                                            placeholder={translate("输入您的新密码")}
+                                            placeholder={translate(
+                                                "输入您的新密码",
+                                            )}
                                             maxLength={20}
                                             autoComplete="off"
-                                        />
+                                        />,
                                     )}
                                 </Item>
                                 <Item
@@ -189,21 +202,27 @@ class UpdatePassword extends React.Component {
                                         rules: [
                                             {
                                                 required: true,
-                                                message: translate("重新输入新密码，不能为空"),
+                                                message:
+                                                    translate(
+                                                        "重新输入新密码，不能为空",
+                                                    ),
                                             },
                                             {
                                                 validator: (
                                                     rule,
                                                     value,
-                                                    callback
+                                                    callback,
                                                 ) => {
                                                     if (
-                                                        value && getFieldValue(
-                                                            "newPwd"
+                                                        value &&
+                                                        getFieldValue(
+                                                            "newPwd",
                                                         ) !== value
                                                     ) {
                                                         callback(
-                                                            translate("密码不匹配")
+                                                            translate(
+                                                                "密码不匹配",
+                                                            ),
                                                         );
                                                     }
                                                     callback();
@@ -214,10 +233,12 @@ class UpdatePassword extends React.Component {
                                         <Input.Password
                                             className="user-center-account-profile-input"
                                             size="large"
-                                            placeholder={translate("重新输入新密码(小写)")}
+                                            placeholder={translate(
+                                                "重新输入新密码(小写)",
+                                            )}
                                             maxLength={20}
                                             autoComplete="off"
-                                        />
+                                        />,
                                     )}
                                 </Item>
                             </Col>
@@ -247,7 +268,7 @@ class UpdatePassword extends React.Component {
                                 onClick={() => {
                                     this.setState({ isEnable: true });
                                     Pushgtagdata(
-                                        "Edit_PWmodification_personal"
+                                        "Edit_PWmodification_personal",
                                     );
                                 }}
                             >

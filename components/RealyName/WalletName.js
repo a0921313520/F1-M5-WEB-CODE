@@ -78,7 +78,7 @@ class WalletName extends React.Component {
                                 size="large"
                                 autoCapitalize="false"
                                 placeholder="请输入姓名"
-                            />
+                            />,
                         )}
                     </Item>
                     <div className="modal-prompt-info">

@@ -11,8 +11,8 @@ import { otpNumReg } from "$ACTIONS/reg";
 import ExceedVerify from "@/OTP/ExceedVerify";
 import classNames from "classnames";
 import { mailConversion } from "$ACTIONS/util";
-import {translate} from "$ACTIONS/Translate";
-import {showResultModal} from "$ACTIONS/helper";
+import { translate } from "$ACTIONS/Translate";
+import { showResultModal } from "$ACTIONS/helper";
 
 const { Item } = Form;
 class EmailVerify extends React.Component {
@@ -35,23 +35,26 @@ class EmailVerify extends React.Component {
         this.getEmailOTPAttempts();
         // Cookie.Get("emailTime") !== null
         //     ? this.startCountDown() :
-            //  clearInterval(this.timeTimer);
+        //  clearInterval(this.timeTimer);
     }
 
     componentWillUnmount() {
         clearInterval(this.timeTimer);
-        this.setState = ()=> false
+        this.setState = () => false;
     }
     /**
      * 获取邮箱验证次数
      */
     getEmailOTPAttempts = () => {
         this.setState({ isLoading: true });
-        get(ApiPort.GetOTPAttempts + `&channelType=Email&serviceAction=WithdrawalVerification`)
+        get(
+            ApiPort.GetOTPAttempts +
+                `&channelType=Email&serviceAction=WithdrawalVerification`,
+        )
             .then((res) => {
                 if (res && res.result) {
                     if (res.result.attempt < 1) {
-                        this.props.setExceedVisible()
+                        this.props.setExceedVisible();
                     } else if (res.result.attempt) {
                         this.props.setEmailAttemptRemaining(res.result.attempt);
                     }
@@ -59,9 +62,10 @@ class EmailVerify extends React.Component {
             })
             .catch((error) => {
                 console.log("获取邮箱验证次数 error:", error);
-            }).finally(()=>{
-                this.setState({ isLoading: false });
             })
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
     };
 
     /**
@@ -93,7 +97,7 @@ class EmailVerify extends React.Component {
         let times = 600;
 
         let lastSeconds = parseInt(
-            times - (new Date().getTime() - new Date(time).getTime()) / 1000
+            times - (new Date().getTime() - new Date(time).getTime()) / 1000,
         );
 
         this.setState({ remainingTime: lastSeconds });
@@ -116,10 +120,12 @@ class EmailVerify extends React.Component {
     }
     /**
      * 发送验证码
-     * @param {*} isResend 
+     * @param {*} isResend
      */
     EmailVerify(isResend) {
-        const promiseVerification = this.props.form.validateFields(["emailAddress"]);
+        const promiseVerification = this.props.form.validateFields([
+            "emailAddress",
+        ]);
         promiseVerification.then(() => {
             const { memberCode } = this.state.memberInfo;
             const emailAccount = this.state.memberInfo.isVerifiedEmail[0];
@@ -145,15 +151,19 @@ class EmailVerify extends React.Component {
                                 errorCode == "VAL18015"
                             ) {
                                 this.props.setExceedVisible();
-                            } else{
-                                message.error(description || translate("发送失败"));
+                            } else {
+                                message.error(
+                                    description || translate("发送失败"),
+                                );
                             }
                         }
-                    }).catch((error) => {
-                        console.log("POSTEmailVerifyAPI" + error);
-                    }).finally(()=>{
-                        this.setState({ isLoading: false });
                     })
+                    .catch((error) => {
+                        console.log("POSTEmailVerifyAPI" + error);
+                    })
+                    .finally(() => {
+                        this.setState({ isLoading: false });
+                    });
             };
 
             this.state.memberInfo && this.state.memberInfo.isVerifiedEmail
@@ -169,13 +179,13 @@ class EmailVerify extends React.Component {
                               if (res.isSuccess) {
                                   !this.props.otpParam &&
                                       this.props.correctMemberInfo(
-                                          sendEmailCode
+                                          sendEmailCode,
                                       );
                               } else {
                                   this.setState({ isLoading: false });
                                   message.error(res.message);
                               }
-                          }
+                          },
                       );
                   })();
         });
@@ -187,17 +197,24 @@ class EmailVerify extends React.Component {
                 isResend
                     ? "ResendCode_Email_WithdrawPage"
                     : "Send_Email_WithdrawPage"
-            }`
+            }`,
         );
     }
 
     /**
      * 提交验证码
-     * @param {*} code 
-     * @returns 
+     * @param {*} code
+     * @returns
      */
     checkUrlVerifyCode(code) {
-        if (!otpNumReg.test(code)) return showResultModal(translate("验证码格式错误"), false,1501,'otp','authentication-succeeded');
+        if (!otpNumReg.test(code))
+            return showResultModal(
+                translate("验证码格式错误"),
+                false,
+                1501,
+                "otp",
+                "authentication-succeeded",
+            );
         const { memberCode } = this.state.memberInfo;
         let EmailData = {
             memberCode: memberCode,
@@ -212,7 +229,13 @@ class EmailVerify extends React.Component {
                 if (res) {
                     let { result } = res;
                     if (res.isSuccess && res.result.isVerified) {
-                        showResultModal(translate("验证成功"), true,1501,'otp','authentication-succeeded');
+                        showResultModal(
+                            translate("验证成功"),
+                            true,
+                            1501,
+                            "otp",
+                            "authentication-succeeded",
+                        );
                         this.props.getMemberData();
                     } else {
                         if (res.errors && res.errors.length > 0) {
@@ -234,19 +257,20 @@ class EmailVerify extends React.Component {
                                 },
                             });
                             this.props.setEmailAttemptRemaining(
-                                result.remainingAttempt
+                                result.remainingAttempt,
                             );
                         }
                     }
                 }
-            }).finally(()=>{
-                this.setState({ isLoading: false });
             })
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
     }
 
     render() {
         const { getFieldDecorator, getFieldValue } = this.props.form;
-        const { remainingTime, buttonStatus,memberInfo } = this.state;
+        const { remainingTime, buttonStatus, memberInfo } = this.state;
         const verificationCode = getFieldValue("verifyCode");
         const email = memberInfo && memberInfo.isVerifiedEmail[0];
 
@@ -281,14 +305,15 @@ class EmailVerify extends React.Component {
                                     ? mailConversion(email)
                                     : "",
                                 rules: [
-                                    { required: true, message: translate("请输入电子邮箱") },
+                                    {
+                                        required: true,
+                                        message: translate("请输入电子邮箱"),
+                                    },
                                     {
                                         validator: (rule, value, callback) => {
                                             if (value && !email) {
                                                 !emailReg.test(email) &&
-                                                callback(
-                                                    "邮件格式错误！"
-                                                );
+                                                    callback("邮件格式错误！");
                                             }
                                             callback();
                                         },
@@ -301,20 +326,20 @@ class EmailVerify extends React.Component {
                                     className="tlc-input-disabled"
                                     autoComplete="off"
                                     disabled={!!email}
-                                />
+                                />,
                             )}
                         </Item>
                         <div className="otp-cs-tip">
-                                {translate("如果您想更新您的电子邮件地址。 请联系")}
-                                <span
-                                    className="otp-cs"
-                                    onClick={() => {
-                                        global.PopUpLiveChat();
-                                        Pushgtagdata("CS_loginOTP");
-                                    }}
-                                >
-                                    {translate("在线客服")}
-                                </span>
+                            {translate("如果您想更新您的电子邮件地址。 请联系")}
+                            <span
+                                className="otp-cs"
+                                onClick={() => {
+                                    global.PopUpLiveChat();
+                                    Pushgtagdata("CS_loginOTP");
+                                }}
+                            >
+                                {translate("在线客服")}
+                            </span>
                         </div>
 
                         <Item label={translate("验证码")}>
@@ -328,7 +353,7 @@ class EmailVerify extends React.Component {
                                 getValueFromEvent: (event) => {
                                     return event.target.value.replace(
                                         /\D/g,
-                                        ""
+                                        "",
                                     );
                                 },
                             })(
@@ -368,7 +393,7 @@ class EmailVerify extends React.Component {
                                     }
                                     placeholder={translate("请输入验证码")}
                                     maxLength={6}
-                                />
+                                />,
                             )}
                         </Item>
                         <div className="line-distance" />

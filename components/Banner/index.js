@@ -4,7 +4,7 @@ import ReactCardCarousel from "$DATA/js/reactCardCarousel";
 import { lazyLoadImg } from "$ACTIONS/util";
 import { Spin, Carousel } from "antd";
 import Image from "./img";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -113,7 +113,7 @@ export default class Header extends React.Component {
                                                     {index}
                                                 </li>
                                             );
-                                        }
+                                        },
                                     )}
                                 </ul>
                             </div>

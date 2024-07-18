@@ -24,27 +24,25 @@ export default class Main extends React.Component {
             // Tabactive: Router.router.query.key || '0',
             defaultOpenKey: Router.router.query.type || "Sub0",
         });
-        get(`${CMSAPIUrl}/vi-vn/api/v1/web/about`).then(
-            (res) => {
-                if (res) {
-                    console.log(res);
-                    let intid = res[0].menus.filter((item, index) => {
-                        return index == 0;
-                    })[0].id;
-                    this.setState({
-                        Menudata: res,
-                        loading: true,
-                        Tabactive: Router.router.query.key || intid,
-                    });
-                    let defaultid =
-                        Router.router.query && Router.router.query.key
-                            ? Router.router.query.key
-                            : intid;
-                    console.log(defaultid);
-                    this.Helpdata(defaultid);
-                }
+        get(`${CMSAPIUrl}/vi-vn/api/v1/web/about`).then((res) => {
+            if (res) {
+                console.log(res);
+                let intid = res[0].menus.filter((item, index) => {
+                    return index == 0;
+                })[0].id;
+                this.setState({
+                    Menudata: res,
+                    loading: true,
+                    Tabactive: Router.router.query.key || intid,
+                });
+                let defaultid =
+                    Router.router.query && Router.router.query.key
+                        ? Router.router.query.key
+                        : intid;
+                console.log(defaultid);
+                this.Helpdata(defaultid);
             }
-        );
+        });
 
         // get(`${CMSAPIUrl}/vi-vn/api/v1/web/about/detail/5609`).then((res) => {
         // 	if (res) {
@@ -83,9 +81,7 @@ export default class Main extends React.Component {
             Contentdata: "",
             loading: true,
         });
-        get(
-            `${CMSAPIUrl}/vi-vn/api/v1/web/about/detail/${id}`
-        ).then((res) => {
+        get(`${CMSAPIUrl}/vi-vn/api/v1/web/about/detail/${id}`).then((res) => {
             if (res) {
                 console.log(res);
                 this.setState({
@@ -103,12 +99,7 @@ export default class Main extends React.Component {
         };
         let int = 0;
         return (
-            <Layout
-                title="FUN88"
-                Keywords=""
-                description=""
-                status={1}
-            >
+            <Layout title="FUN88" Keywords="" description="" status={1}>
                 <div className="common-distance-wrap" id="about">
                     {Menudata == "" ? (
                         <div className="common-distance about-content">
@@ -159,7 +150,7 @@ export default class Main extends React.Component {
                                                                     {val.title}
                                                                 </Menu.Item>
                                                             );
-                                                        }
+                                                        },
                                                     )}
                                                 </SubMenu>
                                             ) : (

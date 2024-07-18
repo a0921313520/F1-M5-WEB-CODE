@@ -69,14 +69,9 @@ class VerifyCode extends React.Component {
                 (res) => {
                     this.clearCaptcha();
                     res.result.remainedAttempt !== 0 &&
-                        showResultModal(
-                            "验证码错误",
-                            false,
-                            1501,
-                            "otp"
-                        );
+                        showResultModal("验证码错误", false, 1501, "otp");
                     this.loadingNode.destroy();
-                }
+                },
             );
         }
     };

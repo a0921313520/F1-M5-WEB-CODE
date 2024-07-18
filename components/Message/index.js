@@ -8,14 +8,14 @@ import {
     Button,
     Icon,
     message,
-    Empty
+    Empty,
 } from "antd";
 import { get, patch } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "$ACTIONS/TLCAPI";
 import moment from "moment";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 // 针对消息中心UAT新增样式表
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 const { TabPane } = Tabs;
 const { Option } = Select;
 
@@ -175,20 +175,20 @@ class Message extends React.Component {
                                     "class",
                                     parent.children[0].classList.value.replace(
                                         " unread",
-                                        ""
-                                    )
+                                        "",
+                                    ),
                                 );
                                 parent.setAttribute(
                                     "class",
-                                    messageItem + " open"
+                                    messageItem + " open",
                                 );
                                 contentNode.innerHTML =
                                     (URLObject[3] === "myMeesage" &&
                                     self.state.myMessageType !== "1"
                                         ? res.personalMessage.appContent
                                         : self.state.myMessageType == "1"
-                                        ? res.personalMessage.Content
-                                        : res.announcementResponse.content) ||
+                                          ? res.personalMessage.Content
+                                          : res.announcementResponse.content) ||
                                     "";
 
                                 if (!self.state.originHeightOfTitle) {
@@ -209,8 +209,8 @@ class Message extends React.Component {
                                 "class",
                                 parent.children[0].classList.value.replace(
                                     " unread",
-                                    ""
-                                )
+                                    "",
+                                ),
                             );
                             parent.setAttribute("class", messageItem + " open");
 
@@ -232,8 +232,8 @@ class Message extends React.Component {
                             "class",
                             parent.children[0].classList.value.replace(
                                 " unread",
-                                ""
-                            )
+                                "",
+                            ),
                         );
                         parent.setAttribute("class", messageItem + " open");
 
@@ -278,7 +278,7 @@ class Message extends React.Component {
                 "&pageSize=" +
                 this.currentSize +
                 "&pageIndex=" +
-                this.state.currentPage
+                this.state.currentPage,
         ).then((res) => {
             this.props.setLoading(false);
             if (
@@ -302,12 +302,12 @@ class Message extends React.Component {
                             !~this.isFinishFrontData.indexOf(0)
                         ) {
                             this.props.setCircleHasUnRead(
-                                this.state.systemMessageHasUnRead //||
-                                    // this.state.myMessageHasUnRead1 !== 0 ||
-                                    // this.state.myMessageHasUnRead2 !== 0
+                                this.state.systemMessageHasUnRead, //||
+                                // this.state.myMessageHasUnRead1 !== 0 ||
+                                // this.state.myMessageHasUnRead2 !== 0
                             );
                         }
-                    }
+                    },
                 );
             }
         });
@@ -333,7 +333,7 @@ class Message extends React.Component {
                 "&pageSize=" +
                 this.currentSize +
                 "&pageIndex=" +
-                this.state.currentPage
+                this.state.currentPage,
         ).then((res) => {
             this.props.setLoading(false);
             if (res?.result?.inboxMessagesListItem) {
@@ -355,7 +355,7 @@ class Message extends React.Component {
                     ApiPort.InboxMessages +
                         "&MessageTypeID=" +
                         OTHER_MESSAGE_ID +
-                        "&messageTypeOptionID=0&pageSize=1&pageIndex=1"
+                        "&messageTypeOptionID=0&pageSize=1&pageIndex=1",
                 ).then((res) => {
                     if (res?.result?.inboxMessagesListItem) {
                         this.setState(
@@ -370,7 +370,7 @@ class Message extends React.Component {
                                 this.isFinishFrontData.splice(
                                     newLen1 - 1,
                                     1,
-                                    1
+                                    1,
                                 );
                                 if (
                                     this.isFinishFrontData.length &&
@@ -385,10 +385,10 @@ class Message extends React.Component {
                                             this.state[
                                                 "myMessageHasUnRead" +
                                                     OTHER_MESSAGE_ID
-                                            ] !== 0
+                                            ] !== 0,
                                     );
                                 }
-                            }
+                            },
                         );
                     }
                 });
@@ -398,17 +398,20 @@ class Message extends React.Component {
 
     /* 處理頁數 */
     handlePageChange = (value) => {
-        this.setState({
-            currentPage: value,
-            minIndex: (value - 1) * this.state.pageSize,
-            maxIndex: value * this.state.pageSize,
-        },() => {
-            if (this.currentMessageType == 1) {
-                this.getPersonData();
-            } else {
-                this.getSystemData();
-            }
-        });
+        this.setState(
+            {
+                currentPage: value,
+                minIndex: (value - 1) * this.state.pageSize,
+                maxIndex: value * this.state.pageSize,
+            },
+            () => {
+                if (this.currentMessageType == 1) {
+                    this.getPersonData();
+                } else {
+                    this.getSystemData();
+                }
+            },
+        );
     };
 
     /**
@@ -416,12 +419,14 @@ class Message extends React.Component {
      */
     filterPersonData(type) {
         this.personMessageType = 0;
-        this.setState({currentPage:1},()=>{this.getPersonData(1, type.target.value)})
-        
+        this.setState({ currentPage: 1 }, () => {
+            this.getPersonData(1, type.target.value);
+        });
+
         Pushgtagdata(
             type.target.value === ""
                 ? "Transaction_messsage_PMA"
-                : "Personal_PMA_profilepage"
+                : "Personal_PMA_profilepage",
         );
     }
     /**
@@ -434,8 +439,8 @@ class Message extends React.Component {
             title: translate("注意"),
             content: translate("您确认要将所有帖子标记为已读吗？"),
             className: "markAllRead",
-            okButtonProps: {size: "large"},
-            cancelButtonProps: {size: "large"},
+            okButtonProps: { size: "large" },
+            cancelButtonProps: { size: "large" },
             okText: translate("确认"),
             cancelText: translate("稍后"),
             onOk: () => {
@@ -461,7 +466,7 @@ class Message extends React.Component {
                     Pushgtagdata(
                         type === "2"
                             ? "Allread_transaction_message"
-                            : "Allread_personal_message"
+                            : "Allread_personal_message",
                     );
                 } else {
                     URLAddress = ApiPort.ActionOnAnnouncement;
@@ -597,18 +602,18 @@ class Message extends React.Component {
                         onChange={(v) => {
                             this.currentMessageType = v;
                             this.setState(
-								{
-									currentPage: 1
-								},
-								() => {
-									this.getPersonData('0');
-									this.getSystemData('0');
-								}
-							);
+                                {
+                                    currentPage: 1,
+                                },
+                                () => {
+                                    this.getPersonData("0");
+                                    this.getSystemData("0");
+                                },
+                            );
                             Pushgtagdata(
                                 v === "1"
                                     ? "Message_PMA_profilepage"
-                                    : "Announcement_PMA_profilepage"
+                                    : "Announcement_PMA_profilepage",
                             );
                         }}
                     >
@@ -694,18 +699,28 @@ class Message extends React.Component {
                                         defaultValue="0"
                                         onFocus={() => {
                                             Pushgtagdata(
-                                                "Sorting_transaction_message"
+                                                "Sorting_transaction_message",
                                             );
                                         }}
                                         onChange={(val) => {
                                             this.stagEventTransition(val);
                                         }}
                                     >
-                                        <Option value="0">{translate("全部")}</Option>
-                                        <Option value="3">{translate("存款")}</Option>
-                                        <Option value="4">{translate("转账")}</Option>
-                                        <Option value="5">{translate("提款")}</Option>
-                                        <Option value="6">{translate("红利")}</Option>
+                                        <Option value="0">
+                                            {translate("全部")}
+                                        </Option>
+                                        <Option value="3">
+                                            {translate("存款")}
+                                        </Option>
+                                        <Option value="4">
+                                            {translate("转账")}
+                                        </Option>
+                                        <Option value="5">
+                                            {translate("提款")}
+                                        </Option>
+                                        <Option value="6">
+                                            {translate("红利")}
+                                        </Option>
                                     </Select>
                                 ) : null}
                                 <Button
@@ -735,29 +750,34 @@ class Message extends React.Component {
                                                 (titleName = "一般"),
                                                     (titleClass = "general");
                                                 val.messageTypeOptionID === 2 &&
-                                                    ((titleName = translate("优惠")),
+                                                    ((titleName =
+                                                        translate("优惠")),
                                                     (titleClass = "promotion"));
                                             } else {
                                                 switch (
                                                     val.messageTypeOptionID
                                                 ) {
                                                     case 3:
-                                                        (titleName = translate("存款")),
+                                                        (titleName =
+                                                            translate("存款")),
                                                             (titleClass =
                                                                 "bank");
                                                         break;
                                                     case 4:
-                                                        (titleName = translate("转账")),
+                                                        (titleName =
+                                                            translate("转账")),
                                                             (titleClass =
                                                                 "transfer");
                                                         break;
                                                     case 5:
-                                                        (titleName = translate("提款")),
+                                                        (titleName =
+                                                            translate("提款")),
                                                             (titleClass =
                                                                 "withdraw");
                                                         break;
                                                     case 6:
-                                                        (titleName = translate("奖金")),
+                                                        (titleName =
+                                                            translate("奖金")),
                                                             (titleClass =
                                                                 "bonus");
                                                         break;
@@ -778,7 +798,7 @@ class Message extends React.Component {
                                                         onClick={(event) => {
                                                             this.toggleDetail(
                                                                 event,
-                                                                val
+                                                                val,
                                                             );
                                                         }}
                                                     >
@@ -816,12 +836,12 @@ class Message extends React.Component {
                                                                 </h3>
                                                                 <p>
                                                                     {this.dealWithTime(
-                                                                        val.sendOn
+                                                                        val.sendOn,
                                                                     )}
                                                                 </p>
                                                                 <div className="message-title-inner-wrap">
                                                                     {val.appContent.split(
-                                                                        "[/"
+                                                                        "[/",
                                                                     ).length >
                                                                     1 ? (
                                                                         <p
@@ -835,7 +855,7 @@ class Message extends React.Component {
                                                                         >
                                                                             {
                                                                                 val.appContent.split(
-                                                                                    "[/"
+                                                                                    "[/",
                                                                                 )[0]
                                                                             }{" "}
                                                                             [
@@ -843,23 +863,25 @@ class Message extends React.Component {
                                                                                 <CopyToClipboard
                                                                                     text={val.appContent
                                                                                         .split(
-                                                                                            "[/"
+                                                                                            "[/",
                                                                                         )[1]
                                                                                         .substring(
                                                                                             val.appContent.split(
-                                                                                                "[/"
+                                                                                                "[/",
                                                                                             )[1],
                                                                                             val.appContent
                                                                                                 .split(
-                                                                                                    "[/"
+                                                                                                    "[/",
                                                                                                 )[1]
                                                                                                 .lastIndexOf(
-                                                                                                    "]"
-                                                                                                )
+                                                                                                    "]",
+                                                                                                ),
                                                                                         )}
                                                                                     onCopy={() => {
                                                                                         message.success(
-                                                                                            translate("复制成功")
+                                                                                            translate(
+                                                                                                "复制成功",
+                                                                                            ),
                                                                                         );
                                                                                     }}
                                                                                 >
@@ -867,19 +889,19 @@ class Message extends React.Component {
                                                                                         <>
                                                                                             {val.appContent
                                                                                                 .split(
-                                                                                                    "[/"
+                                                                                                    "[/",
                                                                                                 )[1]
                                                                                                 .substring(
                                                                                                     val.appContent.split(
-                                                                                                        "[/"
+                                                                                                        "[/",
                                                                                                     )[1],
                                                                                                     val.appContent
                                                                                                         .split(
-                                                                                                            "[/"
+                                                                                                            "[/",
                                                                                                         )[1]
                                                                                                         .lastIndexOf(
-                                                                                                            "]"
-                                                                                                        )
+                                                                                                            "]",
+                                                                                                        ),
                                                                                                 )}
                                                                                         </>
                                                                                     </span>
@@ -887,16 +909,16 @@ class Message extends React.Component {
                                                                             }
                                                                             {val.appContent
                                                                                 .split(
-                                                                                    "[/"
+                                                                                    "[/",
                                                                                 )[1]
                                                                                 .substring(
                                                                                     val.appContent
                                                                                         .split(
-                                                                                            "[/"
+                                                                                            "[/",
                                                                                         )[1]
                                                                                         .lastIndexOf(
-                                                                                            "]"
-                                                                                        )
+                                                                                            "]",
+                                                                                        ),
                                                                                 )}
                                                                         </p>
                                                                     ) : (
@@ -932,12 +954,14 @@ class Message extends React.Component {
                                                     </li>
                                                 )
                                             );
-                                        }
+                                        },
                                     )
                                 ) : (
                                     <li className="center">
                                         <Empty
-                                            image={"/vn/img/icon/img-no-record.svg"}
+                                            image={
+                                                "/vn/img/icon/img-no-record.svg"
+                                            }
                                             className="big-empty-box"
                                             description={translate("没有数据")}
                                         />
@@ -981,22 +1005,32 @@ class Message extends React.Component {
                                     defaultValue="0"
                                     onFocus={() => {
                                         Pushgtagdata(
-                                            "Sorting_announcement_PMA"
+                                            "Sorting_announcement_PMA",
                                         );
                                     }}
                                     // dropdownStyle={{ width: 100, zIndex: 1 }}
                                     onChange={this.stagEventSystem}
                                 >
-                                    <Option value="0">{translate("全部")}</Option>
-                                    <Option value="7">{translate("个人")}</Option>
-                                    <Option value="8">{translate("产品")}</Option>
-                                    <Option value="9">{translate("优惠")}</Option>
-                                    <Option value="10">{translate("其它")}</Option>
+                                    <Option value="0">
+                                        {translate("全部")}
+                                    </Option>
+                                    <Option value="7">
+                                        {translate("个人")}
+                                    </Option>
+                                    <Option value="8">
+                                        {translate("产品")}
+                                    </Option>
+                                    <Option value="9">
+                                        {translate("优惠")}
+                                    </Option>
+                                    <Option value="10">
+                                        {translate("其它")}
+                                    </Option>
                                 </Select>
                                 <Button
                                     onClick={() => {
                                         this.markAllRead(
-                                            "UnreadAnnouncementCounts"
+                                            "UnreadAnnouncementCounts",
                                         );
                                     }}
                                 >
@@ -1041,7 +1075,7 @@ class Message extends React.Component {
                                                         onClick={(event) => {
                                                             this.toggleDetail(
                                                                 event,
-                                                                val
+                                                                val,
                                                             );
                                                         }}
                                                     >
@@ -1058,16 +1092,16 @@ class Message extends React.Component {
                                                                 <h3>
                                                                     <span>
                                                                         [
-                                                                        {
-                                                                            translate(titleName)
-                                                                        }
+                                                                        {translate(
+                                                                            titleName,
+                                                                        )}
                                                                         ]
                                                                     </span>{" "}
                                                                     {val.topic}
                                                                 </h3>
                                                                 <p>
                                                                     {this.dealWithTime(
-                                                                        val.sendOn
+                                                                        val.sendOn,
                                                                     )}
                                                                 </p>
                                                                 <div className="message-title-inner-wrap">
@@ -1096,12 +1130,14 @@ class Message extends React.Component {
                                                     </li>
                                                 )
                                             );
-                                        }
+                                        },
                                     )
                                 ) : (
                                     <li className="center">
-                                       <Empty
-                                            image={"/vn/img/icon/img-no-record.svg"}
+                                        <Empty
+                                            image={
+                                                "/vn/img/icon/img-no-record.svg"
+                                            }
                                             className="big-empty-box"
                                             description={translate("没有数据")}
                                         />

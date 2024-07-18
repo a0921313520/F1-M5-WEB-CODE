@@ -7,9 +7,9 @@ import { ApiPort } from "$ACTIONS/TLCAPI";
 import Collapse, { Panel } from "rc-collapse";
 import { translate } from "$ACTIONS/Translate";
 import { isWebPSupported } from "$ACTIONS/helper";
-import { getStaticPropsFromStrapiSEOSetting } from '$DATA/seo';
+import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 export async function getStaticProps() {
-    return await getStaticPropsFromStrapiSEOSetting('/diamond-club'); //參數帶本頁的路徑
+    return await getStaticPropsFromStrapiSEOSetting("/diamond-club"); //參數帶本頁的路徑
 }
 const { TabPane } = Tabs;
 
@@ -145,7 +145,7 @@ export default class Main extends React.Component {
                             if (key === "customer_care") {
                                 const newInnerHtml = body[key].replaceAll(
                                     ". ",
-                                    ".</td><td>"
+                                    ".</td><td>",
                                 );
                                 ViPDetails[key] = newInnerHtml;
                             } else ViPDetails[key] = body[key];
@@ -172,7 +172,7 @@ export default class Main extends React.Component {
                 },
                 () => {
                     this.DiamondClubDetail();
-                }
+                },
             );
         } else {
             this.setState(
@@ -182,7 +182,7 @@ export default class Main extends React.Component {
                 () => {
                     this.DiamondClubDetail();
                     this.GetVipFaqList();
-                }
+                },
             );
         }
     };
@@ -215,9 +215,9 @@ export default class Main extends React.Component {
                     name: "silver",
                     imageURL: `/vn/img/diamondClub/silver.${isWebPSupported() ? "webp" : "png"}`,
                 },
-                { 
-                    name: "gold", 
-                    imageURL: `/vn/img/diamondClub/gold.${isWebPSupported() ? "webp" : "png"}`
+                {
+                    name: "gold",
+                    imageURL: `/vn/img/diamondClub/gold.${isWebPSupported() ? "webp" : "png"}`,
                 },
                 {
                     name: "platinum",
@@ -267,26 +267,38 @@ export default class Main extends React.Component {
                 key: "1",
                 rowHeader: <p>{translate("贵宾客户服务")}</p>,
                 silverMember: (
-                    <img src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`}
+                    />
                 ),
                 goldMember: (
-                    <img src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`}
+                    />
                 ),
                 starMember: (
-                    <img src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`}
+                    />
                 ),
             },
             {
                 key: "2",
                 rowHeader: <p>{translate("独家客户服务")}</p>,
                 silverMember: (
-                    <img src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`}
+                    />
                 ),
                 goldMember: (
-                    <img src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`}
+                    />
                 ),
                 starMember: (
-                    <img src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`}
+                    />
                 ),
             },
             {
@@ -300,13 +312,19 @@ export default class Main extends React.Component {
                 key: "4",
                 rowHeader: <p>{translate("节日礼物")}</p>,
                 silverMember: (
-                    <img src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`}
+                    />
                 ),
                 goldMember: (
-                    <img src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`}
+                    />
                 ),
                 starMember: (
-                    <img src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/diamondClub/icon-check-sign.svg`}
+                    />
                 ),
             },
             {
@@ -323,11 +341,7 @@ export default class Main extends React.Component {
                 title: "",
                 dataIndex: "rowHeader",
                 key: "rowHeader",
-                render: (text) => (
-                    <p>
-                        {text}
-                    </p>
-                ),
+                render: (text) => <p>{text}</p>,
             },
             {
                 title: translate("金额"),
@@ -496,7 +510,10 @@ export default class Main extends React.Component {
                             className="border-tabs"
                             onChange={(v) => {}}
                         >
-                            <TabPane tab={<div>{translate("会员等级")}</div>} key="1">
+                            <TabPane
+                                tab={<div>{translate("会员等级")}</div>}
+                                key="1"
+                            >
                                 {/* 一般會員等級介紹 */}
                                 <div
                                     id={`tlc-vip`}
@@ -510,8 +527,16 @@ export default class Main extends React.Component {
                                             }
                                         />
                                         <ol className="general-ordered-list">
-                                            <li>{translate("从2018年1月11日起生效。")}</li>
-                                            <li>{translate("仅以流水额作为兑换积分的有效标准（促销奖金和开卡奖金不计算在内）。")}</li>
+                                            <li>
+                                                {translate(
+                                                    "从2018年1月11日起生效。",
+                                                )}
+                                            </li>
+                                            <li>
+                                                {translate(
+                                                    "仅以流水额作为兑换积分的有效标准（促销奖金和开卡奖金不计算在内）。",
+                                                )}
+                                            </li>
                                         </ol>
                                     </div>
                                     <div className="vip-member-box">
@@ -532,10 +557,26 @@ export default class Main extends React.Component {
                                         }}
                                     />
                                     <ol className="general-ordered-list vip-right-condition">
-                                        <li>{translate("VIP会员享受卓越的客户服务。")}</li>
-                                        <li>{translate("VIP会员优先参与Fun88专属活动。")}</li>
-                                        <li>{translate("除了普通会员福利外，VIP会员还可以获得更高的奖金和专属奖金选项。")}</li>
-                                        <li>{translate("Fun88保留对本活动的修改、补充和解释权，以及更改本活动的权利，恕不另行通知。")}</li>
+                                        <li>
+                                            {translate(
+                                                "VIP会员享受卓越的客户服务。",
+                                            )}
+                                        </li>
+                                        <li>
+                                            {translate(
+                                                "VIP会员优先参与Fun88专属活动。",
+                                            )}
+                                        </li>
+                                        <li>
+                                            {translate(
+                                                "除了普通会员福利外，VIP会员还可以获得更高的奖金和专属奖金选项。",
+                                            )}
+                                        </li>
+                                        <li>
+                                            {translate(
+                                                "Fun88保留对本活动的修改、补充和解释权，以及更改本活动的权利，恕不另行通知。",
+                                            )}
+                                        </li>
                                     </ol>
 
                                     {/* 從API拿取資料所用格式(現改為Hardcode)、暫時先保留以免改回/}
@@ -563,7 +604,7 @@ export default class Main extends React.Component {
                                             </>
                                             )}
                                         </div> */}
-                                                            {/* <div className="vip-member-box">
+                                    {/* <div className="vip-member-box">
                                             {vipLevel && (
                                             <>
                                                 <div
@@ -576,12 +617,15 @@ export default class Main extends React.Component {
                                             </>
                                             )}
                                         </div> */}
-                                                            {/* <div className="content AboutItem">
+                                    {/* <div className="content AboutItem">
                                             <AboutItem ContentData={vipRight} />
                                         </div> */}
                                 </div>
                             </TabPane>
-                            <TabPane tab={<div>{translate("详情")}</div>} key="2">
+                            <TabPane
+                                tab={<div>{translate("详情")}</div>}
+                                key="2"
+                            >
                                 <React.Fragment>
                                     <div className="TopBanner">
                                         <img
@@ -596,7 +640,9 @@ export default class Main extends React.Component {
                                         <div className="score-box">
                                             <div>
                                                 <h3>
-                                                    {translate("乐币积分表(体育/IM体育/彩票)")}
+                                                    {translate(
+                                                        "乐币积分表(体育/IM体育/彩票)",
+                                                    )}
                                                 </h3>
                                                 <Table
                                                     className="general-table vip-score-table"
@@ -611,7 +657,9 @@ export default class Main extends React.Component {
                                             </div>
                                             <div>
                                                 <h3>
-                                                    {translate("乐币积分表:(真人娱乐、捕鱼游戏)")}
+                                                    {translate(
+                                                        "乐币积分表:(真人娱乐、捕鱼游戏)",
+                                                    )}
                                                 </h3>
                                                 <Table
                                                     className="general-table vip-score-table"
@@ -640,7 +688,9 @@ export default class Main extends React.Component {
                                         <div className="score-box slotAtCenter">
                                             <div>
                                                 <h3>
-                                                    {translate("乐币积分表(电玩)")}
+                                                    {translate(
+                                                        "乐币积分表(电玩)",
+                                                    )}
                                                 </h3>
                                                 <Table
                                                     className="general-table vip-score-table"
@@ -684,7 +734,7 @@ export default class Main extends React.Component {
                                                                 />
                                                             </Panel>
                                                         );
-                                                    }
+                                                    },
                                                 )}
                                             </Collapse>
                                         </div>
@@ -698,33 +748,53 @@ export default class Main extends React.Component {
                                             <h3>{translate("规则与条款")}</h3>
                                             <ol className="general-ordered-list rule-list">
                                                 <li>
-                                                    {translate("要参与Fun88奖励计划，您需要了解以下条款和条件")}
+                                                    {translate(
+                                                        "要参与Fun88奖励计划，您需要了解以下条款和条件",
+                                                    )}
                                                 </li>
                                                 <li>
-                                                    {translate("Fun88保留随时终止和修改Fun88奖励计划会员资格和其他计划福利的权利，恕不另行通知。")}
+                                                    {translate(
+                                                        "Fun88保留随时终止和修改Fun88奖励计划会员资格和其他计划福利的权利，恕不另行通知。",
+                                                    )}
                                                 </li>
                                                 <li>
-                                                    {translate("参与Fun88奖励计划的会员必须承诺遵守该计划的条款、条件和规定。 Fun88 保留随时更改、添加或删除程序任何部分的权利，恕不另行通知。 但Fun88会在适当的情况下尽力告知具体原因。 所有会员和参与者应定期参阅条款和条件以了解变更。 玩家有责任及时了解有关条款和条件变更的最新信息。")}
+                                                    {translate(
+                                                        "参与Fun88奖励计划的会员必须承诺遵守该计划的条款、条件和规定。 Fun88 保留随时更改、添加或删除程序任何部分的权利，恕不另行通知。 但Fun88会在适当的情况下尽力告知具体原因。 所有会员和参与者应定期参阅条款和条件以了解变更。 玩家有责任及时了解有关条款和条件变更的最新信息。",
+                                                    )}
                                                 </li>
                                                 <li>
-                                                    {translate("Fun88保留出于自身目的检查交易记录和记录的权利。 经审核，如发现玩家有欺诈行为，Fun88将取消其奖励计划会员资格。")}
+                                                    {translate(
+                                                        "Fun88保留出于自身目的检查交易记录和记录的权利。 经审核，如发现玩家有欺诈行为，Fun88将取消其奖励计划会员资格。",
+                                                    )}
                                                 </li>
                                                 <li>
-                                                    {translate("当所请求的奖励缺货或不再生产时，Fun88 保留以同等货币价值的其他奖励替换任何所请求的奖励的权利。")}
+                                                    {translate(
+                                                        "当所请求的奖励缺货或不再生产时，Fun88 保留以同等货币价值的其他奖励替换任何所请求的奖励的权利。",
+                                                    )}
                                                 </li>
                                                 <li>
-                                                    {translate("奖励页面中，只有实名账户（账户名与银行账户名一致）才视为有效。 只有实名账户才能在该账户下进行游戏/投注。")}
+                                                    {translate(
+                                                        "奖励页面中，只有实名账户（账户名与银行账户名一致）才视为有效。 只有实名账户才能在该账户下进行游戏/投注。",
+                                                    )}
                                                 </li>
                                                 <li>
-                                                    {translate("Fun88努力在其能力范围内提供最佳奖励，但受第三方提供商的能力和限制的约束。")}
+                                                    {translate(
+                                                        "Fun88努力在其能力范围内提供最佳奖励，但受第三方提供商的能力和限制的约束。",
+                                                    )}
                                                 </li>
                                                 <li>
-                                                    {translate("对于信息缺失或无地址信息的客人，将拒绝兑换礼品并退回积分。 Fun88将通过Fun88主页通知栏告知取消兑换的原因。")}
+                                                    {translate(
+                                                        "对于信息缺失或无地址信息的客人，将拒绝兑换礼品并退回积分。 Fun88将通过Fun88主页通知栏告知取消兑换的原因。",
+                                                    )}
                                                     <br />
-                                                    {translate("只有受邀会员才有资格成为钻石会员。 所有钻石级别的请求、招揽和入场均无效。")}
+                                                    {translate(
+                                                        "只有受邀会员才有资格成为钻石会员。 所有钻石级别的请求、招揽和入场均无效。",
+                                                    )}
                                                 </li>
                                                 <li>
-                                                    {translate("Fun88保留对奖励计划规则的最终解释权。")}
+                                                    {translate(
+                                                        "Fun88保留对奖励计划规则的最终解释权。",
+                                                    )}
                                                 </li>
                                             </ol>
                                         </div>

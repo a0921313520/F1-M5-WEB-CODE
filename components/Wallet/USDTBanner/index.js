@@ -41,10 +41,7 @@ class USDTBanner extends React.Component {
         ];
     }
     componentDidMount() {
-        get(
-            CMSAPIUrl +
-                this.propsParams[this.props.type][0]
-        ).then((res) => {
+        get(CMSAPIUrl + this.propsParams[this.props.type][0]).then((res) => {
             if (res && res.length != 0) {
                 this.USDTPromotionID = res[0].action.ID;
                 this.setState({ cmsImageUrl: res[0].cmsImageUrl });

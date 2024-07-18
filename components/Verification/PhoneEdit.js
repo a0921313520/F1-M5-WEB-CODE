@@ -211,19 +211,19 @@ class PhoneEdit extends React.Component {
 
                                     resPhoneNum = resPhoneNum.replace(
                                         "86-",
-                                        ""
+                                        "",
                                     );
                                     // 更新父组件所需最新手机号参数
                                     typeof this.props.updatePhoneNumber ===
                                         "function" &&
                                         this.props.updatePhoneNumber(
-                                            resPhoneNum
+                                            resPhoneNum,
                                         );
                                     // 更新本地值
                                     this.props.form.setFieldsValue({
                                         phoneNumber: resPhoneNum.replace(
                                             /\d(?=\d{4})/g,
-                                            "*"
+                                            "*",
                                         ),
                                     });
                                     typeof global.setGlobalMemberInfo ===
@@ -242,11 +242,11 @@ class PhoneEdit extends React.Component {
                                     message.error("您并未修改资料。");
                                 } else {
                                     message.error(
-                                        res.message || res.result.Message
+                                        res.message || res.result.Message,
                                     );
                                 }
                             }
-                        }
+                        },
                     );
                 }
             });
@@ -285,7 +285,7 @@ class PhoneEdit extends React.Component {
                                 >
                                     {this.props.phoneNumber.replace(
                                         /\d(?=\d{4})/g,
-                                        "*"
+                                        "*",
                                     )}
                                 </div>
                             ) : (
@@ -300,7 +300,7 @@ class PhoneEdit extends React.Component {
                                             validator: (
                                                 rule,
                                                 value,
-                                                callback
+                                                callback,
                                             ) => {
                                                 // 默认禁用更新按钮
                                                 // this.setState({ updatePhoneStatus: 1 });
@@ -318,7 +318,7 @@ class PhoneEdit extends React.Component {
                                                     //             .length))
                                                 ) {
                                                     callback(
-                                                        "请输入正确的手机号码"
+                                                        "请输入正确的手机号码",
                                                     );
                                                     return;
                                                 }
@@ -327,18 +327,18 @@ class PhoneEdit extends React.Component {
                                                 if (
                                                     value &&
                                                     (!this.phonePrefix.includes(
-                                                        value.substr(0, 3)
+                                                        value.substr(0, 3),
                                                     ) ||
                                                         phoneLength >
                                                             this.maxLength ||
                                                         phoneLength <
                                                             this.minLength ||
                                                         /\D/.test(
-                                                            value.toString()
+                                                            value.toString(),
                                                         ))
                                                 ) {
                                                     callback(
-                                                        "请输入正确的手机号码"
+                                                        "请输入正确的手机号码",
                                                     );
                                                     return;
                                                 }
@@ -368,7 +368,7 @@ class PhoneEdit extends React.Component {
                                         disabled={
                                             !isEditPhone && phonestatus === 0
                                         }
-                                    />
+                                    />,
                                 )
                             )
                         ) : (
@@ -376,7 +376,7 @@ class PhoneEdit extends React.Component {
                                 initialValue: isWalletDeposit
                                     ? this.props.phoneNumber.replace(
                                           /\d(?=\d{4})/g,
-                                          "*"
+                                          "*",
                                       )
                                     : this.props.phoneNumber,
                             })(
@@ -386,7 +386,7 @@ class PhoneEdit extends React.Component {
                                     className="addon-icon tlc-input-disabled"
                                     autoComplete="off"
                                     disabled={true}
-                                />
+                                />,
                             )
                         )}
                         {/* {isEditPhone ? (
@@ -454,9 +454,6 @@ class PhoneEdit extends React.Component {
                             )
                         ) : null} */}
                     </Col>
-
-
-                    
                 </Row>
             </Item>
         );

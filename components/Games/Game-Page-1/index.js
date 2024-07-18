@@ -11,7 +11,7 @@ import {
     getFlashProviderListAction,
     setResetGameHideAction,
 } from "$STORE/thunk/gameThunk";
-import { gameLobbyPageTrackingPiwik} from "$ACTIONS/piwikData";
+import { gameLobbyPageTrackingPiwik } from "$ACTIONS/piwikData";
 
 const Sportsbook = ({
     gameCatCode,
@@ -20,7 +20,7 @@ const Sportsbook = ({
     categories,
     providerCmsList,
     GameHideArray,
-    resetGameHide
+    resetGameHide,
 }) => {
     const [gameData, setGameCategoriesData] = useState([]);
     const [CmsProvidersList, setCmsProvidersList] = useState([]);
@@ -29,7 +29,7 @@ const Sportsbook = ({
     const [isLoading, setIsLoading] = useState(false);
     const [ProviderData, setProviderData] = useState([]);
     const [GamesProviderList, setGamesProviderList] = useState([]);
-    let CatCode =  gameCatCode;
+    let CatCode = gameCatCode;
     useEffect(() => {
         getCmsProviderInfo();
         getFlashProviderList(CatCode);
@@ -39,8 +39,8 @@ const Sportsbook = ({
     }, [gameCatCode]);
 
     useEffect(() => {
-        gameLobbyPageTrackingPiwik(gameCatCode)
-    },[])
+        gameLobbyPageTrackingPiwik(gameCatCode);
+    }, []);
 
     const getCmsProviderInfo = () => {
         if (providerCmsList) {
@@ -50,14 +50,14 @@ const Sportsbook = ({
                 setCmsProvidersList(providerCms);
                 if (categories) {
                     var index = providerCms.findIndex(
-                        (x) => x.providerCode == Router.router.query.name
+                        (x) => x.providerCode == Router.router.query.name,
                     );
                     if (index != -1) {
                         setBannerKey(index);
                     }
 
                     setCmsCategoryGamedata(
-                        categories.find((item) => item.code == CatCode)
+                        categories.find((item) => item.code == CatCode),
                     );
                 }
             }
@@ -73,10 +73,12 @@ const Sportsbook = ({
     //如果含有隐藏的游戏 就需要过滤
     const filteredGamesProvider = GamesProvider.filter(
         (provider) =>
-            !GameHideArray.some((code) => code === provider.providerCode)
+            !GameHideArray.some((code) => code === provider.providerCode),
     );
 
-    let filteredStaticdata = staticdata.find(data => data.providerName === CatCode)
+    let filteredStaticdata = staticdata.find(
+        (data) => data.providerName === CatCode,
+    );
     return (
         <div className="common-distance">
             {CmsCategoryGamedata && (

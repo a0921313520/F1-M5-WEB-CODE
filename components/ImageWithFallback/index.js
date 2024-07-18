@@ -23,7 +23,11 @@ function ImageWithFallback({
     return (
         <div key={src}>
             {hasError ? (
-                <img src={fallbackSrc} alt="Default Image" width={width || "100%"} />
+                <img
+                    src={fallbackSrc}
+                    alt="Default Image"
+                    width={width || "100%"}
+                />
             ) : local ? (
                 <img
                     src={src}

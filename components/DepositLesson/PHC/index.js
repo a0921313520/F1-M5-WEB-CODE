@@ -20,12 +20,12 @@ class DepositLesson extends React.Component {
                 event.stopPropagation();
                 console.log(event);
             },
-            true
+            true,
         );
     }
-    componentWillUnmount(){
-        this.setState =()=> false;
-        this.phcListWrapRef  = null
+    componentWillUnmount() {
+        this.setState = () => false;
+        this.phcListWrapRef = null;
     }
 
     rapidPrevClick = () => {
@@ -43,7 +43,7 @@ class DepositLesson extends React.Component {
     handleClick = () => {
         this.props.onhandleCancel();
     };
-    
+
     render() {
         const rapidCryptoLessons = [
             {
@@ -76,34 +76,41 @@ class DepositLesson extends React.Component {
         const rapidCryptoComment = [
             {
                 id: 1,
-                title: translate("步骤")+" "+1,
+                title: translate("步骤") + " " + 1,
                 content: translate("选择存款方式“刮刮卡”"),
             },
             {
                 id: 2,
-                title: translate("步骤")+" "+2,
+                title: translate("步骤") + " " + 2,
                 content: translate("选择刮刮卡。 存款费用将显示在下面"),
             },
             {
                 id: 3,
-                title: translate("步骤")+" "+3,
-                content: translate("选择刮刮卡面额。 下面显示扣除费用后的实际存款金额。")
+                title: translate("步骤") + " " + 3,
+                content: translate(
+                    "选择刮刮卡面额。 下面显示扣除费用后的实际存款金额。",
+                ),
             },
             {
                 id: 4,
-                title: translate("步骤")+" "+4,
+                title: translate("步骤") + " " + 4,
                 content: translate("点击下一步”。"),
             },
             {
                 id: 5,
-                title: translate("步骤")+" "+5,
-                content: translate("出现第三方屏幕。 选择刮刮卡类型。 填写序列号。 填写卡代码。 点击“发送”完成存款订单。"),
-            }
+                title: translate("步骤") + " " + 5,
+                content: translate(
+                    "出现第三方屏幕。 选择刮刮卡类型。 填写序列号。 填写卡代码。 点击“发送”完成存款订单。",
+                ),
+            },
         ];
 
         return (
             <React.Fragment>
-                <div className="lesson-box deposit-phc" style={{ textAlign: "center" }}>
+                <div
+                    className="lesson-box deposit-phc"
+                    style={{ textAlign: "center" }}
+                >
                     <Carousel
                         key={1}
                         ref={this.phcListWrapRef}
@@ -127,9 +134,7 @@ class DepositLesson extends React.Component {
                                     >
                                         <img
                                             className="arrowLeftRight"
-                                            src={
-                                                `${process.env.BASE_PATH}/img/depositlesson/icon-left.svg`
-                                            }
+                                            src={`${process.env.BASE_PATH}/img/depositlesson/icon-left.svg`}
                                             alt="left"
                                         />
                                     </div>
@@ -142,9 +147,7 @@ class DepositLesson extends React.Component {
                                     >
                                         <img
                                             className="arrowLeftRight"
-                                            src={
-                                                `${process.env.BASE_PATH}/img/depositlesson/icon-right.svg`
-                                            }
+                                            src={`${process.env.BASE_PATH}/img/depositlesson/icon-right.svg`}
                                             alt="right"
                                         />
                                     </div>
@@ -154,21 +157,19 @@ class DepositLesson extends React.Component {
                     </Carousel>
                     {
                         <div className="deposit-comment-title">
-                            {
-                                rapidCryptoComment[
-                                    this.state.rapidIndex
-                                ].title
-                            }
+                            {rapidCryptoComment[this.state.rapidIndex].title}
                         </div>
                     }
-                    <div className="deposit-comment-content">{rapidCryptoComment[this.state.rapidIndex].content}</div>
+                    <div className="deposit-comment-content">
+                        {rapidCryptoComment[this.state.rapidIndex].content}
+                    </div>
                     <button
                         className="deposit-comment-button"
                         onClick={() => {
-                        this.handleClick();
+                            this.handleClick();
                         }}
                     >
-                            {translate("下一个")}
+                        {translate("下一个")}
                     </button>
                 </div>
             </React.Fragment>

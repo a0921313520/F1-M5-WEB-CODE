@@ -78,7 +78,7 @@ class SecondStep extends React.Component {
                                     {oaResultData.transactionId.substr(-6)}
                                     <CopyToClipboard
                                         text={oaResultData.transactionId.substr(
-                                            -6
+                                            -6,
                                         )}
                                         onCopy={this.copySuccessCall}
                                     >

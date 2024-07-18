@@ -36,7 +36,7 @@ class BonusList extends React.Component {
         console.log(
             "获取当前目标账户的优惠列表:",
             prevProps.targetValue,
-            this.props.targetValue
+            this.props.targetValue,
         );
         if (prevProps.targetValue !== this.props.targetValue) {
             this.getDepositWalletBonus(this.props.targetValue);
@@ -50,7 +50,7 @@ class BonusList extends React.Component {
         this.props.setBonusValue(
             v,
             currVal && currVal.title,
-            this.state.bonusList
+            this.state.bonusList,
         );
     }
     /**
@@ -106,7 +106,7 @@ class BonusList extends React.Component {
 
                 this.setState({ bonusLoading: false });
             },
-            this.props.transactionType
+            this.props.transactionType,
         );
     }
     render() {
@@ -117,7 +117,10 @@ class BonusList extends React.Component {
         return (
             <React.Fragment>
                 {bonusList.length ? (
-                    <Item label={translate("优惠")} key={JSON.stringify(bonusLoading)}>
+                    <Item
+                        label={translate("优惠")}
+                        key={JSON.stringify(bonusLoading)}
+                    >
                         {bonusLoading ? (
                             <Select
                                 size="large"
@@ -126,7 +129,9 @@ class BonusList extends React.Component {
                                 loading={true}
                                 dropdownStyle={{ zIndex: 1 }}
                                 suffixIcon={
-                                    <img src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`} />
+                                    <img
+                                        src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`}
+                                    />
                                 }
                             />
                         ) : (
@@ -140,10 +145,12 @@ class BonusList extends React.Component {
                                             validator: (
                                                 rule,
                                                 value,
-                                                callback
+                                                callback,
                                             ) => {
                                                 if (value === null) {
-                                                    callback(translate("选择优惠"));
+                                                    callback(
+                                                        translate("选择优惠"),
+                                                    );
                                                 }
                                                 callback();
                                             },
@@ -170,9 +177,13 @@ class BonusList extends React.Component {
                                         }
                                         suffixIcon={
                                             this.props.selectPromote ? (
-                                                <img src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown-up.svg`} />
+                                                <img
+                                                    src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown-up.svg`}
+                                                />
                                             ) : (
-                                                <img src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`} />
+                                                <img
+                                                    src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`}
+                                                />
                                             )
                                         }
                                         getPopupContainer={(triggerNode) =>
@@ -191,7 +202,7 @@ class BonusList extends React.Component {
                                                 </Option>
                                             );
                                         })}
-                                    </Select>
+                                    </Select>,
                                 )}
                             </div>
                         )}
@@ -202,7 +213,9 @@ class BonusList extends React.Component {
                             size="large"
                             disabled
                             suffixIcon={
-                                <img src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`} />
+                                <img
+                                    src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`}
+                                />
                             }
                             placeholder={translate("暂时没有优惠")}
                         />

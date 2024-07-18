@@ -1,12 +1,12 @@
 import React from "react";
-import { Modal,  } from "antd";
+import { Modal } from "antd";
 /**
  * 一个加载中的loading modal 可以公用
  * @param {*} Loadingvisible 开启关闭
  * @param {*} loadText 自定义文字
- * @returns 
+ * @returns
  */
-function UploadingModal({ Loadingvisible,loadText }) {
+function UploadingModal({ Loadingvisible, loadText }) {
     return (
         <Modal
             title={``}
@@ -32,6 +32,6 @@ function UploadingModal({ Loadingvisible,loadText }) {
                 </p>
             </div>
         </Modal>
-    )
+    );
 }
-export default UploadingModal
+export default UploadingModal;

@@ -9,7 +9,7 @@
 import React from "react";
 import Layout from "@/Layout/other";
 import { PopUpLiveChat } from "$ACTIONS/util";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 //export時會被靜態頁面取代(moveFile.js)
 export default function Custom404() {
@@ -17,11 +17,16 @@ export default function Custom404() {
         <Layout notFound={true}>
             <div className="error-wrapper">
                 <div className="error-img">
-                    <img src={`${process.env.BASE_PATH}/img/error404/errorImage.png`} alt="404Image" />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/error404/errorImage.png`}
+                        alt="404Image"
+                    />
                 </div>
                 <div className="error-right">
                     <div className="error-item">
-                        <p className="error-text">{translate("无法找到页面")}</p>
+                        <p className="error-text">
+                            {translate("无法找到页面")}
+                        </p>
                         <div className="error-icon">
                             <img
                                 src={`${process.env.BASE_PATH}/img/error404/errorIcon.png`}
@@ -29,7 +34,9 @@ export default function Custom404() {
                             />
                         </div>
                         <span className="error-mes">
-                            {translate("您的网页暂时无法找到。若仍然无法打开页面，请您尽快联系客服。")}
+                            {translate(
+                                "您的网页暂时无法找到。若仍然无法打开页面，请您尽快联系客服。",
+                            )}
                         </span>
                         <button
                             className="error-btn"

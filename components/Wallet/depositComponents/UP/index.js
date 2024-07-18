@@ -94,7 +94,7 @@ class UP extends React.Component {
                                 Finish: true,
                             });
                         }
-                    }
+                    },
                 );
             }
         });
@@ -111,14 +111,26 @@ class UP extends React.Component {
     };
 
     submitBtnEnable = () => {
-		let { setting } = this.props.currDepositDetail;
-		let errors = Object.values(this.props.form.getFieldsError()).some((v) => v !== undefined);
-		let values = Object.values(this.props.form.getFieldsValue()).some((v) => v == '' || v == undefined);
-		if (setting && setting.showDepositorNameField && !setting.prefillRegisteredName) {
-			return !values && this.props.form.getFieldValue('money') !== '' && !errors;
-		}
-		return this.props.form.getFieldValue('money') !== '' && !errors;
-	};
+        let { setting } = this.props.currDepositDetail;
+        let errors = Object.values(this.props.form.getFieldsError()).some(
+            (v) => v !== undefined,
+        );
+        let values = Object.values(this.props.form.getFieldsValue()).some(
+            (v) => v == "" || v == undefined,
+        );
+        if (
+            setting &&
+            setting.showDepositorNameField &&
+            !setting.prefillRegisteredName
+        ) {
+            return (
+                !values &&
+                this.props.form.getFieldValue("money") !== "" &&
+                !errors
+            );
+        }
+        return this.props.form.getFieldValue("money") !== "" && !errors;
+    };
 
     render() {
         let { setting } = this.props.currDepositDetail; // 当前支付方式的详情
@@ -211,7 +223,7 @@ class UP extends React.Component {
                                 <Button
                                     disabled={
                                         Object.values(getFieldsError()).some(
-                                            (v) => v !== undefined
+                                            (v) => v !== undefined,
                                         ) ||
                                         !getFieldValue("money") ||
                                         (setting.showDepositorNameField &&

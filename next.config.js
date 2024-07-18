@@ -20,8 +20,8 @@ const withLess = require("next-with-less"); //处理LESS
 const isDev = process.env.NODE_ENV !== "production"; //判断开发环境
 const PATH_PREFIX = "/vn";
 const BASE_PATH = "/vn";
-const withTM = require('next-transpile-modules')(['central-payment']);
-const CopyPlugin = require('copy-webpack-plugin');
+const withTM = require("next-transpile-modules")(["central-payment"]);
+const CopyPlugin = require("copy-webpack-plugin");
 
 //NEXT.js 默认配置
 const nextConfig = {
@@ -44,26 +44,27 @@ const nextConfig = {
             return PATH_PREFIX;
         })(),
         CURRENCY: "VND",
-        BASE_PATH: BASE_PATH //這個給程序用，用來處理圖片(img src)路徑
+        BASE_PATH: BASE_PATH, //這個給程序用，用來處理圖片(img src)路徑
     },
-    assetPrefix: isDev ? "" : PATH_PREFIX,  //设置资产前缀并配置 CDN 的来源以解析为托管 Next.js 的域
-    basePath: BASE_PATH,     //next內建支持根目錄 處理js和css引用
+    assetPrefix: isDev ? "" : PATH_PREFIX, //设置资产前缀并配置 CDN 的来源以解析为托管 Next.js 的域
+    basePath: BASE_PATH, //next內建支持根目錄 處理js和css引用
     lessLoaderOptions: {
         lessOptions: {
             modifyVars: {
                 hack: `true;@import '${path.resolve(
                     __dirname,
-                    "./data/less/antd-custom.less"
+                    "./data/less/antd-custom.less",
                 )}';`,
             },
         },
     },
     compiler: {
-        removeConsole: (process.env.NODE_ENV === "production")
-        ? {
-              exclude: ['error'], //只保留error紀錄
-          }
-        : false,
+        removeConsole:
+            process.env.NODE_ENV === "production"
+                ? {
+                      exclude: ["error"], //只保留error紀錄
+                  }
+                : false,
     },
     poweredByHeader: false, // 是否显示 X-Powered-By 头部信息
     reactStrictMode: true, // 是否启用 React 严格模式
@@ -78,7 +79,10 @@ const nextConfig = {
                     $ACTIONS: path.resolve(__dirname, "./actions"),
                     $STORE: path.resolve(__dirname, "./store"),
                     "@": path.resolve(__dirname, "./components"),
-                    $Deposits: path.resolve(__dirname, './node_modules/central-payment/Deposit/M3'),
+                    $Deposits: path.resolve(
+                        __dirname,
+                        "./node_modules/central-payment/Deposit/M3",
+                    ),
                     // $Deposits: path.resolve(__dirname, './Central-Payment/Deposit/M3'),
                 },
             },
@@ -91,7 +95,7 @@ const nextConfig = {
     exportPathMap: async function (defaultPathMap) {
         return {
             ...defaultPathMap,
-            '/login/index.htm': { page: '/safehouse' },
+            "/login/index.htm": { page: "/safehouse" },
         };
     },
 };
@@ -132,12 +136,15 @@ const plugins = [
         new CopyPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, './node_modules/central-payment/StyleSheet/Web/M3/F1/img'),
-                    to: path.resolve(__dirname, './public/img/central-payment'),
+                    from: path.resolve(
+                        __dirname,
+                        "./node_modules/central-payment/StyleSheet/Web/M3/F1/img",
+                    ),
+                    to: path.resolve(__dirname, "./public/img/central-payment"),
                 },
             ],
-        })
-    ]
+        }),
+    ],
 ];
 
 module.exports = withPlugins(plugins, nextConfig);
@@ -156,5 +163,5 @@ module.exports = withSentryConfig(
         // tunnelRoute: "/monitoring",
         hideSourceMaps: false,
         disableLogger: true,
-    }
+    },
 );

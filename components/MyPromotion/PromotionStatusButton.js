@@ -19,7 +19,7 @@ function PromotionStatusButton({
         "Force to served",
         "Waiting for release",
     ];
-   
+
     if (
         (selectedBonus || selectedPromotionDetail.promoType === "Manual") &&
         (!selectedPromotionItem ||
@@ -37,7 +37,9 @@ function PromotionStatusButton({
                         !selectedPromotionDetail.isNotStart
                     ) {
                         promotionStatusButton = (
-                            <button disabled={true}>{translate("仅限指定时间内适用")}</button>
+                            <button disabled={true}>
+                                {translate("仅限指定时间内适用")}
+                            </button>
                         );
                         break;
                     } else {
@@ -68,7 +70,9 @@ function PromotionStatusButton({
                     break;
                 case "Bonus":
                     promotionStatusButton = (
-                        <button onClick={applyBonusPromotion}>{translate("获得奖励")}</button>
+                        <button onClick={applyBonusPromotion}>
+                            {translate("获得奖励")}
+                        </button>
                     );
                     break;
                 default:
@@ -113,7 +117,16 @@ function PromotionStatusButton({
                                         );
                                     })}
                                 </div>
-                                <p>{translate("还需流水") + selectedPromotionItem.history.turnoverNeeded+","+translate("可以获得红利")+selectedPromotionItem.history.bonusAmount} đ</p>
+                                <p>
+                                    {translate("还需流水") +
+                                        selectedPromotionItem.history
+                                            .turnoverNeeded +
+                                        "," +
+                                        translate("可以获得红利") +
+                                        selectedPromotionItem.history
+                                            .bonusAmount}{" "}
+                                    đ
+                                </p>
                             </div>
                         );
                         break;

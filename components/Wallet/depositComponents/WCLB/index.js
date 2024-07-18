@@ -82,7 +82,7 @@ class WCLB extends React.Component {
         const Paybank =
             this.props.currDepositDetail.bankAccounts &&
             this.props.currDepositDetail.bankAccounts.find(
-                (v) => v.bankCode === this.state.bankCodeState
+                (v) => v.bankCode === this.state.bankCodeState,
             );
         const isAutoAssign =
             this.props.currDepositDetail.setting &&
@@ -90,7 +90,7 @@ class WCLB extends React.Component {
         if (
             typeof this.props.depositStatusCheck(
                 this.payTypeCode,
-                this.state.bankCodeState
+                this.state.bankCodeState,
             ) === "undefined"
         )
             return; // 未完成真实姓名验证则呼出完善弹窗
@@ -123,8 +123,8 @@ class WCLB extends React.Component {
                         transferType: Paybank.supportedBankInTypes[0], // 收款账户支持信息
                         offlineRefNo: "0",
                         depositingBankName: !isAutoAssign
-                        ? Paybank.enBankName
-                        : "",
+                            ? Paybank.enBankName
+                            : "",
                         // depositingBankAcctNum: isAutoAssign
                         //     ? Paybank.accountNo.substring(
                         //           Paybank.accountNo.length - 6
@@ -228,7 +228,7 @@ class WCLB extends React.Component {
                                     .split("T")
                                     .join(" ")
                                     .split(".")[0],
-                                { expires: 15 }
+                                { expires: 15 },
                             );
                             this.setState({
                                 lbStep: 2,
@@ -237,7 +237,7 @@ class WCLB extends React.Component {
                             this.props.bonusApplication(res);
                             this.props.form.resetFields();
                         }
-                    }
+                    },
                 );
             }
         });
@@ -254,14 +254,14 @@ class WCLB extends React.Component {
             Pushgtagdata(
                 "Transaction Record",
                 "View",
-                "View_TransactionRecord_Deposit"
+                "View_TransactionRecord_Deposit",
             );
     };
 
     submitBtnEnable = () => {
         let { bankAccounts } = this.props.currDepositDetail;
         let errors = Object.values(this.props.form.getFieldsError()).some(
-            (v) => v !== undefined
+            (v) => v !== undefined,
         );
         return (
             this.props.form.getFieldValue("money") !== "" &&

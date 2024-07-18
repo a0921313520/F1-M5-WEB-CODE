@@ -64,7 +64,7 @@ class CTC extends React.Component {
         //查看虚例币支付二是否还存在有未完成的交易，若有就跳转到虚例币支付二第二步
         get(
             ApiPort.FastvirtualCurrencyPaymentTwo +
-                "&method=CTC&MethodCode=INVOICE_AUT"
+                "&method=CTC&MethodCode=INVOICE_AUT",
         ).then((res) => {
             if (res && res.length && res[0].transactionId) {
                 let methodObj = {
@@ -86,7 +86,7 @@ class CTC extends React.Component {
             !this.state.ctcMethodTypeList.length
         ) {
             const payMethodsDetail = this.props.payMethodList.find(
-                (item) => item.code === this.payTypeCode
+                (item) => item.code === this.payTypeCode,
             );
             if (payMethodsDetail && payMethodsDetail.availableMethods.length) {
                 this.currentCtcMethodType =
@@ -134,7 +134,7 @@ class CTC extends React.Component {
                 this.props.setCurrDepositDetail(data.result);
                 this.props.setLoading(false);
             },
-            value
+            value,
         );
         switch (value) {
             case "CHANNEL":
@@ -202,7 +202,7 @@ class CTC extends React.Component {
                         "&ExchangeAmount=1&CoinsCurrency=" +
                         this.state.ctcMethod +
                         "&MethodCode=" +
-                        this.state.ctcMethodType
+                        this.state.ctcMethodType,
                 ).then((res) => {
                     this.props.setLoading(false);
                     if (res && res.result.status === "SUCCESS") {
@@ -227,7 +227,7 @@ class CTC extends React.Component {
             this.state.ctcMethod === "USDT-TRC20" ||
                 this.state.ctcMethodType === "OTC"
                 ? "Submit_Crypto_deposit"
-                : "Next_crypto_deposit"
+                : "Next_crypto_deposit",
         );
     }
     setGuessCurrency(ctcMethod) {
@@ -281,7 +281,7 @@ class CTC extends React.Component {
                                     this.state.ctcMethodTypeList.find(
                                         (item) =>
                                             item.methodCode ===
-                                            this.state.ctcMethodType
+                                            this.state.ctcMethodType,
                                     ).methodType;
                                 this.props.setLoading(true);
                                 let methodObj = {
@@ -298,7 +298,7 @@ class CTC extends React.Component {
                                         "&MethodCode=" +
                                         this.state.ctcMethodType +
                                         "&depositID=" +
-                                        res.transactionId
+                                        res.transactionId,
                                 )
                                     .then((res) => {
                                         this.props.setLoading(false);
@@ -307,7 +307,7 @@ class CTC extends React.Component {
                                             Cookie.Create(
                                                 "INVOICE_AUT_DepositTime",
                                                 dateFormat(),
-                                                { expires: 20 }
+                                                { expires: 20 },
                                             );
                                             this.ctcResultData = {
                                                 res,
@@ -325,7 +325,7 @@ class CTC extends React.Component {
                                         console.log(error);
                                     });
                             }
-                        }
+                        },
                     );
                 }
             });
@@ -402,7 +402,7 @@ class CTC extends React.Component {
                                 // 重置表单
                                 this.props.form.resetFields();
                             }
-                        }
+                        },
                     );
                 }
             });
@@ -416,7 +416,7 @@ class CTC extends React.Component {
             .replace("-", "/")
             .replace("-", "/");
         let lastSeconds = parseInt(
-            600 - (new Date().getTime() - new Date(time).getTime()) / 1000
+            600 - (new Date().getTime() - new Date(time).getTime()) / 1000,
         );
         this.setState({ remainingTime: lastSeconds });
         time !== null && time !== ""
@@ -437,7 +437,7 @@ class CTC extends React.Component {
             .replace("-", "/")
             .replace("-", "/");
         let lastSeconds = parseInt(
-            600 - (new Date().getTime() - new Date(time).getTime()) / 1000
+            600 - (new Date().getTime() - new Date(time).getTime()) / 1000,
         );
         this.setState({ autRemainingTime: lastSeconds });
         time !== null && time !== ""
@@ -463,7 +463,7 @@ class CTC extends React.Component {
             Pushgtagdata(
                 "Transaction Record",
                 "View",
-                "View_TransactionRecord_Deposit"
+                "View_TransactionRecord_Deposit",
             );
     };
     copyEvent() {
@@ -562,7 +562,7 @@ class CTC extends React.Component {
                                                     }`}
                                                     onClick={() => {
                                                         this.setGuessCurrency(
-                                                            item.code
+                                                            item.code,
                                                         );
                                                     }}
                                                 >
@@ -598,7 +598,7 @@ class CTC extends React.Component {
                                 onClick={this.goFastCurrency}
                                 disabled={
                                     Object.values(getFieldsError()).some(
-                                        (v) => v !== undefined
+                                        (v) => v !== undefined,
                                     ) || this.state.ctcMethod === ""
                                 }
                                 block
@@ -647,7 +647,7 @@ class CTC extends React.Component {
                             <Button
                                 disabled={
                                     Object.values(getFieldsError()).some(
-                                        (v) => v !== undefined
+                                        (v) => v !== undefined,
                                     ) || !getFieldValue("money")
                                 }
                                 size="large"

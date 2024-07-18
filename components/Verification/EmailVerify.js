@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, Form, Input, Button, Spin, message, Steps } from "antd";
 import { formItemLayout, tailFormItemLayout } from "$ACTIONS/constantsData";
 import { dateFormat, formatSeconds } from "$ACTIONS/util";
-import { Cookie ,getDisplayPublicError} from "$ACTIONS/helper";
+import { Cookie, getDisplayPublicError } from "$ACTIONS/helper";
 import { post, get, patch } from "$ACTIONS/TlcRequest";
 import { emailReg } from "$ACTIONS/reg";
 import { ApiPort, APISETS } from "$ACTIONS/TLCAPI";
@@ -13,7 +13,7 @@ import ExceedVerify from "@/OTP/ExceedVerify";
 import classNames from "classnames";
 import { connect } from "react-redux";
 import { mailConversion } from "$ACTIONS/util";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 import { showResultModal } from "$ACTIONS/helper";
 import { otpServiceActionList } from "$DATA/me.static";
 
@@ -35,27 +35,34 @@ class EmailVerify extends React.Component {
         this.startCountDown = this.startCountDown.bind(this); // 倒计时
         this.timeTimer = null; // 倒计时Timer
     }
-   
+
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.visible !== this.props.visible && this.props.visible) {
             // Cookie.Get("emailTime") !== null && this.props.visible ? this.startCountDown(): clearInterval(this.timeTimer);
             clearInterval(this.timeTimer);
-            if (["login-otp", "login-otpPwd"].some((item) => item === this.props.otpParam)) {
+            if (
+                ["login-otp", "login-otpPwd"].some(
+                    (item) => item === this.props.otpParam,
+                )
+            ) {
                 if (this.props.attemptRemaining < 1) {
                     this.props.changeVerify("Email", false, false);
                     this.setState({
                         exceedVisible: true,
                     });
                 }
-            }
-            else if (["recommendFriend-otp", "memberProfile-otp"].some((item) => item === this.props.otpParam)) {
-                this.getEmailOTPAttempts()
+            } else if (
+                ["recommendFriend-otp", "memberProfile-otp"].some(
+                    (item) => item === this.props.otpParam,
+                )
+            ) {
+                this.getEmailOTPAttempts();
             }
         }
     }
     componentWillUnmount() {
         clearInterval(this.timeTimer);
-        this.setState = ()=> false
+        this.setState = () => false;
     }
     /**
      * 获取邮箱验证次数
@@ -67,7 +74,10 @@ class EmailVerify extends React.Component {
         const { otpParam } = this.props;
         const type = otpServiceActionList[otpParam];
         this.setState({ isLoading: true });
-        get(ApiPort.GetOTPAttempts +`&channelType=${"Email"}&serviceAction=${type}&`)
+        get(
+            ApiPort.GetOTPAttempts +
+                `&channelType=${"Email"}&serviceAction=${type}&`,
+        )
             .then((res) => {
                 if (res && res.result) {
                     if (res.result.attempt < 1) {
@@ -79,12 +89,13 @@ class EmailVerify extends React.Component {
                         this.props.setEmailAttemptRemaining(res.result.attempt);
                     }
                 }
-            }).catch((error) => {
-                console.log("获取邮箱验证次数 error:", error);
-            }).finally(()=>{
-                this.setState({ isLoading: false });
             })
-        
+            .catch((error) => {
+                console.log("获取邮箱验证次数 error:", error);
+            })
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
     };
 
     handleSubmit = (e) => {
@@ -111,9 +122,9 @@ class EmailVerify extends React.Component {
         const time =
             Cookie.Get("emailTime").replace("-", "/").replace("-", "/") || -1;
         let times = 600;
-        
+
         let lastSeconds = parseInt(
-            times - (new Date().getTime() - new Date(time).getTime()) / 1000
+            times - (new Date().getTime() - new Date(time).getTime()) / 1000,
         );
 
         this.setState({ remainingTime: lastSeconds });
@@ -137,7 +148,9 @@ class EmailVerify extends React.Component {
 
     //点击发送验证码
     EmailVerify(isResend) {
-        const promiseVerification = this.props.form.validateFields(["emailAddress"]);
+        const promiseVerification = this.props.form.validateFields([
+            "emailAddress",
+        ]);
         const { otpParam } = this.props;
         promiseVerification.then(() => {
             const { memberCode } = this.state.memberInfo;
@@ -148,9 +161,9 @@ class EmailVerify extends React.Component {
                 siteId: 16,
                 domainUrl: global.location.href,
                 ipAddress: "",
-                serviceAction: otpServiceActionList[otpParam]
-            }
-            
+                serviceAction: otpServiceActionList[otpParam],
+            };
+
             const sendEmailCode = () => {
                 this.setState({ isLoading: true });
                 post(ApiPort.POSTEmailVerifyAPI, EmailData)
@@ -158,10 +171,13 @@ class EmailVerify extends React.Component {
                         if (res.isSuccess == true && res.result.isSent) {
                             Cookie.Create("emailTime", dateFormat(), 10);
                             this.startCountDown();
-                        } 
-                        else if (res.isSuccess == false) {
+                        } else if (res.isSuccess == false) {
                             const { description, errorCode } = res.errors[0];
-                            if (["login-otp", "login-otpPwd"].some((item) => item === otpParam)) {
+                            if (
+                                ["login-otp", "login-otpPwd"].some(
+                                    (item) => item === otpParam,
+                                )
+                            ) {
                                 // logintop & 重置密码 超过请求次数
                                 if (
                                     errorCode == "REVA0001" ||
@@ -170,14 +186,20 @@ class EmailVerify extends React.Component {
                                     this.props.changeVerify(
                                         "Email",
                                         false,
-                                        false
+                                        false,
                                     );
                                     this.setState({ exceedVisible: true });
                                 } else {
-                                    message.error(description || translate("发送失败"));
+                                    message.error(
+                                        description || translate("发送失败"),
+                                    );
                                 }
-                            } 
-                            else if (["recommendFriend-otp", "memberProfile-otp"].some((item) => item === otpParam)) {
+                            } else if (
+                                [
+                                    "recommendFriend-otp",
+                                    "memberProfile-otp",
+                                ].some((item) => item === otpParam)
+                            ) {
                                 // 个人资料 && ref 超过请求次数
                                 if (
                                     errorCode == "REVA0001" ||
@@ -186,18 +208,23 @@ class EmailVerify extends React.Component {
                                     this.props.closeModal();
                                     this.setState({ exceedVisible: true });
                                 } else {
-                                    message.error(description ||translate("发送失败"));
+                                    message.error(
+                                        description || translate("发送失败"),
+                                    );
                                 }
-                            } 
-                            else {
-                                message.error(description ||translate("发送失败"));
+                            } else {
+                                message.error(
+                                    description || translate("发送失败"),
+                                );
                             }
                         }
-                    }).catch((error) => {
-                        console.log("POSTEmailVerifyAPI 发送验证码:" + error);
-                    }).finally(()=>{
-                        this.setState({ isLoading: false });
                     })
+                    .catch((error) => {
+                        console.log("POSTEmailVerifyAPI 发送验证码:" + error);
+                    })
+                    .finally(() => {
+                        this.setState({ isLoading: false });
+                    });
             };
 
             this.state.memberInfo && this.state.memberInfo.isVerifiedEmail
@@ -213,13 +240,13 @@ class EmailVerify extends React.Component {
                               if (res.isSuccess) {
                                   !this.props.otpParam &&
                                       this.props.correctMemberInfo(
-                                          sendEmailCode
+                                          sendEmailCode,
                                       );
                               } else {
                                   this.setState({ isLoading: false });
                                   message.error(res.message);
                               }
-                          }
+                          },
                       );
                   })();
         });
@@ -228,7 +255,7 @@ class EmailVerify extends React.Component {
             Pushgtagdata(
                 !isResend ? "Click" : "Login OTP",
                 !isResend ? "Click" : "Request",
-                !isResend ? "SendCode_Email" : "ResendCode_Email"
+                !isResend ? "SendCode_Email" : "ResendCode_Email",
             );
         } else if (this.props.otpParam === "memberProfile-otp") {
             Pushgtagdata(
@@ -236,7 +263,7 @@ class EmailVerify extends React.Component {
                 "Click",
                 !isResend
                     ? "SendCode_Email_ProfilePage"
-                    : "ResendCode_Email_ProfilePage"
+                    : "ResendCode_Email_ProfilePage",
             );
         } else {
             Pushgtagdata(
@@ -244,14 +271,15 @@ class EmailVerify extends React.Component {
                 "Click",
                 !isResend
                     ? "Sendcode_Emailverification"
-                    : "Resendcode_Emailverification"
+                    : "Resendcode_Emailverification",
             );
         }
     }
 
     //提交验证码
     checkUrlVerifyCode(code) {
-        if (!otpNumReg.test(code)) return showResultModal(translate("验证码格式错误"), false);
+        if (!otpNumReg.test(code))
+            return showResultModal(translate("验证码格式错误"), false);
         const { memberCode } = this.state.memberInfo;
         const email = this.state.memberInfo?.isVerifiedEmail[0];
         const { otpParam } = this.props;
@@ -260,94 +288,132 @@ class EmailVerify extends React.Component {
             email,
             tac: code,
             siteId: 16,
-            serviceAction: otpServiceActionList[otpParam]
+            serviceAction: otpServiceActionList[otpParam],
         };
         this.setState({ isLoading: true });
-        patch(ApiPort.POSTEmailVerifyAPI, EmailData).then((res) => {
-            if (res) {
-                let { result } = res;
-                if (this.props.otpParam) {
-                    if (res.isSuccess && res.result.isVerified) {
-                        showResultModal(translate("验证成功"), true,1501,'otp','authentication-succeeded');
-                        if (res.result.queleaReferreeStatus) {
-                            this.props.GetThroughoutVerification();
-                        }
-                        setTimeout(() => {
-                            if (this.props.isNext) {
-                                this.props.correctMemberInfo();
-                                this.props.nextStep();
-                                this.props.visible && this.props.closeModal();
+        patch(ApiPort.POSTEmailVerifyAPI, EmailData)
+            .then((res) => {
+                if (res) {
+                    let { result } = res;
+                    if (this.props.otpParam) {
+                        if (res.isSuccess && res.result.isVerified) {
+                            showResultModal(
+                                translate("验证成功"),
+                                true,
+                                1501,
+                                "otp",
+                                "authentication-succeeded",
+                            );
+                            if (res.result.queleaReferreeStatus) {
+                                this.props.GetThroughoutVerification();
+                            }
+                            setTimeout(() => {
+                                if (this.props.isNext) {
+                                    this.props.correctMemberInfo();
+                                    this.props.nextStep();
+                                    this.props.visible &&
+                                        this.props.closeModal();
+                                    return;
+                                }
+                                if (otpParam === "login-otpPwd") {
+                                    this.props.changeVerify(
+                                        "Email",
+                                        false,
+                                        false,
+                                    );
+                                    this.props.setReadStep(4);
+                                } else if (
+                                    [
+                                        "recommendFriend-otp",
+                                        "memberProfile-otp",
+                                    ].some((item) => item === otpParam)
+                                ) {
+                                    this.props.closeModal();
+                                    this.props.correctMemberInfo();
+                                } else if (otpParam === "login-otp") {
+                                    localStorage.setItem("login-otp", true);
+                                    this.props.changeVerify(
+                                        "Email",
+                                        false,
+                                        false,
+                                    );
+                                    Router.push("/");
+                                }
+                            }, 3000);
+                        } else {
+                            if (res.errors && res.errors.length > 0) {
+                                this.props.form.setFields({
+                                    verifyCode: {
+                                        value: "",
+                                        errors: [
+                                            new Error(
+                                                getDisplayPublicError(res),
+                                            ),
+                                        ],
+                                    },
+                                });
                                 return;
                             }
-                            if (otpParam === "login-otpPwd") {
-                                this.props.changeVerify("Email", false, false);
-                                this.props.setReadStep(4);
-                            } else if (["recommendFriend-otp", "memberProfile-otp"].some((item) => item === otpParam)) {
-                                this.props.closeModal();
-                                this.props.correctMemberInfo();
-                            } else if(otpParam === "login-otp"){
-                                localStorage.setItem("login-otp", true);
-                                this.props.changeVerify("Email", false, false);
-                                Router.push("/");
+                            if (result.remainingAttempt) {
+                                this.props.form.setFields({
+                                    verifyCode: {
+                                        value: "",
+                                        errors: [
+                                            new Error(
+                                                result.message ||
+                                                    getDisplayPublicError(res),
+                                            ),
+                                        ],
+                                    },
+                                });
+                                this.props.setEmailAttemptRemaining(
+                                    result.remainingAttempt,
+                                );
+                            } else {
+                                // 超過驗證次數
+                                this.props.changeVerify("Email", false, false); // 關閉彈窗
+                                this.setState({ exceedVisible: true });
+                                return;
                             }
-                        }, 3000);
-                    } else {
-                        if (res.errors && res.errors.length > 0) {
-                            this.props.form.setFields({
-                                verifyCode: {
-                                    value: "",
-                                    errors: [
-                                        new Error(getDisplayPublicError(res)),
-                                    ],
-                                },
-                            });
-                            return;
                         }
-                        if (result.remainingAttempt) {
-                            this.props.form.setFields({
-                                verifyCode: {
-                                    value: "",
-                                    errors: [new Error(result.message || getDisplayPublicError(res))],
-                                },
-                            });
-                            this.props.setEmailAttemptRemaining(
-                                result.remainingAttempt
-                            );
+                    } else if (!result.exception) {
+                        // 非otp驗證
+                        message.success(translate("验证成功"));
+                        !this.props.otpParam && this.props.correctMemberInfo();
+                        if (this.props.isNext) {
+                            this.props.nextStep();
+                            this.props.visible && this.props.closeModal();
                         } else {
-                            // 超過驗證次數
-                            this.props.changeVerify("Email", false, false); // 關閉彈窗
-                            this.setState({ exceedVisible: true });
-                            return;
+                            this.props.closeModal();
                         }
-                    }
-                } else if (!result.exception) {
-                    // 非otp驗證
-                    message.success(translate("验证成功"));
-                    !this.props.otpParam && this.props.correctMemberInfo();
-                    if (this.props.isNext) {
-                        this.props.nextStep();
-                        this.props.visible && this.props.closeModal();
+                        if (
+                            res &&
+                            res.result &&
+                            res.result.queleaReferreeStatus
+                        ) {
+                            this.props.GetThroughoutVerification();
+                        }
                     } else {
-                        this.props.closeModal();
+                        message.error(
+                            getDisplayPublicError(res) ||
+                                translate(
+                                    "验证码不正确，请再次检查并确保输入的验证码正确",
+                                ),
+                        );
                     }
-                    if (res && res.result && res.result.queleaReferreeStatus) {
-                        this.props.GetThroughoutVerification();
-                    }
-                } else {
-                    message.error(getDisplayPublicError(res) || translate("验证码不正确，请再次检查并确保输入的验证码正确"));
                 }
-            }
-        }).finally(()=>{
-            this.setState({ isLoading: false });
-        })
+            })
+            .finally(() => {
+                this.setState({ isLoading: false });
+            });
     }
-    
+
     render() {
         const { getFieldDecorator, getFieldValue } = this.props.form;
         const { exceedVisible, remainingTime, buttonStatus } = this.state;
         const verificationCode = getFieldValue("verifyCode");
         const email = this.state.memberInfo?.isVerifiedEmail[0] ?? "";
-        
+
         return (
             <React.Fragment>
                 <Modal
@@ -397,18 +463,19 @@ class EmailVerify extends React.Component {
                                     rules: [
                                         {
                                             required: true,
-                                            message: translate("请输入电子邮箱"),
+                                            message:
+                                                translate("请输入电子邮箱"),
                                         },
                                         {
                                             validator: (
                                                 rule,
                                                 value,
-                                                callback
+                                                callback,
                                             ) => {
                                                 if (value && !email) {
                                                     !emailReg.test(email) &&
                                                         callback(
-                                                            "邮件格式错误！"
+                                                            "邮件格式错误！",
                                                         );
                                                 }
                                                 callback();
@@ -418,15 +485,19 @@ class EmailVerify extends React.Component {
                                 })(
                                     <Input
                                         size="large"
-                                        placeholder={translate("请输入电子邮箱")}
+                                        placeholder={translate(
+                                            "请输入电子邮箱",
+                                        )}
                                         className="tlc-input-disabled"
                                         autoComplete="off"
                                         disabled={!!email}
-                                    />
+                                    />,
                                 )}
                             </Item>
                             <div className="otp-cs-tip">
-                                {translate("如果您想更新您的电子邮件地址。 请联系")}
+                                {translate(
+                                    "如果您想更新您的电子邮件地址。 请联系",
+                                )}
                                 <span
                                     className="otp-cs"
                                     onClick={() => {
@@ -448,7 +519,7 @@ class EmailVerify extends React.Component {
                                     getValueFromEvent: (event) => {
                                         return event.target.value.replace(
                                             /\D/g,
-                                            ""
+                                            "",
                                         );
                                     },
                                 })(
@@ -464,15 +535,19 @@ class EmailVerify extends React.Component {
                                                 </div>
                                             ) : remainingTime > 0 ? (
                                                 <div style={{ color: "#FFF" }}>
-                                                    {translate("重新发送验证码")}{" "}
-                                                    {formatSeconds(remainingTime)}
+                                                    {translate(
+                                                        "重新发送验证码",
+                                                    )}{" "}
+                                                    {formatSeconds(
+                                                        remainingTime,
+                                                    )}
                                                 </div>
                                             ) : (
                                                 !remainingTime && (
                                                     <div
                                                         onClick={() => {
                                                             this.EmailVerify(
-                                                                true
+                                                                true,
                                                             );
                                                         }}
                                                     >
@@ -490,35 +565,37 @@ class EmailVerify extends React.Component {
                                         }
                                         placeholder={translate("请输入验证码")}
                                         maxLength={6}
-                                    />
+                                    />,
                                 )}
                             </Item>
                             <div className="line-distance" />
-                            {remainingTime > 0 ? <Item {...tailFormItemLayout}>
-                                <div className="btn-wrap otp-btn-wrap otp-email-btn">
-                                    <Button
-                                        size="large"
-                                        type="primary"
-                                        htmlType="submit"
-                                        className={classNames({
-                                            GreenBtn:
+                            {remainingTime > 0 ? (
+                                <Item {...tailFormItemLayout}>
+                                    <div className="btn-wrap otp-btn-wrap otp-email-btn">
+                                        <Button
+                                            size="large"
+                                            type="primary"
+                                            htmlType="submit"
+                                            className={classNames({
+                                                GreenBtn:
+                                                    verificationCode &&
+                                                    verificationCode.length >=
+                                                        6 &&
+                                                    buttonStatus,
+                                            })}
+                                            disabled={
                                                 verificationCode &&
-                                                verificationCode.length >=
-                                                    6 &&
-                                                buttonStatus,
-                                        })}
-                                        disabled={
-                                            verificationCode &&
-                                            verificationCode.length >= 6 &&
-                                            buttonStatus
-                                                ? false
-                                                : true
-                                        }
-                                    >
-                                        {translate("立即验证")}
-                                    </Button>
-                                </div>
-                            </Item> :null}
+                                                verificationCode.length >= 6 &&
+                                                buttonStatus
+                                                    ? false
+                                                    : true
+                                            }
+                                        >
+                                            {translate("立即验证")}
+                                        </Button>
+                                    </div>
+                                </Item>
+                            ) : null}
                             {this.props.otpParam && (
                                 <center>
                                     {translate("您还剩")} (
@@ -529,26 +606,29 @@ class EmailVerify extends React.Component {
                                 </center>
                             )}
                             <div className="line-distance" />
-                            {remainingTime > 0 ?<center className="change-loginOTP-method">
-                                <span className="blue" 
-                                    onClick={() => {
-                                        this.props.changeVerify(
-                                            "Email",
-                                            true,
-                                            false
-                                        );
-                                        Pushgtagdata(
-                                            `Change_email_loginOTP`
-                                        );
-                                    }}
-                                >
-                                    {translate("更改验证方式")}
-                                </span>
-                            </center> :null}
+                            {remainingTime > 0 ? (
+                                <center className="change-loginOTP-method">
+                                    <span
+                                        className="blue"
+                                        onClick={() => {
+                                            this.props.changeVerify(
+                                                "Email",
+                                                true,
+                                                false,
+                                            );
+                                            Pushgtagdata(
+                                                `Change_email_loginOTP`,
+                                            );
+                                        }}
+                                    >
+                                        {translate("更改验证方式")}
+                                    </span>
+                                </center>
+                            ) : null}
                         </Form>
                     </Spin>
                 </Modal>
-                
+
                 {/*otp 超過次數彈窗 */}
                 {exceedVisible && (
                     <ExceedVerify

@@ -17,7 +17,12 @@ export class Gamesmaintop extends React.Component {
     }
 
     CheckCategories() {
-        const data = this.props.categories.find((item) => this.props.Routertype.toLowerCase().indexOf(item.code.toLowerCase()) !== -1);
+        const data = this.props.categories.find(
+            (item) =>
+                this.props.Routertype.toLowerCase().indexOf(
+                    item.code.toLowerCase(),
+                ) !== -1,
+        );
         if (data) {
             this.setState({
                 data: [data],

@@ -10,22 +10,25 @@ import Router from "next/router";
 export default function Maintain() {
     const [time, setTime] = useState("00:00:00");
     useEffect(() => {
-            const  maintainTime = Cookie.Get("maintainTime");
-            // const maintainTime = new Date("2023-08-30T17:37:00");
-            const now = new Date()
-            setTime(maintainTime ? maintainTime : now)
-    }, [])
+        const maintainTime = Cookie.Get("maintainTime");
+        // const maintainTime = new Date("2023-08-30T17:37:00");
+        const now = new Date();
+        setTime(maintainTime ? maintainTime : now);
+    }, []);
 
-    const navigatorPage = ()=>{
-        Cookie.Delete("maintainTime")
-        Router.push("/")
-    } 
+    const navigatorPage = () => {
+        Cookie.Delete("maintainTime");
+        Router.push("/");
+    };
 
     return (
         <Layout>
             <div className="error-wrapper">
                 <div className="error-img">
-                    <img src={`${process.env.BASE_PATH}/img/restrictAccess/maintain.${isWebPSupported() ? "webp" : "png"}`} alt="maintainImg" />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/restrictAccess/maintain.${isWebPSupported() ? "webp" : "png"}`}
+                        alt="maintainImg"
+                    />
                 </div>
                 <div className="error-right">
                     <div className="error-item">
@@ -34,52 +37,88 @@ export default function Maintain() {
                             className="error-mes"
                             style={{ textAlign: "initial" }}
                         >
-                            {translate("我们的系统正在维护中，请稍后尝试登录或通过以下方式联系在线客服")}
+                            {translate(
+                                "我们的系统正在维护中，请稍后尝试登录或通过以下方式联系在线客服",
+                            )}
                         </span>
                         <div className="maintain-time">
                             <label>{translate("预计完成时间：")}</label>
                             <Countdown
                                 daysInHours={true}
                                 date={new Date(time)}
-                                renderer={
-                                    ({ days, hours, minutes, seconds, completed }) => {
-                                        if (completed) {
-                                            return(
-                                                <Row type="flex" justify="space-between">
-                                                    <Col>
-                                                        <div className="time">{0}</div>
-                                                        <center>{translate("时")}</center>
-                                                    </Col>
-                                                    <Col>
-                                                        <div className="time">{0}</div>
-                                                        <center>{translate("分")}</center>
-                                                    </Col>
-                                                    <Col>
-                                                        <div className="time">{0}</div>
-                                                        <center>{translate("秒")}</center>
-                                                    </Col>
-                                                </Row>
-                                            )
-                                        } else {
-                                            return (
-                                                <Row type="flex" justify="space-between">
-                                                    <Col>
-                                                        <div className="time">{hours}</div>
-                                                        <center>{translate("时")}</center>
-                                                    </Col>
-                                                    <Col>
-                                                        <div className="time">{minutes}</div>
-                                                        <center>{translate("分")}</center>
-                                                    </Col>
-                                                    <Col>
-                                                        <div className="time">{seconds}</div>
-                                                        <center>{translate("秒")}</center>
-                                                    </Col>
-                                                </Row>
-                                            );
-                                        }
+                                renderer={({
+                                    days,
+                                    hours,
+                                    minutes,
+                                    seconds,
+                                    completed,
+                                }) => {
+                                    if (completed) {
+                                        return (
+                                            <Row
+                                                type="flex"
+                                                justify="space-between"
+                                            >
+                                                <Col>
+                                                    <div className="time">
+                                                        {0}
+                                                    </div>
+                                                    <center>
+                                                        {translate("时")}
+                                                    </center>
+                                                </Col>
+                                                <Col>
+                                                    <div className="time">
+                                                        {0}
+                                                    </div>
+                                                    <center>
+                                                        {translate("分")}
+                                                    </center>
+                                                </Col>
+                                                <Col>
+                                                    <div className="time">
+                                                        {0}
+                                                    </div>
+                                                    <center>
+                                                        {translate("秒")}
+                                                    </center>
+                                                </Col>
+                                            </Row>
+                                        );
+                                    } else {
+                                        return (
+                                            <Row
+                                                type="flex"
+                                                justify="space-between"
+                                            >
+                                                <Col>
+                                                    <div className="time">
+                                                        {hours}
+                                                    </div>
+                                                    <center>
+                                                        {translate("时")}
+                                                    </center>
+                                                </Col>
+                                                <Col>
+                                                    <div className="time">
+                                                        {minutes}
+                                                    </div>
+                                                    <center>
+                                                        {translate("分")}
+                                                    </center>
+                                                </Col>
+                                                <Col>
+                                                    <div className="time">
+                                                        {seconds}
+                                                    </div>
+                                                    <center>
+                                                        {translate("秒")}
+                                                    </center>
+                                                </Col>
+                                            </Row>
+                                        );
                                     }
-                                }
+                                }}
                                 onComplete={navigatorPage}
                             />
                         </div>

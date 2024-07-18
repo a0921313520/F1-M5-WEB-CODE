@@ -50,7 +50,7 @@ class RealyName extends React.Component {
         Pushgtagdata(
             `Verification`,
             "Submit",
-            `Submit_NationalID_WithdrawPage`
+            `Submit_NationalID_WithdrawPage`,
         );
     }
     setidCardState = (e) => {
@@ -59,7 +59,7 @@ class RealyName extends React.Component {
 
     submitBtnEnable = () => {
         let errors = Object.values(this.props.form.getFieldsError()).some(
-            (v) => v !== undefined
+            (v) => v !== undefined,
         );
         let idCard = this.props.form.getFieldValue("useridCardState");
         return idCard !== "" && idCard !== undefined && !errors;
@@ -102,7 +102,7 @@ class RealyName extends React.Component {
                                 onChange={this.setidCardState}
                                 maxLength="18"
                                 placeholder="请输入身份证号码"
-                            />
+                            />,
                         )}
                     </Item>
                 </div>

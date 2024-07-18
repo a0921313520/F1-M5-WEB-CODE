@@ -6,22 +6,23 @@ import {
     getPromotionList,
 } from "$ACTIONS/promotionRequest";
 import { post } from "$ACTIONS/TlcRequest";
-import {ApiPort} from "$ACTIONS/TLCAPI";
+import { ApiPort } from "$ACTIONS/TLCAPI";
 
 export default function RegisterBonus() {
     const [visible, setVisible] = useState(false);
     const [check, setCheck] = useState(false);
-    const [promotions, setPromotion] = useState(
-        [
-            {promoId:"",promoTitle:"Thưởng Đăng Ký 100% Thể Thao/ E-sports"},
-            {promoId:"",promoTitle:"Thưởng Đăng Ký 100% Mọi Sảnh Casino"},
-            {promoId:"",promoTitle:"Thưởng Đăng Ký 100% Tất Cả Trò Chơi Slot"}
-        ]
-    );
+    const [promotions, setPromotion] = useState([
+        { promoId: "", promoTitle: "Thưởng Đăng Ký 100% Thể Thao/ E-sports" },
+        { promoId: "", promoTitle: "Thưởng Đăng Ký 100% Mọi Sảnh Casino" },
+        { promoId: "", promoTitle: "Thưởng Đăng Ký 100% Tất Cả Trò Chơi Slot" },
+    ]);
     const [bonusId, setBonusId] = useState("-99");
     const [currentIndex, setCurrentIndex] = useState(-1);
     const PROMITION_TYPE = "New member"; //新注册会员的优惠类型
-    const registerEvent = typeof window !=="undefined" && !!sessionStorage.getItem("isRegisterEvent") && sessionStorage.getItem("isRegisterEvent");
+    const registerEvent =
+        typeof window !== "undefined" &&
+        !!sessionStorage.getItem("isRegisterEvent") &&
+        sessionStorage.getItem("isRegisterEvent");
     useEffect(async () => {
         const isRegisterEvent =
             registerEvent &&
@@ -35,7 +36,7 @@ export default function RegisterBonus() {
         //     getPromotionCategories(),
         // ]);
         // if (promotions && appliedHistories) {
-            setVisible(true);
+        setVisible(true);
         // }
         // let categories, data;
         // if (
@@ -57,23 +58,24 @@ export default function RegisterBonus() {
 
     const navigationPage = () => {
         let key = 'wallet:{"type": "deposit"}';
-        if(Number(bonusId) > 0){
-            key = 'wallet:{"type": "deposit", "bonusId":  '+ bonusId + "}";
+        if (Number(bonusId) > 0) {
+            key = 'wallet:{"type": "deposit", "bonusId":  ' + bonusId + "}";
         }
         global.showDialog({
-            key
+            key,
         });
         setVisible(false);
         welcomeCall();
-        sessionStorage.setItem("depositLater",true)
+        sessionStorage.setItem("depositLater", true);
     };
-    const welcomeCall =()=>{
-        post(ApiPort.PostWelcomeCall + "&isWelcomeCall=" + check)
-            .then((res)=>{
-                console.log(res)
-            })
-    }
-    const disabled = Number(bonusId) > 0 || promotions && !promotions.length;
+    const welcomeCall = () => {
+        post(ApiPort.PostWelcomeCall + "&isWelcomeCall=" + check).then(
+            (res) => {
+                console.log(res);
+            },
+        );
+    };
+    const disabled = Number(bonusId) > 0 || (promotions && !promotions.length);
     return (
         <Modal
             visible={visible}
@@ -99,7 +101,7 @@ export default function RegisterBonus() {
                     onClick={() => {
                         setVisible(false);
                         welcomeCall();
-                        sessionStorage.setItem("depositLater",true)
+                        sessionStorage.setItem("depositLater", true);
                     }}
                     block
                 >
@@ -118,12 +120,10 @@ export default function RegisterBonus() {
                         if (index === 3) return;
                         return (
                             <Col
-                                key={item.promoId+index}
+                                key={item.promoId + index}
                                 span={18}
                                 className={`havePromotion 
-                                    ${
-                                        currentIndex === index ? "active" : ""
-                                    }
+                                    ${currentIndex === index ? "active" : ""}
                                 `}
                                 // onClick={() => {
                                 //     setBonusId(item.promoId);
@@ -139,11 +139,12 @@ export default function RegisterBonus() {
                 )}
 
                 <Col span={18} className="check-box">
-                    <div
-                        className="ant-checkbox-group ant-checkbox-group-outline"
-                    >
+                    <div className="ant-checkbox-group ant-checkbox-group-outline">
                         <div className="ant-checkbox-wrapper ant-checkbox-wrapper-checked">
-                            <span id="usdt_with_hint" className={`ant-checkbox ${check ? "ant-checkbox-checked" :""}`}>
+                            <span
+                                id="usdt_with_hint"
+                                className={`ant-checkbox ${check ? "ant-checkbox-checked" : ""}`}
+                            >
                                 <input
                                     type="checkbox"
                                     className="ant-checkbox-input"
@@ -161,7 +162,7 @@ export default function RegisterBonus() {
                 {check && (
                     <Col span={18}>
                         {translate(
-                            "我们的客户服务部门将在接下来的24小时内通过您注册的电话号码+852或00852与您联系。谢谢！"
+                            "我们的客户服务部门将在接下来的24小时内通过您注册的电话号码+852或00852与您联系。谢谢！",
                         )}
                     </Col>
                 )}

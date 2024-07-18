@@ -18,7 +18,7 @@ function AppliedHistoryCard(props) {
         onOpenPopover,
         onOpenAppliedDataModal,
         onBonusClaim,
-        openPromotionDetail
+        openPromotionDetail,
     } = props;
 
     return (
@@ -28,7 +28,10 @@ function AppliedHistoryCard(props) {
                 !isValid ? "promotion-card-disabled" : ""
             }`}
         >
-            <div className="promotion-card-container" onClick={openPromotionDetail}>
+            <div
+                className="promotion-card-container"
+                onClick={openPromotionDetail}
+            >
                 <div className="promotion-info-box">
                     <div className="promotion-card-list-img">
                         {/* categories={Categories} */}
@@ -40,7 +43,7 @@ function AppliedHistoryCard(props) {
                                     : categories.find(
                                           (category) =>
                                               category.PromoCatCode ===
-                                              item.promotionCategory
+                                              item.promotionCategory,
                                       )?.promoCatImageUrl ||
                                       `${process.env.BASE_PATH}/img/promotions/icon/icon-General.png`
                             }
@@ -59,22 +62,22 @@ function AppliedHistoryCard(props) {
                                     {item.promotionType === "Manual" &&
                                         `${
                                             item.promotionEndDate
-                                                ? moment(
-                                                      item.promotionEndDate
-                                                  ).utcOffset(8).format(
-                                                      "DD-MM-YYYY HH:mm:ss"
-                                                  )
+                                                ? moment(item.promotionEndDate)
+                                                      .utcOffset(8)
+                                                      .format(
+                                                          "DD-MM-YYYY HH:mm:ss",
+                                                      )
                                                 : "--"
                                         }`}
                                     {(item.promotionType === "Bonus" ||
                                         !item.promotionType) &&
                                         `${
                                             item.expiredDate
-                                                ? moment(
-                                                      item.expiredDate
-                                                  ).utcOffset(8).format(
-                                                      "DD-MM-YYYY HH:mm:ss"
-                                                  )
+                                                ? moment(item.expiredDate)
+                                                      .utcOffset(8)
+                                                      .format(
+                                                          "DD-MM-YYYY HH:mm:ss",
+                                                      )
                                                 : "--"
                                         }`}
                                 </span>
@@ -95,14 +98,18 @@ function AppliedHistoryCard(props) {
                                                 {item.status !== "Pending" && (
                                                     <div className="promotion-CancellPopup-text">
                                                         <p>
-                                                            {translate("免费投注奖金无法取消。 请联系实时聊天寻求支持")}
+                                                            {translate(
+                                                                "免费投注奖金无法取消。 请联系实时聊天寻求支持",
+                                                            )}
                                                         </p>
                                                     </div>
                                                 )}
                                                 {item.status === "Pending" && (
                                                     <div className="promotion-CancellPopupAsk-text">
                                                         <p>
-                                                        {translate("想要取消您的优惠吗？")}
+                                                            {translate(
+                                                                "想要取消您的优惠吗？",
+                                                            )}
                                                         </p>
                                                         <div className="promotion-CancellPopupAsk-btn">
                                                             <button
@@ -110,7 +117,9 @@ function AppliedHistoryCard(props) {
                                                                     onCancelPromotion
                                                                 }
                                                             >
-                                                                {translate("取消")}
+                                                                {translate(
+                                                                    "取消",
+                                                                )}
                                                             </button>
                                                         </div>
                                                     </div>
@@ -170,13 +179,18 @@ function AppliedHistoryCard(props) {
                                 </div>
 
                                 <div className="progress-text">
-                                    <span>{translate("还需")} {item.turnoverNeeded}</span>
+                                    <span>
+                                        {translate("还需")}{" "}
+                                        {item.turnoverNeeded}
+                                    </span>
                                     {(item.status === "Serving" ||
                                         item.status === "Release" ||
                                         item.status === "Canceled" ||
                                         item.status === "Expired") && (
                                         <span style={{ color: "#46A5F8" }}>
-                                            {item.bonusAmount}{" đ "}{translate("红利")}
+                                            {item.bonusAmount}
+                                            {" đ "}
+                                            {translate("红利")}
                                         </span>
                                     )}
                                 </div>
@@ -189,7 +203,11 @@ function AppliedHistoryCard(props) {
                     {item.status === "Release" && (
                         <div>
                             <div className="promotion-card-info-bonustext">
-                                <span>{item.bonusAmount || 0}{" đ "}{translate("红利")}</span>
+                                <span>
+                                    {item.bonusAmount || 0}
+                                    {" đ "}
+                                    {translate("红利")}
+                                </span>
                             </div>
 
                             <div className="promotion-card-release-btn">
@@ -211,7 +229,11 @@ function AppliedHistoryCard(props) {
                         item.status === "Force to served") && (
                         <div>
                             <div className="promotion-card-info-bonustext">
-                                <span>{item.bonusAmount || 0}{" đ "}{translate("红利")}</span>
+                                <span>
+                                    {item.bonusAmount || 0}
+                                    {" đ "}
+                                    {translate("红利")}
+                                </span>
                             </div>
 
                             <div className="promotion-card-info-btn-disabled">
@@ -226,7 +248,11 @@ function AppliedHistoryCard(props) {
                     {promotions && item.status === "Waiting for release" && (
                         <div>
                             <div className="promotion-card-info-bonustext">
-                                <span>{item.bonusAmount || 0}{" đ "}{translate("红利")}</span>
+                                <span>
+                                    {item.bonusAmount || 0}
+                                    {" đ "}
+                                    {translate("红利")}
+                                </span>
                             </div>
 
                             <div className="promotion-card-info-btn-disabled">
@@ -279,7 +305,9 @@ function AppliedHistoryCard(props) {
                                 <div className="promotion-card-info-bonustext"></div>
 
                                 <div className="promotion-card-info-btn-disabled">
-                                    <button disabled>{translate("不符合资格")}</button>
+                                    <button disabled>
+                                        {translate("不符合资格")}
+                                    </button>
                                 </div>
                             </div>
                         )}

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
     <head>
         <meta charset="UTF-8" />
@@ -16,8 +16,14 @@
                 font-size: 14px;
                 line-height: 1.5715;
                 color: rgba(0, 0, 0, 0.8);
-                font-family: Helvetica Neue, Helvetica, PingFang SC,
-                    Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+                font-family:
+                    Helvetica Neue,
+                    Helvetica,
+                    PingFang SC,
+                    Hiragino Sans GB,
+                    Microsoft YaHei,
+                    SimSun,
+                    sans-serif;
             }
             .common-distance-wrap {
                 margin: 0 auto;
@@ -279,7 +285,7 @@
                     "member.stagingp4.china.tlc88.biz",
                     "member.stagingp4.china.tlc88.biz:8003",
                     "localhost:8003",
-                ].find((v) => window.location.href.includes(v))
+                ].find((v) => window.location.href.includes(v)),
             );
             if (StagingApi) {
                 // Master测试环境
@@ -315,7 +321,7 @@
                 TLCLive = window.open(
                     "about:blank",
                     "chat",
-                    "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=540, height=650"
+                    "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=540, height=650",
                 );
                 const serverUrl = localStorage.getItem("serverUrl");
                 if (!serverUrl) {
@@ -331,7 +337,7 @@
                                 token: "rate",
                                 Authorization: "",
                             }),
-                        }
+                        },
                     )
                         .then(function (response) {
                             return response.json();

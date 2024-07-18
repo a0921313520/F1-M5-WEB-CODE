@@ -79,7 +79,7 @@ class RestrictAccess extends React.Component {
         this.TLCLive = window.open(
             "about:blank",
             "chat",
-            "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=540, height=650"
+            "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=540, height=650",
         );
         const serverUrl = localStorage.getItem("serverUrl");
 
@@ -194,7 +194,7 @@ class RestrictAccess extends React.Component {
                         FirstName: e.target.value.trim(),
                     },
                 },
-                () => this.buttonStatus()
+                () => this.buttonStatus(),
             );
         } else if (type == "dob") {
             this.setState(
@@ -204,12 +204,12 @@ class RestrictAccess extends React.Component {
                         dob: moment(e._d).format("YYYY-MM-DD"),
                     },
                 },
-                () => this.buttonStatus()
+                () => this.buttonStatus(),
             );
         } else if (type == "email") {
             this.setState(
                 { memberInfo: { ...memberInfo, email: e.target.value.trim() } },
-                () => this.buttonStatus()
+                () => this.buttonStatus(),
             );
         }
     }
@@ -272,10 +272,10 @@ class RestrictAccess extends React.Component {
                                         {attempts && isComplete
                                             ? "请回答与您的账户相关的安全问题，或与在线客服联系验证您的身份。"
                                             : !attempts
-                                                ? "您的账户已被禁止使用，您最多只能提交验证3次，请联系在线客服。"
-                                                : !isComplete
-                                                    ? "您的验证尚未完成，请与在线客服联系以验证您的身份。"
-                                                    : null}
+                                              ? "您的账户已被禁止使用，您最多只能提交验证3次，请联系在线客服。"
+                                              : !isComplete
+                                                ? "您的验证尚未完成，请与在线客服联系以验证您的身份。"
+                                                : null}
                                         <button
                                             style={{
                                                 display:
@@ -299,9 +299,7 @@ class RestrictAccess extends React.Component {
                                 VerifyStep == 2 && ( // 驗證成功
                                     <React.Fragment>
                                         <h2>账户验证成功</h2>
-                                        <p className="description">
-                                            {message}
-                                        </p>
+                                        <p className="description">{message}</p>
                                     </React.Fragment>
                                 )}
 
@@ -310,9 +308,7 @@ class RestrictAccess extends React.Component {
                                 VerifyStep == 3 && ( // 驗證失敗
                                     <React.Fragment>
                                         <h2>账户验证失败</h2>
-                                        <p className="description">
-                                            {message}
-                                        </p>
+                                        <p className="description">{message}</p>
                                     </React.Fragment>
                                 )}
 
@@ -335,9 +331,7 @@ class RestrictAccess extends React.Component {
                                                 次。或是请联系
                                                 <span
                                                     className="cs-blue"
-                                                    onClick={
-                                                        this.PopUpLiveChat
-                                                    }
+                                                    onClick={this.PopUpLiveChat}
                                                 >
                                                     在线客服
                                                 </span>
@@ -354,10 +348,10 @@ class RestrictAccess extends React.Component {
                                                     className="tlc-date"
                                                     onChange={this.verifyChange.bind(
                                                         this,
-                                                        "dob"
+                                                        "dob",
                                                     )}
                                                     defaultPickerValue={moment(
-                                                        this.defaultMinDate
+                                                        this.defaultMinDate,
                                                     )}
                                                     disabledDate={
                                                         this.disabledDate
@@ -377,7 +371,7 @@ class RestrictAccess extends React.Component {
                                                     placeholder="请输入您的姓名"
                                                     onChange={this.verifyChange.bind(
                                                         this,
-                                                        "Name"
+                                                        "Name",
                                                     )}
                                                     size="large"
                                                 />
@@ -387,16 +381,17 @@ class RestrictAccess extends React.Component {
                                                     placeholder="请输入邮箱地址"
                                                     onChange={this.verifyChange.bind(
                                                         this,
-                                                        "email"
+                                                        "email",
                                                     )}
                                                     size="large"
                                                 />
                                             </Item>
                                             <Button
-                                                className={`verify-btn ${isDisable
-                                                    ? "isDisable"
-                                                    : null
-                                                    }`}
+                                                className={`verify-btn ${
+                                                    isDisable
+                                                        ? "isDisable"
+                                                        : null
+                                                }`}
                                                 size="large"
                                                 type="primary"
                                                 htmlType="submit"
@@ -437,8 +432,7 @@ class RestrictAccess extends React.Component {
                             {attempts && VerifyStep == 1 ? (
                                 <div className="reminder">
                                     可提交次数还剩{" "}
-                                    <span className="red">{attempts}</span>{" "}
-                                    次
+                                    <span className="red">{attempts}</span> 次
                                 </div>
                             ) : null}
                         </Spin>

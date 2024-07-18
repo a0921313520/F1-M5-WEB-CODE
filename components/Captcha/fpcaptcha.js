@@ -1,7 +1,7 @@
 import React from "react";
 import { message, Modal, Spin } from "antd";
 import moment from "moment";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 const STATUS_LOADING = 0; // 还没有图片
 const STATUS_READY = 1; // 图片渲染完成,可以开始滑动
 const STATUS_MATCH = 2; // 图片位置匹配成功
@@ -48,7 +48,7 @@ class _FpCaptcha extends React.Component {
                     let { chartUri, keyUri, shuffleMatrix } = this.state;
                     this.createCanvas();
                     this.renderImage({ chartUri, keyUri, shuffleMatrix });
-                }
+                },
             );
         }
         if (prevProps.visible !== this.props.visible && !this.props.visible) {
@@ -152,7 +152,7 @@ class _FpCaptcha extends React.Component {
                     dx,
                     dy,
                     object.width,
-                    object.height
+                    object.height,
                 );
             }
         }
@@ -226,12 +226,12 @@ class _FpCaptcha extends React.Component {
                                     y: that.state.currY,
                                     cost: cost,
                                 },
-                                that.judgeResult
+                                that.judgeResult,
                             );
                         };
                     });
                 };
-            }
+            },
         );
     };
     judgeResult = (code) => {
@@ -309,7 +309,10 @@ class _FpCaptcha extends React.Component {
                     className="fpcaptch-modal"
                     zIndex={2002}
                 >
-                    <Spin spinning={loading && !imgSrc} tip={translate("加载中")}>
+                    <Spin
+                        spinning={loading && !imgSrc}
+                        tip={translate("加载中")}
+                    >
                         <div className="fpcontent">
                             {/* <p>请拖动左边的滑块，来完成拼图</p> */}
                             <div
@@ -366,11 +369,9 @@ class _FpCaptcha extends React.Component {
                                 className="verifyFail"
                                 style={{
                                     display:
-                                        verifyStatue === "2"
-                                            ? "block"
-                                            : "none",
+                                        verifyStatue === "2" ? "block" : "none",
                                 }}
-                                >
+                            >
                                 {/* <img src={`${process.env.BASE_PATH}/img/icons/fail.png`} /> */}
                                 <span>{translate("失败。 请再试一次")}</span>
                             </div>

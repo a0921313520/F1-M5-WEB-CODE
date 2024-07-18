@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Icon } from "antd"
+import { Icon } from "antd";
 import { translate } from "$ACTIONS/Translate";
 
 export default function seoContainer({ seocontent }) {
@@ -13,29 +13,35 @@ export default function seoContainer({ seocontent }) {
             <div className="common-distance">
                 {!!seocontent ? (
                     <div className="seo-container">
-                        {seoDetailStatus ?
-                            <div 
-                                className="button-up" 
-                                onClick={() => setSeoDetailStatus(!seoDetailStatus)}>
-                                <Icon type="up"/>
-                            </div> :
+                        {seoDetailStatus ? (
+                            <div
+                                className="button-up"
+                                onClick={() =>
+                                    setSeoDetailStatus(!seoDetailStatus)
+                                }
+                            >
+                                <Icon type="up" />
+                            </div>
+                        ) : (
                             <div className="button-more">
                                 <span
                                     className="show-more-arrow"
-                                    onClick={() => setSeoDetailStatus(!seoDetailStatus)}
+                                    onClick={() =>
+                                        setSeoDetailStatus(!seoDetailStatus)
+                                    }
                                 >
                                     {translate("查看更多")}
                                 </span>
-                            </div>}
-                        
-                        {(typeof seocontent === "object") ? 
-                            <div>{seocontent}</div> 
-                            : 
-                            <div 
-                                dangerouslySetInnerHTML={{ __html: seocontent}}
-                            >
                             </div>
-                        }
+                        )}
+
+                        {typeof seocontent === "object" ? (
+                            <div>{seocontent}</div>
+                        ) : (
+                            <div
+                                dangerouslySetInnerHTML={{ __html: seocontent }}
+                            ></div>
+                        )}
                     </div>
                 ) : null}
             </div>

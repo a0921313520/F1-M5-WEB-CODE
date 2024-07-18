@@ -1,13 +1,13 @@
 //奖励地址管理
-.account-wrap.address-management{
-    .address-wrap{
+.account-wrap.address-management {
+    .address-wrap {
         width: 100%;
         display: flex;
         gap: 10px;
-        .address-item-list{
-           display: flex;
-           gap: 10px;
-            .address-item{
+        .address-item-list {
+            display: flex;
+            gap: 10px;
+            .address-item {
                 width: 260px;
                 height: 130px;
                 color: #666;
@@ -18,13 +18,13 @@
                 border: 2px solid #e3e3e8;
                 font-size: 12px;
                 cursor: pointer;
-                .info-name-edit{
+                .info-name-edit {
                     width: 100%;
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
                     margin-bottom: 10px;
-                    .info-name{
+                    .info-name {
                         width: 55%;
                         font-weight: bold;
                         color: #000;
@@ -33,35 +33,36 @@
                         text-overflow: ellipsis;
                         white-space: nowrap;
                     }
-                    .info-edit{
+                    .info-edit {
                         width: 45%;
                         display: flex;
                         flex-direction: row;
                         justify-content: space-between;
                         align-items: center;
                         .default {
-                            color: #0CCC3C;
+                            color: #0ccc3c;
                             margin-right: 5px;
                             display: inline-block;
-                            background: url("@{base-path}/img/icon/greenTick.svg") 0 center no-repeat;
+                            background: url("@{base-path}/img/icon/greenTick.svg")
+                                0 center no-repeat;
                             width: 70px;
                             text-align: right;
                         }
-                        .edit{
+                        .edit {
                             opacity: 1;
                         }
                     }
                 }
-                .info-phone{
+                .info-phone {
                     margin-bottom: 10px;
                 }
-                .info-address{
+                .info-address {
                     overflow: hidden;
                     text-overflow: ellipsis;
                     word-break: break-all;
                     display: -webkit-box;
-                    -webkit-box-orient:vertical;
-                    -webkit-line-clamp:2;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
                 }
             }
         }

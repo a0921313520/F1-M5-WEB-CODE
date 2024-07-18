@@ -22,15 +22,15 @@ import Bannerimg from "@/Banner/img";
 import { isWebPSupported } from "$ACTIONS/helper";
 import ImageWithFallback from "@/ImageWithFallback/imgLocal";
 import WelcomeBanne from "@/Home/WelcomeBanne";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 import { HomePageSeo } from "$DATA/seo/seo.static";
 import RegisterBonus from "@/Home/RegisterBonus";
 import BankBusinessTime from "@/Home/BankBusinessTime";
-import { getStaticPropsFromStrapiSEOSetting } from '$DATA/seo';
+import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 
 const { TabPane } = Tabs;
 export async function getStaticProps() {
-    return await getStaticPropsFromStrapiSEOSetting('/'); //參數帶本頁的路徑
+    return await getStaticPropsFromStrapiSEOSetting("/"); //參數帶本頁的路徑
 }
 export default class Main extends React.PureComponent {
     constructor(props) {
@@ -81,7 +81,7 @@ export default class Main extends React.PureComponent {
                     loginStatus
                         ? `after${isSupportWebp}`
                         : `before${isSupportWebp}`
-                }`
+                }`,
             ).then(this.defaultBannerList);
         this.Downloadidopen();
         setTimeout(() => {
@@ -123,7 +123,7 @@ export default class Main extends React.PureComponent {
                     "/vi-vn/api/v1/web/webbanners/position/home_sponsor?login=" +
                     (loginStatus
                         ? `after${isSupportWebp}`
-                        : `before${isSupportWebp}`)
+                        : `before${isSupportWebp}`),
             ).then((res) => {
                 const localStr = JSON.stringify(res);
                 localStorage.setItem("LocalSponsor", localStr);
@@ -160,7 +160,7 @@ export default class Main extends React.PureComponent {
                         "/vi-vn/api/v1/web/webbanners/position/home_main?login=" +
                         (loginStatus
                             ? `after${isSupportWebp}`
-                            : `before${isSupportWebp}`)
+                            : `before${isSupportWebp}`),
                 ).then((res) => {
                     res && this.setState({ bannerList: res });
                 });
@@ -187,7 +187,7 @@ export default class Main extends React.PureComponent {
                         "/vi-vn/api/v1/web/webbanners/position/home_sponsor?login=" +
                         (loginStatus
                             ? `after${isSupportWebp}`
-                            : `before${isSupportWebp}`)
+                            : `before${isSupportWebp}`),
                 ).then((res) => {
                     const localStr = JSON.stringify(res);
                     localStorage.setItem("LocalSponsor", localStr);
@@ -195,8 +195,8 @@ export default class Main extends React.PureComponent {
                 });
         }
     }
-    componentWillUnmount(){
-        this.setState =()=> false
+    componentWillUnmount() {
+        this.setState = () => false;
     }
     /**
      * 根据单页长度，按照几个长度进行分页，格式化响应的精彩活动
@@ -261,11 +261,7 @@ export default class Main extends React.PureComponent {
             this.setState({ promotionCurrKey: (currKey + 1).toString() });
     }
     render() {
-        const { 
-            promotionbannerList, 
-            sponsorbannerList
-        } =
-            this.state;
+        const { promotionbannerList, sponsorbannerList } = this.state;
         return (
             <Layout
                 title={HomePageSeo.title}
@@ -319,9 +315,13 @@ export default class Main extends React.PureComponent {
                                                                             "Home_C_FeatureBanner",
                                                                             "",
                                                                             [
-                                                                                {customVariableKey: "Home_C_FeatureBanner_ActivityName",
-                                                                                customVariableValue: item.title}
-                                                                            ]
+                                                                                {
+                                                                                    customVariableKey:
+                                                                                        "Home_C_FeatureBanner_ActivityName",
+                                                                                    customVariableValue:
+                                                                                        item.title,
+                                                                                },
+                                                                            ],
                                                                         );
                                                                     }}
                                                                 >
@@ -347,7 +347,7 @@ export default class Main extends React.PureComponent {
                                                             key={index}
                                                         />
                                                     );
-                                                }
+                                                },
                                             )}
                                         </Tabs>
                                     ) : (
@@ -376,7 +376,7 @@ export default class Main extends React.PureComponent {
                                                 display:
                                                     promotionbannerList != "" &&
                                                     Array.isArray(
-                                                        promotionbannerList
+                                                        promotionbannerList,
                                                     ) &&
                                                     promotionbannerList.length >
                                                         1
@@ -389,12 +389,12 @@ export default class Main extends React.PureComponent {
                                                 <span
                                                     onClick={() => {
                                                         this.mainPromotionSplitPage(
-                                                            "up"
+                                                            "up",
                                                         );
                                                     }}
                                                     unselectable="unselectable"
                                                     className="ant-tabs-tab-prev ant-tabs-tab-arrow-show"
-                                                >   
+                                                >
                                                     <Icon type="left-circle" />
                                                 </span>
                                             ) : null}
@@ -405,7 +405,7 @@ export default class Main extends React.PureComponent {
                                                 <span
                                                     onClick={() => {
                                                         this.mainPromotionSplitPage(
-                                                            "down"
+                                                            "down",
                                                         );
                                                     }}
                                                     unselectable="unselectable"
@@ -435,7 +435,7 @@ export default class Main extends React.PureComponent {
                                                                 {item.map(
                                                                     (
                                                                         panelItem,
-                                                                        panelIndex
+                                                                        panelIndex,
                                                                     ) => {
                                                                         return (
                                                                             <div
@@ -452,7 +452,7 @@ export default class Main extends React.PureComponent {
                                                                                         Pushgtagdata(
                                                                                             `FeatureBanner`,
                                                                                             "Click",
-                                                                                            `${panelItem.action.cgmsVendorCode}_FeatureBanner_Home`
+                                                                                            `${panelItem.action.cgmsVendorCode}_FeatureBanner_Home`,
                                                                                         );
                                                                                         return;
                                                                                     }
@@ -460,7 +460,7 @@ export default class Main extends React.PureComponent {
                                                                                         "Banner",
                                                                                         "Click",
                                                                                         panelItem.title +
-                                                                                            "_Feature_Home"
+                                                                                            "_Feature_Home",
                                                                                     );
                                                                                 }}
                                                                             >
@@ -487,11 +487,11 @@ export default class Main extends React.PureComponent {
                                                                                 </LazyLoad>
                                                                             </div>
                                                                         );
-                                                                    }
+                                                                    },
                                                                 )}
                                                             </TabPane>
                                                         );
-                                                    }
+                                                    },
                                                 )}
                                             </Tabs>
                                         </div>
@@ -535,21 +535,29 @@ export default class Main extends React.PureComponent {
                             <Col span={14}>
                                 <Row className="qrcode">
                                     <Col span={14}>
-                                        <h1 className="title">{translate("下载FUN88 APP")}</h1>
+                                        <h1 className="title">
+                                            {translate("下载FUN88 APP")}
+                                        </h1>
                                         <div className="qrcode-article-wrap">
                                             <p className="qrcode-article">
-                                               {translate("提供最大的访问安全性和效率拥有更快、更安全的全新转账功能只需按下即可！ 兴奋并实时获胜，您将不会错过它。 一举一动都与亚洲最好的在线网站有关。 支持Android和iOS操作系统，大奖。")}
+                                                {translate(
+                                                    "提供最大的访问安全性和效率拥有更快、更安全的全新转账功能只需按下即可！ 兴奋并实时获胜，您将不会错过它。 一举一动都与亚洲最好的在线网站有关。 支持Android和iOS操作系统，大奖。",
+                                                )}
                                             </p>
                                             <i className="tlc-sprite app-down-icons" />
-                                            <h4>{translate("手机浏览器输入网址")}</h4>
+                                            <h4>
+                                                {translate(
+                                                    "手机浏览器输入网址",
+                                                )}
+                                            </h4>
                                             <CopyToClipboard
                                                 text={this.state.downloadLinks}
                                                 onCopy={() => {
                                                     message.success(
-                                                        translate("复制成功")
+                                                        translate("复制成功"),
                                                     );
                                                     Pushgtagdata(
-                                                        "TLCmobileweb_homepage"
+                                                        "TLCmobileweb_homepage",
                                                     );
                                                 }}
                                             >
@@ -572,12 +580,14 @@ export default class Main extends React.PureComponent {
                                                 once
                                             >
                                                 <div className="qrcode-picture">
-                                                    {this.state.downloadLinks ? (
+                                                    {this.state
+                                                        .downloadLinks ? (
                                                         <QRCode
                                                             //logo={'/vn/img/download/qrlogo.jpg'}
                                                             size={148}
                                                             value={
-                                                                this.state.downloadLinks
+                                                                this.state
+                                                                    .downloadLinks
                                                             }
                                                             // logoWidth={50}
                                                             // logoHeight={50}
@@ -594,12 +604,14 @@ export default class Main extends React.PureComponent {
                                                 once
                                             >
                                                 <div className="qrcode-picture">
-                                                    {this.state.downloadLinks ? (
+                                                    {this.state
+                                                        .downloadLinks ? (
                                                         <QRCode
                                                             //logo={'/vn/img/download/qrlogo.jpg'}
                                                             size={148}
                                                             value={
-                                                                this.state.downloadLinks
+                                                                this.state
+                                                                    .downloadLinks
                                                             }
                                                             // logoWidth={50}
                                                             // logoHeight={50}
@@ -628,14 +640,18 @@ export default class Main extends React.PureComponent {
                                             <div className="cooperate-content _1">
                                                 <p>
                                                     <span className="cooperate-name">
-                                                        {translate("官方球衣赞助商")}
+                                                        {translate(
+                                                            "官方球衣赞助商",
+                                                        )}
                                                     </span>
                                                     <span
                                                         style={{
                                                             fontSize: "13px",
                                                         }}
                                                     >
-                                                        {translate("纽卡斯尔联足球俱乐部")}
+                                                        {translate(
+                                                            "纽卡斯尔联足球俱乐部",
+                                                        )}
                                                     </span>
                                                 </p>
                                             </div>
@@ -644,14 +660,18 @@ export default class Main extends React.PureComponent {
                                             <div className="cooperate-content _2">
                                                 <p>
                                                     <span className="cooperate-name">
-                                                        {translate("亚洲官方投注伙伴")}
+                                                        {translate(
+                                                            "亚洲官方投注伙伴",
+                                                        )}
                                                     </span>
                                                     <span
                                                         style={{
                                                             fontSize: "13px",
                                                         }}
                                                     >
-                                                        {translate("托特纳姆热刺足球俱乐部")}
+                                                        {translate(
+                                                            "托特纳姆热刺足球俱乐部",
+                                                        )}
                                                     </span>
                                                 </p>
                                             </div>
@@ -680,13 +700,13 @@ export default class Main extends React.PureComponent {
                 </LazyLoad>
 
                 {/* 紧急公告弹窗 */}
-                <Announcement/>
+                <Announcement />
 
                 {/* 乐天堂全新升级通知 */}
                 <WelcomeBanne />
 
                 {/* 新用户注册优惠 */}
-                <RegisterBonus/>
+                <RegisterBonus />
 
                 {/* 银行营业时间 */}
                 <BankBusinessTime />

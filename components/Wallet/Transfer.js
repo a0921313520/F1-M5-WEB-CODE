@@ -18,7 +18,7 @@ import {
 import { formItemLayout, tailFormItemLayout } from "$ACTIONS/constantsData";
 import { GetWalletList, TransferSubmit } from "$DATA/wallet";
 import BonusList from "./depositComponents/TargetAccount/BonusList";
-import { Cookie,formatAmount } from "$ACTIONS/util";
+import { Cookie, formatAmount } from "$ACTIONS/util";
 import { get } from "$ACTIONS/TlcRequest";
 import { ApiPort } from "../../actions/TLCAPI";
 import Announcement from "@/Announcement";
@@ -79,7 +79,7 @@ class Transfer extends React.Component {
             // });
             if (this.props.balanceList) {
                 const SB = this.props.balanceList.find(
-                    (item) => item.name == "SB"
+                    (item) => item.name == "SB",
                 );
                 //体育的维护状态
                 const SbMaintenance = SB
@@ -90,11 +90,13 @@ class Transfer extends React.Component {
                     (item) =>
                         item.state != "UnderMaintenance" &&
                         item.name != "TotalBal" &&
-                        item.name != "MAIN"
+                        item.name != "MAIN",
                 );
                 console.log(Available);
                 this.setState({
-                    currentToMoney: SbMaintenance ? "SB" : Available[0] && Available[0].name, //如果体育钱包未维护则末日体育钱包，反之其他钱包
+                    currentToMoney: SbMaintenance
+                        ? "SB"
+                        : Available[0] && Available[0].name, //如果体育钱包未维护则末日体育钱包，反之其他钱包
                 });
             } else {
                 this.setState({
@@ -130,7 +132,7 @@ class Transfer extends React.Component {
             }
         }
     }
-   
+
     handleTransfer(type, Transferdata) {
         this.props.setLoading(true);
         const isAllTransfer = typeof type === "string";
@@ -141,7 +143,7 @@ class Transfer extends React.Component {
                       fromAccount: "ALL",
                       toAccount: Transferdata.name,
                       amount: this.props.balanceList.find(
-                          (item) => item.name == "TotalBal"
+                          (item) => item.name == "TotalBal",
                       ).balance,
                       bonusId: 0,
                       bonusCoupon: "",
@@ -462,11 +464,18 @@ class Transfer extends React.Component {
                                                         </span>
                                                     </div>
                                                     <div className="totalBalMonImg">
-                                                        <span>{formatAmount(item.balance,"TwoDecimalSuffixes")} đ</span>
+                                                        <span>
+                                                            {formatAmount(
+                                                                item.balance,
+                                                                "TwoDecimalSuffixes",
+                                                            )}{" "}
+                                                            đ
+                                                        </span>
                                                         <Icon
                                                             type="reload"
                                                             onClick={
-                                                                this.transferGetBalance
+                                                                this
+                                                                    .transferGetBalance
                                                             }
                                                         />
                                                     </div>
@@ -477,8 +486,10 @@ class Transfer extends React.Component {
                                                         className={classNames({
                                                             transferItem: true,
                                                             UnderMaintenance:
-                                                                item.state == "UnderMaintenance" || 
-                                                                item.state == "NotAvailable",
+                                                                item.state ==
+                                                                    "UnderMaintenance" ||
+                                                                item.state ==
+                                                                    "NotAvailable",
                                                         })}
                                                     >
                                                         <div className="transferDotName">
@@ -487,7 +498,8 @@ class Transfer extends React.Component {
                                                                     size="8"
                                                                     color={
                                                                         IconColor[
-                                                                            item.category
+                                                                            item
+                                                                                .category
                                                                         ]
                                                                     }
                                                                 />
@@ -559,41 +571,51 @@ class Transfer extends React.Component {
                                                             )} */}
                                                         </div>
                                                         {item.state ==
-                                                        "UnderMaintenance" || item.state == "NotAvailable" ? (
+                                                            "UnderMaintenance" ||
+                                                        item.state ==
+                                                            "NotAvailable" ? (
                                                             <div className="transferMonImg Maintenance">
-                                                                {translate("维护中")}
+                                                                {translate(
+                                                                    "维护中",
+                                                                )}
                                                             </div>
                                                         ) : (
                                                             <div className="transferMonImg">
-                                                                <span>{formatAmount(item.balance,"TwoDecimalSuffixes")} đ</span>
+                                                                <span>
+                                                                    {formatAmount(
+                                                                        item.balance,
+                                                                        "TwoDecimalSuffixes",
+                                                                    )}{" "}
+                                                                    đ
+                                                                </span>
                                                                 <img
                                                                     src={`${process.env.BASE_PATH}/img/wallet/transfericon.svg`}
                                                                     onClick={() => {
                                                                         if (
                                                                             balanceList.find(
                                                                                 (
-                                                                                    item
+                                                                                    item,
                                                                                 ) =>
                                                                                     item.category ==
-                                                                                    "TotalBal"
+                                                                                    "TotalBal",
                                                                             )
                                                                                 .balance ==
                                                                             0
                                                                         ) {
                                                                             this.props.goDeposit(
-                                                                                "deposit"
+                                                                                "deposit",
                                                                             );
                                                                         } else {
                                                                             this.handleTransfer(
                                                                                 "ALL",
-                                                                                item
+                                                                                item,
                                                                             );
                                                                         }
 
                                                                         Pushgtagdata(
                                                                             "Transfer",
                                                                             "Submit",
-                                                                            `${item.localizedName}_QuickTransfer`
+                                                                            `${item.localizedName}_QuickTransfer`,
                                                                         );
                                                                     }}
                                                                 />
@@ -633,7 +655,7 @@ class Transfer extends React.Component {
                                                                     "请选择转出钱包。",
                                                             },
                                                         ],
-                                                    }
+                                                    },
                                                 )(
                                                     // defaultValue={fromWalletList[0].key}
                                                     <Select
@@ -642,14 +664,18 @@ class Transfer extends React.Component {
                                                         placeholder="请选择账户"
                                                         onDropdownVisibleChange={() =>
                                                             this.handleSelectOpen(
-                                                                "from"
+                                                                "from",
                                                             )
                                                         }
                                                         suffixIcon={
                                                             selectFrom ? (
-                                                                <img src={`${process.env.BASE_PATH}/img/wallet/dropdown-updown.svg`} />
+                                                                <img
+                                                                    src={`${process.env.BASE_PATH}/img/wallet/dropdown-updown.svg`}
+                                                                />
                                                             ) : (
-                                                                <img src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`} />
+                                                                <img
+                                                                    src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`}
+                                                                />
                                                             )
                                                         }
                                                         onChange={
@@ -657,7 +683,7 @@ class Transfer extends React.Component {
                                                                 .handleFormSelect
                                                         }
                                                         getPopupContainer={(
-                                                            triggerNode
+                                                            triggerNode,
                                                         ) =>
                                                             triggerNode.parentNode
                                                         }
@@ -676,7 +702,7 @@ class Transfer extends React.Component {
                                                                         style={{
                                                                             display:
                                                                                 getFieldValue(
-                                                                                    "toWallet"
+                                                                                    "toWallet",
                                                                                 ) !=
                                                                                     value.name &&
                                                                                 value.name !=
@@ -726,9 +752,9 @@ class Transfer extends React.Component {
                                                                     </Option>
                                                                 );
                                                                 return node;
-                                                            }
+                                                            },
                                                         )}
-                                                    </Select>
+                                                    </Select>,
                                                 )
                                             ) : (
                                                 <Select
@@ -767,21 +793,25 @@ class Transfer extends React.Component {
                                                         placeholder="请选择账户"
                                                         onDropdownVisibleChange={() =>
                                                             this.handleSelectOpen(
-                                                                "in"
+                                                                "in",
                                                             )
                                                         }
                                                         suffixIcon={
                                                             selectIn ? (
-                                                                <img src={`${process.env.BASE_PATH}/img/wallet/dropdown-updown.svg`} />
+                                                                <img
+                                                                    src={`${process.env.BASE_PATH}/img/wallet/dropdown-updown.svg`}
+                                                                />
                                                             ) : (
-                                                                <img src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`} />
+                                                                <img
+                                                                    src={`${process.env.BASE_PATH}/img/wallet/icon-dropdown.svg`}
+                                                                />
                                                             )
                                                         }
                                                         onSelect={
                                                             this.handleToSelect
                                                         }
                                                         getPopupContainer={(
-                                                            triggerNode
+                                                            triggerNode,
                                                         ) =>
                                                             triggerNode.parentNode
                                                         }
@@ -800,7 +830,7 @@ class Transfer extends React.Component {
                                                                         style={{
                                                                             display:
                                                                                 getFieldValue(
-                                                                                    "fromWallet"
+                                                                                    "fromWallet",
                                                                                 ) !=
                                                                                     value.name &&
                                                                                 value.name !=
@@ -836,9 +866,9 @@ class Transfer extends React.Component {
                                                                     </Option>
                                                                 );
                                                                 return node;
-                                                            }
+                                                            },
                                                         )}
-                                                    </Select>
+                                                    </Select>,
                                                 )
                                             ) : (
                                                 <Select
@@ -855,7 +885,7 @@ class Transfer extends React.Component {
                             <Item
                                 label={translate("转账金额")}
                                 key={JSON.stringify(
-                                    currentFromMoney + currentToMoney
+                                    currentFromMoney + currentToMoney,
                                 )}
                             >
                                 {getFieldDecorator("money", {
@@ -878,10 +908,12 @@ class Transfer extends React.Component {
                                             validator: (
                                                 rule,
                                                 value,
-                                                callback
+                                                callback,
                                             ) => {
                                                 if (value && value == 0) {
-                                                    callback(translate("输入金额"));
+                                                    callback(
+                                                        translate("输入金额"),
+                                                    );
                                                 }
                                                 // 必須是數字，可帶兩位小數（一位和超過三位都不行）
                                                 // if (
@@ -898,10 +930,12 @@ class Transfer extends React.Component {
                                                 if (
                                                     value &&
                                                     this.checkInsufficientBalance(
-                                                        value
+                                                        value,
                                                     )
                                                 ) {
-                                                    callback(translate("余额不足2"));
+                                                    callback(
+                                                        translate("余额不足2"),
+                                                    );
                                                 }
                                                 callback();
                                             },
@@ -912,7 +946,7 @@ class Transfer extends React.Component {
                                         placeholder={translate("输入金额")}
                                         size="large"
                                         autoComplete="off"
-                                    />
+                                    />,
                                 )}
                             </Item>
 
@@ -930,7 +964,7 @@ class Transfer extends React.Component {
                                         },
                                         () => {
                                             this.CallBonusdata(bonusList);
-                                        }
+                                        },
                                     );
                                 }}
                                 targetValue={getFieldValue("toWallet")}
@@ -1009,7 +1043,7 @@ class Transfer extends React.Component {
                                     <Button
                                         disabled={
                                             Object.values(
-                                                getFieldsError()
+                                                getFieldsError(),
                                             ).some((v) => v !== undefined) ||
                                             getFieldValue("fromWallet") ==
                                                 undefined ||
@@ -1031,9 +1065,7 @@ class Transfer extends React.Component {
                             </Item>
                         </Form>
                         {/* 紧急公告弹窗 */}
-                        <Announcement
-                            optionType={'Transfer'}
-                        />
+                        <Announcement optionType={"Transfer"} />
                     </TabPane>
                 </Tabs>
                 {this.state.showSelfExclusionModal && (

@@ -13,7 +13,7 @@ const promotionSlice = createSlice({
         rebateFilteredTotalAmount: null,
         ValidAppliedList: null,
         inValidAppliedList: null,
-        initialPromotionItemDetail: {}
+        initialPromotionItemDetail: {},
     },
     reducers: {
         changeTab(state, action) {
@@ -49,7 +49,7 @@ const promotionSlice = createSlice({
                         item.status !== "Expired" &&
                         item.status !== "Served" &&
                         item.status !== "Canceled" &&
-                        item.status !== "Force to served")
+                        item.status !== "Force to served"),
             );
 
             const inValidAppliedList = action.payload.filter(
@@ -61,7 +61,7 @@ const promotionSlice = createSlice({
                         item.status === "Expired") ||
                     item.status === "Served" ||
                     item.status === "Canceled" ||
-                    item.status === "Force to served"
+                    item.status === "Force to served",
             );
 
             state.appliedPromotions = action.payload;
@@ -69,11 +69,11 @@ const promotionSlice = createSlice({
             state.inValidAppliedList = inValidAppliedList;
             localStorage.setItem(
                 "ValidAppliedList",
-                JSON.stringify(ValidAppliedList)
+                JSON.stringify(ValidAppliedList),
             );
             localStorage.setItem(
                 "inValidAppliedList",
-                JSON.stringify(inValidAppliedList)
+                JSON.stringify(inValidAppliedList),
             );
         },
 
@@ -95,7 +95,7 @@ const promotionSlice = createSlice({
                         .filter(
                             (item) =>
                                 item.promotionCategory ===
-                                action.payload.selectedCategory
+                                action.payload.selectedCategory,
                         )
                         .reduce((acc, item) => {
                             acc += item.totalGivenAmount;
@@ -108,7 +108,7 @@ const promotionSlice = createSlice({
         setRebateFilterTotalAmount(state, action) {
             state.rebateFilteredTotalAmount = action.payload;
         },
-        openPromotionDetail(state,action){
+        openPromotionDetail(state, action) {
             state.openPromotionDetail = action.payload;
         },
         resetData(state) {

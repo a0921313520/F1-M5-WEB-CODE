@@ -20,7 +20,12 @@ import OpenGame from "@/Games/openGame";
 import { connect } from "react-redux";
 import { getFlashProviderListAction } from "$STORE/thunk/gameThunk";
 import GameBanner from "@/Games/Banner";
-import { platformsGtag, gameLobbyFilterTypeDataPiwik, gameListOpenGamePiwik, gameLobbyPageTrackingPiwik } from "$ACTIONS/piwikData";
+import {
+    platformsGtag,
+    gameLobbyFilterTypeDataPiwik,
+    gameListOpenGamePiwik,
+    gameLobbyPageTrackingPiwik,
+} from "$ACTIONS/piwikData";
 import { getUrlVars } from "$ACTIONS/util";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { translate } from "$ACTIONS/Translate";
@@ -64,14 +69,20 @@ class Gamelobby extends React.Component {
         this.dataSplitPages = this.dataSplitPages.bind(this); // 数据分页
         this._getPageSize = this._getPageSize.bind(this); // 根據 pageNumber 判斷 pageSize
         this.gameCardImg = React.createRef(); // 游戏图片节点
-        this.showSortedList = ["Slot", "LiveCasino", "P2P", "Sportsbook", "KenoLottery"];
+        this.showSortedList = [
+            "Slot",
+            "LiveCasino",
+            "P2P",
+            "Sportsbook",
+            "KenoLottery",
+        ];
     }
     componentDidMount() {
         let SubCategory = getUrlVars()["catagory"];
         let SortingType = getUrlVars()["sortingType"];
         let FeatureType = getUrlVars()["feature"];
         let Provider = Router?.query?.gamelist;
-            Provider = (Provider === "gamelist") ? "" : Provider;
+        Provider = Provider === "gamelist" ? "" : Provider;
         //分类
         if (SubCategory) {
             this.setState({
@@ -80,8 +91,8 @@ class Gamelobby extends React.Component {
         }
         if (FeatureType) {
             this.setState({
-                FeatureActive: FeatureType
-            })
+                FeatureActive: FeatureType,
+            });
         }
         //排序
         if (SortingType) {
@@ -103,7 +114,12 @@ class Gamelobby extends React.Component {
         this.changeGameTypeRun(Provider);
         this.props.getFlashProviderList(this.props.Routerpath, true);
         gameLobbyPageTrackingPiwik(this.props.Routerpath);
-        console.log("🚀 ~ Gamelobby ~ componentDidMount ~ Provider:", Router.query, this.props.Routerpath,Provider)
+        console.log(
+            "🚀 ~ Gamelobby ~ componentDidMount ~ Provider:",
+            Router.query,
+            this.props.Routerpath,
+            Provider,
+        );
     }
 
     componentDidUpdate(prevProps) {
@@ -112,7 +128,7 @@ class Gamelobby extends React.Component {
         }
     }
     componentWillUnmount() {
-        this.setState = () => false
+        this.setState = () => false;
     }
 
     /**
@@ -124,38 +140,40 @@ class Gamelobby extends React.Component {
         this.setState({
             currentType: type || "",
         });
-        get(ApiPort.CmsSubCategory + `?gameType=${this.props.Routerpath}&api-version=2.0&Platform=Desktop`)
-            .then((res) => {
-                if (res?.isSuccess && res.result) {
-                    let DATA = res.result;
-                    DATA.unshift(
-                        {
-                            id: "",
-                            category: "",
-                            name: translate("全部"),
-                            categoryType: "Category",
-                            isNew: false,
-                        },
-                        {
-                            id: "",
-                            category: "",
-                            name: translate("全部"),
-                            categoryType: "Feature",
-                            isNew: false,
-                        },
-                        // {
-                        //     id: "",
-                        //     category: "",
-                        //     name: translate("全部"),
-                        //     categoryType: "Line",
-                        //     isNew: false,
-                        // }
-                    );
-                    this.setState({
-                        CategoryData: DATA,
-                    });
-                }
-            });
+        get(
+            ApiPort.CmsSubCategory +
+                `?gameType=${this.props.Routerpath}&api-version=2.0&Platform=Desktop`,
+        ).then((res) => {
+            if (res?.isSuccess && res.result) {
+                let DATA = res.result;
+                DATA.unshift(
+                    {
+                        id: "",
+                        category: "",
+                        name: translate("全部"),
+                        categoryType: "Category",
+                        isNew: false,
+                    },
+                    {
+                        id: "",
+                        category: "",
+                        name: translate("全部"),
+                        categoryType: "Feature",
+                        isNew: false,
+                    },
+                    // {
+                    //     id: "",
+                    //     category: "",
+                    //     name: translate("全部"),
+                    //     categoryType: "Line",
+                    //     isNew: false,
+                    // }
+                );
+                this.setState({
+                    CategoryData: DATA,
+                });
+            }
+        });
     }
 
     // 游戏平台分类查询
@@ -165,10 +183,16 @@ class Gamelobby extends React.Component {
         });
 
         this.setState(
-            { currentType: val, gameSubCatCode: "", keyword: "", pageNumber: 1, pageSize: this._getPageSize(1) },
+            {
+                currentType: val,
+                gameSubCatCode: "",
+                keyword: "",
+                pageNumber: 1,
+                pageSize: this._getPageSize(1),
+            },
             () => {
                 this.changeGamesType();
-            }
+            },
         );
     }
 
@@ -178,7 +202,7 @@ class Gamelobby extends React.Component {
      */
     changeGamesType() {
         this.setState({
-            isLoading: true
+            isLoading: true,
         });
         const {
             pageNumber,
@@ -191,57 +215,100 @@ class Gamelobby extends React.Component {
             issearch,
             gameSubCatCodeArry,
             CategoryActive,
-            FeatureActive
+            FeatureActive,
         } = this.state;
 
         /* 获取游戏列表 */
         get(
             ApiPort.CmsGames +
-            `?gameType=${this.props.Routerpath}&gameSortingType=${isSort || ""}&category=${isSort === "Default" ? CategoryActive || FeatureActive : ""}&api-version=2.0&platform=Desktop`
+                `?gameType=${this.props.Routerpath}&gameSortingType=${isSort || ""}&category=${isSort === "Default" ? CategoryActive || FeatureActive : ""}&api-version=2.0&platform=Desktop`,
         )
             .then((res) => {
                 if (res.isSuccess && res.result) {
                     let filteredGameDetails = res.result?.gameDetails;
 
-                    if (currentType) {       //篩選平台
-                        filteredGameDetails = currentType === "FISHING" //特別處理當點擊navbar的捕魚遊戲時
-                            ? filteredGameDetails.filter(item =>
-                                item.categories.some(cate => cate.categoryName === "FishingGame"))
-                            : filteredGameDetails.filter(item => item.provider === currentType);
+                    if (currentType) {
+                        //篩選平台
+                        filteredGameDetails =
+                            currentType === "FISHING" //特別處理當點擊navbar的捕魚遊戲時
+                                ? filteredGameDetails.filter((item) =>
+                                      item.categories.some(
+                                          (cate) =>
+                                              cate.categoryName ===
+                                              "FishingGame",
+                                      ),
+                                  )
+                                : filteredGameDetails.filter(
+                                      (item) => item.provider === currentType,
+                                  );
                     }
 
-                    if (CategoryActive !== "") {    // 篩選遊戲類型
-                        filteredGameDetails = filteredGameDetails.filter(item =>
-                            item.categories.some(cate => cate.categoryName === CategoryActive)
+                    if (CategoryActive !== "") {
+                        // 篩選遊戲類型
+                        filteredGameDetails = filteredGameDetails.filter(
+                            (item) =>
+                                item.categories.some(
+                                    (cate) =>
+                                        cate.categoryName === CategoryActive,
+                                ),
                         );
                     }
 
-                    if (FeatureActive !== "") {    // 篩選遊戲特色
-                        filteredGameDetails = filteredGameDetails.filter(item =>
-                            item.categories.some(cate => cate.categoryName === FeatureActive)
-                        )
+                    if (FeatureActive !== "") {
+                        // 篩選遊戲特色
+                        filteredGameDetails = filteredGameDetails.filter(
+                            (item) =>
+                                item.categories.some(
+                                    (cate) =>
+                                        cate.categoryName === FeatureActive,
+                                ),
+                        );
                     }
 
-                    if (this.props.Routerpath === "Slot") { //老虎機才會有賠付線
-                        if (LineActive !== "") {  //篩選賠付線
-                            filteredGameDetails = filteredGameDetails.filter(item =>
-                                item.categories.some(cate => cate.categoryName === LineActive)
+                    if (this.props.Routerpath === "Slot") {
+                        //老虎機才會有賠付線
+                        if (LineActive !== "") {
+                            //篩選賠付線
+                            filteredGameDetails = filteredGameDetails.filter(
+                                (item) =>
+                                    item.categories.some(
+                                        (cate) =>
+                                            cate.categoryName === LineActive,
+                                    ),
                             );
                         }
                     }
 
-                    if (keyword !== "") {    // 關鍵字搜尋
-                        filteredGameDetails = filteredGameDetails.filter(item =>
-                            item.gameName.toLowerCase().indexOf(keyword.toLowerCase()) >= 0
-                        )
+                    if (keyword !== "") {
+                        // 關鍵字搜尋
+                        filteredGameDetails = filteredGameDetails.filter(
+                            (item) =>
+                                item.gameName
+                                    .toLowerCase()
+                                    .indexOf(keyword.toLowerCase()) >= 0,
+                        );
                     }
-                    if (HostConfig.Config.IsLIVE || HostConfig.Config.IsSoftLaunch) {  //新增isLive判斷
-                        filteredGameDetails = filteredGameDetails.filter(item =>
-                            item.isLive == true)
+                    if (
+                        HostConfig.Config.IsLIVE ||
+                        HostConfig.Config.IsSoftLaunch
+                    ) {
+                        //新增isLive判斷
+                        filteredGameDetails = filteredGameDetails.filter(
+                            (item) => item.isLive == true,
+                        );
                     }
                     //分頁功能
                     //分頁功能 //第一頁為22筆資料，第一頁之後為每頁25筆資料
-                    const currentPosts = pageNumber === 1 ? filteredGameDetails?.slice((pageNumber - 1) * pageSize, pageNumber * pageSize) : filteredGameDetails?.slice((pageNumber - 1) * pageSize - 3, pageNumber * pageSize - 3);
+                    const currentPosts =
+                        pageNumber === 1
+                            ? filteredGameDetails?.slice(
+                                  (pageNumber - 1) * pageSize,
+                                  pageNumber * pageSize,
+                              )
+                            : filteredGameDetails?.slice(
+                                  (pageNumber - 1) * pageSize - 3,
+                                  pageNumber * pageSize - 3,
+                              );
                     if (issearch) {
                         this.setState({
                             totalRecord: filteredGameDetails.length,
@@ -262,11 +329,12 @@ class Gamelobby extends React.Component {
                     issearch: false,
                     keyword: "",
                 });
-            }).finally(() => {
+            })
+            .finally(() => {
                 this.setState({
                     isLoading: false,
                 });
-            })
+            });
     }
 
     // 游戏分类和搜寻
@@ -284,14 +352,22 @@ class Gamelobby extends React.Component {
             },
             () => {
                 this.changeGamesType();
-            }
+            },
         );
         switch (this.props.Routerpath) {
             case "Sportsbook":
-                Pushgtagdata("V2Sports_Lobby​", "Search Game", "V2Sports_Lobby_C_Search​");
+                Pushgtagdata(
+                    "V2Sports_Lobby​",
+                    "Search Game",
+                    "V2Sports_Lobby_C_Search​",
+                );
                 break;
             case "InstantGames":
-                Pushgtagdata("InstantGame_Lobby​", "Search Game", "InstantGame_Lobby_C_Search​");
+                Pushgtagdata(
+                    "InstantGame_Lobby​",
+                    "Search Game",
+                    "InstantGame_Lobby_C_Search​",
+                );
                 break;
             default:
                 break;
@@ -308,10 +384,9 @@ class Gamelobby extends React.Component {
             },
             () => {
                 this.changeGamesType();
-            }
+            },
         );
     };
-
 
     // 游戏类型
     subcategory(category) {
@@ -328,7 +403,7 @@ class Gamelobby extends React.Component {
             return {
                 gameSubCatCode: LineActive ? "" : category,
                 gameSubCatCodeArry,
-                pageNumber: 1
+                pageNumber: 1,
             };
         }, this.changeGamesType);
     }
@@ -365,7 +440,7 @@ class Gamelobby extends React.Component {
                     [
                         { customVariableKey: `V2Sports_Lobby_C_SortType​` },
                         { customVariableValue: v },
-                    ]
+                    ],
                 );
                 break;
             default:
@@ -386,9 +461,7 @@ class Gamelobby extends React.Component {
             isVTG,
             isSlot,
         } = this.state;
-        const {
-            Routerpath
-        } = this.props;
+        const { Routerpath } = this.props;
 
         let gamesContentTitle = "";
         switch (Routerpath) {
@@ -464,7 +537,7 @@ class Gamelobby extends React.Component {
                                             },
                                             () => {
                                                 this.changeGamesType();
-                                            }
+                                            },
                                         );
                                     }}
                                     style={{
@@ -478,8 +551,9 @@ class Gamelobby extends React.Component {
                                 </a>
                             )}
                             <div
-                                className={`menu-list ${isVTG && "vtg-menu-list"
-                                    }`}
+                                className={`menu-list ${
+                                    isVTG && "vtg-menu-list"
+                                }`}
                             >
                                 {/* <div className="clear-search">
 									<h4 style={{ flex: 1 }}>筛选</h4>
@@ -499,19 +573,22 @@ class Gamelobby extends React.Component {
                                             className="game-type"
                                             key={JSON.stringify(
                                                 Router.router &&
-                                                Router.router.query
+                                                    Router.router.query,
                                             )}
                                         >
                                             <li
                                                 className={
                                                     this.state.currentType ===
-                                                        ""
+                                                    ""
                                                         ? "curr"
                                                         : ""
                                                 }
                                                 onClick={() => {
                                                     this.filterTypeData("");
-                                                    gameLobbyFilterTypeDataPiwik(this.props.Routerpath, this.state.currentType)
+                                                    gameLobbyFilterTypeDataPiwik(
+                                                        this.props.Routerpath,
+                                                        this.state.currentType,
+                                                    );
                                                 }}
                                             >
                                                 {translate("全部")}
@@ -521,15 +598,15 @@ class Gamelobby extends React.Component {
                                                 GamesProvider.filter(
                                                     (item) =>
                                                         item.providerId !=
-                                                        "306" &&
+                                                            "306" &&
                                                         item.providerGameId !==
-                                                        -100
+                                                            -100,
                                                 ).map((item, index) => {
                                                     if (
                                                         item.providerId ===
-                                                        "70" &&
+                                                            "70" &&
                                                         item.providerGameId !==
-                                                        -100
+                                                            -100
                                                     )
                                                         return; // 擋掉PT
                                                     return (
@@ -543,13 +620,18 @@ class Gamelobby extends React.Component {
                                                                         item.providerCode,
                                                                     isNew: item.isNew,
                                                                     isHot: item.isHot,
-                                                                }
+                                                                },
                                                             )}
                                                             onClick={() => {
                                                                 this.filterTypeData(
-                                                                    item.providerCode
+                                                                    item.providerCode,
                                                                 );
-                                                                gameLobbyFilterTypeDataPiwik(this.props.Routerpath, this.state.currentType)
+                                                                gameLobbyFilterTypeDataPiwik(
+                                                                    this.props
+                                                                        .Routerpath,
+                                                                    this.state
+                                                                        .currentType,
+                                                                );
                                                             }}
                                                             key={index}
                                                         >
@@ -578,12 +660,12 @@ class Gamelobby extends React.Component {
                                             },
                                             () => {
                                                 this.subcategory(category);
-                                            }
+                                            },
                                         );
                                         Pushgtagdata(
                                             "Game Nav",
                                             "View",
-                                            `${category}_${this.props.Routerpath}_ProductPage`
+                                            `${category}_${this.props.Routerpath}_ProductPage`,
                                         );
                                     }}
                                     gameSubCatCode={this.state.CategoryActive}
@@ -601,9 +683,12 @@ class Gamelobby extends React.Component {
                                             },
                                             () => {
                                                 this.subcategory(category);
-                                            }
+                                            },
                                         );
-                                        gameLobbyFilterTypeDataPiwik(this.props.Routerpath, category)
+                                        gameLobbyFilterTypeDataPiwik(
+                                            this.props.Routerpath,
+                                            category,
+                                        );
                                     }}
                                     gameSubCatCode={this.state.FeatureActive}
                                 />
@@ -620,12 +705,12 @@ class Gamelobby extends React.Component {
                                             },
                                             () => {
                                                 this.subcategory(category);
-                                            }
+                                            },
                                         );
                                         Pushgtagdata(
                                             "Game Nav",
                                             "View",
-                                            `${category}_${this.props.Routerpath}_ProductPage`
+                                            `${category}_${this.props.Routerpath}_ProductPage`,
                                         );
                                     }}
                                     gameSubCatCode={this.state.LineActive}
@@ -637,14 +722,14 @@ class Gamelobby extends React.Component {
                                             className="game-type"
                                             key={JSON.stringify(
                                                 Router.router &&
-                                                Router.router.query
+                                                    Router.router.query,
                                             )}
                                             style={{ marginBottom: 0 }}
                                         >
                                             <li
                                                 className={
                                                     this.state.currentType ===
-                                                        ""
+                                                    ""
                                                         ? "curr"
                                                         : ""
                                                 }
@@ -666,22 +751,22 @@ class Gamelobby extends React.Component {
                                                                             this
                                                                                 .state
                                                                                 .currentType ===
-                                                                                item.providerCode
+                                                                            item.providerCode
                                                                                 ? "curr"
                                                                                 : "",
                                                                         isNew: item.isNew,
                                                                         isHot: item.isHot,
-                                                                    }
+                                                                    },
                                                                 )}
                                                                 onClick={() => {
                                                                     this.filterTypeData(
-                                                                        item.providerCode
+                                                                        item.providerCode,
                                                                     );
                                                                     platformsGtag(
                                                                         this
                                                                             .props
                                                                             .Routerpath,
-                                                                        item.providerCode
+                                                                        item.providerCode,
                                                                     );
                                                                 }}
                                                                 key={index}
@@ -691,7 +776,7 @@ class Gamelobby extends React.Component {
                                                                 }
                                                             </li>
                                                         );
-                                                    }
+                                                    },
                                                 )}
                                             {GamesProvider == "" && <Empty />}
                                         </ul>
@@ -705,15 +790,21 @@ class Gamelobby extends React.Component {
                             <div>
                                 <div className="top-title">
                                     <h3>{gamesContentTitle}</h3>
-                                    {this.showSortedList.includes(Routerpath) && (
+                                    {this.showSortedList.includes(
+                                        Routerpath,
+                                    ) && (
                                         <div className="filterSlot">
                                             <Select
                                                 suffixIcon={
-                                                    <img src={`${process.env.BASE_PATH}/img/icon/select-icon.svg`} />
+                                                    <img
+                                                        src={`${process.env.BASE_PATH}/img/icon/select-icon.svg`}
+                                                    />
                                                 }
                                                 dropdownClassName="small-option forGameLobby"
                                                 defaultValue={this.state.isSort}
-                                                placeholder={translate("默认(小写)")}
+                                                placeholder={translate(
+                                                    "默认(小写)",
+                                                )}
                                                 dropdownStyle={{
                                                     zIndex: 1,
                                                     color: !this.state
@@ -722,7 +813,7 @@ class Gamelobby extends React.Component {
                                                         : "#000",
                                                 }}
                                                 onChange={this.changedSort.bind(
-                                                    this
+                                                    this,
                                                 )}
                                                 key={this.state.isSort}
                                             >
@@ -753,15 +844,17 @@ class Gamelobby extends React.Component {
                                                         className={
                                                             (!pageNumber ||
                                                                 pageNumber ==
-                                                                1) &&
-                                                                index == 0
+                                                                    1) &&
+                                                            index == 0
                                                                 ? "active"
                                                                 : ""
                                                         }
                                                         id={items.provider}
                                                         key={index}
                                                         onClick={() => {
-                                                            gameListOpenGamePiwik(items)
+                                                            gameListOpenGamePiwik(
+                                                                items,
+                                                            );
                                                         }}
                                                     >
                                                         <OpenGame
@@ -782,9 +875,7 @@ class Gamelobby extends React.Component {
                                                             }}
                                                         />
                                                         <div className="click-btn">
-                                                            <div
-                                                                className="open"
-                                                            >
+                                                            <div className="open">
                                                                 {items.gameName}
                                                                 <Tag
                                                                     provider={
@@ -801,16 +892,24 @@ class Gamelobby extends React.Component {
                                                     image={
                                                         "/vn/img/icon/img-no-record.svg"
                                                     }
-                                                    description={translate("这里什么都没有，换个游戏试试")}
+                                                    description={translate(
+                                                        "这里什么都没有，换个游戏试试",
+                                                    )}
                                                 />
                                             )}
                                         </div>
                                         <div className="PaginationBox">
                                             <Pagination
                                                 className="gameLobby-pagination"
-                                                key={totalPage * this.state.pageSize}
+                                                key={
+                                                    totalPage *
+                                                    this.state.pageSize
+                                                }
                                                 hideOnSinglePage={true}
-                                                total={totalPage * this.state.pageSize}
+                                                total={
+                                                    totalPage *
+                                                    this.state.pageSize
+                                                }
                                                 pageSize={this.state.pageSize}
                                                 defaultCurrent={
                                                     this.state.pageNumber
@@ -839,7 +938,9 @@ const mapStateToProps = function (state) {
 const mapDispatchToProps = function (dispatch) {
     return {
         getFlashProviderList: (categoryType, isShowFishingGames) => {
-            dispatch(getFlashProviderListAction(categoryType, isShowFishingGames));
+            dispatch(
+                getFlashProviderListAction(categoryType, isShowFishingGames),
+            );
         },
     };
 };

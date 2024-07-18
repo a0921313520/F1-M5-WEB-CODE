@@ -1,10 +1,10 @@
 import React from "react";
-import { Row, Col, Popover,Select, Modal } from "antd";
+import { Row, Col, Popover, Select, Modal } from "antd";
 import Router from "next/router";
 import HostConfig from "$ACTIONS/Host.config";
 import CMSOBJ from "$DATA/stage.live.static.id";
 import ImageWithFallback from "@/ImageWithFallback/imgLocal";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 const { Option } = Select;
 export default class Footer extends React.Component {
@@ -22,30 +22,32 @@ export default class Footer extends React.Component {
             ],
         };
     }
-    handleChange=(e) => {
-        if(typeof window !== "undefined"){
-            const language = (e === '/th') ? "Thailand" :"China";
-            this.setState({language})
+    handleChange = (e) => {
+        if (typeof window !== "undefined") {
+            const language = e === "/th" ? "Thailand" : "China";
+            this.setState({ language });
             window.location.href = e;
         }
-    }
-    showTelegramQRCood=()=>{
+    };
+    showTelegramQRCood = () => {
         const QRCood = Modal.info({
             title: "",
             centered: true,
             okText: translate("关闭"),
             closable: true,
-            icon:null,
+            icon: null,
             content: (
                 <div>
-                    <img src={`${process.env.BASE_PATH}/img/footer/social/Contact_TG-VN.jpg`} />
+                    <img
+                        src={`${process.env.BASE_PATH}/img/footer/social/Contact_TG-VN.jpg`}
+                    />
                 </div>
             ),
             onOk: () => {
-                QRCood.destroy()
+                QRCood.destroy();
             },
-        })
-    }
+        });
+    };
     render() {
         const footerIcon = [
             "AG",
@@ -76,10 +78,13 @@ export default class Footer extends React.Component {
             "BNG",
             "NAGA",
             "BTG",
-            "REDTIGER"
+            "REDTIGER",
         ];
-        const {language,languageArray} = this.state;
-        const isLogin = typeof window !== "undefined" && !!localStorage.getItem("access_token") && localStorage.getItem("access_token");
+        const { language, languageArray } = this.state;
+        const isLogin =
+            typeof window !== "undefined" &&
+            !!localStorage.getItem("access_token") &&
+            localStorage.getItem("access_token");
         return (
             <React.Fragment>
                 <div className="common-distance-wrap footer-platform-wrap">
@@ -166,10 +171,10 @@ export default class Footer extends React.Component {
                                             onClick={() => {
                                                 window.open(
                                                     "hhttps://www.facebook.com/FunSportVietNam",
-                                                    "_blank"
+                                                    "_blank",
                                                 );
                                                 Pushgtagdata(
-                                                    "Sina_socialmedia_footer_homepage"
+                                                    "Sina_socialmedia_footer_homepage",
                                                 );
                                             }}
                                         ></li>
@@ -186,10 +191,10 @@ export default class Footer extends React.Component {
                                             onClick={() => {
                                                 window.open(
                                                     "https://www.youtube.com/@funsportgame8887",
-                                                    "_blank"
+                                                    "_blank",
                                                 );
                                                 Pushgtagdata(
-                                                    "Tencent_socialmedia_footer_homepage"
+                                                    "Tencent_socialmedia_footer_homepage",
                                                 );
                                             }}
                                         ></li>
@@ -206,10 +211,10 @@ export default class Footer extends React.Component {
                                             onClick={() => {
                                                 window.open(
                                                     "https://www.instagram.com/funsportvn/",
-                                                    "_blank"
+                                                    "_blank",
                                                 );
                                                 Pushgtagdata(
-                                                    "Tencent_socialmedia_footer_homepage"
+                                                    "Tencent_socialmedia_footer_homepage",
                                                 );
                                             }}
                                         ></li>
@@ -226,10 +231,10 @@ export default class Footer extends React.Component {
                                             onClick={() => {
                                                 window.open(
                                                     "https://www.tiktok.com/@fun.sport",
-                                                    "_blank"
+                                                    "_blank",
                                                 );
                                                 Pushgtagdata(
-                                                    "Tencent_socialmedia_footer_homepage"
+                                                    "Tencent_socialmedia_footer_homepage",
                                                 );
                                             }}
                                         ></li>
@@ -244,9 +249,9 @@ export default class Footer extends React.Component {
                                         <li
                                             className="icon-item2 _11"
                                             onClick={() => {
-                                                this.showTelegramQRCood()
+                                                this.showTelegramQRCood();
                                                 Pushgtagdata(
-                                                    "Tencent_socialmedia_footer_homepage"
+                                                    "Tencent_socialmedia_footer_homepage",
                                                 );
                                             }}
                                         ></li>
@@ -268,7 +273,7 @@ export default class Footer extends React.Component {
                                             onClick={() => {
                                                 window.open(
                                                     "http://www.gamcare.org.uk/",
-                                                    "_blank"
+                                                    "_blank",
                                                 );
                                             }}
                                         ></li>
@@ -316,25 +321,32 @@ export default class Footer extends React.Component {
                                     </li>
                                 </ul>
                             </Col>
-                            {!isLogin && <Col span={3}>
-                                <Select
-                                    size="large"
-                                    dropdownClassName="footer-small-drop"
-                                    className={`select-language-box ${language}`}
-                                    defaultValue={language}
-                                    onChange={this.handleChange}
-                                    suffixIcon={<img src={`${process.env.BASE_PATH}/img/icon/icon-extand.svg`} alt="extand"/>}
-                                >
-                                    {languageArray.map((item) => (
-                                        <Option
-                                            key={item.path}
-                                        >   
-                                            <img src={`${process.env.BASE_PATH}/img/footer/language/${item.name}.svg`}/>
-                                            <span>{item.language}</span>
-                                        </Option>
-                                    ))}
-                                </Select>
-                            </Col>}
+                            {!isLogin && (
+                                <Col span={3}>
+                                    <Select
+                                        size="large"
+                                        dropdownClassName="footer-small-drop"
+                                        className={`select-language-box ${language}`}
+                                        defaultValue={language}
+                                        onChange={this.handleChange}
+                                        suffixIcon={
+                                            <img
+                                                src={`${process.env.BASE_PATH}/img/icon/icon-extand.svg`}
+                                                alt="extand"
+                                            />
+                                        }
+                                    >
+                                        {languageArray.map((item) => (
+                                            <Option key={item.path}>
+                                                <img
+                                                    src={`${process.env.BASE_PATH}/img/footer/language/${item.name}.svg`}
+                                                />
+                                                <span>{item.language}</span>
+                                            </Option>
+                                        ))}
+                                    </Select>
+                                </Col>
+                            )}
                         </Row>
                         <div>
                             <h4>{translate("游戏平台")}</h4>
@@ -426,12 +438,12 @@ export default class Footer extends React.Component {
                         <div className="copyright-content">
                             <p>
                                 {translate(
-                                    "Fun88乐天堂属于OG GLOBAL ACCESS LIMITED 运营"
+                                    "Fun88乐天堂属于OG GLOBAL ACCESS LIMITED 运营",
                                 )}
                             </p>
                             <p>
                                 {translate(
-                                    "FUN88乐天堂于2019年3月1日起获得菲律宾政府PAGCOR授权并监管"
+                                    "FUN88乐天堂于2019年3月1日起获得菲律宾政府PAGCOR授权并监管",
                                 )}
                             </p>
                             <p>

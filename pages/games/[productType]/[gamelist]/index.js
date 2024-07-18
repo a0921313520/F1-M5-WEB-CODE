@@ -6,7 +6,7 @@
  * @Description: 老虎机
  * @FilePath: \F1-M1-WEB-Code\pages\cn\Games\InstantGames\lobby\index.js
  */
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/Layout";
 import { useRouter } from "next/router";
 import GameList from "@/Games/lobby";
@@ -17,27 +17,15 @@ import GameStatic from "$DATA/game.static";
 const gameProviderMap = [
     {
         code: "Sportsbook",
-        providers: [
-            "OWS",
-            "CML",
-            "IPSB",
-            "SBT",
-            "VTG",
-        ]
+        providers: ["OWS", "CML", "IPSB", "SBT", "VTG"],
     },
     {
         code: "ESports",
-        providers: [
-            "TFG",
-            "IPES",
-        ]
+        providers: ["TFG", "IPES"],
     },
     {
         code: "InstantGames",
-        providers: [
-            "SPR",
-            "AVIATOR",
-        ]
+        providers: ["SPR", "AVIATOR"],
     },
     {
         code: "LiveCasino",
@@ -51,8 +39,8 @@ const gameProviderMap = [
             "AGL",
             "WMC",
             "TG",
-            "gamelist"
-        ]
+            "gamelist",
+        ],
     },
     {
         code: "Slot",
@@ -77,98 +65,96 @@ const gameProviderMap = [
             "BNG",
             "NGS",
             "EVORT",
-            "gamelist"
-        ]
+            "gamelist",
+        ],
     },
     {
         code: "P2P",
-        providers: [
-            "TGP",
-            "KPK",
-            "JKR",
-            "gamelist"
-        ]
+        providers: ["TGP", "KPK", "JKR", "gamelist"],
     },
     {
         code: "KenoLottery",
-        providers: [
-            "SGW",
-            "TCG",
-            "GPK",
-            "SLC",
-            "gamelist"
-        ]
-    }
+        providers: ["SGW", "TCG", "GPK", "SLC", "gamelist"],
+    },
 ];
 
 export async function getStaticPaths() {
-    const paths = gameProviderMap.reduce((acc, item) => {
-        const singleGameTypeProviders = item.providers.map(provider => {
-            return { params: { productType: GameStatic.find(cate => cate.providerName === item.code).path, gamelist: provider } }
-        })
-        acc.push(singleGameTypeProviders)
-        return acc
-    }, []).flat()
+    const paths = gameProviderMap
+        .reduce((acc, item) => {
+            const singleGameTypeProviders = item.providers.map((provider) => {
+                return {
+                    params: {
+                        productType: GameStatic.find(
+                            (cate) => cate.providerName === item.code,
+                        ).path,
+                        gamelist: provider,
+                    },
+                };
+            });
+            acc.push(singleGameTypeProviders);
+            return acc;
+        }, [])
+        .flat();
     return {
         fallback: false,
-        paths
-    }
+        paths,
+    };
 }
 export async function getStaticProps(context) {
     return {
         props: { query: context.params },
-    }
+    };
 }
 
 export default function GameListRouter() {
     const router = useRouter();
-    const [isHoldonStartGame, setIsHoldonStartGame] = useState(true)
+    const [isHoldonStartGame, setIsHoldonStartGame] = useState(true);
     const productType = router.query.productType;
     const gamelist = router.query.gamelist;
     const gameid = router.query.gameid;
     const selectedProduct = GameStatic.find((item) => item.path == productType);
     useEffect(() => {
-        console.log("🚀 ~ GameListRouter ~ router:", router.query)
-    }, [productType])
+        console.log("🚀 ~ GameListRouter ~ router:", router.query);
+    }, [productType]);
 
     let content = "",
         components = <></>;
     if (gamelist === "gamelist") {
-        content = "gamelist"
-    }
-    else {
+        content = "gamelist";
+    } else {
         if (["Sportsbook", "ESports"].some((item) => item == productType)) {
             if (gamelist === "VTG") {
-                content = "gamelist"
+                content = "gamelist";
+            } else {
+                content = "opengame";
             }
-            else {
-                content = "opengame"
-            }
-        }
-        else {
+        } else {
             if (gameid) {
-                content = "opengame"
-            }
-            else {
-                content = "gamelist"
+                content = "opengame";
+            } else {
+                content = "gamelist";
             }
         }
     }
 
     switch (content) {
         case "gamelist":
-            components = <GameList
-                Routerpath={selectedProduct.providerName}
-                provider={gamelist}
-                key={JSON.stringify(router.query)}
-            />
+            components = (
+                <GameList
+                    Routerpath={selectedProduct.providerName}
+                    provider={gamelist}
+                    key={JSON.stringify(router.query)}
+                />
+            );
             break;
         case "opengame":
-            components = <GameIfream
-                productCode={selectedProduct.providerName}
-                provider={gamelist}
-                key={JSON.stringify(router.query)}
-            />
+            components = (
+                <GameIfream
+                    productCode={selectedProduct.providerName}
+                    provider={gamelist}
+                    key={JSON.stringify(router.query)}
+                />
+            );
             break;
         default:
             components = null;
@@ -185,9 +171,9 @@ export default function GameListRouter() {
             {/* 紧急公告弹窗 */}
             <Announcement
                 optionType={selectedProduct.providerName}
-                autoExecuteCancelFnWhenLoadedAndNotVisible={true} 
-                extraCancelFn={()=>{
-                    setIsHoldonStartGame(false) 
+                autoExecuteCancelFnWhenLoadedAndNotVisible={true}
+                extraCancelFn={() => {
+                    setIsHoldonStartGame(false);
                 }}
             />
         </Layout>

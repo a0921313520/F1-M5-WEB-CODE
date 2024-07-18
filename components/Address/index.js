@@ -20,7 +20,7 @@ class Address extends React.Component {
             visible: false,
             type: "",
             showDetail: false,
-            addressKey: -999
+            addressKey: -999,
         };
     }
     componentDidMount() {
@@ -44,34 +44,32 @@ class Address extends React.Component {
             })
             .catch((error) => {
                 console.log(error);
-            }).finally(() => {
-                this.props.setLoading(false);
             })
+            .finally(() => {
+                this.props.setLoading(false);
+            });
     };
 
-    clearParams = (bool=false) => {
+    clearParams = (bool = false) => {
         this.setState({
             showDetail: false,
             addressKey: -999,
-            type: ""
-        })
-        bool && this.getShippingAddress()
-    }
+            type: "",
+        });
+        bool && this.getShippingAddress();
+    };
 
     render() {
-        const {
-            address,
-            showDetail,
-            type,
-            addressKey
-        } = this.state;
+        const { address, showDetail, type, addressKey } = this.state;
         return (
             <React.Fragment>
                 <div className="account-wrap address-management">
                     <h2>{translate("奖励地址管理")}</h2>
                     <div className="line-distance" />
                     <div className="modal-prompt-info">
-                        {translate("请确保此送货地址正确，以确保礼品能够按时送达")}
+                        {translate(
+                            "请确保此送货地址正确，以确保礼品能够按时送达",
+                        )}
                     </div>
                     <div className="line-distance" />
                     <div className="address-wrap">
@@ -79,20 +77,23 @@ class Address extends React.Component {
                             <div className="address-item-list">
                                 {address.map((item, index) => {
                                     return (
-                                        <div className="address-item" key={index}>
+                                        <div
+                                            className="address-item"
+                                            key={index}
+                                        >
                                             <div className="info-name-edit">
                                                 <div className="info-name">
-                                                    {item.lastName}
-                                                    {" "}
+                                                    {item.lastName}{" "}
                                                     {item.firstName}
                                                 </div>
                                                 <div className="info-edit">
-                                                    {item.defaultAddress ? 
-                                                        <span
-                                                            className="default"
-                                                        >
+                                                    {item.defaultAddress ? (
+                                                        <span className="default">
                                                             {translate("默认")}
-                                                        </span>:<span/>}
+                                                        </span>
+                                                    ) : (
+                                                        <span />
+                                                    )}
                                                     <span
                                                         className="edit"
                                                         onClick={(e) => {
@@ -101,33 +102,48 @@ class Address extends React.Component {
                                                                 //编辑
                                                                 showDetail: true,
                                                                 type: "edit",
-                                                                addressKey: item.recordNo,
+                                                                addressKey:
+                                                                    item.recordNo,
                                                             });
                                                         }}
                                                     >
-                                                        <img style={{ width: "16px" }} src={`${process.env.BASE_PATH}/img/icon/editIcon.svg`} alt="edit" />
+                                                        <img
+                                                            style={{
+                                                                width: "16px",
+                                                            }}
+                                                            src={`${process.env.BASE_PATH}/img/icon/editIcon.svg`}
+                                                            alt="edit"
+                                                        />
                                                     </span>
-
                                                 </div>
                                             </div>
                                             <div className="info-phone">
-                                                {(item.cellphoneNo).startsWith("+84") ? item.cellphoneNo : "+84 " + item.cellphoneNo }
+                                                {item.cellphoneNo.startsWith(
+                                                    "+84",
+                                                )
+                                                    ? item.cellphoneNo
+                                                    : "+84 " + item.cellphoneNo}
                                             </div>
                                             <div className="info-address">
-                                                {item.provinceName + item.districtName + item.townName +" "+ item.address}
+                                                {item.provinceName +
+                                                    item.districtName +
+                                                    item.townName +
+                                                    " " +
+                                                    item.address}
                                             </div>
                                         </div>
-                                    )
+                                    );
                                 })}
                             </div>
                         ) : null}
                         {address.length < 3 ? (
-                            <div className="add-wallet-item"
+                            <div
+                                className="add-wallet-item"
                                 onClick={() => {
                                     this.setState({
                                         showDetail: true,
                                         type: "add",
-                                    })
+                                    });
                                 }}
                             >
                                 <Icon type="plus-circle" />{" "}
@@ -141,7 +157,9 @@ class Address extends React.Component {
                     addressKey={addressKey}
                     onCancel={this.clearParams}
                     visible={showDetail}
-                    setType={(v)=>{this.setState({type:v})}}
+                    setType={(v) => {
+                        this.setState({ type: v });
+                    }}
                     address={address}
                     setLoading={this.props.setLoading}
                 />

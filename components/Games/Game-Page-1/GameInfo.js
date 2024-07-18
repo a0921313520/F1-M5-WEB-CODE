@@ -3,7 +3,7 @@ import { Collapse, Skeleton, Modal } from "antd";
 import Router from "next/router";
 import OpenGame from "@/Games/openGame";
 import { translate } from "$ACTIONS/Translate";
-import { gameLobbyOpenGamePiwik } from "$ACTIONS/piwikData"
+import { gameLobbyOpenGamePiwik } from "$ACTIONS/piwikData";
 export class Gamesmain extends React.Component {
     constructor(props) {
         super(props);
@@ -24,22 +24,31 @@ export class Gamesmain extends React.Component {
             index: props.index,
         });
     }
-    componentWillUnmount(){
-        this.setState = ()=> false
+    componentWillUnmount() {
+        this.setState = () => false;
     }
     render() {
         const { staticdata } = this.props;
-        const currentGame = staticdata?.gameList && staticdata.gameList?.find(
-            item => item.providerCode === this.props.Gameslist[this.props.index].providerCode
-          ) || {};
+        const currentGame =
+            (staticdata?.gameList &&
+                staticdata.gameList?.find(
+                    (item) =>
+                        item.providerCode ===
+                        this.props.Gameslist[this.props.index].providerCode,
+                )) ||
+            {};
         const {
-        iconLeftText,
-        iconBonus,
-        iconBonusText,
-        iconRightText,
-        description
+            iconLeftText,
+            iconBonus,
+            iconBonusText,
+            iconRightText,
+            description,
         } = currentGame;
-        console.log("🚀 ~ file: GameInfo.js:131 ~ Gamesmain ~ render ~ currentGame:", currentGame,this.props.Gameslist)
+        console.log(
+            "🚀 ~ file: GameInfo.js:131 ~ Gamesmain ~ render ~ currentGame:",
+            currentGame,
+            this.props.Gameslist,
+        );
         return (
             <div>
                 <div className="down-banner">
@@ -50,9 +59,7 @@ export class Gamesmain extends React.Component {
                                     this.props.Gameslist[this.props.index]
                                         .providerName}
                             </h2>
-                            <h4>
-                                {staticdata.egameNames}
-                            </h4>
+                            <h4>{staticdata.egameNames}</h4>
                         </center>
                         <div className="left" key={this.props.index}>
                             {description || translate("没有数据")}
@@ -62,9 +69,7 @@ export class Gamesmain extends React.Component {
                             <ul className="icon">
                                 <li>
                                     <img src={staticdata.iconleft} />
-                                    <p>
-                                        {iconLeftText}
-                                    </p>
+                                    <p>{iconLeftText}</p>
                                 </li>
                                 <li className="number">
                                     <i>{iconBonus ? `${iconBonus}%` : ""}</i>
@@ -89,7 +94,11 @@ export class Gamesmain extends React.Component {
                                                         this.props.index
                                                     ];
                                                 porps.openGame({
-                                                    Type: item.providerCode === "VTG" ? "HeaderMenu" : null,
+                                                    Type:
+                                                        item.providerCode ===
+                                                        "VTG"
+                                                            ? "HeaderMenu"
+                                                            : null,
                                                     gameName:
                                                         item.providerTitle,
                                                     provider: item.providerCode,

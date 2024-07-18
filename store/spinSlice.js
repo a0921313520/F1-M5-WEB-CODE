@@ -7,7 +7,7 @@
  * @FilePath: \F1-M1-WEB-Code\store\spinSlice.js
  */
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import {translate} from "$ACTIONS/Translate";
+import { translate } from "$ACTIONS/Translate";
 
 // 定义 slice
 const spinSlice = createSlice({

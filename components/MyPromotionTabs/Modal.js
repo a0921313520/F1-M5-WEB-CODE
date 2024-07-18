@@ -8,8 +8,10 @@ const { Option } = Select;
 // 已申請資料Modal
 export function AppliedDataModal(props) {
     const { isVisible, onCancel, appliedItem } = props;
-    console.log("🚀 ~ file: Modal.js:11 ~ AppliedDataModal ~ appliedItem:", appliedItem)
-
+    console.log(
+        "🚀 ~ file: Modal.js:11 ~ AppliedDataModal ~ appliedItem:",
+        appliedItem,
+    );
 
     return (
         <Modal
@@ -64,9 +66,7 @@ export function AppliedDataModal(props) {
                     <div>
                         <label>{translate("奖励地址")}</label>
                         <div className="ant-input-group-wrapper">
-                            <h4>
-                                {translate("电话及地址信息")}
-                            </h4>
+                            <h4>{translate("电话及地址信息")}</h4>
                             <p>+ {appliedItem.contactNo}</p>
                             <p>{}</p>
                         </div>
@@ -102,7 +102,7 @@ export function TransferModal(props) {
     });
 
     const [fromWalletName, setFromWalletName] = useState(
-        fromWalletListDetail[0].name
+        fromWalletListDetail[0].name,
     );
     const [inputAmount, setInputAmount] = useState(null);
 
@@ -112,11 +112,11 @@ export function TransferModal(props) {
     const refForm = useRef();
 
     const fromWalletDetail = currentMoneyList.find(
-        (wallet) => wallet.name === fromWalletName
+        (wallet) => wallet.name === fromWalletName,
     );
 
     const toWalletDetail = currentMoneyList.find(
-        (wallet) => wallet.localizedName === toWalletName
+        (wallet) => wallet.localizedName === toWalletName,
     );
 
     //最大滿足可得紅利
@@ -128,7 +128,7 @@ export function TransferModal(props) {
         const regex1 = /[^0-9]/g;
         const regex2 = /[+*/e-]/g;
         let validValue = Number(
-            String(value).replace(regex1, "").replace(regex2, "")
+            String(value).replace(regex1, "").replace(regex2, ""),
         );
         // if(validValue > selectedPromotionDetail.bonusMaxAmount){
 
@@ -143,7 +143,7 @@ export function TransferModal(props) {
         if (refInputAmount.current?.value || refToWalletInfo.current?.state) {
             refInputAmount.current.value = "";
             refToWalletInfo.current.state.value = `${toWalletName}  ¥ ${toWalletDetail.balance.toFixed(
-                2
+                2,
             )}`;
 
             console.log("refToWalletInfo", refToWalletInfo);
@@ -216,7 +216,9 @@ export function TransferModal(props) {
                     <div className="transfer-function-box">
                         {isOneClickTransfer && (
                             <div className="warm-reminder">
-                                {translate("注：请点击“一键”图标将余额转至“主账户”，然后将资金转至目标账户以注册参加促销活动")}
+                                {translate(
+                                    "注：请点击“一键”图标将余额转至“主账户”，然后将资金转至目标账户以注册参加促销活动",
+                                )}
                             </div>
                         )}
                         <div className="from-wallet-select-box">
@@ -236,7 +238,9 @@ export function TransferModal(props) {
                                         onTransferSubmit(data);
                                     }}
                                 >
-                                    <img src={`${process.env.BASE_PATH}/img/wallet/transfericon.svg`} />
+                                    <img
+                                        src={`${process.env.BASE_PATH}/img/wallet/transfericon.svg`}
+                                    />
                                 </button>
                             )}
 
@@ -255,9 +259,7 @@ export function TransferModal(props) {
                                     value={fromWalletName}
                                     defaultValue={fromWalletListDetail[0].name}
                                     getPopupContainer={() =>
-                                        document.getElementById(
-                                            "tabSelect"
-                                        )
+                                        document.getElementById("tabSelect")
                                     }
                                 >
                                     {fromWalletListDetail.map((wallet, i) => {
@@ -267,7 +269,7 @@ export function TransferModal(props) {
                                                     <p>{`${
                                                         wallet.localizedName
                                                     }  ¥ ${wallet.balance.toFixed(
-                                                        2
+                                                        2,
                                                     )}`}</p>
                                                 </div>
                                             </Option>
@@ -283,7 +285,7 @@ export function TransferModal(props) {
                                 ref={refToWalletInfo}
                                 className="input-transfer-to"
                                 defaultValue={`${toWalletName}  ¥ ${toWalletDetail?.balance.toFixed(
-                                    2
+                                    2,
                                 )}`}
                             />
                         </div>
@@ -307,13 +309,17 @@ export function TransferModal(props) {
                             </p>
                             <div className="amount-box">
                                 <div className="amount-item">
-                                    <p className="title">{translate("申请金额")}</p>
+                                    <p className="title">
+                                        {translate("申请金额")}
+                                    </p>
                                     <p className="amount">{`¥ ${
                                         inputAmount || 0
                                     }`}</p>
                                 </div>
                                 <div className="amount-item">
-                                    <p className="title">{translate("可得红利")}</p>
+                                    <p className="title">
+                                        {translate("可得红利")}
+                                    </p>
                                     <p className="amount">{`¥ ${
                                         (inputAmount || 0) *
                                             WalletBonusProfile.givingRate <=
@@ -324,7 +330,9 @@ export function TransferModal(props) {
                                     }`}</p>
                                 </div>
                                 <div className="amount-item">
-                                    <p className="title">{translate("所需流水")}</p>
+                                    <p className="title">
+                                        {translate("所需流水")}
+                                    </p>
                                     {/* <p className="amount">
                                         
                                         {(inputAmount || 0) *
@@ -360,7 +368,7 @@ export function TransferModal(props) {
                                 Pushgtagdata(
                                     "Transfer",
                                     "Submit",
-                                    `Transfer_${selectedPromotionDetail.promoId}`
+                                    `Transfer_${selectedPromotionDetail.promoId}`,
                                 );
                             }}
                         >
