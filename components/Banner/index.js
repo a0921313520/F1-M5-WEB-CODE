@@ -1,132 +1,33 @@
-import React from "react";
-import Router from "next/router";
-import ReactCardCarousel from "$DATA/js/reactCardCarousel";
-import { lazyLoadImg } from "$ACTIONS/util";
-import { Spin, Carousel } from "antd";
-import Image from "./img";
-import { translate } from "$ACTIONS/Translate";
-export default class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            index: 0,
-        };
+import React, { useEffect } from "react";
+import reduxStore from "./../../store/store";
+import useBearStore from "../../zustand/zustandStore";
 
-        this.timer = null;
-        this.tlcBanner = React.createRef();
+export default function Banner() {
+    const { value, increment, decrement } = useBearStore();
 
-        this.next = this.next.bind(this);
-        this.prev = this.prev.bind(this);
-        this.goIndex = this.goIndex.bind(this);
-        this.afterChange = this.afterChange.bind(this);
-    }
-    componentDidUpdate(prevProps) {
-        if (
-            this.props.bannerList.length !== prevProps.bannerList.length &&
-            this.props.bannerList.length
-        ) {
-            this.timer = setTimeout(() => {
-                lazyLoadImg("t_banner_wrapper");
-            }, 10);
-        }
-    }
-    componentWillUnmount() {
-        clearTimeout(this.timer);
-    }
-    next() {
-        this.tlcBanner.current.next();
-    }
-    prev() {
-        this.tlcBanner.current.prev();
-    }
-    goIndex(index) {
-        this.tlcBanner.current.goTo(index);
-    }
-    afterChange() {
-        this.setState({ index: this.tlcBanner.current.getCurrentIndex() });
-    }
-    render() {
-        return (
-            <React.Fragment>
-                <div
-                    id="t_banner_wrapper"
-                    className="common-distance-wrap tlc-banner-list"
+    useEffect(() => {
+        // log redux state
+        console.log("Redux state:", reduxStore.getState());
+    }, []);
+
+    return (
+        <div className="p-4 bg-gray-100">
+            <h1 className="text-2xl font-bold mb-4">Zustand Counter</h1>
+            <p className="text-lg mb-4">Value: {value}</p>
+            <div className="space-x-2">
+                <button
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    onClick={increment}
                 >
-                    {this.props.bannerList && this.props.bannerList.length ? (
-                        <React.Fragment>
-                            <ReactCardCarousel
-                                ref={this.tlcBanner}
-                                afterChange={this.afterChange}
-                                disable_keydown={true}
-                                autoplay={true}
-                                autoplay_speed={3000}
-                            >
-                                {this.props.bannerList.map((item, index) => {
-                                    return (
-                                        <div
-                                            key={index}
-                                            className={`tlc-banner-item ${
-                                                item.action &&
-                                                item.action.actionId !== 0 &&
-                                                "pointer"
-                                            }`}
-                                        >
-                                            <Image
-                                                item={item}
-                                                type="home"
-                                                width={1120}
-                                                height={410}
-                                            />
-                                        </div>
-                                    );
-                                })}
-                            </ReactCardCarousel>
-                            <div className="common-distance tlc-carousel-controller">
-                                <button
-                                    className="slide-arrow slide-prev"
-                                    onClick={this.prev}
-                                    aria-label="上一张"
-                                ></button>
-                                <button
-                                    className="slide-arrow slide-next"
-                                    onClick={this.next}
-                                    aria-label="下一张"
-                                ></button>
-                                <ul className="slide-list">
-                                    {this.props.bannerList.map(
-                                        (item, index) => {
-                                            return (
-                                                <li
-                                                    key={
-                                                        item.cmsImageUrl + index
-                                                    }
-                                                    className={`slide-item${
-                                                        this.state.index ===
-                                                        index
-                                                            ? " slide-item-active"
-                                                            : ""
-                                                    }`}
-                                                    onClick={() =>
-                                                        this.goIndex(index)
-                                                    }
-                                                >
-                                                    {index}
-                                                </li>
-                                            );
-                                        },
-                                    )}
-                                </ul>
-                            </div>
-                        </React.Fragment>
-                    ) : (
-                        <div className="common-distance">
-                            <div className="tlc-banner-item">
-                                <Spin size="large" tip={translate("加载中")} />
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </React.Fragment>
-        );
-    }
+                    Increment
+                </button>
+                <button
+                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={decrement}
+                >
+                    Decrement
+                </button>
+            </div>
+        </div>
+    );
 }
