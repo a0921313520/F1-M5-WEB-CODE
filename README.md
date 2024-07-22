@@ -1,30 +1,4 @@
-# F1-M5-WEB
-
-## Features
-
--   ✨ **[ESlint](https://eslint.org/)** and **[Prettier](https://prettier.io/)** - For clean, consistent, and error-free code
--   🩹 **[Patch-package](https://www.npmjs.com/package/patch-package)** - Fix external dependencies
--   🚀 **[GitHub Actions](https://github.com/features/actions)** - Pre-configured actions for smooth workflows, including Bundle Size and performance stats
--   **Zustand**
-
-## Table of Contents
-
--   [📚 Features](#frontend)
--   [Table of Contents](#table-of-contents)
--   [🎯 Getting Started](#🎯-getting-started)
--   [Editor Configuration](#editor)
--   [Project structure](#project-structure)
--   [Workflow](#workflow)
-
-## Editor Configuration
-
-### VSCode
-
-For VSCode users, settings are pre-configured to automatically format your code on save.
-
-### Other Editors
-
-For users of other editors, please configure your editor to use ESLint and Prettier for formatting. You can refer to their respective documentation for setup instructions.
+# F1-M3-WEB-CODE
 
 # A: [modal弹窗]
 

@@ -42,14 +42,12 @@
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.2.1",
         "html2canvas": "^1.4.1",
-        "i18next": "^23.12.1",
         "ignore-loader": "^0.1.2",
         "isomorphic-unfetch": "^3.0.0",
         "lodash": "^4.17.21",
         "moment": "^2.29.1",
         "next": "^12.1.6",
         "next-compose-plugins": "^2.2.1",
-        "next-i18next": "^15.3.0",
         "next-images": "^1.8.5",
         "next-optimized-images": "^2.6.2",
         "next-progressbar": "^1.0.0",
@@ -66,7 +64,6 @@
         "react-copy-to-clipboard": "^5.0.2",
         "react-countdown": "^2.3.5",
         "react-dom": "^17.0.2",
-        "react-i18next": "^15.0.0",
         "react-icons": "^4.7.1",
         "react-images-uploading": "^3.1.7",
         "react-items-carousel": "^2.8.0",
@@ -77,12 +74,10 @@
         "react-slick": "^0.29.0",
         "react-toastify": "^9.1.1",
         "react-transition-group": "^4.4.1",
-        "sass": "^1.77.8",
         "slick-carousel": "^1.8.1",
         "swiper": "^9.0.5",
         "url-search-params-polyfill": "^8.0.0",
-        "webp-converter": "^2.3.3",
-        "zustand": "^4.5.4"
+        "webp-converter": "^2.3.3"
     },
     "devDependencies": {
         "@next/bundle-analyzer": "^12.1.5",
@@ -96,7 +91,6 @@
         "mv": "^2.1.1",
         "next-transpile-modules": "^9.1.0",
         "next-with-less": "^2.0.5",
-        "tailwindcss": "^3.4.6",
         "terser-webpack-plugin": "^5.3.8"
     }
 }

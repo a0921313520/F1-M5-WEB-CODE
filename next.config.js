@@ -18,9 +18,10 @@ const withProgressBar = require("next-progressbar"); //构建进度
 const { withSentryConfig } = require("@sentry/nextjs"); //sentry 网站监控
 const withLess = require("next-with-less"); //处理LESS
 const isDev = process.env.NODE_ENV !== "production"; //判断开发环境
+const PATH_PREFIX = "/vn";
+const BASE_PATH = "/vn";
 const withTM = require("next-transpile-modules")(["central-payment"]);
 const CopyPlugin = require("copy-webpack-plugin");
-const { i18n } = require('./next-i18next.config'); // 引入 i18n 配置
 
 //NEXT.js 默认配置
 const nextConfig = {
@@ -38,12 +39,15 @@ const nextConfig = {
     distDir: "build",
     trailingSlash: true,
     env: {
-        LANGUAGE_PREFIX: "", //移除 PATH_PREFIX
+        LANGUAGE_PREFIX: (() => {
+            if (isDev) return "";
+            return PATH_PREFIX;
+        })(),
         CURRENCY: "VND",
-        BASE_PATH: "", //移除 BASE_PATH
+        BASE_PATH: BASE_PATH, //這個給程序用，用來處理圖片(img src)路徑
     },
-    assetPrefix: isDev ? "" : "", //移除 PATH_PREFIX
-    basePath: "", //移除 BASE_PATH
+    assetPrefix: isDev ? "" : PATH_PREFIX, //设置资产前缀并配置 CDN 的来源以解析为托管 Next.js 的域
+    basePath: BASE_PATH, //next內建支持根目錄 處理js和css引用
     lessLoaderOptions: {
         lessOptions: {
             modifyVars: {
@@ -94,7 +98,6 @@ const nextConfig = {
             "/login/index.htm": { page: "/safehouse" },
         };
     },
-    i18n, // 添加 i18n 配置
 };
 
 //插件和插件配置
