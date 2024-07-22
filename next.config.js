@@ -18,8 +18,8 @@ const withProgressBar = require("next-progressbar"); //构建进度
 const { withSentryConfig } = require("@sentry/nextjs"); //sentry 网站监控
 const withLess = require("next-with-less"); //处理LESS
 const isDev = process.env.NODE_ENV !== "production"; //判断开发环境
-const PATH_PREFIX = "/vn";
-const BASE_PATH = "/vn";
+const PATH_PREFIX = "";
+const BASE_PATH = "";
 const withTM = require("next-transpile-modules")(["central-payment"]);
 const CopyPlugin = require("copy-webpack-plugin");
 

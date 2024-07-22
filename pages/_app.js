@@ -21,6 +21,7 @@ import locale from "antd/lib/locale/vi_VN";
 import "$DATA/tlcLess/merge.less";
 import "$DATA/tlcLess/error.less";
 import store from "../store/store";
+import { appWithTranslation } from 'next-i18next'
 
 function MyApp({ Component, pageProps }) {
     const { status, text } = useSelector((state) => state.spin);
@@ -48,4 +49,4 @@ function App({ Component, pageProps }) {
     );
 }
 
-export default App;
+export default appWithTranslation(App);
