@@ -114,7 +114,13 @@ const Header = () => {
                         />
                     </svg>
                 </button>
-                <button className="bg-white text-blue-500 px-4 py-2 rounded">
+                <button
+                    onClick={() => {
+                        console.log("Login button clicked");
+                        Router.push("/second-page");
+                    }}
+                    className="bg-white text-blue-500 px-4 py-2 rounded"
+                >
                     Login
                 </button>
                 <button className="bg-green-500 text-white px-4 py-2 rounded">

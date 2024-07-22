@@ -1,30 +1,24 @@
-import Link from '../../components/Link'
+import Link from "../../components/Link";
+import Layout from "@/Layout";
 
-import { useTranslation } from 'next-i18next'
-import { getStaticPaths, makeStaticProps } from '../../lib/getStatic'
-
-import { Footer } from '../../components/Footer'
+import { useTranslation } from "next-i18next";
+import { getStaticPaths, makeStaticProps } from "../../lib/getStatic";
 
 const SecondPage = () => {
-  const { t } = useTranslation(['second-page', 'common', 'footer'])
+    const { t } = useTranslation(["second-page", "common", "footer"]);
 
-  return (
-    <>
-      <main>
-        <Link href='/'>
-          <button
-            type='button'
-          >
-            {t('common:back-to-home')}
-          </button>
-        </Link>
-      </main>
-      <Footer />
-    </>
-  )
-}
+    return (
+        <>
+            <Layout status={1}>
+                <Link href="/">
+                    <button type="button">{t("common:back-to-home")}</button>
+                </Link>
+            </Layout>
+        </>
+    );
+};
 
-export default SecondPage
+export default SecondPage;
 
-const getStaticProps = makeStaticProps(['second-page', 'common', 'footer'])
-export { getStaticPaths, getStaticProps }
+const getStaticProps = makeStaticProps(["second-page", "common", "footer"]);
+export { getStaticPaths, getStaticProps };
