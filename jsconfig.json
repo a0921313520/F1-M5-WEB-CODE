@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "$DATA/*": ["./data/*"],
+            "$ACTIONS/*": ["./actions/*"],
+            "$STORE/*": ["./store/*"],
+            "$ZUSTAND_STORE/*": ["./zustand/*"],
+            "@/*": ["./components/*"],
+            "$Deposits/*": ["./node_modules/central-payment/Deposit/M3/*"]
+        }
+    },
+    "exclude": ["node_modules", "build"]
+}

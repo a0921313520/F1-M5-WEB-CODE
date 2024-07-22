@@ -78,15 +78,17 @@
         "react-slick": "^0.29.0",
         "react-toastify": "^9.1.1",
         "react-transition-group": "^4.4.1",
+        "sass": "^1.77.8",
         "slick-carousel": "^1.8.1",
         "swiper": "^9.0.5",
         "url-search-params-polyfill": "^8.0.0",
-        "webp-converter": "^2.3.3"
+        "webp-converter": "^2.3.3",
+        "zustand": "^4.5.4"
     },
     "devDependencies": {
         "@next/bundle-analyzer": "^12.1.5",
         "@types/react-slick": "^0.23.10",
-        "autoprefixer": "^9.8.6",
+        "autoprefixer": "^9.8.8",
         "copy-webpack-plugin": "^12.0.2",
         "cross-env": "^5.2.1",
         "glob": "^8.0.3",
@@ -95,6 +97,8 @@
         "mv": "^2.1.1",
         "next-transpile-modules": "^9.1.0",
         "next-with-less": "^2.0.5",
+        "postcss": "^8.4.39",
+        "tailwindcss": "^3.4.6",
         "terser-webpack-plugin": "^5.3.8"
     }
 }

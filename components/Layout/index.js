@@ -64,7 +64,7 @@ function MainComponent(props) {
                     <Header key="main-header" {...commonParams} />
                     {props.children}
                     <Footer key="main-footer" />
-                    {!!props.seoContainer ? (
+                    {props.seoContainer ? (
                         <SeoFooterContainer seocontent={props.seoContainer} />
                     ) : null}
                 </div>
