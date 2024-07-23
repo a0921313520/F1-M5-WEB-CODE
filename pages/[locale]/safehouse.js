@@ -16,7 +16,10 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
     // Define all possible paths
-    const paths = [{ params: { locale: "en" } }, { params: { locale: "hi" } }];
+    const paths = [
+        { params: { locale: "en-IN" } },
+        { params: { locale: "hi" } },
+    ];
 
     return {
         paths,
