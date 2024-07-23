@@ -1,11 +1,3 @@
-/*
- * @Author: Alan
- * @Date: 2023-05-05 00:41:20
- * @LastEditors: Alan
- * @LastEditTime: 2023-05-08 00:16:15
- * @Description: 头部注释
- * @FilePath: \F1-M1-WEB-Code\pages\_error.wizardcopy.js
- */
 /**
  * NOTE: This requires `@sentry/nextjs` version 7.3.0 or higher.
  *

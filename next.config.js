@@ -1,12 +1,3 @@
-/*
- * @Author: Alan
- * @Date: 2023-01-12 09:46:43
- * @LastEditors: Alan
- * @LastEditTime: 2023-07-20 10:23:18
- * @Description: Next.js 配置文件
- * @FilePath: \F1-M1-WEB-Code\next.config.js
- */
-
 const withPlugins = require("next-compose-plugins"); //多插件配置
 const optimizedImages = require("next-optimized-images");
 //你分析打包后的文件并可视化展示出来，方便优化打包过程中的文件大小。

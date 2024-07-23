@@ -1,11 +1,3 @@
-/*
- * @Author: Alan
- * @Date: 2022-03-31 10:46:05
- * @LastEditors: Alan
- * @LastEditTime: 2023-04-04 14:11:43
- * @Description: 上传文件
- * @FilePath: \F1-M1-WEB-Code\data\uploader.js
- */
 import { get, post, patch } from "$SERVICES/TlcRequest";
 import { ApiPort } from "$SERVICES/TLCAPI";
 

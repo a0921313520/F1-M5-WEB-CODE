@@ -1,10 +1,6 @@
 import Router from "next/router";
 import fetch from "isomorphic-unfetch";
-import {
-    getQueryVariable,
-    Cookie,
-    getDisplayPublicError,
-} from "$SERVICEShelper";
+import { getQueryVariable, Cookie, getDisplayPublicError } from "$UTILS/helper";
 import { LogPost } from "./Log";
 
 //这个些API 如果返回400，则返回给函数内部处理。不在这里使用公共的message显示

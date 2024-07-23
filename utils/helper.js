@@ -1,6 +1,6 @@
 import "url-search-params-polyfill"; //用于兼容URLSearchParams
 import { ApiPort } from "$SERVICES/TLCAPI";
-import HostConfig from "./Host.config";
+import HostConfig from "../services/Host.config";
 import { get } from "$SERVICES/TlcRequest";
 import {
     SportsbookGameCatCode,
@@ -10,7 +10,7 @@ import {
     P2PGameCatCode,
     SlotGameCatCode,
     KenoLotteryGameCatCode,
-} from "$SERVICESconstantsData";
+} from "$DATA/constantsData";
 /* 目前会有两个地方用到，都很重要! 所有涉及到注册的会有，涉及到下载APP，客户端，中心会有 */
 /* 仅仅是用在注册而已 */
 export const checkAffQueryString = () => {
@@ -307,7 +307,7 @@ export function getMaskHandler(type, value) {
 
     return maskedValue;
 }
-\
+
 /***
  * 用戶存款狀態檢查函數
  *

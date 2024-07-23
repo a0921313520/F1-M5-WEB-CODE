@@ -1,11 +1,3 @@
-/*
- * @Author: Alan
- * @Date: 2023-06-01 21:58:05
- * @LastEditors: Alan
- * @LastEditTime: 2023-06-02 09:23:50
- * @Description: 在 Redux store 中定义了一个名为 spin 的 slice，用于全局控制加载 spinner 是否可见。
- * @FilePath: \F1-M1-WEB-Code\store\spinSlice.js
- */
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 // 定义 slice

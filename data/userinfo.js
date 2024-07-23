@@ -1,8 +1,6 @@
 import { get, put, patch } from "$SERVICES/TlcRequest";
 import { ApiPort } from "$SERVICES/TLCAPI";
 import { realyNameReg } from "$SERVICESreg";
-import { setGameHideAction } from "$STORE/thunk/gameThunk";
-import { checkIsRemoveShaba } from "$SERVICESutil";
 import store from "../redux/store";
 import { userCenterActions } from "$STORE/userCenterSlice";
 

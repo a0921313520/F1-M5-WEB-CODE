@@ -1,11 +1,3 @@
-/*
- * @Author: Alan
- * @Date: 2023-06-14 15:11:45
- * @LastEditors: Alan
- * @LastEditTime: 2023-06-15 14:59:09
- * @Description: 头部注释
- * @FilePath: /F1-M1-WEB-Code/editFile.js
- */
 var fs = require("fs");
 // var path = require('path');
 

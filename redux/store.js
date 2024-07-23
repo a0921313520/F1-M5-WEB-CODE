@@ -1,12 +1,3 @@
-/*
- * @Author: Alan
- * @Date: 2023-05-09 18:01:56
- * @LastEditors: Alan
- * @LastEditTime: 2023-06-02 19:32:39
- * @Description: Redux store 的配置文件。该文件定义了 Redux store 并将多个 Reducer 合并到一个根 reducer 中。
- * @FilePath: \F1-M1-WEB-Code\store\store.js
- */
-
 import { configureStore } from "@reduxjs/toolkit";
 import promotionSlice from "./slices/promotionSlice";
 import userCenterSlice from "./slices/userCenterSlice";

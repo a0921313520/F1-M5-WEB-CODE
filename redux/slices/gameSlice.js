@@ -1,11 +1,3 @@
-/*
- * @Author: Alan
- * @Date: 2023-06-01 21:58:05
- * @LastEditors: Alan
- * @LastEditTime: 2023-07-01 08:23:13
- * @Description: 在 Redux store 中定义了一个名为 game 的 slice，用于游戏数据相关处理。
- * @FilePath: /F1-M1-WEB-Code/redux/gameSlice.js
- */
 import { createSlice } from "@reduxjs/toolkit";
 const isWindowObject = typeof window === "object";
 const gameSlice = createSlice({

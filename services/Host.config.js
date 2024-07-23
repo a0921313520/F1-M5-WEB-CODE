@@ -8,7 +8,7 @@ export const SL_CMS_URL = "https://cmsapisl.fun88.biz";
 export const LIVE_CMS_URL = "https://cache.huya66.cc";
 
 // 导入 Domainparse 函数（从 "$ACTIONS/util" 模块中）
-import { Domainparse } from "$SERVICESutil";
+import { Domainparse } from "./../utils";
 
 // 检查是否在浏览器环境中运行
 if (typeof global.location !== "undefined") {

@@ -1,11 +1,3 @@
-/*
- * @Author: Alan
- * @Date: 2023-01-12 09:46:43
- * @LastEditors: Alan
- * @LastEditTime: 2023-02-10 22:19:33
- * @Description: 头部注释
- * @FilePath: \F1-M1-WEB-Code\moveFile.js
- */
 const fs = require("fs");
 const path = require("path");
 const mv = require("mv");

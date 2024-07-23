@@ -1,2 +1,2 @@
-import { Redirect } from "../lang/redirect";
+import { Redirect } from "../utils/lang/redirect";
 export default Redirect;

@@ -3,13 +3,12 @@ import Router from "next/router";
 import { ApiPort } from "$SERVICES/TLCAPI";
 import { get, post } from "$SERVICES/TlcRequest";
 // import { nameReg, pwdReg } from "$DATA/reg";
-import { Cookie } from "$UTILS/helper";
+import { Cookie } from "../../utils/helper";
 import Layout from "@/Layout";
 // import PublicHead from "@/Layout/PublicHead";
 import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 
 global.NamePwdVerify = false;
-const { Item } = Form;
 
 export async function getStaticProps({ params }) {
     return await getStaticPropsFromStrapiSEOSetting("/safehouse");
@@ -228,22 +227,6 @@ class Safehouse extends React.Component {
         );
     };
     render() {
-        const { getFieldDecorator, getFieldValue } = this.props.form;
-        const { captchaVisible, showError } = this.state;
-        let status = true;
-        let error = Object.values(this.props.form.getFieldsError()).some(
-            (v) => v !== undefined,
-        );
-        let errors = Object.values(this.props.form.getFieldsValue()).some(
-            (v) => v == "" || v == undefined,
-        );
-        if (!errors && !error) {
-            status = false;
-        }
-        console.log(
-            "🚀 ~ file: Safehouse.js:225 ~ Safehouse ~ render ~ status:",
-            status,
-        );
         return (
             <Layout
                 title="FUN88"
@@ -261,4 +244,4 @@ class Safehouse extends React.Component {
     }
 }
 
-export default Form.create({ name: "Safehouse" })(Safehouse);
+export default Safehouse;
