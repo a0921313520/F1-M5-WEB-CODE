@@ -1,11 +1,10 @@
-import { get, put, patch } from "$ACTIONS/TlcRequest";
-import { ApiPort } from "$ACTIONS/TLCAPI";
-import { realyNameReg } from "$ACTIONS/reg";
+import { get, put, patch } from "$SERVICES/TlcRequest";
+import { ApiPort } from "$SERVICES/TLCAPI";
+import { realyNameReg } from "$SERVICESreg";
 import { message } from "antd";
 import { setGameHideAction } from "$STORE/thunk/gameThunk";
-import { checkIsRemoveShaba } from "$ACTIONS/util";
-import store from "../store/store";
-import { translate } from "$ACTIONS/Translate";
+import { checkIsRemoveShaba } from "$SERVICESutil";
+import store from "../redux/store";
 import { userCenterActions } from "$STORE/userCenterSlice";
 
 // 获取用户账户信息以及设置为LocalStorage
@@ -84,14 +83,9 @@ export function getMemberInfo(call, refresh) {
 // 设置用户真实姓名
 export function setUserRealyName(name, call) {
     if (name === "") {
-        return call(message.error(translate("请输入您的真实姓名2")));
     }
     if (!realyNameReg.test(name)) {
-        return call(
-            message.error(
-                translate("格式错误，真实姓名需要2-50个字母数字字符"),
-            ),
-        );
+        return;
     }
 
     patch(ApiPort.PATCHMemberlistAPI, {

@@ -1,5 +1,4 @@
 import React from "react";
-import { translate } from "$ACTIONS/Translate";
 import Router from "next/router";
 
 // 404 ip地区限制 维护中 访问限制等账户限制等页面公用head
@@ -39,8 +38,7 @@ export default function PublicHead({ notFound }) {
                             className="tlc-partner-section inline-block"
                             style={{ paddingRight: "20px" }}
                         >
-                            {translate("官方球衣赞助商")} <br />
-                            {translate("纽卡斯尔俱乐部")}
+                            aferf
                         </div>
                     </div>
                     <div className="tlc-title-partner inline-block">
@@ -55,8 +53,7 @@ export default function PublicHead({ notFound }) {
                             }}
                         />
                         <div className="tlc-partner-section inline-block">
-                            {translate("亚洲官方博彩合作伙伴")} <br />
-                            {translate("托特纳姆热刺俱乐部")}
+                            abc
                         </div>
                     </div>
                 </div>

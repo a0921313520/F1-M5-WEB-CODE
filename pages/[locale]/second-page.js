@@ -2,7 +2,7 @@ import Link from "../../components/Link";
 import Layout from "@/Layout";
 
 import { useTranslation } from "next-i18next";
-import { getStaticPaths, makeStaticProps } from "../../lib/getStatic";
+import { getStaticPaths, makeStaticProps } from "../../utils/lang/getStatic";
 
 const SecondPage = () => {
     const { t } = useTranslation(["second-page", "common", "footer"]);

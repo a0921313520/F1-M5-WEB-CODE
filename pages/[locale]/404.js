@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import { getStaticPaths, makeStaticProps } from "../../lib/getStatic";
+import { getStaticPaths, makeStaticProps } from "../../utils/lang/getStatic";
 
 import Link from "../../components/Link";
 

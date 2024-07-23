@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Input, Button } from "antd";
 import Notice from "./Notice";
-import Login from "../UserSign/Login";
+
 export default class NotLogged extends React.Component {
     constructor(props) {
         super(props);

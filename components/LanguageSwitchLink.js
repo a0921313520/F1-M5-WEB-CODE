@@ -1,4 +1,4 @@
-import languageDetector from "../lib/languageDetector";
+import languageDetector from "../utils/lang/languageDetector";
 import { useRouter } from "next/router";
 import Link from "next/link";
 

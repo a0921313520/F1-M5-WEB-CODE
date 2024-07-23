@@ -1,59 +1,15 @@
 import React from "react";
-import { Row, Col, Button, Icon, Menu, Modal, message, Spin } from "antd";
-import dynamic from "next/dynamic";
 import Router from "next/router";
-import HasLogged from "./HasLogged";
-import NotLogged from "./NotLogged";
-import HeaderMenuBar from "./HeaderMenuBar";
-import UserSign from "@/UserSign";
-import { ApiPort, CMSAPIUrl } from "$ACTIONS/TLCAPI";
-import {
-    Cookie,
-    formatAmount,
-    getUrlVars,
-    PopUpLiveChat as ContactCustomerService,
-} from "$ACTIONS/util";
-import { getMemberInfo } from "$DATA/userinfo";
-import { get, post } from "$ACTIONS/TlcRequest";
-import { LEARN_TIME } from "$ACTIONS/constantsData";
-import HostConfig from "$ACTIONS/Host.config";
-import CMSOBJ from "$DATA/stage.live.static.id";
-import {
-    getQueryVariable,
-    getAffiliateReferralCode,
-    Cookie as Cookiehelper,
-} from "$ACTIONS/helper";
-import OpenGame from "@/Games/openGame";
-import ImageWithFallback from "@/ImageWithFallback/imgLocal";
-import { translate } from "$ACTIONS/Translate";
+// import HasLogged from "./HasLogged";
+// import NotLogged from "./NotLogged";
 import { connect } from "react-redux";
-import { userCenterActions } from "$STORE/userCenterSlice";
-import { pathNameList } from "$DATA/me.static";
-// 邮箱链接重置密码
-// const DynamicResetPassword = dynamic(import('@/ResetPassword'), {
-// 	loading: () => (""),
-// 	ssr: true
-// });
-import useZustandStore from "../../zustand/zustandStore";
 
 function HeaderComponent(props) {
     switch (props.status) {
         case 0:
-            return (
-                <NotLogged
-                    smallHeader={props.smallHeader}
-                    AlreadLogin={() => props.this.AlreadLogin()}
-                    {...props}
-                />
-            );
+            return null;
         case 1:
-            return (
-                <HasLogged
-                    LoginExit={() => props.this.LoginExit()}
-                    {...props}
-                    key={JSON.stringify(props.status)}
-                />
-            );
+            return null;
         default:
             return null;
     }

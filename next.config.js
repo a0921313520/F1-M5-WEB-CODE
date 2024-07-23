@@ -48,16 +48,6 @@ const nextConfig = {
     },
     assetPrefix: isDev ? "" : PATH_PREFIX, //设置资产前缀并配置 CDN 的来源以解析为托管 Next.js 的域
     basePath: BASE_PATH, //next內建支持根目錄 處理js和css引用
-    lessLoaderOptions: {
-        lessOptions: {
-            modifyVars: {
-                hack: `true;@import '${path.resolve(
-                    __dirname,
-                    "./data/less/antd-custom.less",
-                )}';`,
-            },
-        },
-    },
     compiler: {
         removeConsole:
             process.env.NODE_ENV === "production"
@@ -76,8 +66,10 @@ const nextConfig = {
                 alias: {
                     ...(config.resolve.alias || {}),
                     $DATA: path.resolve(__dirname, "./data"),
-                    $ACTIONS: path.resolve(__dirname, "./actions"),
-                    $STORE: path.resolve(__dirname, "./store"),
+                    $SERVICES: path.resolve(__dirname, "./services"),
+                    $UTILS: path.resolve(__dirname, "./utils"),
+                    $STORE: path.resolve(__dirname, "./redux/store"),
+                    $ZUSTAND_STORE: path.resolve(__dirname, "./zustand"),
                     "@": path.resolve(__dirname, "./components"),
                     $Deposits: path.resolve(
                         __dirname,

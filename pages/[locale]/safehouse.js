@@ -1,15 +1,14 @@
 import React from "react";
 import Router from "next/router";
 import { Form, Button, Input, message } from "antd";
-import { ApiPort } from "$ACTIONS/TLCAPI";
-import { get, post } from "$ACTIONS/TlcRequest";
-import { nameReg, pwdReg } from "$ACTIONS/reg";
-import { Cookie } from "$ACTIONS/helper";
+import { ApiPort } from "$SERVICES/TLCAPI";
+import { get, post } from "$SERVICES/TlcRequest";
+import { nameReg, pwdReg } from "$SERVICESreg";
+import { Cookie } from "$SERVICEShelper";
 import Captcha from "@/Captcha";
 import Layout from "@/Layout";
 import PublicHead from "@/Layout/PublicHead";
 import { getMemberInfo } from "$DATA/userinfo";
-import { translate } from "$ACTIONS/Translate";
 import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 
 global.NamePwdVerify = false;
@@ -122,7 +121,7 @@ class Safehouse extends React.Component {
                     : "",
             ipAddress: "",
         };
-        this.hide = message.loading(translate("加载中"));
+        this.hide = message.loading("加载中");
 
         post(ApiPort.PostLogin, Postdata)
             .then((res) => {
@@ -188,7 +187,7 @@ class Safehouse extends React.Component {
     }
 
     checkUserLogin = (values) => {
-        const hide = message.loading(translate("加载中"));
+        const hide = message.loading("加载中");
         const username = values.username.trim();
         get(
             ApiPort.Safehouse +
@@ -265,7 +264,7 @@ class Safehouse extends React.Component {
                     </div>
                     <div className="BoxOther sf">
                         <div className="Box_Content">
-                            <h3>{translate("登录")}</h3>
+                            <h3>登录</h3>
                             {showError && (
                                 <div className="ErrorShow">
                                     <small>{showError}</small>
@@ -276,13 +275,12 @@ class Safehouse extends React.Component {
                                 className="security-login-wrap"
                                 onSubmit={this.handleSubmit}
                             >
-                                <Item label={translate("用户名")}>
+                                <Item label={"用户名"}>
                                     {getFieldDecorator("username", {
                                         rules: [
                                             {
                                                 required: true,
-                                                message:
-                                                    translate("请输入用户名"),
+                                                message: "请输入用户名",
                                             },
                                             {
                                                 validator: (
@@ -301,21 +299,18 @@ class Safehouse extends React.Component {
                                         <Input
                                             size="large"
                                             className="tlc-input-disabled"
-                                            placeholder={translate(
-                                                "填写用户名",
-                                            )}
+                                            placeholder={"填写用户名"}
                                             maxLength={20}
                                             autoComplete="off"
                                         />,
                                     )}
                                 </Item>
-                                <Item label={translate("密码")}>
+                                <Item label={"密码"}>
                                     {getFieldDecorator("password", {
                                         rules: [
                                             {
                                                 required: true,
-                                                message:
-                                                    translate("请输入密码"),
+                                                message: "请输入密码",
                                             },
                                             {
                                                 validator: (
@@ -328,9 +323,7 @@ class Safehouse extends React.Component {
                                                         !pwdReg.test(value)
                                                     ) {
                                                         callback(
-                                                            translate(
-                                                                "密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@",
-                                                            ),
+                                                            "密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@",
                                                         );
                                                     }
 
@@ -343,7 +336,7 @@ class Safehouse extends React.Component {
                                             size="large"
                                             type="password"
                                             className="tlc-input-disabled"
-                                            placeholder={translate("输入密码")}
+                                            placeholder={"输入密码"}
                                             maxLength={50}
                                             autoComplete="off"
                                         />,
@@ -357,7 +350,7 @@ class Safehouse extends React.Component {
                                     htmlType="submit"
                                     disabled={status}
                                 >
-                                    {translate("提交")}
+                                    {"提交"}
                                 </Button>
                             </Form>
                         </div>

@@ -1,9 +1,8 @@
 import React from "react";
-import { get } from "$ACTIONS/TlcRequest";
-import { getQueryVariable } from "$ACTIONS/helper";
-import { ApiPort } from "$ACTIONS/TLCAPI";
+import { get } from "$SERVICES/TlcRequest";
+import { getQueryVariable } from "$SERVICEShelper";
+import { ApiPort } from "$SERVICES/TLCAPI";
 import Router from "next/router";
-import { translate } from "$ACTIONS/Translate";
 import { connect } from "react-redux";
 import { userCenterActions } from "$STORE/userCenterSlice";
 import { pathNameList } from "$DATA/me.static";
@@ -201,7 +200,7 @@ class Notice extends React.Component {
                     onClick={this.goMessage}
                 >
                     <div className="marquee-title">
-                        <span>{translate("乐天使")}</span>
+                        <span>www</span>
                         <span>
                             {this.state.noticeList.length
                                 ? this.state.noticeList[this.state.currTime] &&

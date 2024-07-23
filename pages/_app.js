@@ -18,11 +18,10 @@ import React, { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { ConfigProvider, Spin } from "antd";
 import locale from "antd/lib/locale/vi_VN";
-import "$DATA/tlcLess/merge.less";
-import "$DATA/tlcLess/error.less";
-import store from "../store/store";
+import store from "../redux/store";
 import { appWithTranslation } from "next-i18next";
 import "../styles/globals.scss";
+import "../styles/tailwindcss.css";
 
 function MyApp({ Component, pageProps }) {
     const { status, text } = useSelector((state) => state.spin);

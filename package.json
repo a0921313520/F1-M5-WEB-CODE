@@ -7,8 +7,8 @@
         "tabWidth": 4
     },
     "scripts": {
-        "dev": "explorer http://localhost:8003/vn/ & node Server_Dev.js & node editFile",
-        "sl": "explorer http://localhost:6868/vn/ & node Server_SL.js & node editFile",
+        "dev": "explorer http://localhost:8003/vn/ & node Server_Dev.js",
+        "sl": "explorer http://localhost:6868/vn/ & node Server_SL.js",
         "mock": "node --harmony ./mock/servers.js",
         "server": "npx http-server -p 8888 ./",
         "build:production": "cross-env NODE_ENV=production next dev -p 6868",
@@ -28,7 +28,6 @@
         "@reduxjs/toolkit": "^1.9.3",
         "@sentry/nextjs": "^7.50.0",
         "aes-js": "^3.1.2",
-        "antd": "^3.26.18",
         "axios": "^0.21.1",
         "babel-polyfill": "^6.26.0",
         "blueimp-md5": "^2.18.0",

@@ -3,19 +3,17 @@ import { Row, Col, Spin, Button, Modal, Icon, Popover, message } from "antd";
 import dynamic from "next/dynamic";
 import Router from "next/router";
 import Notice from "./Notice";
-import { get, post } from "$ACTIONS/TlcRequest";
-import { ApiPort } from "$ACTIONS/TLCAPI";
-import { Cookie as CookieUtil, formatAmount } from "$ACTIONS/util";
+import { get, post } from "$SERVICES/TlcRequest";
+import { ApiPort } from "$SERVICES/TLCAPI";
+import { Cookie as CookieUtil, formatAmount } from "$SERVICES/util";
 import { GetAllBalance } from "$DATA/wallet";
 import { getMemberInfo } from "$DATA/userinfo";
-import { getQueryVariable } from "$ACTIONS/helper";
-import { Cookie } from "$ACTIONS/helper";
+import { getQueryVariable, Cookie } from "$SERVICES/helper";
 import { connect, Provider } from "react-redux";
-import { promotionActions } from "../../store/promotionSlice";
-import { userCenterActions } from "../../store/userCenterSlice";
-import store from "../../store/store";
+import { promotionActions } from "../../redux/slices/promotionSlice";
+import { userCenterActions } from "../../redux/slices/userCenterSlice";
+import store from "../../redux/store";
 import classNames from "classnames";
-import { translate } from "$ACTIONS/Translate";
 
 // Modal加载状态组件
 const ModalLoading = (
@@ -329,8 +327,7 @@ class HasLogged extends React.Component {
         // 此处为了测试退出后的一些状态时是否及时更新预留
         IsSnapExitStatus &&
             Router.push("/").then(() => {
-                IsSnapExitStatus &&
-                    message.success(translate("您已退出登录！"));
+                IsSnapExitStatus && message.success("您已退出登录！");
                 sessionStorage.clear();
             });
 
@@ -342,7 +339,7 @@ class HasLogged extends React.Component {
                 Cookie.Delete("isLoginS");
             }
         }
-        if (!!localStorage.getItem("BankcardBlacklist")) {
+        if (localStorage.getItem("BankcardBlacklist")) {
             return;
             //银行卡黑名单
             const removeBankcardBlacklist = () => {
@@ -429,7 +426,7 @@ class HasLogged extends React.Component {
         localStorage.removeItem("login-otp");
         localStorage.removeItem("login-otpPwd");
         sessionStorage.clear();
-        IsSnapExitStatus && message.success(translate("您已退出登录！"));
+        IsSnapExitStatus && message.success("您已退出登录！");
 
         if (IsSnapExitStatus) {
             if (this.state.checkSafeHouse || Cookie.Get("isLoginS")) {

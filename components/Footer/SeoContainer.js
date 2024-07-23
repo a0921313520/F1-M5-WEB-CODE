@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Icon } from "antd";
-import { translate } from "$ACTIONS/Translate";
 
 export default function seoContainer({ seocontent }) {
     // console.log("🚀 ~ file: SeoContainer.js:6 ~ seoContainer ~ seocontent:", seocontent,typeof seocontent)
@@ -11,7 +10,7 @@ export default function seoContainer({ seocontent }) {
             style={{ height: seoDetailStatus ? "auto" : "290px" }}
         >
             <div className="common-distance">
-                {!!seocontent ? (
+                {seocontent ? (
                     <div className="seo-container">
                         {seoDetailStatus ? (
                             <div
@@ -30,7 +29,7 @@ export default function seoContainer({ seocontent }) {
                                         setSeoDetailStatus(!seoDetailStatus)
                                     }
                                 >
-                                    {translate("查看更多")}
+                                    查看更多
                                 </span>
                             </div>
                         )}

@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import Router from "next/router";
-import { get, post } from "$ACTIONS/TlcRequest";
-import { ApiPort, APISETS, APISET } from "$ACTIONS/TLCAPI";
+import { get, post } from "$SERVICES/TlcRequest";
+import { ApiPort, APISETS, APISET } from "$SERVICES/TLCAPI";
 import Flexbox from "@/Flexbox/";
-import { lazyLoadImg } from "$ACTIONS/util";
+import { lazyLoadImg } from "$SERVICES/util";
 import {
     SetPiwikData,
     HeaderGameNavPiwik,
     HeaderGameNavMoreBtnPiwik,
-} from "$ACTIONS/piwikData";
+} from "$SERVICES/piwikData";
 import { Carousel, Menu, Icon, Button, Col, message } from "antd";
 import QRCode from "qrcode-react";
 import {
@@ -18,12 +18,11 @@ import {
 } from "$DATA/header.static";
 import { connect } from "react-redux";
 import { getGameCategoryListAction } from "$STORE/thunk/gameThunk";
-import { GetGameNavStatus } from "$ACTIONS/gameRequest";
+import { GetGameNavStatus } from "$SERVICES/gameRequest";
 import classNames from "classnames";
 import ImageWithFallback from "@/ImageWithFallback/imgLocal";
-import { getAffiliateReferralCode } from "$ACTIONS/helper";
+import { getAffiliateReferralCode } from "$SERVICES/helper";
 import OpenGame from "@/Games/openGame";
-import { translate } from "$ACTIONS/Translate";
 
 /* 二级菜单Dom结构 url是跳转路径、图片层级路径 */
 function SecondaryDom(props) {
@@ -264,7 +263,7 @@ function HoverContent(
             </div>
             {detailData.type === "more" ? (
                 <div className="menu-section app-down">
-                    <h3>{translate("下载应用软件")}</h3>
+                    <h3>app</h3>
                     <div>
                         <QRCode
                             size={80}
@@ -284,7 +283,7 @@ function HoverContent(
                             );
                         }}
                     >
-                        {translate("下载")}
+                        download
                     </a>
                 </div>
             ) : (
@@ -298,7 +297,7 @@ function HoverContent(
                             HeaderGameNavMoreBtnPiwik(detailData.dataCategory);
                         }}
                     >
-                        {translate("了解更多")}
+                        more
                         <Icon type="right" />
                         <Icon type="right" />
                     </Button>
@@ -475,13 +474,9 @@ class HeaderMenuBar extends React.Component {
                                             ? item.name.slice(0, 13)
                                             : item.name}
                                         {statusInfo && statusInfo.isNew ? (
-                                            <div className="SetNew">
-                                                {translate("新")}
-                                            </div>
+                                            <div className="SetNew">new</div>
                                         ) : statusInfo && statusInfo.isHot ? (
-                                            <div className="SetHot">
-                                                {translate("热")}
-                                            </div>
+                                            <div className="SetHot">hot</div>
                                         ) : null}
                                         <i className="tlc-sprite" />
                                     </Flexbox>

@@ -6,8 +6,8 @@
  * @Description: 上传文件
  * @FilePath: \F1-M1-WEB-Code\data\uploader.js
  */
-import { get, post, patch } from "$ACTIONS/TlcRequest";
-import { ApiPort } from "$ACTIONS/TLCAPI";
+import { get, post, patch } from "$SERVICES/TlcRequest";
+import { ApiPort } from "$SERVICES/TLCAPI";
 
 import Qs from "qs";
 

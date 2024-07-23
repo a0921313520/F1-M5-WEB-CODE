@@ -3,8 +3,9 @@
         "baseUrl": ".",
         "paths": {
             "$DATA/*": ["./data/*"],
-            "$ACTIONS/*": ["./actions/*"],
-            "$STORE/*": ["./store/*"],
+            "$SERVICES/*": ["./services*"],
+            "$UTILS/*": ["./utils/*"],
+            "$STORE/*": ["./redux/store/*"],
             "$ZUSTAND_STORE/*": ["./zustand/*"],
             "@/*": ["./components/*"],
             "$Deposits/*": ["./node_modules/central-payment/Deposit/M3/*"]

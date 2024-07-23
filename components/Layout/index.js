@@ -6,34 +6,20 @@ import { Spin } from "antd";
 import "../../config/Global";
 import "../../config/Globalfun";
 import React, { useState, useEffect } from "react";
-import SelfExclusionModal from "../SelfExclusionModal";
 import Router from "next/router";
-import { translate } from "$ACTIONS/Translate";
 import SeoFooterContainer from "@/Footer/SeoContainer";
 
-const DynamicRestrictAccess = dynamic(import("@/RestrictAccess/ipError"), {
-    loading: () => (
-        <Spin
-            style={{ position: "absolute", top: "30%", left: 0, right: 0 }}
-            spinning={true}
-            size="large"
-            tip={translate("加载中")}
-        />
-    ),
-    ssr: false,
-});
-
-const DynamicMaintain = dynamic(import("@/RestrictAccess/maintain"), {
-    loading: () => (
-        <Spin
-            style={{ position: "absolute", top: "30%", left: 0, right: 0 }}
-            spinning={true}
-            size="large"
-            tip={translate("加载中")}
-        />
-    ),
-    ssr: false,
-});
+// const DynamicMaintain = dynamic(import("@/RestrictAccess/maintain"), {
+//     loading: () => (
+//         <Spin
+//             style={{ position: "absolute", top: "30%", left: 0, right: 0 }}
+//             spinning={true}
+//             size="large"
+//             tip={translate("加载中")}
+//         />
+//     ),
+//     ssr: false,
+// });
 function MainComponent(props) {
     const commonParams = {
         headerHeightLock: props.headerHeightLock,
@@ -85,9 +71,11 @@ function MainComponent(props) {
                 </div>
             );
         case 3:
-            return <DynamicMaintain />;
+            return null;
+        // return <DynamicMaintain />;
         case 4:
-            return <DynamicRestrictAccess httpStatus={global.HttpStatus} />;
+            return null;
+        // return <DynamicRestrictAccess httpStatus={global.HttpStatus} />;
         case 5:
             return <React.Fragment>{props.children}</React.Fragment>;
         case 6:
