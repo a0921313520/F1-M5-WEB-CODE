@@ -1,14 +1,11 @@
 import React from "react";
 import Router from "next/router";
-import { Form, Button, Input, message } from "antd";
 import { ApiPort } from "$SERVICES/TLCAPI";
 import { get, post } from "$SERVICES/TlcRequest";
-import { nameReg, pwdReg } from "$SERVICESreg";
-import { Cookie } from "$SERVICEShelper";
-import Captcha from "@/Captcha";
+// import { nameReg, pwdReg } from "$DATA/reg";
+import { Cookie } from "$UTILS/helper";
 import Layout from "@/Layout";
-import PublicHead from "@/Layout/PublicHead";
-import { getMemberInfo } from "$DATA/userinfo";
+// import PublicHead from "@/Layout/PublicHead";
 import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
 
 global.NamePwdVerify = false;
@@ -258,111 +255,7 @@ class Safehouse extends React.Component {
                 }}
                 seoData={this.props.seoData}
             >
-                <div id="maintain" className="common-distance-wrap">
-                    <div className="maintain-header-wrap">
-                        <PublicHead />
-                    </div>
-                    <div className="BoxOther sf">
-                        <div className="Box_Content">
-                            <h3>登录</h3>
-                            {showError && (
-                                <div className="ErrorShow">
-                                    <small>{showError}</small>
-                                </div>
-                            )}
-
-                            <Form
-                                className="security-login-wrap"
-                                onSubmit={this.handleSubmit}
-                            >
-                                <Item label={"用户名"}>
-                                    {getFieldDecorator("username", {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: "请输入用户名",
-                                            },
-                                            {
-                                                validator: (
-                                                    rule,
-                                                    value,
-                                                    callback,
-                                                ) => {
-                                                    // if (value && !nameReg.test(value)) {
-                                                    // 	callback(translate("用户名长度必须至少有6个字符，不能超过14个字符，仅可使用字母 'A-Z', 'a-z' , 数字 '0-9'。"));
-                                                    // }
-                                                    callback();
-                                                },
-                                            },
-                                        ],
-                                    })(
-                                        <Input
-                                            size="large"
-                                            className="tlc-input-disabled"
-                                            placeholder={"填写用户名"}
-                                            maxLength={20}
-                                            autoComplete="off"
-                                        />,
-                                    )}
-                                </Item>
-                                <Item label={"密码"}>
-                                    {getFieldDecorator("password", {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: "请输入密码",
-                                            },
-                                            {
-                                                validator: (
-                                                    rule,
-                                                    value,
-                                                    callback,
-                                                ) => {
-                                                    if (
-                                                        value &&
-                                                        !pwdReg.test(value)
-                                                    ) {
-                                                        callback(
-                                                            "密码必须包含 6-20 个字母数字字符“A-Z”、“a-z”、“0-9”，并且可以包含 4 个特殊字符 ^# $@",
-                                                        );
-                                                    }
-
-                                                    callback();
-                                                },
-                                            },
-                                        ],
-                                    })(
-                                        <Input
-                                            size="large"
-                                            type="password"
-                                            className="tlc-input-disabled"
-                                            placeholder={"输入密码"}
-                                            maxLength={50}
-                                            autoComplete="off"
-                                        />,
-                                    )}
-                                </Item>
-                                <Button
-                                    size="large"
-                                    type="primary"
-                                    id="SubmitGeet"
-                                    data-gt
-                                    htmlType="submit"
-                                    disabled={status}
-                                >
-                                    {"提交"}
-                                </Button>
-                            </Form>
-                        </div>
-                        {/* <Captcha
-							captchaVisible={captchaVisible}
-							setCaptchaVisible={(v) => {
-								this.setState({ captchaVisible: v });
-							}}
-							onMatch={this.onMatch}
-						/> */}
-                    </div>
-                </div>
+                safe house
             </Layout>
         );
     }

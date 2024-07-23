@@ -1,7 +1,6 @@
 import { get, put, patch } from "$SERVICES/TlcRequest";
 import { ApiPort } from "$SERVICES/TLCAPI";
 import { realyNameReg } from "$SERVICESreg";
-import { message } from "antd";
 import { setGameHideAction } from "$STORE/thunk/gameThunk";
 import { checkIsRemoveShaba } from "$SERVICESutil";
 import store from "../redux/store";
@@ -95,9 +94,7 @@ export function setUserRealyName(name, call) {
         .then((res) => {
             if (res) {
                 if (res.isSuccess == true) {
-                    message.success("更新成功!");
                 } else if (res.isSuccess == false) {
-                    message.error(res.result.Message);
                 }
                 call(res);
             }

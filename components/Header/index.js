@@ -1,7 +1,5 @@
 import React from "react";
 import Router from "next/router";
-// import HasLogged from "./HasLogged";
-// import NotLogged from "./NotLogged";
 import { connect } from "react-redux";
 
 function HeaderComponent(props) {

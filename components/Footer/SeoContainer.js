@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Icon } from "antd";
 
 export default function seoContainer({ seocontent }) {
     // console.log("🚀 ~ file: SeoContainer.js:6 ~ seoContainer ~ seocontent:", seocontent,typeof seocontent)
@@ -18,9 +17,7 @@ export default function seoContainer({ seocontent }) {
                                 onClick={() =>
                                     setSeoDetailStatus(!seoDetailStatus)
                                 }
-                            >
-                                <Icon type="up" />
-                            </div>
+                            ></div>
                         ) : (
                             <div className="button-more">
                                 <span

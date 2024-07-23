@@ -2,7 +2,6 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import Header from "@/Header";
 import Footer from "@/Footer";
-import { Spin } from "antd";
 import "../../config/Global";
 import "../../config/Globalfun";
 import React, { useState, useEffect } from "react";

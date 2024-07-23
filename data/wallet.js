@@ -1,4 +1,3 @@
-import { message, Modal } from "antd";
 import { get, post, patch } from "$SERVICES/TlcRequest";
 import { ApiPort, APISET, APISETS } from "$SERVICES/TLCAPI";
 
@@ -240,9 +239,7 @@ export function CommonPostPay(data, call) {
                             onCancel: () => {},
                         });
                     } else {
-                        message.error(displayErrorMsg);
                         // Modal.info({
-
                         // 	className: 'confirm-modal-of-public',
                         // 	icon: <div />,
                         // 	okText: '关闭',
@@ -274,12 +271,7 @@ export function CommonPostConfirmPay(data, call) {
         .then((res) => {
             res && call(res);
             if (res.isSuccess) {
-                message.success(
-                    "订单成立！交易正在进行中，您的存款将在指定时间内到账，感谢您的耐心等待！",
-                    5,
-                );
             } else {
-                message.error("输入的旧账号错误！");
             }
         })
         .catch((error) => {

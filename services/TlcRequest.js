@@ -1,4 +1,3 @@
-import { Modal, message } from "antd";
 import Router from "next/router";
 import fetch from "isomorphic-unfetch";
 import {
@@ -16,10 +15,7 @@ const APIERRORLIST = [
     "api/Auth/ForgetUsername/Email",
     "api/Auth/ChangePassword", //otp重置密码
 ];
-message.config({
-    top: 50,
-    maxCount: 1,
-});
+
 export default function request(method, url, body, token) {
     const localToken = localStorage.getItem("access_token");
     let redirectToken = null;
@@ -172,7 +168,6 @@ export default function request(method, url, body, token) {
                     case "VAL18014":
                     case "VAL99903":
                         if (!redirectToken) {
-                            message.error("请重新登录，访问过期！", 3);
                             setTimeout(() => {
                                 global.globalExit();
                                 Router.push("/");
@@ -181,10 +176,6 @@ export default function request(method, url, body, token) {
                         return Promise.reject(error);
                     case "MEM00141":
                     case "MEM00140":
-                        message.error(
-                            error.errors[0].message ||
-                                "您的账户已根据账户管理政策关闭了。",
-                        );
                         localStorage.setItem(
                             "RestrictAccessCode",
                             error.error_details.Code,
@@ -199,7 +190,6 @@ export default function request(method, url, body, token) {
                         break;
                     case "GEN0008":
                         if (window.location.href.indexOf("Safehouse") > -1) {
-                            message.error(error.errors[0].message, 4);
                             global.redirectDomin &&
                                 typeof global.redirectDomin === "function" &&
                                 setTimeout(() => {
@@ -242,11 +232,6 @@ export default function request(method, url, body, token) {
                     //     global.globalBlackListExit();
                     //     break;
                     case "VAL11056":
-                        message.error(
-                            error.errors[0]?.message ||
-                                "系统错误，请联系在线支持！",
-                            3,
-                        );
                         break;
                     // 忘記密碼/忘記用戶名
                     case "VAL00001":
@@ -296,7 +281,7 @@ export default function request(method, url, body, token) {
                     case "MEM00061":
                         return error;
                     default:
-                        message.error(error.errors[0].description);
+                    // message.error(error.errors[0].description);
                 }
             } else if (error.message) {
                 if (
@@ -308,7 +293,6 @@ export default function request(method, url, body, token) {
                     // return error.json();
                     return Promise.reject(error);
                 } else {
-                    message.error(error.message);
                 }
             }
         });

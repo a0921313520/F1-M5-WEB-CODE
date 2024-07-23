@@ -2,7 +2,6 @@ import "url-search-params-polyfill"; //用于兼容URLSearchParams
 import { ApiPort } from "$SERVICES/TLCAPI";
 import HostConfig from "./Host.config";
 import { get } from "$SERVICES/TlcRequest";
-import { Modal, Icon } from "antd";
 import {
     SportsbookGameCatCode,
     ESportsGameCatCode,
@@ -308,140 +307,7 @@ export function getMaskHandler(type, value) {
 
     return maskedValue;
 }
-/**
- * 半透提示彈窗
- * @param {*} value  展示的文字
- * @param {*} type   布尔值显示成功的还是失败的icon
- * @param {*} zIndex z-index
- * @param {*} key    用于判断样式padding
- * @param {*} name   新增的classname
- * showResultModal("修改成功",true/false) 这样写基本满足部分提示文字少于四个字的
- */
-export function showResultModal(
-    value,
-    type = true,
-    zIndex = 1501,
-    key = "otp",
-    name = "",
-) {
-    const opacityMaskDialog = Modal.info({
-        title: ``,
-        icon: <div />,
-        zIndex: zIndex,
-        centered: true,
-        mask: true,
-        footer: null,
-        content: (
-            <div>
-                <img
-                    src={`${process.env.BASE_PATH}/img/icons/${
-                        type ? "icon-success" : "icon-error"
-                    }.png`}
-                    width="35px"
-                />
-                <p
-                    style={{
-                        marginTop: 10,
-                        marginBottom: 0,
-                        padding: key == "otp" ? "0" : "0 14px",
-                    }}
-                >
-                    {value}
-                </p>
-            </div>
-        ),
-        className: `showInfoModal opacity ${name}`,
-    });
-    setTimeout(() => {
-        opacityMaskDialog.destroy();
-    }, 3000);
-}
-
-/**
- * 弹窗提示
- * @param {*} status  布尔值显示成功的还是失败的icon和背景色
- * @param {*} value   展示的文字
- * 他的样式类似 message的 info/sussess/fail
- */
-export function showSmallResultModal(status, value, bool = false) {
-    const opacityMaskDialog = Modal.info({
-        title: ``,
-        className: "feedback-status-modal",
-        centered: true,
-        mask: false,
-        width: "unset",
-        content: (
-            <div
-                className="dialog-content"
-                style={{
-                    backgroundColor: status ? "#DAFFE3" : "rgb(255 218 218)",
-                }}
-            >
-                {status ? (
-                    <Icon
-                        type="check-circle"
-                        theme="filled"
-                        style={{ color: "#0CCC3C" }}
-                    />
-                ) : (
-                    <Icon
-                        type="close-circle"
-                        theme="filled"
-                        style={{ color: "red" }}
-                    />
-                )}
-                <p style={{ color: status ? "#0CCC3C" : "red" }}>{value}</p>
-            </div>
-        ),
-        centered: bool,
-    });
-    setTimeout(() => {
-        opacityMaskDialog.destroy();
-    }, 3000);
-}
-
-export function showLargeResultModal(
-    status,
-    okText,
-    cancelText,
-    header,
-    description,
-    onOk,
-    onCancel,
-    forFreePromotion,
-) {
-    return Modal.confirm({
-        title: "",
-        width: 400,
-        centered: true,
-        okText: okText,
-        cancelText: cancelText,
-        className: "large-feedback-status-modal",
-        onOk: onOk,
-        onCancel: onCancel,
-        cancelButtonProps: { style: { color: "#00A6FF" } },
-        content: (
-            <>
-                <div>
-                    <img
-                        src={`${process.env.BASE_PATH}/img/icons/${
-                            status
-                                ? "icon-checked.png"
-                                : forFreePromotion
-                                  ? "icon-error.png"
-                                  : "icon-warn.png"
-                        }`}
-                    />
-                </div>
-                <h3 style={{ marginTop: "15px", fontSize: "18px" }}>
-                    <div>{header}</div>
-                </h3>
-                <div className="note">{description}</div>
-            </>
-        ),
-    });
-}
-
+\
 /***
  * 用戶存款狀態檢查函數
  *
