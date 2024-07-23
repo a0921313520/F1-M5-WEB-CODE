@@ -22,10 +22,10 @@
 
 ### Key Points:
 
--   Redux and Zustand coexist, with Redux primarily for centralized use.
--   Both Less and Sass are installed, with Less mainly for compatibility with antd styles.
--   RWD supported with Tailwind CSS.
--   next-i18next does not support SSG, using [this solution](https://locize.com/blog/next-i18n-static/).
+-   Redux and Zustand coexist, with Redux primarily for Central-Payment use.
+-   RWD
+-   Tailwind CSS.
+-   next-i18next does not support next export, using [this solution](https://locize.com/blog/next-i18n-static/).
 
 ## Key Scripts Overview
 
@@ -53,22 +53,13 @@ For users of other editors, configure your editor to use ESLint and Prettier for
 
 ```sh
 .
-├── actions/
 ├── components/
 ├── config
-├── data
-├── lib
+├── data/
 ├── pages/
-├── postcss.config.js
-├── prettier.config.js
 ├── public
-│   ├──
-│   └── favicon
-├── i18n
-│   ├── en.ts
-│   ├── index.ts
-│   └── zh.ts
-├── renovate.json
+│   ├── img/
+│   └── locales/
 ├── redux/
 │   ├── thunks/
 │   │   ├── gameThunk.js
@@ -85,10 +76,35 @@ For users of other editors, configure your editor to use ESLint and Prettier for
 │   ├── api.ts
 |   ├── ...
 │   └── toasts.ts
+├── prettier.config.js
 ├── package.json
 
-
 ```
+
+### `components`
+
+This directory contains all the components used in the app. The components are organized by feature, and each feature has its own directory.
+
+### `pages`
+
+This directory contains all the routable pages in the app. Next.js automatically routes files in this directory to the corresponding URL.
+
+### `public`
+
+This directory contains all the static assets used in the app, such as images, fonts, etc. Like `pages`, Next.js automatically routes files in this directory to the corresponding URL.
+
+### `public/locales`
+
+i18n
+This directory contains the translations for the app.
+
+### `styles`
+
+This directory contains all the styles used in the app.
+
+### `utils`
+
+### `services`
 
 ## Other
 
