@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <g id="关闭" transform="translate(-156 -202)">
-    <circle id="Ellipse_145" data-name="Ellipse 145" cx="32" cy="32" r="32" transform="translate(156 202)" fill="#eb2121"/>
-    <path id="shut-down-line" d="M93.01,88.586l2.065,2.95a14.4,14.4,0,1,0,16.517,0l2.065-2.95a18,18,0,1,1-20.646,0Zm8.523,14.747v-18h3.6v18Z" transform="translate(85.167 131.167)" fill="#fff" stroke="#fff" stroke-width="2"/>
-  </g>
-</svg>

@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-  <g id="Group_12802" data-name="Group 12802" transform="translate(-87 -556)">
-    <g id="Rectangle_5519" data-name="Rectangle 5519" transform="translate(87 556)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
-      <rect width="20" height="20" stroke="none"/>
-      <rect x="0.5" y="0.5" width="19" height="19" fill="none"/>
-    </g>
-    <path id="bank-line" d="M85.333,99.134h15.334v1.533H85.333ZM86.867,93H88.4v5.367H86.867ZM90.7,93h1.533v5.367H90.7Zm3.067,0H95.3v5.367H93.767ZM97.6,93h1.533v5.367H97.6ZM85.333,89.167,93,85.334l7.667,3.833v3.067H85.333Zm1.533.948V90.7H99.134v-.586L93,87.048l-6.133,3.067ZM93,89.934a.767.767,0,1,1,.767-.767A.767.767,0,0,1,93,89.934Z" transform="translate(3.917 472.916)" fill="#00a6ff"/>
-  </g>
-</svg>
