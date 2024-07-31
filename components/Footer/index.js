@@ -14,16 +14,16 @@ export default function Footer() {
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
     return (
-        <footer className="bg-gray-800 text-white py-4">
+        <footer className="bg-gray-800 py-4 text-white">
             <p className="text-center">{t("footer")}</p>
-            <div className="text-center mt-2 relative inline-block">
+            <div className="relative mt-2 inline-block text-center">
                 <button
                     onClick={toggleDropdown}
-                    className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded inline-flex items-center"
+                    className="inline-flex items-center rounded bg-gray-700 px-4 py-2 text-white hover:bg-gray-600"
                 >
                     <span className="mr-1">切換語言</span>
                     <svg
-                        className="fill-current h-4 w-4"
+                        className="h-4 w-4 fill-current"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                     >
@@ -32,7 +32,7 @@ export default function Footer() {
                     </svg>
                 </button>
                 {dropdownOpen && (
-                    <ul className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-20">
+                    <ul className="absolute right-0 z-20 mt-2 w-48 rounded-lg bg-white py-2 shadow-xl">
                         {i18nextConfig.i18n.locales.map((locale) => {
                             if (locale === currentLocale) return null;
                             return (

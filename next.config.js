@@ -50,6 +50,7 @@ const nextConfig = {
     poweredByHeader: false, // 是否显示 X-Powered-By 头部信息
     reactStrictMode: true, // 是否启用 React 严格模式
     purgeCSS: true, //内置了自动删除未使用CSS的功能
+    transpilePackages: ["@radix-ui"],
     webpack: (config, { isServer }) => {
         // 在这里修改 Webpack 配置
         const webpackConfig = {
@@ -64,7 +65,7 @@ const nextConfig = {
                     "@": path.resolve(__dirname, "./components"),
                     $Deposits: path.resolve(
                         __dirname,
-                        "./node_modules/central-payment/Deposit/M3",
+                        "./node_modules/central-payment/Deposit/M3"
                     ),
                     // $Deposits: path.resolve(__dirname, './Central-Payment/Deposit/M3'),
                 },
@@ -121,7 +122,7 @@ const plugins = [
                 {
                     from: path.resolve(
                         __dirname,
-                        "./node_modules/central-payment/StyleSheet/Web/M3/F1/img",
+                        "./node_modules/central-payment/StyleSheet/Web/M3/F1/img"
                     ),
                     to: path.resolve(__dirname, "./public/img/central-payment"),
                 },
@@ -146,5 +147,5 @@ module.exports = withSentryConfig(
         // tunnelRoute: "/monitoring",
         hideSourceMaps: false,
         disableLogger: true,
-    },
+    }
 );

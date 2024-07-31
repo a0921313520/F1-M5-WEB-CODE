@@ -8,8 +8,6 @@ import "../styles/tailwindcss.css";
 function MyApp({ Component, pageProps }) {
     const { status, text } = useSelector((state) => state.spin);
 
-    console.log("Redux Store State:", store.getState());
-
     useEffect(() => {
         window.piwikLoadFinished = true;
     }, []);

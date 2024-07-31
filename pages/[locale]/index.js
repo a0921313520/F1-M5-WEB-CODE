@@ -21,23 +21,23 @@ const Homepage = () => {
                 setLockHeader={(setLockHeader) => {}}
                 // seoData={this.props.seoData}
             >
-                <main>
+                <main className="pt-[44px] md:pt-[56px]">
                     {t("title")}
                     <div>
-                        <div className="p-4 bg-gray-100">
-                            <h1 className="text-2xl font-bold mb-4">
+                        <div className="bg-gray-100 p-4">
+                            <h1 className="mb-4 text-2xl font-bold">
                                 Zustand Counter
                             </h1>
-                            <p className="text-lg mb-4">Value: {value}</p>
+                            <p className="mb-4 text-lg">Value: {value}</p>
                             <div className="space-x-2">
                                 <button
-                                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                    className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
                                     onClick={increment}
                                 >
                                     Increment
                                 </button>
                                 <button
-                                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                                    className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
                                     onClick={decrement}
                                 >
                                     Decrement

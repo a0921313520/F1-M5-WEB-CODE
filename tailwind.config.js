@@ -14,7 +14,6 @@ module.exports = {
         },
 
         extend: {
-            scrollbar: ["thin"],
             colors: {
                 //Brand Color
                 primary: "#00A6FF",
@@ -40,15 +39,6 @@ module.exports = {
                 positiveHover: "#30BE58",
                 negativeHover: "#F2242C",
                 whiteHover: "#F2F2F2",
-
-                popover: {
-                    DEFAULT: "hsl(var(--popover))",
-                    foreground: "hsl(var(--popover-foreground))",
-                },
-                card: {
-                    DEFAULT: "hsl(var(--card))",
-                    foreground: "hsl(var(--card-foreground))",
-                },
             },
             fontFamily: {
                 sans: ["Roboto", "sans-serif"],
