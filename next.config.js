@@ -11,7 +11,7 @@ const withLess = require("next-with-less"); //处理LESS
 const isDev = process.env.NODE_ENV !== "production"; //判断开发环境
 const PATH_PREFIX = "";
 const BASE_PATH = "";
-const withTM = require("next-transpile-modules")(["central-payment"]);
+const withTM = require("next-transpile-modules")([]);
 const CopyPlugin = require("copy-webpack-plugin");
 
 //NEXT.js 默认配置
