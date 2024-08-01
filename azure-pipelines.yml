@@ -15,7 +15,6 @@ resources:
 
 variables:
     prod: "f1"
-    lang: "hi"
     platform: "web"
     sourceCodeFolderName: "F1-M5-WEB-CODE"
     paymentGitRepoUrl: "https://a0921313520:$(gitAccessToken)@github.com/a0921313520/Central-Payment"
@@ -33,7 +32,6 @@ stages:
     - template: azp/html/pack/pack-template-nextjs.yml@devops
       parameters:
           prod: $(prod)
-          lang: $(lang)
           platform: $(platform)
           sourceCodeFolderName: $(sourceCodeFolderName)
           paymentGitRepoUrl: $(paymentGitRepoUrl)
