@@ -25,7 +25,7 @@ const buttonVariants = cva(
         defaultVariants: {
             type: "primary",
         },
-    },
+    }
 );
 
 const Button = React.forwardRef(
@@ -39,7 +39,7 @@ const Button = React.forwardRef(
             rightIcon,
             ...props
         },
-        ref,
+        ref
     ) => {
         // const Comp = asChild ? Slot : "button";
 
@@ -58,7 +58,7 @@ const Button = React.forwardRef(
                 )}
             </button>
         );
-    },
+    }
 );
 Button.displayName = "Button";
 

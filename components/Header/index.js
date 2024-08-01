@@ -70,6 +70,7 @@ const Header = () => {
                     <div className="flex items-center gap-3">
                         {isLogin ? (
                             <Button
+                                className="rounded-md"
                                 type="green"
                                 onClick={() =>
                                     router.push(
@@ -82,7 +83,7 @@ const Header = () => {
                         ) : (
                             <>
                                 <Button
-                                    className={`${
+                                    className={`rounded-md ${
                                         path === "login" ? "hidden" : ""
                                     }`}
                                     type="white"
@@ -95,6 +96,7 @@ const Header = () => {
                                     Login
                                 </Button>
                                 <Button
+                                    className="rounded-md"
                                     type="green"
                                     onClick={() =>
                                         router.push(

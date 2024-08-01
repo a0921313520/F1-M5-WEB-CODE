@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "@/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
+import { Button } from "@/ui/button";
 const login = () => {
     return (
         <Layout footer={false}>
@@ -14,7 +15,8 @@ const login = () => {
                     <h1 className="text-lg font-bold md:text-xl">Login</h1>
                     <div></div>
                 </div>
-                <div className="border">
+                <div className="border border-red-500">
+                    <Button>測試</Button>
                     <Tabs
                         defaultValue="Phone Number"
                         className="mx-auto w-full"
