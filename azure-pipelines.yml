@@ -11,7 +11,7 @@ resources:
           type: github
           endpoint: MKTFEGitHub
           name: benjilai008/devops-k8s
-          ref: main
+          ref: m5
 
 variables:
     prod: "f1"
