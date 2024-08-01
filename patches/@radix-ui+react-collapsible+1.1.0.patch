@@ -1,0 +1,26 @@
+diff --git a/node_modules/@radix-ui/react-collapsible/dist/index.js b/node_modules/@radix-ui/react-collapsible/dist/index.js
+index 6b8db2b..5a8b3bf 100644
+--- a/node_modules/@radix-ui/react-collapsible/dist/index.js
++++ b/node_modules/@radix-ui/react-collapsible/dist/index.js
+@@ -51,7 +51,7 @@ var import_react_compose_refs = require("@radix-ui/react-compose-refs");
+ var import_react_primitive = require("@radix-ui/react-primitive");
+ var import_react_presence = require("@radix-ui/react-presence");
+ var import_react_id = require("@radix-ui/react-id");
+-var import_jsx_runtime = require("react/jsx-runtime");
++var import_jsx_runtime = require("react/jsx-runtime.js");
+ var COLLAPSIBLE_NAME = "Collapsible";
+ var [createCollapsibleContext, createCollapsibleScope] = (0, import_react_context.createContextScope)(COLLAPSIBLE_NAME);
+ var [CollapsibleProvider, useCollapsibleContext] = createCollapsibleContext(COLLAPSIBLE_NAME);
+diff --git a/node_modules/@radix-ui/react-collapsible/dist/index.mjs b/node_modules/@radix-ui/react-collapsible/dist/index.mjs
+index f206cbe..83a7c3b 100644
+--- a/node_modules/@radix-ui/react-collapsible/dist/index.mjs
++++ b/node_modules/@radix-ui/react-collapsible/dist/index.mjs
+@@ -10,7 +10,7 @@ import { useComposedRefs } from "@radix-ui/react-compose-refs";
+ import { Primitive } from "@radix-ui/react-primitive";
+ import { Presence } from "@radix-ui/react-presence";
+ import { useId } from "@radix-ui/react-id";
+-import { jsx } from "react/jsx-runtime";
++import { jsx } from "react/jsx-runtime.js";
+ var COLLAPSIBLE_NAME = "Collapsible";
+ var [createCollapsibleContext, createCollapsibleScope] = createContextScope(COLLAPSIBLE_NAME);
+ var [CollapsibleProvider, useCollapsibleContext] = createCollapsibleContext(COLLAPSIBLE_NAME);
