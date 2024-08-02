@@ -26,7 +26,7 @@ const Header = () => {
                         />
                     </div>
                     <img
-                        src="/img/icon/Logo.svg"
+                        src="/hi/img/icon/Logo.svg"
                         className="cursor-pointer md:h-[25px] md:w-[100px]"
                         alt="fun88-logo"
                         onClick={() => router.push(`/${router.query.locale}`)}
@@ -46,13 +46,13 @@ const Header = () => {
                                         </div>
                                     </div>
                                     <img
-                                        src="/img/icon/icon_account.svg"
+                                        src="/hi/img/icon/icon_account.svg"
                                         className="size-5 cursor-pointer md:size-6"
                                         alt="account"
                                     />
                                 </div>
                                 <img
-                                    src="/img/icon/icon_bell.svg"
+                                    src="/hi/img/icon/icon_bell.svg"
                                     className="size-5 cursor-pointer md:size-6"
                                     alt="bell"
                                 />
@@ -61,7 +61,7 @@ const Header = () => {
 
                         {path !== "login" && path !== "register" && (
                             <img
-                                src="/img/icon/icon_search_white.svg"
+                                src="/hi/img/icon/icon_search_white.svg"
                                 className="mr-3 size-5 cursor-pointer md:size-6"
                                 alt="search icon"
                             />
@@ -108,7 +108,7 @@ const Header = () => {
                                 </Button>
                                 {path === "login" && (
                                     <img
-                                        src="/img/icon/icon_CS.svg"
+                                        src="/hi/img/icon/icon_CS.svg"
                                         className="cursor-pointer md:size-7"
                                         alt="Custom service"
                                     />

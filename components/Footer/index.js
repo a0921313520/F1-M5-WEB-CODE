@@ -1,14 +1,9 @@
-import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
-import LanguageSwitchLink from "../LanguageSwitchLink";
-import i18nextConfig from "../../next-i18next.config";
 import { useState } from "react";
+import { useI18n } from "../../utils/lang/LangContext"; // Use your custom translation context
 
 export default function Footer() {
-    const router = useRouter();
-    const { t } = useTranslation("footer");
-    const currentLocale =
-        router.query.locale || i18nextConfig.i18n.defaultLocale;
+    // Use the custom useI18n hook for translations
+    const { t, toggleLanguage, language } = useI18n();
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -33,16 +28,10 @@ export default function Footer() {
                 </button>
                 {dropdownOpen && (
                     <ul className="absolute right-0 z-20 mt-2 w-48 rounded-lg bg-white py-2 shadow-xl">
-                        {i18nextConfig.i18n.locales.map((locale) => {
-                            if (locale === currentLocale) return null;
-                            return (
-                                <li key={locale}>
-                                    <LanguageSwitchLink
-                                        locale={locale}
-                                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                                    />
-                                </li>
-                            );
+                        {/* Map over available languages */}
+                        {["en", "hi"].map((locale) => {
+                            if (locale === language) return null; // Skip current language
+                            return null;
                         })}
                     </ul>
                 )}

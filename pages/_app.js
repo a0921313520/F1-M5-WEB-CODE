@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "../redux/store";
-import { appWithTranslation } from "next-i18next";
 import "../styles/globals.scss";
 import "../styles/tailwindcss.css";
+import { I18nProvider } from "../utils/lang/LangContext";
 
 function MyApp({ Component, pageProps }) {
     const { status, text } = useSelector((state) => state.spin);
@@ -17,10 +17,12 @@ function MyApp({ Component, pageProps }) {
 
 function App({ Component, pageProps }) {
     return (
-        <Provider store={store}>
-            <MyApp Component={Component} pageProps={pageProps} />
-        </Provider>
+        <I18nProvider>
+            <Provider store={store}>
+                <MyApp Component={Component} pageProps={pageProps} />
+            </Provider>
+        </I18nProvider>
     );
 }
 
-export default appWithTranslation(App);
+export default App;

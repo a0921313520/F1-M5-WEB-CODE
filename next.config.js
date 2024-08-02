@@ -9,10 +9,9 @@ const withProgressBar = require("next-progressbar"); //构建进度
 const { withSentryConfig } = require("@sentry/nextjs"); //sentry 网站监控
 const withLess = require("next-with-less"); //处理LESS
 const isDev = process.env.NODE_ENV !== "production"; //判断开发环境
-const PATH_PREFIX = "";
-const BASE_PATH = "";
+const PATH_PREFIX = "/hi";
+const BASE_PATH = "/hi";
 const withTM = require("next-transpile-modules")([]);
-const CopyPlugin = require("copy-webpack-plugin");
 
 //NEXT.js 默认配置
 const nextConfig = {
@@ -39,6 +38,16 @@ const nextConfig = {
     },
     assetPrefix: isDev ? "" : PATH_PREFIX, //设置资产前缀并配置 CDN 的来源以解析为托管 Next.js 的域
     basePath: BASE_PATH, //next內建支持根目錄 處理js和css引用
+    lessLoaderOptions: {
+        lessOptions: {
+            modifyVars: {
+                hack: `true;@import '${path.resolve(
+                    __dirname,
+                    "./data/less/antd-custom.less"
+                )}';`,
+            },
+        },
+    },
     compiler: {
         removeConsole:
             process.env.NODE_ENV === "production"
@@ -53,28 +62,22 @@ const nextConfig = {
     transpilePackages: ["@radix-ui"],
     webpack: (config, { isServer }) => {
         // 在这里修改 Webpack 配置
-        const webpackConfig = {
-            resolve: {
-                alias: {
-                    ...(config.resolve.alias || {}),
-                    $DATA: path.resolve(__dirname, "./data"),
-                    $SERVICES: path.resolve(__dirname, "./services"),
-                    $UTILS: path.resolve(__dirname, "./utils"),
-                    $STORE: path.resolve(__dirname, "./redux/store"),
-                    $ZUSTAND_STORE: path.resolve(__dirname, "./zustand"),
-                    "@": path.resolve(__dirname, "./components"),
-                    $Deposits: path.resolve(
-                        __dirname,
-                        "./node_modules/central-payment/Deposit/M3"
-                    ),
-                    // $Deposits: path.resolve(__dirname, './Central-Payment/Deposit/M3'),
-                },
-            },
+        config.resolve.alias = {
+            ...(config.resolve.alias || {}),
+            $DATA: path.resolve(__dirname, "./data"),
+            $SERVICES: path.resolve(__dirname, "./services"),
+            $UTILS: path.resolve(__dirname, "./utils"),
+            $STORE: path.resolve(__dirname, "./redux/store"),
+            $ZUSTAND_STORE: path.resolve(__dirname, "./zustand"),
+            "@": path.resolve(__dirname, "./components"),
+            $Deposits: path.resolve(
+                __dirname,
+                "./node_modules/central-payment/Deposit/M3"
+            ),
+            // $Deposits: path.resolve(__dirname, './Central-Payment/Deposit/M3'),
         };
-        return {
-            ...config,
-            ...webpackConfig,
-        };
+
+        return config;
     },
     exportPathMap: async function (defaultPathMap) {
         return {
@@ -115,19 +118,6 @@ const plugins = [
                 quality: 80, // webp 压缩质量
             },
         },
-    ],
-    [
-        new CopyPlugin({
-            patterns: [
-                {
-                    from: path.resolve(
-                        __dirname,
-                        "./node_modules/central-payment/StyleSheet/Web/M3/F1/img"
-                    ),
-                    to: path.resolve(__dirname, "./public/img/central-payment"),
-                },
-            ],
-        }),
     ],
 ];
 
