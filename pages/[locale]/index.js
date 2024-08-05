@@ -21,7 +21,7 @@ const Homepage = () => {
                 setLockHeader={(setLockHeader) => {}}
                 // seoData={this.props.seoData}
             >
-                <main className="pt-[44px] md:pt-[56px]">
+                <main>
                     {t("title")}
                     <div>
                         <div className="bg-gray-100 p-4">
