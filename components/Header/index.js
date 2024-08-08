@@ -101,7 +101,9 @@ const Header = () => {
                                         Login
                                     </Button>
                                     <Button
-                                        className="rounded-md"
+                                        className={`rounded-md ${
+                                            path === "register" ? "hidden" : ""
+                                        }`}
                                         type="green"
                                         onClick={() =>
                                             router.push(
@@ -111,7 +113,8 @@ const Header = () => {
                                     >
                                         Register
                                     </Button>
-                                    {path === "login" && (
+                                    {(path === "login" ||
+                                        path === "register") && (
                                         <img
                                             src="/img/icon/icon_CS.svg"
                                             className="cursor-pointer md:size-7"

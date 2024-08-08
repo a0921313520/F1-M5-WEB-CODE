@@ -9,8 +9,40 @@ const login = () => {
     const [eyeOpen, setEyeOpen] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
 
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [isPhoneNumberBlurred, setIsPhoneNumberBlurred] = useState(false);
+    const [isUserNameBlurred, setIsUserNameBlurred] = useState(false);
+    const [isPasswordBlurred, setIsPasswordBlurred] = useState(false);
+
+    const [activeTab, setActiveTab] = useState("Phone Number");
+
     const handleRememberMeChange = () => {
         setRememberMe(!rememberMe);
+    };
+
+    //讓phoneNumber只接受數字
+    const handlePhoneNumberChange = (e) => {
+        const value = e.target.value;
+        // 只允許數字輸入，移除所有非數字字符
+        const numericValue = value.replace(/\D/g, "");
+        setPhoneNumber(numericValue);
+    };
+
+    //切換tabs時，清除password onBlur
+    const handleTabChange = (value) => {
+        setActiveTab(value);
+        setIsPasswordBlurred(false);
+    };
+
+    const isSubmitEnabled = () => {
+        if (activeTab === "Phone Number") {
+            return phoneNumber.length > 0 && password.length > 0;
+        } else {
+            return userName.length > 0 && password.length > 0;
+        }
     };
 
     return (
@@ -48,7 +80,11 @@ const login = () => {
                 </div>
                 {/* 下方 Login 表單 */}
                 <div className="mx-auto max-w-[500px] px-4">
-                    <Tabs defaultValue="Phone Number" className="w-full">
+                    <Tabs
+                        defaultValue="Phone Number"
+                        className="w-full"
+                        onValueChange={handleTabChange}
+                    >
                         <TabsList className="mb-5 flex items-center justify-center rounded-full">
                             <TabsTrigger
                                 value="Phone Number"
@@ -70,25 +106,30 @@ const login = () => {
                         >
                             {/* Phone Number input */}
                             <div className="relative w-full">
-                                <div className="absolute inset-y-0 left-4 flex items-center">
-                                    <img
-                                        className="size-5"
-                                        src="/img/icon/icon_phone.svg"
-                                        alt="phone icon"
-                                    />
-                                    <div className="ml-1 text-md text-black">
-                                        +91
-                                    </div>
-                                </div>
                                 <Input
-                                    className="pl-[72px]"
                                     type="tel"
                                     placeholder="Phone Number"
+                                    icon={"/img/icon/icon_phone.svg"}
+                                    prefix="+91"
+                                    value={phoneNumber}
+                                    onChange={handlePhoneNumberChange}
+                                    onFocus={() =>
+                                        setIsPhoneNumberBlurred(false)
+                                    }
+                                    onBlur={() => setIsPhoneNumberBlurred(true)}
+                                    pattern="[0-9]*"
+                                    inputMode="numeric"
+                                    maxLength={10}
+                                    error={
+                                        phoneNumber.length === 0 &&
+                                        isPhoneNumberBlurred &&
+                                        "Phone number is required"
+                                    }
                                 />
                             </div>
                             {/* Password input */}
                             <div className="relative w-full">
-                                <div className="absolute inset-y-0 left-4 flex items-center">
+                                <div className="absolute left-4 top-2.5 flex items-center">
                                     <img
                                         className="size-5"
                                         src="/img/icon/icon_lock01.svg"
@@ -96,11 +137,22 @@ const login = () => {
                                     />
                                 </div>
                                 <Input
-                                    className="pl-11"
                                     type={`${eyeOpen ? "text" : "password"}`}
                                     placeholder="Password"
+                                    icon={"/img/icon/icon_lock01.svg"}
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    onFocus={() => setIsPasswordBlurred(false)}
+                                    onBlur={() => setIsPasswordBlurred(true)}
+                                    error={
+                                        password.length === 0 &&
+                                        isPasswordBlurred &&
+                                        "Password is required"
+                                    }
                                 />
-                                <div className="absolute inset-y-0 right-4 flex items-center">
+                                <div className="absolute right-4 top-2.5 flex items-center">
                                     <img
                                         className="size-5 cursor-pointer"
                                         onClick={() => setEyeOpen(!eyeOpen)}
@@ -119,34 +171,42 @@ const login = () => {
                         >
                             {/* username input */}
                             <div className="relative w-full">
-                                <div className="absolute inset-y-0 left-4 flex items-center">
-                                    <img
-                                        className="size-5"
-                                        src="/img/icon/icon_profile.svg"
-                                        alt="profile icon"
-                                    />
-                                </div>
                                 <Input
-                                    className="pl-11"
                                     type="text"
                                     placeholder="Username"
+                                    icon={"/img/icon/icon_profile.svg"}
+                                    value={userName}
+                                    onChange={(e) =>
+                                        setUserName(e.target.value)
+                                    }
+                                    onFocus={() => setIsUserNameBlurred(false)}
+                                    onBlur={() => setIsUserNameBlurred(true)}
+                                    error={
+                                        userName.length === 0 &&
+                                        isUserNameBlurred &&
+                                        "Username is required"
+                                    }
                                 />
                             </div>
                             {/* Password input */}
                             <div className="relative w-full">
-                                <div className="absolute inset-y-0 left-4 flex items-center">
-                                    <img
-                                        className="size-5"
-                                        src="/img/icon/icon_lock01.svg"
-                                        alt="phone icon"
-                                    />
-                                </div>
                                 <Input
-                                    className="pl-11"
                                     type={`${eyeOpen ? "text" : "password"}`}
                                     placeholder="Password"
+                                    icon={"/img/icon/icon_lock01.svg"}
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    onFocus={() => setIsPasswordBlurred(false)}
+                                    onBlur={() => setIsPasswordBlurred(true)}
+                                    error={
+                                        password.length === 0 &&
+                                        isPasswordBlurred &&
+                                        "Password is required"
+                                    }
                                 />
-                                <div className="absolute inset-y-0 right-4 flex items-center">
+                                <div className="absolute right-4 top-2.5 flex items-center">
                                     <img
                                         className="size-5 cursor-pointer"
                                         onClick={() => setEyeOpen(!eyeOpen)}
@@ -184,7 +244,8 @@ const login = () => {
                     </div>
                     {/* Login button */}
                     <Button
-                        type="primary"
+                        type={`${isSubmitEnabled() ? "primary" : "disabled"}`}
+                        disabled={!isSubmitEnabled()}
                         className="h-11 w-full text-lg md:h-11 md:w-full"
                     >
                         Login

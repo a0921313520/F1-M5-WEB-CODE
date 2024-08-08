@@ -17,7 +17,7 @@ const buttonVariants = cva(
                 green: "text-white bg-positive hover:bg-positiveHover",
                 white: "text-black bg-white hover:bg-whiteHover",
                 red: "text-white bg-negative hover:bg-negativeHover",
-                disable: "text-grayBlue",
+                disabled: "text-grayBlue bg-bgDarkGray cursor-default",
                 dashBorder:
                     "text-primary border-2 border-primary border-dashed",
             },
