@@ -8,17 +8,6 @@ import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import SeoFooterContainer from "@/Footer/SeoContainer";
 
-// const DynamicMaintain = dynamic(import("@/RestrictAccess/maintain"), {
-//     loading: () => (
-//         <Spin
-//             style={{ position: "absolute", top: "30%", left: 0, right: 0 }}
-//             spinning={true}
-//             size="large"
-//             tip={translate("加载中")}
-//         />
-//     ),
-//     ssr: false,
-// });
 function MainComponent(props) {
     const commonParams = {
         headerHeightLock: props.headerHeightLock,
@@ -31,7 +20,6 @@ function MainComponent(props) {
         getPromotionList: props.getPromotionList,
         definedHeaderNode: props.definedHeaderNode,
     };
-    // global.HttpStatus =4;
     const globalStatusKey = global.HttpStatus || props.status || 1;
 
     switch (globalStatusKey) {
@@ -71,10 +59,8 @@ function MainComponent(props) {
             );
         case 3:
             return null;
-        // return <DynamicMaintain />;
         case 4:
             return null;
-        // return <DynamicRestrictAccess httpStatus={global.HttpStatus} />;
         case 5:
             return <React.Fragment>{props.children}</React.Fragment>;
         case 6:
@@ -101,72 +87,77 @@ function MainComponent(props) {
 }
 
 export default ({
-    status,
-    // 默认需要的内容
-    children,
-    // 锁定Header状态栏大小
-    setLockHeader,
-    // 设置登陆状态
-    setLoginStatus,
-    // 锁定Header状态栏大小所需要的配置参数
-    headerHeightLock,
-    // 设置Header部分未读标识（小红点）
-    setCircleHasUnRead,
-    // 设置UserCenter部分未读标识（小红点）
-    setUsercnnterCircle,
-    // 设置UserCenter的钱
-    setUserCenterMoney,
-    // 设置UserCenter的会员信息
-    setUserCenterMemberInfo,
-    // 顶层样式表名称
-    wrapperClassName,
-    // 自定义Header
-    definedHeaderNode,
-    title = "FUN88VN",
-    description = "",
-    Keywords = "",
-    getPromotionList,
-    seoContainer = "",
-    seoData,
-}) => [
-    <Head key="layout-head">
-        <meta charSet="utf-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href={`${process.env.BASE_PATH}/img/logo/favicon.ico`}
-        />
-        <title>{seoData?.title ?? title}</title>
-        <meta
-            name="description"
-            content={seoData?.description ?? description}
-        />
-        <meta name="Keywords" content={seoData?.keyword ?? Keywords} />
-    </Head>,
-    <>
-        <MainComponent
-            key="main-component"
-            status={status}
-            setLockHeader={setLockHeader}
-            setLoginStatus={setLoginStatus}
-            wrapperClassName={wrapperClassName}
-            headerHeightLock={headerHeightLock}
-            setCircleHasUnRead={setCircleHasUnRead}
-            setUsercnnterCircle={setUsercnnterCircle}
-            setUserCenterMoney={setUserCenterMoney}
-            setUserCenterMemberInfo={setUserCenterMemberInfo}
-            children={children}
-            getPromotionList={getPromotionList}
-            definedHeaderNode={definedHeaderNode}
-            seoContainer={seoData?.webFooter ?? seoContainer?.content}
-        />
-        {/* <SelfExclusionModal
-            ModalType={1}
-            OpenModalUrl="Home"
-            afterCloseModal={() => {
-                Router.push("/");
-            }}
-        /> */}
-    </>,
-];
+                    status,
+                    children,
+                    setLockHeader,
+                    setLoginStatus,
+                    headerHeightLock,
+                    setCircleHasUnRead,
+                    setUsercnnterCircle,
+                    setUserCenterMoney,
+                    setUserCenterMemberInfo,
+                    wrapperClassName,
+                    definedHeaderNode,
+                    title = "FUN88VN",
+                    description = "",
+                    Keywords = "",
+                    getPromotionList,
+                    seoContainer = "",
+                    seoData,
+                }) => {
+    // 抓取當前 domain
+    const host = typeof window !== "undefined" ? window.location.hostname : "";
+
+    // 判斷是否為 p5stag1 到 p5stag5
+    const isP5Staging = /p5stag[1-5]/.test(host);
+
+    // 根據判斷結果設置 robots meta 標籤
+    const robotsContent = isP5Staging ? "index,follow" : "noindex,nofollow";
+
+    // 更新 seoData，如果是 P5 Staging 環境
+    if (isP5Staging) {
+        seoData = {
+            title: "P5 Staging Environment",
+            description: "This is the P5 Staging environment",
+            keywords: "staging, p5, environment",
+            ...seoData,
+        };
+    }
+
+    return [
+        <Head key="layout-head">
+            <meta charSet="utf-8" />
+            <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+            <link
+                rel="shortcut icon"
+                type="image/x-icon"
+                href={`${process.env.BASE_PATH}/img/logo/favicon.ico`}
+            />
+            <title>{seoData?.title ?? title}</title>
+            <meta
+                name="description"
+                content={seoData?.description ?? description}
+            />
+            <meta name="Keywords" content={seoData?.keyword ?? Keywords} />
+            <meta name="robots" content={robotsContent} />
+        </Head>,
+        <>
+            <MainComponent
+                key="main-component"
+                status={status}
+                setLockHeader={setLockHeader}
+                setLoginStatus={setLoginStatus}
+                wrapperClassName={wrapperClassName}
+                headerHeightLock={headerHeightLock}
+                setCircleHasUnRead={setCircleHasUnRead}
+                setUsercnnterCircle={setUsercnnterCircle}
+                setUserCenterMoney={setUserCenterMoney}
+                setUserCenterMemberInfo={setUserCenterMemberInfo}
+                children={children}
+                getPromotionList={getPromotionList}
+                definedHeaderNode={definedHeaderNode}
+                seoContainer={seoData?.webFooter ?? seoContainer?.content}
+            />
+        </>,
+    ];
+};
