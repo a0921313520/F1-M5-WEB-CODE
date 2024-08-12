@@ -1,0 +1,13 @@
+diff --git a/node_modules/@radix-ui/react-popper/dist/index.mjs b/node_modules/@radix-ui/react-popper/dist/index.mjs
+index 1ae96b2..522138d 100644
+--- a/node_modules/@radix-ui/react-popper/dist/index.mjs
++++ b/node_modules/@radix-ui/react-popper/dist/index.mjs
+@@ -20,7 +20,7 @@ import { Primitive } from "@radix-ui/react-primitive";
+ import { useCallbackRef } from "@radix-ui/react-use-callback-ref";
+ import { useLayoutEffect } from "@radix-ui/react-use-layout-effect";
+ import { useSize } from "@radix-ui/react-use-size";
+-import { jsx } from "react/jsx-runtime";
++import { jsx } from "react/jsx-runtime.js";
+ var SIDE_OPTIONS = ["top", "right", "bottom", "left"];
+ var ALIGN_OPTIONS = ["start", "center", "end"];
+ var POPPER_NAME = "Popper";
