@@ -1,21 +1,17 @@
-import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import LanguageSwitchLink from "../LanguageSwitchLink";
-import i18nextConfig from "../../next-i18next.config";
 import { useState } from "react";
 
 export default function Footer() {
     const router = useRouter();
-    const { t } = useTranslation("footer");
-    const currentLocale =
-        router.query.locale || i18nextConfig.i18n.defaultLocale;
+    // const { t } = useTranslation("footer");
+
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
     return (
         <footer className="bg-gray-800 text-white py-4">
-            <p className="text-center">{t("footer")}</p>
+            <p className="text-center">f</p>
             <div className="text-center mt-2 relative inline-block">
                 <button
                     onClick={toggleDropdown}
@@ -32,19 +28,7 @@ export default function Footer() {
                     </svg>
                 </button>
                 {dropdownOpen && (
-                    <ul className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-20">
-                        {i18nextConfig.i18n.locales.map((locale) => {
-                            if (locale === currentLocale) return null;
-                            return (
-                                <li key={locale}>
-                                    <LanguageSwitchLink
-                                        locale={locale}
-                                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                                    />
-                                </li>
-                            );
-                        })}
-                    </ul>
+                    <ul className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-20"></ul>
                 )}
             </div>
         </footer>

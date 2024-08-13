@@ -81,6 +81,10 @@ const nextConfig = {
             "/login/index.htm": { page: "/safehouse" },
         };
     },
+    i18n: {
+        locales: ["en", "hi"],
+        defaultLocale: "en",
+    },
 };
 
 //插件和插件配置
