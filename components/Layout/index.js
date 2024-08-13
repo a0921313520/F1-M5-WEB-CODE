@@ -29,7 +29,7 @@ function MainComponent(props) {
                 <div className="">
                     <Header key="main-header" {...commonParams} />
                     {props.children}
-                    <Footer key="main-footer" />
+                    {props.footer && <Footer key="main-footer" />}
                     {props.seoContainer ? (
                         <SeoFooterContainer seocontent={props.seoContainer} />
                     ) : null}
@@ -109,6 +109,7 @@ export default ({
     getPromotionList,
     seoContainer = "",
     seoData,
+    footer = true,
 }) => [
     <Head key="layout-head">
         <meta charSet="utf-8" />
@@ -141,6 +142,7 @@ export default ({
             getPromotionList={getPromotionList}
             definedHeaderNode={definedHeaderNode}
             seoContainer={seoData?.webFooter ?? seoContainer?.content}
+            footer={footer}
         />
         {/* <SelfExclusionModal
             ModalType={1}
