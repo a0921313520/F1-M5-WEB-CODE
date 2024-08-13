@@ -1,9 +1,7 @@
 // import { useTranslation } from "next-i18next";
-import Link from "../../components/Link";
+import Link from "../components/Link";
 
 const Homepage = () => {
-    const { t } = useTranslation(["404", "common", "footer"]);
-
     return (
         <>
             <main>
@@ -18,6 +16,3 @@ const Homepage = () => {
 };
 
 export default Homepage;
-
-const getStaticProps = makeStaticProps(["404", "common", "footer"]);
-export { getStaticPaths, getStaticProps };
