@@ -3,7 +3,7 @@ import Router from "next/router";
 import { ApiPort } from "$SERVICES/TLCAPI";
 import { get, post } from "$SERVICES/TlcRequest";
 // import { nameReg, pwdReg } from "$DATA/reg";
-import { Cookie } from "../../utils/helper";
+import { Cookie } from "../utils/helper";
 import Layout from "@/Layout";
 // import PublicHead from "@/Layout/PublicHead";
 import { getStaticPropsFromStrapiSEOSetting } from "$DATA/seo";
@@ -12,19 +12,6 @@ global.NamePwdVerify = false;
 
 export async function getStaticProps({ params }) {
     return await getStaticPropsFromStrapiSEOSetting("/safehouse");
-}
-
-export async function getStaticPaths() {
-    // Define all possible paths
-    const paths = [
-        { params: { locale: "en-IN" } },
-        { params: { locale: "hi" } },
-    ];
-
-    return {
-        paths,
-        fallback: false,
-    };
 }
 
 class Safehouse extends React.Component {
