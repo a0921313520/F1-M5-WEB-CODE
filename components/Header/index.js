@@ -1,6 +1,8 @@
 import React from "react";
 import Router from "next/router";
 import { connect } from "react-redux";
+import { getLocale } from '$UTILS/lang/getStatic'
+import { useRouter } from 'next/router'
 
 function HeaderComponent(props) {
     switch (props.status) {
@@ -13,6 +15,10 @@ function HeaderComponent(props) {
     }
 }
 const Header = () => {
+    const router = useRouter()
+    const currentLocale = getLocale(router)
+    const href = currentLocale === 'en' ? '/second-page' : `/${currentLocale}/second-page`
+    
     return (
         <header className="bg-blue-500 p-4 flex items-center justify-between">
             <div className="flex items-center">
@@ -71,7 +77,7 @@ const Header = () => {
                 <button
                     onClick={() => {
                         console.log("Login button clicked");
-                        Router.push("/second-page");
+                        Router.push(href);
                     }}
                     className="bg-white text-blue-500 px-4 py-2 rounded"
                 >

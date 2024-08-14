@@ -3,9 +3,8 @@ import i18nextConfig from "../next-i18next.config";
 
 export default class MyDocument extends Document {
     render() {
-        const currentLocale =
-            this.props.__NEXT_DATA__.query.locale ||
-            i18nextConfig.i18n.defaultLocale;
+        const currentLocale = this.props.__NEXT_DATA__.query.locale || 'en'; // 默認為 en
+
         return (
             <Html lang={currentLocale}>
                 <Head>

@@ -7,8 +7,8 @@
         "tabWidth": 4
     },
     "scripts": {
-        "dev": "explorer http://localhost:8003/vn/ & node Server_Dev.js",
-        "sl": "explorer http://localhost:6868/vn/ & node Server_SL.js",
+        "dev": "explorer http://localhost:8003/ & node Server_Dev.js",
+        "sl": "explorer http://localhost:6868/ & node Server_SL.js",
         "mock": "node --harmony ./mock/servers.js",
         "server": "npx http-server -p 8888 ./",
         "build:production": "cross-env NODE_ENV=production next dev -p 6868",

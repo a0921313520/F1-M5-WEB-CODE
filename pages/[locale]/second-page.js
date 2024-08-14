@@ -1,24 +1,10 @@
-import Link from "../../components/Link";
-import Layout from "@/Layout";
+import TestPage from '../../components/pages/TestPage';
+import { getStaticPaths } from "$UTILS/lang/getStatic";
+import { makeStaticProps } from "$UTILS/lang/makeStatic";
 
-import { useTranslation } from "next-i18next";
-import { getStaticPaths, makeStaticProps } from "../../utils/lang/getStatic";
+const LocalizedHome = () => <TestPage />;
 
-const SecondPage = () => {
-    const { t } = useTranslation(["second-page", "common", "footer"]);
+export default LocalizedHome;
 
-    return (
-        <>
-            <Layout status={1}>
-                <Link href="/">
-                    <button type="button">{t("common:back-to-home")}</button>
-                </Link>
-            </Layout>
-        </>
-    );
-};
-
-export default SecondPage;
-
-const getStaticProps = makeStaticProps(["second-page", "common", "footer"]);
+const getStaticProps = makeStaticProps(["common", "footer"]);
 export { getStaticPaths, getStaticProps };
