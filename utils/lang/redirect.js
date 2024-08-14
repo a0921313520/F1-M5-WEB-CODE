@@ -9,6 +9,12 @@ export const useRedirect = (to) => {
     // language detection
     useEffect(() => {
         const detectedLng = languageDetector.detect();
+
+        // 如果是根路径 "/"，且未指定语言，直接返回，不做重定向
+        if (to === "/") {
+            return;
+        }
+
         if (to.startsWith("/" + detectedLng) && router.route === "/404") {
             // prevent endless loop
             router.replace("/" + detectedLng + router.route);

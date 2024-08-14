@@ -14,18 +14,15 @@ export async function getStaticProps({ params }) {
     return await getStaticPropsFromStrapiSEOSetting("/safehouse");
 }
 
-export async function getStaticPaths() {
-    // Define all possible paths
-    const paths = [
-        { params: { locale: "en-IN" } },
-        { params: { locale: "hi" } },
-    ];
+// export async function getStaticPaths() {
+//     // Define all possible paths
+//     const paths = [{ params: { locale: "en" } }, { params: { locale: "hi" } }];
 
-    return {
-        paths,
-        fallback: false,
-    };
-}
+//     return {
+//         paths,
+//         fallback: false,
+//     };
+// }
 
 class Safehouse extends React.Component {
     constructor(props) {

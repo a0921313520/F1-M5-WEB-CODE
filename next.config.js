@@ -13,6 +13,7 @@ const PATH_PREFIX = "";
 const BASE_PATH = "";
 const withTM = require("next-transpile-modules")(["central-payment"]);
 const CopyPlugin = require("copy-webpack-plugin");
+const i18nextConfig = require("./next-i18next.config");
 
 //NEXT.js 默认配置
 const nextConfig = {

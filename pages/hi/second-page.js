@@ -2,7 +2,7 @@ import Link from "../../components/Link";
 import Layout from "@/Layout";
 
 import { useTranslation } from "next-i18next";
-import { getStaticPaths, makeStaticProps } from "../../utils/lang/getStatic";
+import { makeStaticProps } from "../../utils/lang/getStatic";
 
 const SecondPage = () => {
     const { t } = useTranslation(["second-page", "common", "footer"]);
@@ -21,4 +21,4 @@ const SecondPage = () => {
 export default SecondPage;
 
 const getStaticProps = makeStaticProps(["second-page", "common", "footer"]);
-export { getStaticPaths, getStaticProps };
+export { getStaticProps };
