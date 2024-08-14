@@ -1,46 +1,4 @@
 // scss is batter than less
 
-//更改swiper的箭頭顏色、大小、背景顏色、按鈕禁用狀態
-.custom-swiper .swiper-button-next,
-.custom-swiper .swiper-button-prev {
-    background-color: white;
-    color: #5a5d62; /* 箭頭顏色 */
-    width: 24px; /* 寬度 */
-    height: 24px; /* 高度 */
-    border-radius: 50%; /* 圓形按鈕 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10; // 增加 z-index
-}
-
-.custom-swiper .swiper-button-next:after,
-.custom-swiper .swiper-button-prev:after {
-    font-size: 14px; /* 箭頭大小 */
-    font-weight: 700;
-}
-
-.custom-swiper .swiper-button-prev {
-    left: -10px;
-}
-
-.custom-swiper .swiper-button-next {
-    right: -10px;
-}
-
-.custom-swiper .swiper-button-next:hover,
-.custom-swiper .swiper-button-prev:hover {
-    background-color: black; /* 懸停時的背景顏色 */
-    color: white; /* 懸停時的字體顏色 */
-}
-
-/* 禁用狀態 */
-.custom-swiper .swiper-button-disabled {
-    display: none;
-}
-@media (max-width: 767px) {
-    .swiper-button-next,
-    .swiper-button-prev {
-        display: none !important;
-    }
-}
+//swiper相關
+@import "./components//swiper.scss";

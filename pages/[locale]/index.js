@@ -3,12 +3,20 @@ import { getStaticPaths, makeStaticProps } from "../../utils/lang/getStatic";
 import Layout from "@/Layout";
 import useBearStore from "../../zustand/zustandStore";
 import { HomePageSeo } from "$DATA/seo/seo.static";
+import TextMarquee from "@/TextMarquee";
+import useIsDesktop from "../../hooks/useIsDesktop";
 
 import Link from "../../components/Link";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import HomeSwiperComponent from "@/common/HomeSwiperComponent";
 
 const Homepage = () => {
     const { t } = useTranslation(["common", "footer"]);
     const { value, increment, decrement } = useBearStore();
+    const isDesktop = useIsDesktop();
 
     return (
         <>
@@ -21,30 +29,94 @@ const Homepage = () => {
                 setLockHeader={(setLockHeader) => {}}
                 // seoData={this.props.seoData}
             >
-                <main>
-                    {t("title")}
-                    <div>
-                        <div className="bg-gray-100 p-4">
-                            <h1 className="mb-4 text-2xl font-bold">
-                                Zustand Counter
-                            </h1>
-                            <p className="mb-4 text-lg">Value: {value}</p>
-                            <div className="space-x-2">
-                                <button
-                                    className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-                                    onClick={increment}
-                                >
-                                    Increment
-                                </button>
-                                <button
-                                    className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
-                                    onClick={decrement}
-                                >
-                                    Decrement
-                                </button>
-                            </div>
+                <main className="md:mx-auto md:max-w-[60%]">
+                    {/* {t("title")} */}
+                    {/* 首頁上方promo card */}
+                    <div className="space-y-2 bg-white px-4 py-2 md:rounded-b-[14px] md:px-2">
+                        <TextMarquee
+                            text={
+                                "Dear customer for faster payment process kindly deposit between 6:00 a.m. to 6:00 p.m. After successful deposit, please don't forget to input them into your account."
+                            }
+                        />
+                        <HomeSwiperComponent
+                            items={Array(6).fill("/img/promoCard.png")}
+                            renderItem={(item, index) => (
+                                <div className="h-[131px] w-[278px] md:h-[258px] md:w-[450px]">
+                                    <img
+                                        className="h-full w-full rounded-lg object-cover"
+                                        src={item}
+                                        alt={`promoCard ${index + 1}`}
+                                    />
+                                </div>
+                            )}
+                            autoplay={false}
+                            autoplayDelay={3000}
+                            isHomePromo={true}
+                        />
+                    </div>
+                    <div className="mt-6 space-y-2 md:space-y-4">
+                        {/* 首頁遊戲可滑動列表1 */}
+                        <div className="w-full px-2">
+                            <HomeSwiperComponent
+                                items={Array(6).fill("/img/gameCard.png")}
+                                slidesPerView={3}
+                                renderItem={(item, index) => (
+                                    <div
+                                        className={`${
+                                            !isDesktop && "h-[84px] w-[308px]"
+                                        }`}
+                                    >
+                                        <img
+                                            className="h-full w-full rounded-lg object-cover"
+                                            src={item}
+                                            alt={`promoCard ${index + 1}`}
+                                        />
+                                    </div>
+                                )}
+                            />
                         </div>
-
+                        {/* 首頁遊戲可滑動列表2 */}
+                        <div className="w-full px-2">
+                            <HomeSwiperComponent
+                                items={Array(9).fill("/img/squareCard.png")}
+                                slidesPerView={6}
+                                renderItem={(item, index) => (
+                                    <div
+                                        className={`${
+                                            !isDesktop && "size-[154px]"
+                                        }`}
+                                    >
+                                        <img
+                                            className="h-full w-full rounded-lg object-cover"
+                                            src={item}
+                                            alt={`promoCard ${index + 1}`}
+                                        />
+                                    </div>
+                                )}
+                            />
+                        </div>
+                        {/* 首頁遊戲可滑動列表3 */}
+                        <div className="w-full px-2">
+                            <HomeSwiperComponent
+                                items={Array(3).fill("/img/gameCard.png")}
+                                slidesPerView={3}
+                                renderItem={(item, index) => (
+                                    <div
+                                        className={`${
+                                            !isDesktop && "h-[84px] w-[308px]"
+                                        }`}
+                                    >
+                                        <img
+                                            className="h-full w-full rounded-lg object-cover"
+                                            src={item}
+                                            alt={`promoCard ${index + 1}`}
+                                        />
+                                    </div>
+                                )}
+                            />
+                        </div>
+                    </div>
+                    <div>
                         <Link href="/second-page">
                             <button type="button">{t("to-second-page")}</button>
                         </Link>

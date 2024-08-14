@@ -20,7 +20,7 @@ const Header = () => {
     const path = usePathWithoutLocale(); //取得網址
     const { locale, pathname, asPath, query } = router;
     console.log(path);
-    let isLogin = false;
+    let isLogin = true;
     const languages = [
         { code: "en", label: "English", flag: "/img/icon/icon_English02.svg" },
         { code: "hi", label: "हिंदी", flag: "/img/icon/icon_india.svg" },
@@ -28,7 +28,7 @@ const Header = () => {
     const changeLanguage = (code) => {};
     return (
         <>
-            <header className="fixed top-0 z-20 h-[44px] w-screen bg-primary px-4 py-2 md:h-[56px] md:px-5 md:py-1">
+            <header className="fixed top-0 z-40 h-[44px] w-screen bg-primary px-4 py-2 md:h-[56px] md:px-5 md:py-1">
                 <div className="flex w-full items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className="hidden md:block">
@@ -146,7 +146,7 @@ const Header = () => {
 
             {/* 導覽選單 */}
             <nav
-                className={`fixed inset-0 bottom-0 z-10 h-full w-full transform overflow-y-auto bg-white pb-[84px] pt-[44px]
+                className={`fixed inset-0 bottom-0 z-20 h-full w-full transform overflow-y-auto bg-white pb-[84px] pt-[44px]
                             transition-all duration-500 md:bottom-auto md:left-0 md:right-auto md:top-14 md:h-[calc(100vh-56px)] md:w-[320px] md:pb-0 md:pt-0
                     ${
                         isMenuOpen
@@ -213,7 +213,7 @@ const Header = () => {
                 </div>
             </nav>
             {/* 底部導覽行 */}
-            <div className="fixed bottom-0 z-20 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
+            <div className="fixed bottom-0 z-40 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
                 <div className="flex items-center justify-between">
                     {BOTTOM_ITEMS.map((item, index) => {
                         if (item === "Menu") {
