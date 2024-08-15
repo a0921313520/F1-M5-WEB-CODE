@@ -9,7 +9,7 @@ const withProgressBar = require("next-progressbar"); //构建进度
 const { withSentryConfig } = require("@sentry/nextjs"); //sentry 网站监控
 const withLess = require("next-with-less"); //处理LESS
 const isDev = process.env.NODE_ENV !== "production"; //判断开发环境
-const PATH_PREFIX = "";
+const PATH_PREFIX = process.env.ASSET_PREFIX || '.';
 const BASE_PATH = "";
 const withTM = require("next-transpile-modules")(["central-payment"]);
 const CopyPlugin = require("copy-webpack-plugin");
@@ -132,19 +132,3 @@ const plugins = [
 
 module.exports = withPlugins(plugins, nextConfig);
 
-//Sentry性能监控配置
-module.exports = withSentryConfig(
-    module.exports,
-    {
-        silent: true,
-        org: "it-cx-ip",
-        project: "f1-m1-web",
-    },
-    {
-        widenClientFileUpload: true,
-        transpileClientSDK: true,
-        // tunnelRoute: "/monitoring",
-        hideSourceMaps: false,
-        disableLogger: true,
-    },
-);
