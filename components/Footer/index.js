@@ -3,12 +3,13 @@ import { useRouter } from "next/router";
 import LanguageSwitchLink from "../LanguageSwitchLink";
 import i18nextConfig from "../../next-i18next.config";
 import { useState } from "react";
+import { getLocale } from "$UTILS/lang/getStatic";
 
 export default function Footer() {
     const router = useRouter();
-    const { t } = useTranslation("footer");
-    const currentLocale =
-        router.query.locale || i18nextConfig.i18n.defaultLocale;
+    const { t } = useTranslation();
+    const currentLocale = getLocale(router);
+
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
