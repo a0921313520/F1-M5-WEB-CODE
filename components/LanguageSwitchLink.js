@@ -2,11 +2,13 @@ import languageDetector from '../utils/lang/languageDetector'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import i18nextConfig from '../next-i18next.config'
+import { useTranslation } from "next-i18next";
 
 const LanguageSwitchLink = ({ locale, ...rest }) => {
     const router = useRouter()
     const defaultLocale = i18nextConfig.i18n.defaultLocale
-
+    const { t } = useTranslation();
+    
     let href = router.asPath
     let pName = router.pathname
 
@@ -37,8 +39,8 @@ const LanguageSwitchLink = ({ locale, ...rest }) => {
 
     return (
         <Link href={href} locale={locale}>
-            <button style={{ fontSize: 'small' }} onClick={handleClick}>
-                {locale}
+            <button className="text-3xl" onClick={handleClick}>
+                {t("footer:changeLanguage")}：{locale}
             </button>
         </Link>
     );
