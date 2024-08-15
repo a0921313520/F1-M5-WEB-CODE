@@ -94,3 +94,40 @@ export const BOTTOM_ITEMS = [
     { text: "My Bets", link: "/", img: "/img/icon/icon_my_bets.svg" },
     "Menu",
 ];
+
+//header 的遊戲導覽列
+export const HEADER_ITEMS = [
+    { text: "Home", link: "/", img: "/img/header/home.svg" },
+    { text: "Sports", link: "/sports", img: "/img/header/sport.svg" },
+    {
+        text: "Exchange",
+        link: "/sports/exchange",
+        img: "/img/header/exchange.svg",
+    },
+    {
+        text: "Evolution",
+        link: "/live-casino/evolution",
+        img: "/img/header/live-casino-evolution.svg",
+    },
+    {
+        text: "Instant Games",
+        link: "/instant-games",
+        img: "/img/header/instant-game.svg",
+    },
+    {
+        text: "TV Games",
+        link: "/tv-games",
+        img: "/img/header/TV.svg",
+    },
+    {
+        text: "Card Games",
+        link: "/card-games",
+        img: "/img/header/card-games.svg",
+    },
+    {
+        text: "Virtual",
+        link: "/virtual",
+        img: "/img/header/virtual.svg",
+    },
+    { text: "Slots", link: "/slots", img: "/img/header/slot.svg" },
+];

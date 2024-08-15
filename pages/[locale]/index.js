@@ -3,7 +3,7 @@ import { getStaticPaths, makeStaticProps } from "../../utils/lang/getStatic";
 import Layout from "@/Layout";
 import useBearStore from "../../zustand/zustandStore";
 import { HomePageSeo } from "$DATA/seo/seo.static";
-import TextMarquee from "@/TextMarquee";
+import TextMarquee from "@/common/TextMarquee";
 import useIsDesktop from "../../hooks/useIsDesktop";
 
 import Link from "../../components/Link";

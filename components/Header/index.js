@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { Button } from "@/ui/button";
@@ -12,7 +12,11 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
-import { NAV_ITEMS, BOTTOM_ITEMS } from "../../constants/navigation";
+import {
+    NAV_ITEMS,
+    BOTTOM_ITEMS,
+    HEADER_ITEMS,
+} from "../../constants/navigation";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,10 +29,11 @@ const Header = () => {
         { code: "en", label: "English", flag: "/img/icon/icon_English02.svg" },
         { code: "hi", label: "हिंदी", flag: "/img/icon/icon_india.svg" },
     ];
-    const changeLanguage = (code) => {};
+    const switchLanguage = () => {};
+
     return (
         <>
-            <header className="fixed top-0 z-40 h-[44px] w-screen bg-primary px-4 py-2 md:h-[56px] md:px-5 md:py-1">
+            <header className="fixed top-0 z-40 h-[44px] w-screen bg-primary px-4 py-2 md:h-[64px] md:px-5 md:py-2">
                 <div className="flex w-full items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className="hidden md:block">
@@ -42,12 +47,28 @@ const Header = () => {
                         </div>
                         <img
                             src="/img/icon/Logo.svg"
-                            className="cursor-pointer md:h-[25px] md:w-[100px]"
+                            className="cursor-pointer md:min-h-[25px] md:min-w-[100px]"
                             alt="fun88-logo"
                             onClick={() =>
                                 router.push(`/${router.query.locale}`)
                             }
                         />
+                    </div>
+                    {/* header中間遊戲導航 */}
+                    <div className="mx-10 hidden max-w-[900px] flex-1 items-center justify-between xl:flex">
+                        {HEADER_ITEMS.map((item) => (
+                            <div
+                                className="flex flex-col items-center justify-center gap-[5.5px] text-sm text-white"
+                                key={item.text}
+                            >
+                                <img
+                                    className="size-6"
+                                    src={item.img}
+                                    alt={`${item.text} icon`}
+                                />
+                                <span>{item.text}</span>
+                            </div>
+                        ))}
                     </div>
                     <div className="flex items-center">
                         <div className="flex items-center gap-3 md:gap-6">
@@ -81,7 +102,7 @@ const Header = () => {
                             {path !== "login" && path !== "register" && (
                                 <img
                                     src="/img/icon/icon_search_white.svg"
-                                    className="mr-3 size-5 cursor-pointer md:size-6"
+                                    className="mr-3 size-5 cursor-pointer md:size-6 md:min-h-6 md:min-w-6"
                                     alt="search icon"
                                 />
                             )}
@@ -142,7 +163,7 @@ const Header = () => {
                 </div>
             </header>
             {/* 佔位元素 */}
-            <div className="h-[44px] md:h-[56px]"></div>
+            <div className="h-[44px] md:h-[64px]"></div>
 
             {/* 導覽選單 */}
             <nav
@@ -174,12 +195,13 @@ const Header = () => {
                             {languages.map((lang) => (
                                 <DropdownMenuItem
                                     key={lang.code}
-                                    onSelect={() => changeLanguage(lang.code)}
+                                    onSelect={() => switchLanguage(lang.code)}
+                                    className="h-9 w-[calc(100vw-60px)] hover:bg-bgPrimaryLight md:w-[280px]"
                                 >
                                     <img
                                         src={lang.flag}
                                         alt={lang.label}
-                                        className="mr-2 h-4 w-4"
+                                        className="mr-2 h-4 w-4 object-cover"
                                     />
                                     <span>{lang.label}</span>
                                 </DropdownMenuItem>
@@ -270,18 +292,4 @@ const Header = () => {
     );
 };
 
-const mapStateToProps = function (state) {
-    return {
-        userCenterTabKey: state.userCenter.userCenterPageTabKey,
-    };
-};
-
-const mapDispatchToProps = function (dispatch) {
-    return {
-        changeUserCenterTabKey: (tabkey) => {
-            dispatch(userCenterActions.changeUserCenterTabKey(tabkey));
-        },
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;
