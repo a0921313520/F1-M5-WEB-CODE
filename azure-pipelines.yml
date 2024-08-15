@@ -18,7 +18,7 @@ variables:
     lang: "hi"
     platform: "web"
     sourceCodeFolderName: "F1-M5-WEB-CODE"
-    paymentGitRepoUrl: "https://a0921313520:$(gitAccessToken)@github.com/a0921313520/Central-Payment"
+    # paymentGitRepoUrl: "https://a0921313520:$(gitAccessToken)@github.com/a0921313520/Central-Payment"
     commitHash: $(Build.SourceVersion)
     sourcesDirectory: $(Build.SourcesDirectory)
     buildNumber: $(Build.BuildNumber)

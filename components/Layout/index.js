@@ -8,17 +8,6 @@ import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import SeoFooterContainer from "@/Footer/SeoContainer";
 
-// const DynamicMaintain = dynamic(import("@/RestrictAccess/maintain"), {
-//     loading: () => (
-//         <Spin
-//             style={{ position: "absolute", top: "30%", left: 0, right: 0 }}
-//             spinning={true}
-//             size="large"
-//             tip={translate("加载中")}
-//         />
-//     ),
-//     ssr: false,
-// });
 function MainComponent(props) {
     const commonParams = {
         headerHeightLock: props.headerHeightLock,
@@ -37,18 +26,10 @@ function MainComponent(props) {
     switch (globalStatusKey) {
         case 1:
             return (
-                <div
-                    className={`tlc-container-wrapper ${
-                        props.wrapperClassName ? props.wrapperClassName : ""
-                    } ${
-                        props.headerHeightLock
-                            ? "_" + props.headerHeightLock
-                            : ""
-                    }`}
-                >
+                <div className="">
                     <Header key="main-header" {...commonParams} />
                     {props.children}
-                    <Footer key="main-footer" />
+                    {props.footer && <Footer key="main-footer" />}
                     {props.seoContainer ? (
                         <SeoFooterContainer seocontent={props.seoContainer} />
                     ) : null}
@@ -122,12 +103,13 @@ export default ({
     wrapperClassName,
     // 自定义Header
     definedHeaderNode,
-    title = "FUN88VN",
+    title = "FUN88",
     description = "",
     Keywords = "",
     getPromotionList,
     seoContainer = "",
     seoData,
+    footer = true,
 }) => [
     <Head key="layout-head">
         <meta charSet="utf-8" />
@@ -160,6 +142,7 @@ export default ({
             getPromotionList={getPromotionList}
             definedHeaderNode={definedHeaderNode}
             seoContainer={seoData?.webFooter ?? seoContainer?.content}
+            footer={footer}
         />
         {/* <SelfExclusionModal
             ModalType={1}

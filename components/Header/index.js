@@ -1,108 +1,295 @@
-import React from "react";
-import Router from "next/router";
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import { connect } from "react-redux";
-import { getLocale } from '$UTILS/lang/getStatic'
-import { useRouter } from 'next/router'
+import { Button } from "@/ui/button";
+import { Squash as Hamburger } from "hamburger-react";
+import { formatNumberWithCommas } from "@/lib/utils";
+import usePathWithoutLocale from "../../hooks/usePathWithoutLocale";
+import { ChevronDown } from "lucide-react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/ui/dropdown-menu";
+import {
+    NAV_ITEMS,
+    BOTTOM_ITEMS,
+    HEADER_ITEMS,
+} from "../../constants/navigation";
 
-function HeaderComponent(props) {
-    switch (props.status) {
-        case 0:
-            return null;
-        case 1:
-            return null;
-        default:
-            return null;
-    }
-}
 const Header = () => {
-    const router = useRouter()
-    const currentLocale = getLocale(router)
-    const href = currentLocale === 'en' ? '/second-page' : `/${currentLocale}/second-page`
-    
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const router = useRouter();
+    const path = usePathWithoutLocale(); //取得網址
+    const { locale, pathname, asPath, query } = router;
+    console.log(path);
+    let isLogin = true;
+    const languages = [
+        { code: "en", label: "English", flag: "/img/icon/icon_English02.svg" },
+        { code: "hi", label: "हिंदी", flag: "/img/icon/icon_india.svg" },
+    ];
+    const switchLanguage = () => {};
+
     return (
-        <header className="bg-blue-500 p-4 flex items-center justify-between">
-            <div className="flex items-center">
-                <button className="text-white mr-4 md:hidden">
-                    <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 6h16M4 12h16M4 18h16"
+        <>
+            <header className="fixed top-0 z-40 h-[44px] w-screen bg-primary px-4 py-2 md:h-[64px] md:px-5 md:py-2">
+                <div className="flex w-full items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <div className="hidden md:block">
+                            <Hamburger
+                                toggled={isMenuOpen}
+                                toggle={setIsMenuOpen}
+                                size={28}
+                                color="#fff"
+                                rounded
+                            />
+                        </div>
+                        <img
+                            src="/img/icon/Logo.svg"
+                            className="cursor-pointer md:min-h-[25px] md:min-w-[100px]"
+                            alt="fun88-logo"
+                            onClick={() =>
+                                router.push(`/${router.query.locale}`)
+                            }
                         />
-                    </svg>
-                </button>
-                <div className="text-white">FUN88</div>
-            </div>
-            <nav className="hidden md:flex space-x-4 items-center">
-                <a href="#" className="text-white flex flex-col items-center">
-                    <svg className="w-6 h-6" /* SVG for Home icon */></svg>
-                    <span>Home</span>
-                </a>
-                <a href="#" className="text-white flex flex-col items-center">
-                    <svg className="w-6 h-6" /* SVG for Sports icon */></svg>
-                    <span>Sports</span>
-                </a>
-                {/* Add more links as needed */}
+                    </div>
+                    {/* header中間遊戲導航 */}
+                    <div className="mx-10 hidden max-w-[900px] flex-1 items-center justify-between xl:flex">
+                        {HEADER_ITEMS.map((item) => (
+                            <div
+                                className="flex flex-col items-center justify-center gap-[5.5px] text-sm text-white"
+                                key={item.text}
+                            >
+                                <img
+                                    className="size-6"
+                                    src={item.img}
+                                    alt={`${item.text} icon`}
+                                />
+                                <span>{item.text}</span>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex items-center">
+                        <div className="flex items-center gap-3 md:gap-6">
+                            {isLogin && (
+                                <>
+                                    <div className="flex items-center">
+                                        <div className="mr-1 text-white md:mr-2">
+                                            <div className="text-end text-xxs md:text-md">
+                                                INR
+                                            </div>
+                                            <div className="text-sm md:text-md">
+                                                {formatNumberWithCommas(
+                                                    123456227
+                                                )}
+                                            </div>
+                                        </div>
+                                        <img
+                                            src="/img/icon/icon_account.svg"
+                                            className="size-5 cursor-pointer md:size-6"
+                                            alt="account"
+                                        />
+                                    </div>
+                                    <img
+                                        src="/img/icon/icon_bell.svg"
+                                        className="size-5 cursor-pointer md:size-6"
+                                        alt="bell"
+                                    />
+                                </>
+                            )}
+
+                            {path !== "login" && path !== "register" && (
+                                <img
+                                    src="/img/icon/icon_search_white.svg"
+                                    className="mr-3 size-5 cursor-pointer md:size-6 md:min-h-6 md:min-w-6"
+                                    alt="search icon"
+                                />
+                            )}
+                        </div>
+                        <div className="flex items-center gap-3">
+                            {isLogin ? (
+                                <Button
+                                    className="rounded-md"
+                                    type="green"
+                                    onClick={() =>
+                                        router.push(
+                                            `/${router.query.locale}/deposit`
+                                        )
+                                    }
+                                >
+                                    Deposit
+                                </Button>
+                            ) : (
+                                <>
+                                    <Button
+                                        className={`rounded-md ${
+                                            path === "login" ? "hidden" : ""
+                                        }`}
+                                        type="white"
+                                        onClick={() =>
+                                            router.push(
+                                                `/${router.query.locale}/login`
+                                            )
+                                        }
+                                    >
+                                        Login
+                                    </Button>
+                                    <Button
+                                        className={`rounded-md ${
+                                            path === "register" ? "hidden" : ""
+                                        }`}
+                                        type="green"
+                                        onClick={() =>
+                                            router.push(
+                                                `/${router.query.locale}/register`
+                                            )
+                                        }
+                                    >
+                                        Register
+                                    </Button>
+                                    {(path === "login" ||
+                                        path === "register") && (
+                                        <img
+                                            src="/img/icon/icon_CS.svg"
+                                            className="cursor-pointer md:size-7"
+                                            alt="Custom service"
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </header>
+            {/* 佔位元素 */}
+            <div className="h-[44px] md:h-[64px]"></div>
+
+            {/* 導覽選單 */}
+            <nav
+                className={`fixed inset-0 bottom-0 z-20 h-full w-full transform overflow-y-auto bg-white pb-[84px] pt-[44px]
+                            transition-all duration-500 md:bottom-auto md:left-0 md:right-auto md:top-14 md:h-[calc(100vh-56px)] md:w-[320px] md:pb-0 md:pt-0
+                    ${
+                        isMenuOpen
+                            ? "translate-y-0 md:translate-x-0"
+                            : "translate-y-full md:-translate-x-full md:translate-y-0"
+                    }
+                `}
+            >
+                <div className="space-y-2 p-4">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <div className="flex h-11 items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                    <img
+                                        className="size-6"
+                                        src="/img/icon/icon_English02.svg"
+                                        alt=""
+                                    />
+                                    <div className="text-md">English</div>
+                                </div>
+                                <ChevronDown className="ml-1 h-4 w-4 text-black" />
+                            </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-full">
+                            {languages.map((lang) => (
+                                <DropdownMenuItem
+                                    key={lang.code}
+                                    onSelect={() => switchLanguage(lang.code)}
+                                    className="h-9 w-[calc(100vw-60px)] hover:bg-bgPrimaryLight md:w-[280px]"
+                                >
+                                    <img
+                                        src={lang.flag}
+                                        alt={lang.label}
+                                        className="mr-2 h-4 w-4 object-cover"
+                                    />
+                                    <span>{lang.label}</span>
+                                </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+
+                    {NAV_ITEMS.map((item, index) => {
+                        if (item === "divider") {
+                            return (
+                                <div
+                                    className="h-[1px] w-full bg-bgDarkGray"
+                                    key={`nav-item-${index}`}
+                                />
+                            );
+                        }
+                        return (
+                            <div
+                                className="flex h-11 items-center gap-4"
+                                key={`nav-item-${index}`}
+                            >
+                                <img
+                                    className="size-6"
+                                    src={item.img}
+                                    alt={item.text + " icon"}
+                                />
+                                <div className="text-md">{item.text}</div>
+                            </div>
+                        );
+                    })}
+                </div>
             </nav>
-            <div className="flex items-center space-x-2">
-                <button className="text-white">
-                    <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                        />
-                    </svg>
-                </button>
-                <button
-                    onClick={() => {
-                        console.log("Login button clicked");
-                        Router.push(href);
-                    }}
-                    className="bg-white text-blue-500 px-4 py-2 rounded"
-                >
-                    Login
-                </button>
-                <button className="bg-green-500 text-white px-4 py-2 rounded">
-                    Register
-                </button>
+            {/* 底部導覽行 */}
+            <div className="fixed bottom-0 z-40 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
+                <div className="flex items-center justify-between">
+                    {BOTTOM_ITEMS.map((item, index) => {
+                        if (item === "Menu") {
+                            return (
+                                <div
+                                    className="flex flex-col items-center gap-1.5"
+                                    key={`bottom-item-${index}`}
+                                >
+                                    <div className="size-[26px] -translate-x-2.5 -translate-y-2">
+                                        <Hamburger
+                                            toggled={isMenuOpen}
+                                            toggle={setIsMenuOpen}
+                                            size={26}
+                                            color={`${
+                                                isMenuOpen
+                                                    ? "rgba(0, 166, 255, 1)"
+                                                    : "rgba(152, 157, 171, 1)"
+                                            }`}
+                                            rounded
+                                        />
+                                    </div>
+                                    <div
+                                        className={`text-sm  ${
+                                            isMenuOpen
+                                                ? "text-primary"
+                                                : "text-grayBlue"
+                                        }`}
+                                    >
+                                        Menu
+                                    </div>
+                                </div>
+                            );
+                        }
+
+                        return (
+                            <div
+                                className="flex flex-col items-center gap-1.5"
+                                key={`bottom-item-${index}`}
+                            >
+                                <img
+                                    className="size-[26px]"
+                                    src={item.img}
+                                    alt={`${item.text} icon`}
+                                />
+                                <div className="text-sm text-grayBlue">
+                                    {item.text}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
-        </header>
+        </>
     );
 };
 
-const mapStateToProps = function (state) {
-    return {
-        userCenterTabKey: state.userCenter.userCenterPageTabKey,
-    };
-};
-
-const mapDispatchToProps = function (dispatch) {
-    return {
-        changeUserCenterTabKey: (tabkey) => {
-            dispatch(userCenterActions.changeUserCenterTabKey(tabkey));
-        },
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

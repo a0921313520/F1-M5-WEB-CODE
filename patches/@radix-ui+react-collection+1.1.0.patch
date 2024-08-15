@@ -1,0 +1,26 @@
+diff --git a/node_modules/@radix-ui/react-collection/dist/index.js b/node_modules/@radix-ui/react-collection/dist/index.js
+index 6c78cb0..3a4c4cc 100644
+--- a/node_modules/@radix-ui/react-collection/dist/index.js
++++ b/node_modules/@radix-ui/react-collection/dist/index.js
+@@ -40,7 +40,7 @@ var import_react = __toESM(require("react"));
+ var import_react_context = require("@radix-ui/react-context");
+ var import_react_compose_refs = require("@radix-ui/react-compose-refs");
+ var import_react_slot = require("@radix-ui/react-slot");
+-var import_jsx_runtime = require("react/jsx-runtime");
++var import_jsx_runtime = require("react/jsx-runtime.js");
+ function createCollection(name) {
+   const PROVIDER_NAME = name + "CollectionProvider";
+   const [createCollectionContext, createCollectionScope] = (0, import_react_context.createContextScope)(PROVIDER_NAME);
+diff --git a/node_modules/@radix-ui/react-collection/dist/index.mjs b/node_modules/@radix-ui/react-collection/dist/index.mjs
+index a15221f..4ddb2cb 100644
+--- a/node_modules/@radix-ui/react-collection/dist/index.mjs
++++ b/node_modules/@radix-ui/react-collection/dist/index.mjs
+@@ -5,7 +5,7 @@ import React from "react";
+ import { createContextScope } from "@radix-ui/react-context";
+ import { useComposedRefs } from "@radix-ui/react-compose-refs";
+ import { Slot } from "@radix-ui/react-slot";
+-import { jsx } from "react/jsx-runtime";
++import { jsx } from "react/jsx-runtime.js";
+ function createCollection(name) {
+   const PROVIDER_NAME = name + "CollectionProvider";
+   const [createCollectionContext, createCollectionScope] = createContextScope(PROVIDER_NAME);
