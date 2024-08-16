@@ -3,6 +3,14 @@ import { useRouter } from "next/router";
 import LanguageSwitchLink from "../LanguageSwitchLink";
 import i18nextConfig from "../../next-i18next.config";
 import { useState } from "react";
+import { FOOTERGAMEITEMS, FOOTERINFOITEMS } from "../../constants/footerItem";
+
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/ui/accordion";
 
 export default function Footer() {
     const router = useRouter();
@@ -14,8 +22,8 @@ export default function Footer() {
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
     return (
-        <footer className="bg-gray-800 py-4 text-white">
-            <p className="text-center">{t("footer")}</p>
+        <footer className="mx-4 mt-6 rounded-lg bg-white px-5 text-black md:mx-0 md:mt-4 md:rounded-none md:px-20">
+            {/* <p className="text-center">{t("footer")}</p>
             <div className="relative mt-2 inline-block text-center">
                 <button
                     onClick={toggleDropdown}
@@ -46,6 +54,63 @@ export default function Footer() {
                         })}
                     </ul>
                 )}
+            </div> */}
+
+            <Accordion type="single" collapsible>
+                <AccordionItem value="item-1" className="border-none">
+                    <AccordionTrigger
+                        className="py-4 text-md font-semibold md:text-lg"
+                        iconClassName={"size-5"}
+                    >
+                        Top games and more
+                    </AccordionTrigger>
+                    <AccordionContent className="border-t-bgDarkGray">
+                        <div className="relative w-full">
+                            <div className="mb-4 h-[1px] w-full bg-bgDarkGray" />
+                            <div className="grid grid-cols-2 gap-y-7 md:grid-cols-4">
+                                {FOOTERGAMEITEMS.map((category) => (
+                                    <div className="" key={category.title}>
+                                        <h2 className="mb-3 text-md font-semibold md:text-lg">
+                                            {category.title}
+                                        </h2>
+                                        <ul className="flex flex-col gap-3">
+                                            {category.games.map((item) => (
+                                                <li
+                                                    className="text-sm font-semibold text-grayBlue md:text-md md:font-normal"
+                                                    key={item}
+                                                >
+                                                    {item}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
+            <div className="mb-4 h-[1px] w-full bg-bgDarkGray" />
+            <div>
+                <div className="grid grid-cols-2 gap-y-7 md:grid-cols-6">
+                    {FOOTERINFOITEMS.map((info) => (
+                        <div>
+                            <h2 className="mb-3 text-md font-semibold md:text-lg">
+                                {info.title}
+                            </h2>
+                            <ul className="flex flex-col gap-3">
+                                {info.items.map((item) => (
+                                    <li
+                                        className="text-sm font-semibold text-grayBlue md:text-md md:font-normal"
+                                        key={item}
+                                    >
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
             </div>
         </footer>
     );

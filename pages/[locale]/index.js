@@ -49,7 +49,7 @@ const Homepage = () => {
                                     />
                                 </div>
                             )}
-                            autoplay={false}
+                            autoplay={true}
                             autoplayDelay={3000}
                             isHomePromo={true}
                         />
@@ -116,11 +116,11 @@ const Homepage = () => {
                             />
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <Link href="/second-page">
                             <button type="button">{t("to-second-page")}</button>
                         </Link>
-                    </div>
+                    </div> */}
                 </main>
             </Layout>
         </>
