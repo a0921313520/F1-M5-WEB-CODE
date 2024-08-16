@@ -1,2 +1,5 @@
-import { Redirect } from "../utils/lang/redirect";
-export default Redirect;
+import Safehouse from '../components/pages/Safehouse';
+
+const LocalizedHome = () => <Safehouse />;
+
+export default LocalizedHome;

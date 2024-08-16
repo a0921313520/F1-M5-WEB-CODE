@@ -3,6 +3,6 @@
     "error-with-status": "A {{statusCode}} error occurred on server",
     "error-without-status": "An error occurred on the server",
     "h1": "A simple example",
-    "title": "hello",
+    "title": "hello 123",
     "to-second-page": "To second page"
 }

@@ -1,27 +1,8 @@
-import { useTranslation } from "next-i18next";
-import { getStaticPaths, makeStaticProps } from "../../utils/lang/getStatic";
+import NotFound from '../../components/pages/404';
+import { getStaticPaths, } from "$UTILS/lang/getStatic";
+import { makeStaticProps } from "$UTILS/lang/makeStatic";
 
-import Link from "../../components/Link";
+export default () => <NotFound />;
 
-const Homepage = () => {
-    const { t } = useTranslation(["404", "common", "footer"]);
-
-    return (
-        <>
-            <main>
-                <div>
-                    <Link href="/">
-                        <button type="button">
-                            {t("common:back-to-home")}
-                        </button>
-                    </Link>
-                </div>
-            </main>
-        </>
-    );
-};
-
-export default Homepage;
-
-const getStaticProps = makeStaticProps(["404", "common", "footer"]);
+const getStaticProps = makeStaticProps(["common" ,"footer"]);
 export { getStaticPaths, getStaticProps };
