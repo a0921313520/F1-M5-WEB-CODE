@@ -5,10 +5,10 @@ export default function seoContainer({ seocontent }) {
     const [seoDetailStatus, setSeoDetailStatus] = useState(false);
     return (
         <div
-            className="common-distance-wrap footer-seo-wrap"
-            style={{ height: seoDetailStatus ? "auto" : "290px" }}
+            className=""
+            // style={{ height: seoDetailStatus ? "auto" : "290px" }}
         >
-            <div className="common-distance">
+            {/* <div className="common-distance">
                 {seocontent ? (
                     <div className="seo-container">
                         {seoDetailStatus ? (
@@ -40,7 +40,7 @@ export default function seoContainer({ seocontent }) {
                         )}
                     </div>
                 ) : null}
-            </div>
+            </div> */}
         </div>
     );
 }
