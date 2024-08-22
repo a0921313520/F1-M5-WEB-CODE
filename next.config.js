@@ -62,6 +62,7 @@ const nextConfig = {
                     $UTILS: path.resolve(__dirname, "./utils"),
                     $STORE: path.resolve(__dirname, "./redux/store"),
                     $ZUSTAND_STORE: path.resolve(__dirname, "./zustand"),
+                    $HOOKS: path.resolve(__dirname, "./hooks"),
                     "@": path.resolve(__dirname, "./components"),
                     $Deposits: path.resolve(
                         __dirname,

@@ -1,0 +1,17 @@
+{
+    "login": "लॉग इन करें",
+    "official-shirt-sponsor": "आधिकारिक शर्ट प्रायोजक",
+    "newcastle-united-fc": "न्यूकैसल यूनाइटेड एफसी",
+    "phone-number": "फ़ोन नंबर",
+    "username": "उपयोगकर्ता नाम",
+    "password": "पासवर्ड",
+    "remember-me": "मुझे याद करो",
+    "forgot": "भूल गया?",
+    "dont-have-an-account": "कोई खाता नहीं है?",
+    "register": "पंजीकरण करवाना",
+    "incorrect-phone-number-or-password": "ग़लत फ़ोन नंबर या पासवर्ड",
+    "username-is-required": "उपयोगकर्ता नाम आवश्यक है",
+    "password-is-required": "पासवर्ड की आवश्यकता है",
+    "phone-number-is-required": "फ़ोन नंबर आवश्यक है",
+    "incorrect-username-or-password": "गलत उपयोगकर्ता नाम या पासवर्ड"
+}

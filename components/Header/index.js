@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { connect } from "react-redux";
 import { Button } from "@/ui/button";
 import { Squash as Hamburger } from "hamburger-react";
 import { formatNumberWithCommas } from "@/lib/utils";
-import usePathWithoutLocale from "../../hooks/usePathWithoutLocale";
+import useCurrentPath from "$HOOKS/useCurrentPath";
+import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
+import { getLocale } from "$UTILS/lang/getStatic";
 import { ChevronDown } from "lucide-react";
 import {
     DropdownMenu,
@@ -12,24 +13,20 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
-import {
-    NAV_ITEMS,
-    BOTTOM_ITEMS,
-    HEADER_ITEMS,
-} from "../../constants/navigation";
+import { NAV_ITEMS, BOTTOM_ITEMS, HEADER_ITEMS } from "$DATA/navigation";
+import { LANGUAGES } from "$DATA/language";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const path = useCurrentPath(); //取得網址
     const router = useRouter();
-    const path = usePathWithoutLocale(); //取得網址
-    const { locale, pathname, asPath, query } = router;
-    console.log(path);
+    const currentLocale = getLocale(router);
+
+    const { navigateTo, changeLanguage } = useLanguageNavigation();
+
     let isLogin = false;
-    const languages = [
-        { code: "en", label: "English", flag: "/img/icon/icon_English02.svg" },
-        { code: "hi", label: "हिंदी", flag: "/img/icon/icon_india.svg" },
-    ];
-    const switchLanguage = () => {};
+
+    let currentLanguage = LANGUAGES.find((lang) => lang.code === currentLocale);
 
     return (
         <>
@@ -49,9 +46,7 @@ const Header = () => {
                             src="/img/icon/Logo.svg"
                             className="cursor-pointer md:min-h-[25px] md:min-w-[100px]"
                             alt="fun88-logo"
-                            onClick={() =>
-                                router.push(`/${router.query.locale}`)
-                            }
+                            onClick={() => navigateTo("/")}
                         />
                     </div>
                     {/* header中間遊戲導航 */}
@@ -112,11 +107,7 @@ const Header = () => {
                                 <Button
                                     className="rounded-md"
                                     type="green"
-                                    onClick={() =>
-                                        router.push(
-                                            `/${router.query.locale}/deposit`
-                                        )
-                                    }
+                                    onClick={() => navigateTo("/deposit")}
                                 >
                                     Deposit
                                 </Button>
@@ -127,11 +118,7 @@ const Header = () => {
                                             path === "login" ? "hidden" : ""
                                         }`}
                                         type="white"
-                                        onClick={() =>
-                                            router.push(
-                                                `/${router.query.locale}/login`
-                                            )
-                                        }
+                                        onClick={() => navigateTo("/login")}
                                     >
                                         Login
                                     </Button>
@@ -140,11 +127,7 @@ const Header = () => {
                                             path === "register" ? "hidden" : ""
                                         }`}
                                         type="green"
-                                        onClick={() =>
-                                            router.push(
-                                                `/${router.query.locale}/register`
-                                            )
-                                        }
+                                        onClick={() => navigateTo("/register")}
                                     >
                                         Register
                                     </Button>
@@ -183,23 +166,26 @@ const Header = () => {
                                 <div className="flex items-center gap-4">
                                     <img
                                         className="size-6"
-                                        src="/img/icon/icon_English02.svg"
-                                        alt=""
+                                        src={currentLanguage.img}
+                                        alt={currentLanguage.label}
                                     />
-                                    <div className="text-md">English</div>
+                                    <div className="text-md">
+                                        {currentLanguage.label}
+                                    </div>
                                 </div>
                                 <ChevronDown className="ml-1 h-4 w-4 text-black" />
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-full">
-                            {languages.map((lang) => (
+                            {LANGUAGES.map((lang) => (
                                 <DropdownMenuItem
                                     key={lang.code}
-                                    onSelect={() => switchLanguage(lang.code)}
+                                    onSelect={() => changeLanguage(lang.code)}
+                                    disabled={lang.code === currentLocale}
                                     className="h-9 w-[calc(100vw-60px)] hover:bg-bgPrimaryLight md:w-[280px]"
                                 >
                                     <img
-                                        src={lang.flag}
+                                        src={lang.img}
                                         alt={lang.label}
                                         className="mr-2 h-4 w-4 object-cover"
                                     />

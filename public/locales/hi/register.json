@@ -1,0 +1,21 @@
+{
+    "register": "पंजीकरण करवाना",
+    "official-shirt-sponsor": "आधिकारिक शर्ट प्रायोजक",
+    "newcastle-united-fc": "न्यूकैसल यूनाइटेड एफसी",
+    "get-id-instantly-on-whatsapp": "व्हाट्सएप पर तुरंत आईडी प्राप्त करें",
+    "or": "या",
+    "phone-number": "फ़ोन नंबर",
+    "password": "पासवर्ड",
+    "i-have-referral-code": "मेरे पास रेफरल कोड है",
+    "register-legal-age": "पंजीकरण करके, आप कानूनी गेमिंग उम्र में हैं।",
+    "phone-number-is-required": "फ़ोन नंबर आवश्यक है",
+    "phone-number-must-be-10-digits": "फ़ोन नंबर 10 अंकों का होना चाहिए",
+    "password-is-required": "पासवर्ड की आवश्यकता है",
+    "password-must-be-at-least-6-characters-long": "पासवर्ड कम से कम 6 अक्षरों का होना चाहिए",
+    "password-contain-special-characters": "पासवर्ड में विशेष अक्षर होते हैं",
+    "password-must-contain-at-least-1-alphabet-and-1-number": "नए पासवर्ड में विशेष अक्षर होते हैं",
+    "6-16-characters": "6-16 अक्षर (a-z, 0-9)",
+    "no-special-characters": "कोई विशेष पात्र नहीं",
+    "at-least-1-alphabet-and-1-number": "कम से कम 1 अक्षर और 1 अंक",
+    "login": "लॉग इन करें"
+}

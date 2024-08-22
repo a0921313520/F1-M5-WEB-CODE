@@ -1,17 +1,17 @@
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import LanguageSwitchLink from "../LanguageSwitchLink";
-import i18nextConfig from "../../next-i18next.config";
-import { useState } from "react";
 import { getLocale } from "$UTILS/lang/getStatic";
+import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
 import { ChevronDown } from "lucide-react";
+
+import { LANGUAGES } from "$DATA/language";
 import {
     FOOTERGAMEITEMS,
     FOOTERINFOITEMS,
     FOOTERPAYMENTMETHODS,
     FOOTERSOCIALNETWORKS,
     FOOTERRESPONSIBILITY,
-} from "../../constants/footerItemList";
+} from "$DATA/footerItemList";
 
 import {
     Accordion,
@@ -19,7 +19,6 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/ui/accordion";
-
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -28,44 +27,21 @@ import {
 } from "@/ui/dropdown-menu";
 
 export default function Footer() {
+    const { changeLanguage } = useLanguageNavigation();
     const router = useRouter();
     const { t } = useTranslation();
     const currentLocale = getLocale(router);
 
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    let currentLanguage = LANGUAGES.find((lang) => lang.code === currentLocale);
 
-    const languageNames = {
-        en: "English",
-        hi: "हिन्दी",
-    };
-
-    const languages = [
-        { code: "en", label: "English", flag: "/img/icon/icon_English02.svg" },
-        { code: "hi", label: "हिंदी", flag: "/img/icon/icon_india.svg" },
-    ];
-
-    const handleClick = (url) => {
-        // 在這裡可以添加一些邏輯，比如記錄點擊事件
+    //打開外部連結
+    const openInternalLink = (url) => {
         window.open(url, "_blank", "noopener,noreferrer");
     };
 
     return (
         <>
             <footer className="mx-4 mb-6 mt-6 rounded-t-lg bg-white px-5 text-black md:mx-0 md:mb-0 md:mt-4 md:rounded-none md:px-20">
-                <div className="relative mt-2 inline-block text-center">
-                    {i18nextConfig.i18n.locales.map((locale) => {
-                        if (locale === currentLocale) return null;
-                        return (
-                            <LanguageSwitchLink
-                                key={locale}
-                                locale={locale}
-                                className="mr-2 text-blue-400 hover:text-blue-600"
-                            >
-                                {languageNames[locale]}
-                            </LanguageSwitchLink>
-                        );
-                    })}
-                </div>
                 <Accordion type="single" collapsible>
                     <AccordionItem value="item-1" className="border-none">
                         <AccordionTrigger
@@ -104,7 +80,7 @@ export default function Footer() {
                 <div className="mb-4 h-[1px] w-full bg-bgDarkGray md:mb-6" />
                 <div className="grid grid-cols-2 gap-y-7 md:grid-cols-6">
                     {FOOTERINFOITEMS.map((info) => (
-                        <div>
+                        <div key={info.title}>
                             <h2 className="mb-3 text-md font-semibold md:text-lg">
                                 {info.title}
                             </h2>
@@ -113,43 +89,59 @@ export default function Footer() {
                                     //切換語言
                                     if (item === "Language") {
                                         return (
-                                            <DropdownMenu>
+                                            <DropdownMenu key={item}>
                                                 <DropdownMenuTrigger asChild>
                                                     <div className="flex h-[40px] w-[120px] items-center justify-between rounded-lg border border-bgDarkGray px-2 py-2.5">
                                                         <div className="flex items-center gap-1.5">
                                                             <img
                                                                 className="size-[16px] object-cover"
-                                                                src="/img/icon/icon_English02.svg"
-                                                                alt=""
+                                                                src={
+                                                                    currentLanguage.img
+                                                                }
+                                                                alt={
+                                                                    currentLanguage.label
+                                                                }
                                                             />
                                                             <div className="text-sm text-grayBlue md:text-md">
-                                                                English
+                                                                {
+                                                                    currentLanguage.label
+                                                                }
                                                             </div>
                                                         </div>
                                                         <ChevronDown className="ml-1 h-4 w-4 text-grayBlue" />
                                                     </div>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent className="w-[112px]">
-                                                    {languages.map((lang) => (
-                                                        <DropdownMenuItem
-                                                            key={lang.code}
-                                                            onSelect={() =>
-                                                                switchLanguage(
-                                                                    lang.code
-                                                                )
-                                                            }
-                                                            className="h-9 w-[calc(100vw-60px)] hover:bg-bgPrimaryLight md:w-[280px]"
-                                                        >
-                                                            <img
-                                                                src={lang.flag}
-                                                                alt={lang.label}
-                                                                className="mr-2 h-4 w-4 object-cover"
-                                                            />
-                                                            <span>
-                                                                {lang.label}
-                                                            </span>
-                                                        </DropdownMenuItem>
-                                                    ))}
+                                                    {LANGUAGES.map((lang) => {
+                                                        return (
+                                                            <DropdownMenuItem
+                                                                key={lang.code}
+                                                                onSelect={() => {
+                                                                    changeLanguage(
+                                                                        lang.code
+                                                                    );
+                                                                }}
+                                                                disabled={
+                                                                    lang.code ===
+                                                                    currentLocale
+                                                                }
+                                                                className="h-9 w-[calc(100vw-60px)] hover:bg-bgPrimaryLight md:w-[280px]"
+                                                            >
+                                                                <img
+                                                                    src={
+                                                                        lang.img
+                                                                    }
+                                                                    alt={
+                                                                        lang.label
+                                                                    }
+                                                                    className="mr-2 h-4 w-4 object-cover"
+                                                                />
+                                                                <span>
+                                                                    {lang.label}
+                                                                </span>
+                                                            </DropdownMenuItem>
+                                                        );
+                                                    })}
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         );
@@ -175,7 +167,10 @@ export default function Footer() {
                 </h2>
                 <div className="flex flex-wrap gap-3 md:gap-4">
                     {FOOTERPAYMENTMETHODS.map((method) => (
-                        <div className="flex h-[44px] w-[68px] items-center justify-center rounded-lg border border-bgDarkGray">
+                        <div
+                            className="flex h-[44px] w-[68px] items-center justify-center rounded-lg border border-bgDarkGray"
+                            key={method.name}
+                        >
                             <img src={method.img} alt={method.name} />
                         </div>
                     ))}
@@ -190,7 +185,8 @@ export default function Footer() {
                     {FOOTERSOCIALNETWORKS.map((item) => (
                         <div
                             className="flex size-[44px] cursor-pointer items-center justify-center rounded-lg border border-bgDarkGray"
-                            onClick={() => handleClick(item.link)}
+                            onClick={() => openInternalLink(item.link)}
+                            key={item.name}
                         >
                             <img
                                 className="size-[28px]"
@@ -211,6 +207,7 @@ export default function Footer() {
                         <div
                             className="flex size-[44px] items-center justify-center rounded-lg border border-bgDarkGray"
                             onClick={() => handleClick(item.link)}
+                            key={item.name}
                         >
                             <img
                                 className="size-[28px]"

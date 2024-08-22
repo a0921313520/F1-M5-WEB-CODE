@@ -1,0 +1,21 @@
+{
+    "register": "Register",
+    "official-shirt-sponsor": "Official Shirt Sponsor",
+    "newcastle-united-fc": "Newcastle United FC",
+    "get-id-instantly-on-whatsapp": "Get ID instantly on WhatsApp",
+    "or": "OR",
+    "phone-number": "Phone Number",
+    "password": "Password",
+    "i-have-referral-code": "I have referral code",
+    "register-legal-age": "By registering, you confirm you are of legal gaming age.",
+    "phone-number-is-required": "Phone number is required",
+    "phone-number-must-be-10-digits": "Phone number must be 10 digits",
+    "password-is-required": "Password is required",
+    "password-must-be-at-least-6-characters-long": "Password must be at least 6 characters long",
+    "password-contain-special-characters": "Password contain special characters",
+    "password-must-contain-at-least-1-alphabet-and-1-number": "Password must contain at least 1 alphabet and 1 number",
+    "6-16-characters": "6-16 characters (a-z, 0-9)",
+    "no-special-characters": "No special characters",
+    "at-least-1-alphabet-and-1-number": "At least 1 alphabet and 1 number",
+    "login": "LOGIN"
+}
