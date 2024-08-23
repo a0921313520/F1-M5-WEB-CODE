@@ -5,8 +5,10 @@ import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
 import { FaCheck } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
 
 const Login = () => {
+    const { navigateTo } = useLanguageNavigation();
     const { t } = useTranslation("login");
     const [eyeOpen, setEyeOpen] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
@@ -51,13 +53,14 @@ const Login = () => {
         <Layout footer={false}>
             <div className="w-full">
                 {/* 上方白色 Login 背景 */}
-                <div className="w-full bg-white">
+                <div className="fixed top-11 w-full bg-white md:top-[64px]">
                     <div className="mx-auto max-w-[500px] px-4">
                         <div className="flex h-11 w-full items-center justify-between md:h-14">
                             <img
                                 src="/img/icon/icon_close_black.svg"
                                 className="cursor-pointer"
                                 alt="close icon"
+                                onClick={() => navigateTo("/")}
                             />
                             <h1 className="text-lg font-bold text-black md:text-xl">
                                 {t("login")}
@@ -66,10 +69,14 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* 佔位元素 */}
+                <div className="h-11 md:h-[56px]" />
+
                 {/* 中間image */}
                 <div className="mb-5 mt-6 flex flex-col items-center justify-center md:mb-6">
                     <img
-                        className="mb-2 size-16"
+                        className="mb-2 size-[16]"
                         src="/img/login/NUFC.png"
                         alt="NUFC image"
                     />
@@ -240,7 +247,12 @@ const Login = () => {
                                 {t("remember-me")}
                             </label>
                         </div>
-                        <div className="cursor-pointer text-primary">
+                        <div
+                            className="cursor-pointer text-primary"
+                            onClick={() => {
+                                navigateTo("/forgot-password");
+                            }}
+                        >
                             {t("forgot")}
                         </div>
                     </div>
@@ -257,7 +269,10 @@ const Login = () => {
                         <div className="text-black">
                             {t("dont-have-an-account")}
                         </div>
-                        <span className="cursor-pointer font-bold text-primary">
+                        <span
+                            className="cursor-pointer font-bold text-primary"
+                            onClick={() => navigateTo("/register")}
+                        >
                             {t("register")}
                         </span>
                     </div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Layout from "@/Layout";
 import { Check, Dot } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
 import {
@@ -13,6 +14,7 @@ import {
 
 const Register = () => {
     const { t } = useTranslation("register");
+    const { navigateTo } = useLanguageNavigation();
     const [eyeOpen, setEyeOpen] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
@@ -85,13 +87,14 @@ const Register = () => {
         <Layout footer={false}>
             <div className="w-full">
                 {/* 上方白色 Register 背景 */}
-                <div className="w-full bg-white">
+                <div className="fixed top-11 w-full bg-white md:top-[64px]">
                     <div className="mx-auto max-w-[500px] px-4">
                         <div className="flex h-11 w-full items-center justify-between md:h-14">
                             <img
                                 src="/img/icon/icon_close_black.svg"
                                 className="cursor-pointer"
                                 alt="close icon"
+                                onClick={() => navigateTo("/")}
                             />
                             <h1 className="text-lg font-bold text-black md:text-xl">
                                 {t("register")}
@@ -100,6 +103,10 @@ const Register = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* 佔位元素 */}
+                <div className="h-11 md:h-[56px]" />
+
                 {/* sponsor image */}
                 <div className="mb-5 mt-6 flex flex-col items-center justify-center md:mb-6">
                     <img
@@ -287,7 +294,10 @@ const Register = () => {
                     {/* Have an account */}
                     <div className="mt-5 flex items-center justify-center gap-1 text-sm md:mt-6">
                         <div className="text-black">Have an account?</div>
-                        <span className="cursor-pointer font-bold text-primary">
+                        <span
+                            className="cursor-pointer font-bold text-primary"
+                            onClick={() => navigateTo("/login")}
+                        >
                             {t("login")}
                         </span>
                     </div>

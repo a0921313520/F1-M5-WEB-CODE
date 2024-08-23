@@ -17,9 +17,15 @@ const Input = React.forwardRef(
                                 />
                             )}
                             {prefix && (
-                                <div className="ml-1 text-md text-black">
-                                    {prefix}
-                                </div>
+                                <>
+                                    <img
+                                        className="ml-1 size-5"
+                                        src="/img/icon/icon_india.svg"
+                                    />
+                                    <div className="ml-1 text-md text-black">
+                                        {prefix}
+                                    </div>
+                                </>
                             )}
                         </div>
                     )}
@@ -29,7 +35,11 @@ const Input = React.forwardRef(
                             "flex h-10 w-full rounded-lg border border-white bg-white px-3 py-2 text-md ring-offset-white",
                             "file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-grayBluePlaceholder focus-visible:outline-none",
                             "focus-visible:ring-1 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50",
-                            icon && prefix ? "pl-[72px]" : "pl-11",
+                            icon && prefix
+                                ? "pl-[96px]"
+                                : icon || prefix
+                                ? "pl-11"
+                                : "",
                             error ? "border-negative" : "",
                             className
                         )}
