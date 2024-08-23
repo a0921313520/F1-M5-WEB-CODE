@@ -14,7 +14,7 @@ resources:
           ref: main
 
 variables:
-    prod: "f1"
+    prod: "f1m5"
     lang: "hi"
     platform: "web"
     sourceCodeFolderName: "F1-M5-WEB-CODE"
