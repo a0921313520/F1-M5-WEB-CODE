@@ -220,60 +220,64 @@ const Header = () => {
                     })}
                 </div>
             </nav>
-            {/* 底部導覽行 */}
-            <div className="fixed bottom-0 z-40 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
-                <div className="flex items-center justify-between">
-                    {BOTTOM_ITEMS.map((item, index) => {
-                        if (item === "Menu") {
-                            return (
-                                <div
-                                    className="flex flex-col items-center gap-1.5"
-                                    key={`bottom-item-${index}`}
-                                >
-                                    <div className="size-[26px] -translate-x-2.5 -translate-y-2">
-                                        <Hamburger
-                                            toggled={isMenuOpen}
-                                            toggle={setIsMenuOpen}
-                                            size={26}
-                                            color={`${
-                                                isMenuOpen
-                                                    ? "rgba(0, 166, 255, 1)"
-                                                    : "rgba(152, 157, 171, 1)"
-                                            }`}
-                                            rounded
-                                        />
-                                    </div>
-                                    <div
-                                        className={`text-sm  ${
-                                            isMenuOpen
-                                                ? "text-primary"
-                                                : "text-grayBlue"
-                                        }`}
-                                    >
-                                        Menu
-                                    </div>
-                                </div>
-                            );
-                        }
+            {/* 底部導覽行(768px以下才顯示) */}
+            {path !== "login" &&
+                path !== "register" &&
+                path !== "forgot-password" && (
+                    <div className="fixed bottom-0 z-40 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
+                        <div className="flex items-center justify-between">
+                            {BOTTOM_ITEMS.map((item, index) => {
+                                if (item === "Menu") {
+                                    return (
+                                        <div
+                                            className="flex flex-col items-center gap-1.5"
+                                            key={`bottom-item-${index}`}
+                                        >
+                                            <div className="size-[26px] -translate-x-2.5 -translate-y-2">
+                                                <Hamburger
+                                                    toggled={isMenuOpen}
+                                                    toggle={setIsMenuOpen}
+                                                    size={26}
+                                                    color={`${
+                                                        isMenuOpen
+                                                            ? "rgba(0, 166, 255, 1)"
+                                                            : "rgba(152, 157, 171, 1)"
+                                                    }`}
+                                                    rounded
+                                                />
+                                            </div>
+                                            <div
+                                                className={`text-sm  ${
+                                                    isMenuOpen
+                                                        ? "text-primary"
+                                                        : "text-grayBlue"
+                                                }`}
+                                            >
+                                                Menu
+                                            </div>
+                                        </div>
+                                    );
+                                }
 
-                        return (
-                            <div
-                                className="flex flex-col items-center gap-1.5"
-                                key={`bottom-item-${index}`}
-                            >
-                                <img
-                                    className="size-[26px]"
-                                    src={item.img}
-                                    alt={`${item.text} icon`}
-                                />
-                                <div className="text-sm text-grayBlue">
-                                    {item.text}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
+                                return (
+                                    <div
+                                        className="flex flex-col items-center gap-1.5"
+                                        key={`bottom-item-${index}`}
+                                    >
+                                        <img
+                                            className="size-[26px]"
+                                            src={item.img}
+                                            alt={`${item.text} icon`}
+                                        />
+                                        <div className="text-sm text-grayBlue">
+                                            {item.text}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
         </>
     );
 };

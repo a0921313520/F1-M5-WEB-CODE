@@ -8,6 +8,6 @@ export const getStaticPaths = () => ({
 });
 
 export function getLocale(router) {
-    console.log("getLocale", router);
+    // console.log("getLocale", router);
     return router.query.locale || i18nextConfig.i18n.defaultLocale;
 }

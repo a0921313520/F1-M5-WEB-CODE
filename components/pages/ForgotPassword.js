@@ -4,10 +4,69 @@ import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { set } from "lodash";
 
 const ForgotPassword = () => {
     const [mainTab, setMainTab] = useState("Password");
+    const [subTab, setSubTab] = useState("Phone Number");
+    const [inputValue, setInputValue] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+
     const router = useRouter();
+
+    const onMainTabChange = (value) => {
+        setMainTab(value);
+        setInputValue("");
+        setErrorMsg("");
+    };
+
+    const onSubTabChange = (value) => {
+        setSubTab(value);
+        setInputValue("");
+        setErrorMsg("");
+    };
+
+    const renderInput = () => {
+        const isPhoneNumber = subTab === "Phone Number";
+        return (
+            <Input
+                type={isPhoneNumber ? "tel" : "email"}
+                placeholder={isPhoneNumber ? "Phone Number" : "Email"}
+                icon={
+                    isPhoneNumber
+                        ? "/img/icon/icon_phone.svg"
+                        : "/img/icon/icon_email.svg"
+                }
+                value={inputValue}
+                onChange={handleInputChange}
+                error={inputValue.length > 0 && errorMsg}
+                prefix={isPhoneNumber ? "+91" : null}
+                pattern={isPhoneNumber ? "[0-9]*" : null}
+                inputMode={isPhoneNumber ? "numeric" : null}
+                maxLength={isPhoneNumber ? 10 : null}
+            />
+        );
+    };
+
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        if (subTab === "Phone Number") {
+            // 只允許數字輸入，移除所有非數字字符
+            const numericValue = value.replace(/\D/g, "");
+            setInputValue(numericValue);
+        } else {
+            setInputValue(value);
+        }
+
+        //會call api 驗證 input 是否正確
+        //如果不正確，顯示 error message
+
+        if (subTab === "Phone Number") {
+            setErrorMsg("Phone Number is invalid.");
+        } else if (subTab === "Email") {
+            setErrorMsg("Email is invalid.");
+        }
+    };
 
     return (
         <Layout footer={false}>
@@ -44,27 +103,25 @@ const ForgotPassword = () => {
                     <Tabs
                         defaultValue="Password"
                         className=""
-                        onValueChange={(value) => setMainTab(value)}
+                        onValueChange={(value) => onMainTabChange(value)}
                     >
-                        <TabsList className="mb-5 flex items-center justify-center rounded-none border-b border-b-gray2 bg-transparent">
-                            <TabsTrigger
-                                value="Password"
-                                className="w-full text-lg font-normal data-[state=active]:rounded-none data-[state=active]:border-b-2 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:text-lg data-[state=active]:text-primary data-[state=active]:shadow-transparent"
-                            >
-                                Forgot Password
-                            </TabsTrigger>
-                            <TabsTrigger
-                                value="Username"
-                                className="w-full text-lg font-normal data-[state=active]:rounded-none data-[state=active]:border-b-2 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:text-lg data-[state=active]:text-primary data-[state=active]:shadow-transparent"
-                            >
-                                Forgot Username
-                            </TabsTrigger>
+                        <TabsList className="mb-5 flex items-center justify-center rounded-none border-b border-b-gray2 bg-transparent px-0 pb-0">
+                            {["Password", "Username"].map((tab) => (
+                                <TabsTrigger
+                                    key={tab}
+                                    value={tab}
+                                    className="w-full text-lg font-normal data-[state=active]:rounded-none data-[state=active]:border-b-2 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:text-lg data-[state=active]:text-primary data-[state=active]:shadow-transparent"
+                                >
+                                    {tab}
+                                </TabsTrigger>
+                            ))}
                         </TabsList>
                         {/* Forgot Password part */}
                         <TabsContent value="Password">
                             <Tabs
                                 defaultValue="Phone Number"
                                 className="w-full"
+                                onValueChange={(value) => onSubTabChange(value)}
                             >
                                 <TabsList className="mb-5 flex items-center justify-center rounded-full">
                                     <TabsTrigger
@@ -90,17 +147,7 @@ const ForgotPassword = () => {
                                         password.
                                     </p>
                                     <div className="relative w-full">
-                                        <Input
-                                            type="tel"
-                                            placeholder={"Phone Number"}
-                                            icon={"/img/icon/icon_phone.svg"}
-                                            prefix="+91"
-                                            // value={phoneNumber}
-                                            // onChange={handlePhoneNumberChange}
-                                            pattern="[0-9]*"
-                                            inputMode="numeric"
-                                            maxLength={10}
-                                        />
+                                        {renderInput()}
                                     </div>
                                 </TabsContent>
                                 <TabsContent
@@ -112,13 +159,7 @@ const ForgotPassword = () => {
                                         need to retrieve the login password.
                                     </p>
                                     <div className="relative w-full">
-                                        <Input
-                                            type="email"
-                                            placeholder={"Email"}
-                                            icon={"/img/icon/icon_email.svg"}
-                                            // value={phoneNumber}
-                                            // onChange={handlePhoneNumberChange}
-                                        />
+                                        {renderInput()}
                                     </div>
                                 </TabsContent>
                             </Tabs>
@@ -129,6 +170,7 @@ const ForgotPassword = () => {
                             <Tabs
                                 defaultValue="Phone Number"
                                 className="w-full"
+                                onValueChange={(value) => onSubTabChange(value)}
                             >
                                 <TabsList className="mb-5 flex items-center justify-center rounded-full">
                                     <TabsTrigger
@@ -153,17 +195,7 @@ const ForgotPassword = () => {
                                         where you need to retrieve the username.
                                     </p>
                                     <div className="relative w-full">
-                                        <Input
-                                            type="tel"
-                                            placeholder={"Phone Number"}
-                                            icon={"/img/icon/icon_phone.svg"}
-                                            prefix="+91"
-                                            // value={phoneNumber}
-                                            // onChange={handlePhoneNumberChange}
-                                            pattern="[0-9]*"
-                                            inputMode="numeric"
-                                            maxLength={10}
-                                        />
+                                        {renderInput()}
                                     </div>
                                 </TabsContent>
                                 <TabsContent
@@ -175,13 +207,7 @@ const ForgotPassword = () => {
                                         need to retrieve the username.
                                     </p>
                                     <div className="relative w-full">
-                                        <Input
-                                            type="email"
-                                            placeholder={"Email"}
-                                            icon={"/img/icon/icon_email.svg"}
-                                            // value={phoneNumber}
-                                            // onChange={handlePhoneNumberChange}
-                                        />
+                                        {renderInput()}
                                     </div>
                                 </TabsContent>
                             </Tabs>
