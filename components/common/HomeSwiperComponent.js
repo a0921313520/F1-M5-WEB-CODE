@@ -3,6 +3,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper";
 import { ReactSVG } from "react-svg";
 import useIsDesktop from "../../hooks/useIsDesktop";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 //因有特別設定，僅供首頁swiper 使用
 const HomeSwiperComponent = ({
     items,

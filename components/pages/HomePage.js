@@ -4,13 +4,11 @@ import useBearStore from "../../zustand/zustandStore";
 import { HomePageSeo } from "$DATA/seo/seo.static";
 import TextMarquee from "@/common/TextMarquee";
 import useIsDesktop from "../../hooks/useIsDesktop";
-
 import Link from "../../components/Link";
-
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 import HomeSwiperComponent from "@/common/HomeSwiperComponent";
+import ImageWithSkeleton from "@/common/ImageWithSkeleton";
+
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Homepage = () => {
     const { t } = useTranslation(["common", "footer"]);
@@ -40,13 +38,11 @@ const Homepage = () => {
                         <HomeSwiperComponent
                             items={Array(6).fill("/img/promoCard.png")}
                             renderItem={(item, index) => (
-                                <div className="h-[131px] w-[278px] md:h-[258px] md:w-[450px]">
-                                    <img
-                                        className="h-full w-full rounded-lg object-cover"
-                                        src={item}
-                                        alt={`promoCard ${index + 1}`}
-                                    />
-                                </div>
+                                <ImageWithSkeleton
+                                    src={item}
+                                    alt={`promoCard ${index + 1}`}
+                                    className="h-[131px] w-[278px] md:h-[258px] md:w-[450px]"
+                                />
                             )}
                             autoplay={false}
                             autoplayDelay={3000}
