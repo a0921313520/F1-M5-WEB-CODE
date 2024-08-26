@@ -3,15 +3,6 @@ import fetch from "isomorphic-unfetch";
 import { getQueryVariable, Cookie, getDisplayPublicError } from "$UTILS/helper";
 import { LogPost } from "./Log";
 
-//这个些API 如果返回400，则返回给函数内部处理。不在这里使用公共的message显示
-const APIERRORLIST = [
-    "api/Payment/Application/UploadAttachment",
-    "api/Member/InfoValidity",
-    // "api/Promotion/ManualPromo",
-    "api/Auth/ForgetUsername/Email",
-    "api/Auth/ChangePassword", //otp重置密码
-];
-
 export default function request(method, url, body, token) {
     const localToken = localStorage.getItem("access_token");
     let redirectToken = null;
@@ -56,7 +47,7 @@ export default function request(method, url, body, token) {
             method,
             headers: header,
             body,
-        }),
+        })
     )
         .then((res) => {
             //記下 responseStatus
@@ -147,7 +138,7 @@ export default function request(method, url, body, token) {
                         Cookie.Create(
                             "maintainTime",
                             error.error_details.RetryAfter,
-                            1,
+                            1
                         );
                         HttpStatus = 3;
                         Router.push("/");
@@ -174,7 +165,7 @@ export default function request(method, url, body, token) {
                     case "MEM00140":
                         localStorage.setItem(
                             "RestrictAccessCode",
-                            error.error_details.Code,
+                            error.error_details.Code
                         );
                         Router.push(`/RestrictAccess`);
                         break;

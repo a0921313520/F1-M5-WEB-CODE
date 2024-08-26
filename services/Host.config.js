@@ -2,7 +2,8 @@
 let Config = {};
 let CMS_ID = 1;
 // 定义 SL_LIVE_CMS_TOKEN、SL_CMS_URL、LIVE_CMS_URL 和 STAGE_CMS_URL 常量
-export const SL_LIVE_CMS_TOKEN = "71b512d06e0ada5e23e7a0f287908ac1";
+export const STAGE_KZAPI_TOKEN = "HUJGHPA2UV5HJYFONNG0UVKZHAUFFGZ";
+export const PROD_KZAPI_TOKEN = "BTOY9COS1QKDJREUGFA2BTAMVPEOA0C";
 export const STAGE_CMS_URL = "https://cmsapistag.fun88.biz";
 export const SL_CMS_URL = "https://cmsapisl.fun88.biz";
 export const LIVE_CMS_URL = "https://cache.huya66.cc";
@@ -30,7 +31,7 @@ if (typeof global.location !== "undefined") {
             "p5sl7.fun88.biz",
             "p5sl8.fun88.biz",
             "localhost:6868",
-        ].find((v) => global.location.href.includes(v)),
+        ].find((v) => global.location.href.includes(v))
     );
     // 本地开发环境
     if (LocalHost === "localhost:8003") {
@@ -99,7 +100,9 @@ if (typeof global.location !== "undefined") {
     // 否则，使用线上环境设置
     else {
         const parsed = Domainparse(window.location.host);
-        const LiveHostApi = `https://gateway-idcf5vn.${parsed.sld || "gamealiyun"}.${parsed.tld}`;
+        const LiveHostApi = `https://gateway-idcf5vn.${
+            parsed.sld || "gamealiyun"
+        }.${parsed.tld}`;
         Config = {
             HostApi: LiveHostApi,
             BffscHostApi: "https://gatewayvn-scf1.fun88.biz",
