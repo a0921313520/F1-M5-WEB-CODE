@@ -207,16 +207,30 @@ const Header = () => {
                             );
                         }
                         return (
-                            <div
-                                className="flex h-11 items-center gap-4"
-                                key={`nav-item-${index}`}
-                            >
-                                <img
-                                    className="size-6"
-                                    src={item.img}
-                                    alt={item.text + " icon"}
-                                />
-                                <div className="text-md">{t(item.text)}</div>
+                            <div className="relative">
+                                <div
+                                    className="flex h-11 cursor-pointer items-center gap-4"
+                                    key={`nav-item-${index}`}
+                                >
+                                    <img
+                                        className="size-6"
+                                        src={item.img}
+                                        alt={item.text + " icon"}
+                                    />
+                                    <div className="text-md">
+                                        {t(item.text)}
+                                    </div>
+                                </div>
+                                {item.isNew && (
+                                    <div className="absolute right-0 top-2 rounded bg-[#f42766] px-[5px] py-0.5 text-sm text-white">
+                                        {t("new")}
+                                    </div>
+                                )}
+                                {item.isUpdated && (
+                                    <div className="absolute right-0 top-2 rounded bg-[#1fd1a1] px-[5px] py-0.5 text-sm text-white">
+                                        {t("update")}
+                                    </div>
+                                )}
                             </div>
                         );
                     })}

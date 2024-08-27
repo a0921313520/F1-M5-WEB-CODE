@@ -26,5 +26,7 @@
     "my-bets": "My Bets",
     "menu": "Menu",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "new": "NEW",
+    "update": "UPDATE"
 }
