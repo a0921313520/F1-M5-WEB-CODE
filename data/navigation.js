@@ -84,14 +84,30 @@ export const NAV_ITEMS = [
 
 //底部的導覽列
 export const BOTTOM_ITEMS = [
-    { text: "home", link: "/", img: "/img/icon/icon_home_off.svg" },
-    { text: "sports", link: "/sports", img: "/img/icon/icon_sport01.svg" },
+    {
+        text: "home",
+        link: "/",
+        img: "/img/icon/icon_home.svg",
+        activeImg: "/img/icon/icon_home_active.svg",
+    },
+    {
+        text: "sports",
+        link: "/sports",
+        img: "/img/icon/icon_sport01.svg",
+        activeImg: "/img/icon/",
+    },
     {
         text: "evolution",
         link: "/live-casino/evolution",
-        img: "/img/icon/icon_live_casino01.svg",
+        img: "/img/icon/icon_live_casino.svg",
+        activeImg: "/img/icon/icon_live_casino_active.svg",
     },
-    { text: "my-bets", link: "/", img: "/img/icon/icon_my_bets.svg" },
+    {
+        text: "my-bets",
+        link: "/my-bets",
+        img: "/img/icon/icon_my_bets.svg",
+        activeImg: "/img/icon/icon_my_bets_active.svg",
+    },
     "menu",
 ];
 
