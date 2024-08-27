@@ -1,6 +1,6 @@
 import { CLEAR_COOKIE_KEY } from "../data/constantsData";
-import { get } from "$SERVICES/TlcRequest";
-import { ApiPort } from "$SERVICES/TLCAPI";
+import { get } from "$SERVICES/Request";
+import { ApiPort } from "$SERVICES/API";
 class Util {
     constructor() {}
     hasClass(elem, cls) {
@@ -105,8 +105,8 @@ export function formatAmount(num, suffixes = "") {
         (numCount[1]
             ? "." + numCount[1].toString().substr(0, 2)
             : suffixes === "TwoDecimalSuffixes"
-              ? ".00"
-              : "");
+            ? ".00"
+            : "");
     return typeof num === "number" && isNaN(num) ? 0 : numCountVal;
 }
 
@@ -188,7 +188,7 @@ export function Cookie(name, value, options) {
 
                 if (CookieIn.substring(0, name.length + 1) == name + "=") {
                     CookieValue = decodeURIComponent(
-                        CookieIn.substring(name.length + 1),
+                        CookieIn.substring(name.length + 1)
                     );
                     break;
                 }
@@ -355,7 +355,7 @@ export function formatYearMonthDate(dateStr) {
 // 延迟加载图片
 export function lazyLoadImg(parentNodeId) {
     const imgs = Array.from(
-        document.getElementById(parentNodeId).getElementsByTagName("img"),
+        document.getElementById(parentNodeId).getElementsByTagName("img")
     );
     if (imgs[0] && imgs[0].getAttribute("src")) return;
     imgs.forEach((item) => {
@@ -582,7 +582,7 @@ export function Domainparse(input) {
     var tldParts = rule.suffix.split(".");
     var privateParts = domainParts.slice(
         0,
-        domainParts.length - tldParts.length,
+        domainParts.length - tldParts.length
     );
 
     if (rule.exception) {
@@ -618,7 +618,7 @@ export function PopUpLiveChat() {
     let FUN88Live = window.open(
         "about:blank",
         "chat",
-        "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=540, height=650",
+        "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=540, height=650"
     );
     const openServer = (serverUrl) => {
         FUN88Live.document.title = "FUN88 Live Chat";
@@ -684,7 +684,7 @@ export const numberValidatorHandler = (value) => {
     const regex1 = /[^0-9]/g;
     const regex2 = /[+*/e-]/g;
     let validValue = Number(
-        String(value).replace(regex1, "").replace(regex2, ""),
+        String(value).replace(regex1, "").replace(regex2, "")
     );
     return validValue;
 };
