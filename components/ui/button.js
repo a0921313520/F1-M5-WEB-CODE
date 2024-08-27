@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
     //共用樣式
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold rounded-lg w-[60px] md:w-[100px] h-7 px md:h-9 text-sm md:text-lg",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold rounded-lg min-w-[60px] md:min-w-[100px] h-7 px-4 py-2 md:h-9 text-sm md:text-lg",
     {
         variants: {
             type: {

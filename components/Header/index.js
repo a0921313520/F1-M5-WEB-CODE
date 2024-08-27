@@ -15,12 +15,14 @@ import {
 } from "@/ui/dropdown-menu";
 import { NAV_ITEMS, BOTTOM_ITEMS, HEADER_ITEMS } from "$DATA/navigation";
 import { LANGUAGES } from "$DATA/language";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const path = useCurrentPath(); //取得網址
     const router = useRouter();
     const currentLocale = getLocale(router);
+    const { t } = useTranslation(["header"]);
 
     const { navigateTo, changeLanguage } = useLanguageNavigation();
 
@@ -109,7 +111,7 @@ const Header = () => {
                                     type="green"
                                     onClick={() => navigateTo("/deposit")}
                                 >
-                                    Deposit
+                                    {t("deposit")}
                                 </Button>
                             ) : (
                                 <>
@@ -120,7 +122,7 @@ const Header = () => {
                                         type="white"
                                         onClick={() => navigateTo("/login")}
                                     >
-                                        Login
+                                        {t("login")}
                                     </Button>
                                     <Button
                                         className={`rounded-md ${
@@ -129,7 +131,7 @@ const Header = () => {
                                         type="green"
                                         onClick={() => navigateTo("/register")}
                                     >
-                                        Register
+                                        {t("register")}
                                     </Button>
                                     {(path === "login" ||
                                         path === "register") && (
@@ -214,7 +216,7 @@ const Header = () => {
                                     src={item.img}
                                     alt={item.text + " icon"}
                                 />
-                                <div className="text-md">{item.text}</div>
+                                <div className="text-md">{t(item.text)}</div>
                             </div>
                         );
                     })}
@@ -227,7 +229,7 @@ const Header = () => {
                     <div className="fixed bottom-0 z-40 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
                         <div className="flex items-center justify-between">
                             {BOTTOM_ITEMS.map((item, index) => {
-                                if (item === "Menu") {
+                                if (item === "menu") {
                                     return (
                                         <div
                                             className="flex flex-col items-center gap-1.5"
@@ -253,7 +255,7 @@ const Header = () => {
                                                         : "text-grayBlue"
                                                 }`}
                                             >
-                                                Menu
+                                                {t("menu")}
                                             </div>
                                         </div>
                                     );
@@ -270,7 +272,7 @@ const Header = () => {
                                             alt={`${item.text} icon`}
                                         />
                                         <div className="text-sm text-grayBlue">
-                                            {item.text}
+                                            {t(item.text)}
                                         </div>
                                     </div>
                                 );

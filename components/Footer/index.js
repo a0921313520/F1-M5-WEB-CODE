@@ -29,7 +29,7 @@ import {
 export default function Footer() {
     const { changeLanguage } = useLanguageNavigation();
     const router = useRouter();
-    const { t } = useTranslation();
+    const { t } = useTranslation(["footer"]);
     const currentLocale = getLocale(router);
 
     let currentLanguage = LANGUAGES.find((lang) => lang.code === currentLocale);
@@ -82,7 +82,7 @@ export default function Footer() {
                     {FOOTERINFOITEMS.map((info) => (
                         <div key={info.title}>
                             <h2 className="mb-3 text-md font-semibold md:text-lg">
-                                {info.title}
+                                {t(info.title)}
                             </h2>
                             <ul className="flex flex-col gap-3">
                                 {info.items.map((item) => {
@@ -151,7 +151,7 @@ export default function Footer() {
                                             className="text-sm font-semibold text-grayBlue md:text-md md:font-normal"
                                             key={item}
                                         >
-                                            {item}
+                                            {t(item)}
                                         </li>
                                     );
                                 })}
@@ -163,7 +163,7 @@ export default function Footer() {
                 <div className="my-4 h-[1px] w-full bg-bgDarkGray md:my-6" />
                 {/* Payment Method */}
                 <h2 className="mb-2 text-md font-semibold md:text-lg">
-                    Payment Methods
+                    {t("payment-method")}
                 </h2>
                 <div className="flex flex-wrap gap-3 md:gap-4">
                     {FOOTERPAYMENTMETHODS.map((method) => (
@@ -179,7 +179,7 @@ export default function Footer() {
                 <div className="my-4 h-[1px] w-full bg-bgDarkGray md:my-6" />
                 {/* Social Network */}
                 <h2 className="mb-2 text-md font-semibold md:text-lg">
-                    Social Network
+                    {t("social-network")}
                 </h2>
                 <div className="flex flex-wrap gap-3">
                     {FOOTERSOCIALNETWORKS.map((item) => (
@@ -200,7 +200,7 @@ export default function Footer() {
                 <div className="my-4 h-[1px] w-full bg-bgDarkGray md:my-6" />
                 {/* Responsibility */}
                 <h2 className="mb-2 text-md font-semibold md:text-lg">
-                    Responsibility
+                    {t("responsibility")}
                 </h2>
                 <div className="flex flex-wrap gap-3">
                     {FOOTERRESPONSIBILITY.map((item) => (
@@ -221,7 +221,7 @@ export default function Footer() {
                 <div className="my-4 h-[1px] w-full bg-bgDarkGray md:my-6" />
                 {/* License */}
                 <h2 className="mb-2 text-md font-semibold md:text-lg">
-                    License
+                    {t("license")}
                 </h2>
                 <div className="flex flex-col gap-4 md:flex-row">
                     <div className="flex h-[100px] w-[100px] flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-bgDarkGray">
@@ -233,26 +233,8 @@ export default function Footer() {
                     </div>
                     {/* Legal statement */}
                     <div className="flex flex-col gap-3 pb-4 text-sm text-grayBlue md:mb-0 md:pb-9">
-                        <p>
-                            www.fun88.com is operated by E Gambling Montenegro
-                            d.o.o. (81000 Podgorica, Moskovska br. 65., reg.
-                            no.5-0615951) in cooperation with OG GLOBAL ACCESS
-                            LIMITED (P.O. Box 3340, Road Town, Tortola, British
-                            Virgin Islands.
-                        </p>
-                        <p>
-                            E Gambling Montenegro d.o.o. (81000 Podgorica,
-                            Moskovska br. 65., reg. no.5-0615951) hereby
-                            certifies that under the concession (serial no. AA
-                            001588, numeric no. 133-01/15 4A and 1ER) and
-                            approval (no. 02/01-118/4), organize and operate
-                            games of chance in Montenegro on website
-                            www.fun88.com , in accordance with the Agreement,
-                            concluded between E Gambling Montenegro d.o.o. and
-                            OG GLOBAL ACCESS LIMITED (P.O. Box 3340, Road Town,
-                            Tortola, British Virgin Islands, reg. no. 1923130)
-                            on 07 October 2021.
-                        </p>
+                        <p>{t("license-text1")}</p>
+                        <p>{t("license-text2")}</p>
                     </div>
                 </div>
                 {/* <p className="mt-2 text-center">

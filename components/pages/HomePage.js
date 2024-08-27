@@ -11,7 +11,7 @@ import ImageWithSkeleton from "@/common/ImageWithSkeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const Homepage = () => {
-    const { t } = useTranslation(["common", "footer"]);
+    const { t } = useTranslation(["common", "footer", "header"]);
     const { value, increment, decrement } = useBearStore();
     const isDesktop = useIsDesktop();
 
@@ -110,11 +110,6 @@ const Homepage = () => {
                                 )}
                             />
                         </div>
-                    </div>
-                    <div>
-                        <Link href="/second-page">
-                            <button type="button">{t("footer:WTF")}</button>
-                        </Link>
                     </div>
                 </main>
             </Layout>

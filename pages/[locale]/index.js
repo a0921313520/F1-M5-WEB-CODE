@@ -4,5 +4,5 @@ import { makeStaticProps } from "$UTILS/lang/makeStatic";
 
 export default () => <HomePage />;
 
-const getStaticProps = makeStaticProps(["common", "footer"]);
+const getStaticProps = makeStaticProps(["common", "footer", "header"]);
 export { getStaticPaths, getStaticProps };
