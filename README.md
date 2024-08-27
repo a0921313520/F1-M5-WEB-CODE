@@ -104,14 +104,37 @@ This directory contains all the styles used in the app.
 
 ### `utils`
 
+##### 取得當前的路徑(不包含語言以及 queryString)
+
+```javascript
+import useCurrentPath from "$HOOKS/useCurrentPath";
+const path = useCurrentPath();
+console.log("當前路徑: ", path);
+```
+
+##### 判斷是否為桌面版
+
+```javascript
+import useIsDesktop from "$HOOKS/useIsDesktop";
+const isDesktop = useIsDesktop();
+console.log("是否為桌機: ", isDesktop); // 768px以上為桌面版
+```
+
+##### 切換頁面、切換語言
+
+```javascript
+import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
+const { changeLanguage, navigateTo } = useLanguageNavigation();
+//導向其他頁面功能(語言會跟著帶過去)
+<button onClick={() => navigateTo("/login")}>登入</button>;
+
+//切換語言功能
+<button onClick={() => changeLanguage(en || hi)}>切換語言</button>;
+```
+
 ### `services`
 
 ## Other
-
-### A: WebP Format
-
-1. Generate WebP images using `webp.js`.
-2. Run `node webp` in the terminal to generate images.
 
 ### B: SEO
 
