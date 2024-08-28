@@ -5,6 +5,7 @@ import { appWithTranslation, useTranslation } from "next-i18next";
 import "../styles/globals.scss";
 import "../styles/tailwindcss.css";
 import { useLanguageSwitch } from "$UTILS/lang/useLanguageSwitch";
+import { ToastContainer } from "react-toastify";
 
 function MyApp({ Component, pageProps }) {
     const { i18n } = useTranslation();
@@ -32,6 +33,19 @@ function App({ Component, pageProps }) {
     return (
         <Provider store={store}>
             <MyApp Component={Component} pageProps={pageProps} />
+            <ToastContainer
+                style={{
+                    top: "2.5rem",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "auto",
+                    maxWidth: "90%",
+                }}
+                toastStyle={{
+                    margin: "0 auto",
+                    marginBottom: ".5rem",
+                }}
+            />
         </Provider>
     );
 }

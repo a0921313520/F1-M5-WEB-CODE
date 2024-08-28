@@ -83,7 +83,15 @@ For users of other editors, configure your editor to use ESLint and Prettier for
 
 ### `components`
 
-This directory contains all the components used in the app. The components are organized by feature, and each feature has its own directory.
+###### 1.Toast.js
+
+目前只有 success 和 error
+
+```javascript
+import Toast from "@/common/Toast";
+
+<button onClick={() => Toast.success("success")}>success</button>;
+```
 
 ### `pages`
 
@@ -98,9 +106,19 @@ This directory contains all the static assets used in the app, such as images, f
 i18n
 This directory contains the translations for the app.
 
+### `Toast`
+
+目前只有 Success 和 error
+
+```javascript
+import Toast from "@/common/Toast";
+
+<button onClick={() => Toast.success("success")}>success</button>;
+```
+
 ### `styles`
 
-This directory contains all the styles used in the app.
+目前是使用 tailwind css， 顏色、字體都在 tailwind.config.js 中。
 
 ### `utils`
 

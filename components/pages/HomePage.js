@@ -3,7 +3,7 @@ import Layout from "@/Layout";
 import useBearStore from "../../zustand/zustandStore";
 import { HomePageSeo } from "$DATA/seo/seo.static";
 import TextMarquee from "@/common/TextMarquee";
-import useIsDesktop from "../../hooks/useIsDesktop";
+import useIsDesktop from "$HOOKS/useIsDesktop";
 import Link from "../../components/Link";
 import HomeSwiperComponent from "@/common/HomeSwiperComponent";
 import ImageWithSkeleton from "@/common/ImageWithSkeleton";

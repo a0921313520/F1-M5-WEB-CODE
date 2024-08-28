@@ -208,11 +208,8 @@ const Header = () => {
                             );
                         }
                         return (
-                            <div className="relative">
-                                <div
-                                    className="flex h-11 cursor-pointer items-center gap-4"
-                                    key={`nav-item-${index}`}
-                                >
+                            <div className="relative" key={`nav-item-${index}`}>
+                                <div className="flex h-11 cursor-pointer items-center gap-4">
                                     <img
                                         className="size-6"
                                         src={item.img}
