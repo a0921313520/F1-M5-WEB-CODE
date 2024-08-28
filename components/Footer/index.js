@@ -48,7 +48,7 @@ export default function Footer() {
                             className="py-4 text-md font-semibold md:py-6 md:text-lg"
                             iconClassName={"size-5"}
                         >
-                            Top games and more
+                            {t("top-games-and-more")}
                         </AccordionTrigger>
                         <AccordionContent className="border-t-bgDarkGray">
                             <div className="relative w-full">
@@ -57,7 +57,7 @@ export default function Footer() {
                                     {FOOTERGAMEITEMS.map((category) => (
                                         <div className="" key={category.title}>
                                             <h2 className="mb-3 text-md font-semibold md:text-lg">
-                                                {category.title}
+                                                {t(category.title)}
                                             </h2>
                                             <ul className="flex flex-col gap-3">
                                                 {category.games.map((item) => (
@@ -65,7 +65,7 @@ export default function Footer() {
                                                         className="text-sm font-semibold text-grayBlue md:text-md md:font-normal"
                                                         key={item}
                                                     >
-                                                        {item}
+                                                        {t(item)}
                                                     </li>
                                                 ))}
                                             </ul>
