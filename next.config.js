@@ -11,7 +11,7 @@ const withLess = require("next-with-less"); //处理LESS
 const isDev = process.env.NODE_ENV !== "production"; //判断开发环境
 const PATH_PREFIX = "";
 const BASE_PATH = "";
-const withTM = require("next-transpile-modules")([]);
+const withTM = require("next-transpile-modules")(["central-payment-m5"]);
 const CopyPlugin = require("copy-webpack-plugin");
 
 //NEXT.js 默认配置
@@ -34,7 +34,7 @@ const nextConfig = {
             if (isDev) return "";
             return PATH_PREFIX;
         })(),
-        CURRENCY: "VND",
+        CURRENCY: "INR",
         BASE_PATH: BASE_PATH, //這個給程序用，用來處理圖片(img src)路徑
     },
     assetPrefix: isDev ? "" : PATH_PREFIX, //设置资产前缀并配置 CDN 的来源以解析为托管 Next.js 的域
@@ -64,11 +64,10 @@ const nextConfig = {
                     $ZUSTAND_STORE: path.resolve(__dirname, "./zustand"),
                     $HOOKS: path.resolve(__dirname, "./hooks"),
                     "@": path.resolve(__dirname, "./components"),
-                    $Deposits: path.resolve(
+                    $CentralPayment: path.resolve(
                         __dirname,
-                        "./node_modules/central-payment/Deposit/M3"
+                        "./node_modules/central-payment-m5"
                     ),
-                    // $Deposits: path.resolve(__dirname, './Central-Payment/Deposit/M3'),
                 },
             },
         };
@@ -123,7 +122,7 @@ const plugins = [
                 {
                     from: path.resolve(
                         __dirname,
-                        "./node_modules/central-payment/StyleSheet/Web/M3/F1/img"
+                        "./node_modules/central-payment-m5/common/assets/images"
                     ),
                     to: path.resolve(__dirname, "./public/img/central-payment"),
                 },

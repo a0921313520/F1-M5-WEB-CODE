@@ -110,7 +110,9 @@ const Header = () => {
                                 <Button
                                     className="rounded-md"
                                     type="green"
-                                    onClick={() => navigateTo("/deposit")}
+                                    onClick={() =>
+                                        navigateTo("/wallet/deposit")
+                                    }
                                 >
                                     {t("deposit")}
                                 </Button>
