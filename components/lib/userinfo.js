@@ -1,7 +1,7 @@
 import { get, put, patch } from "$SERVICES/TlcRequest";
 import { ApiPort } from "$SERVICES/TLCAPI";
 import { realyNameReg } from "$SERVICESreg";
-import store from "../redux/store";
+import store from "../../redux/store";
 import { userCenterActions } from "$STORE/userCenterSlice";
 
 // 获取用户账户信息以及设置为LocalStorage
@@ -15,7 +15,7 @@ export function getMemberInfo(call, refresh) {
             .then((res) => {
                 localStorage.setItem(
                     "memberCode",
-                    res.result.memberInfo.memberCode,
+                    res.result.memberInfo.memberCode
                 );
                 memberInfoIsLoad.splice(0, 1, 1);
 
@@ -41,18 +41,18 @@ export function getMemberInfo(call, refresh) {
                     Object.assign(
                         memberInfo,
                         res.result.memberInfo,
-                        res.result.memberNewInfo,
+                        res.result.memberNewInfo
                     );
                 }
                 const memberInfoString = JSON.stringify(memberInfo);
                 localStorage.setItem(
                     "memberInfo",
-                    memberInfoString === "{}" ? "" : memberInfoString,
+                    memberInfoString === "{}" ? "" : memberInfoString
                 );
                 store.dispatch(
                     userCenterActions.setMemberInfo(
-                        memberInfoString === "{}" ? {} : memberInfo,
-                    ),
+                        memberInfoString === "{}" ? {} : memberInfo
+                    )
                 );
                 if (typeof _paq === "object") {
                     _paq.push(["setUserId", memberInfo.memberCode]);
