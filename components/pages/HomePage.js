@@ -1,14 +1,19 @@
 import { useTranslation } from "next-i18next";
-import Layout from "@/Layout";
-import useBearStore from "../../zustand/zustandStore";
 import { HomePageSeo } from "$DATA/seo/seo.static";
-import useIsDesktop from "$HOOKS/useIsDesktop";
+
+//components
+import Layout from "@/Layout";
+import BetSlips from "@/Home/BetSlips";
 import TextMarquee from "@/common/TextMarquee";
 import HomeSwiperComponent from "@/common/HomeSwiperComponent";
 import ImageWithSkeleton from "@/common/ImageWithSkeleton";
 
+//lib
+import useBearStore from "../../zustand/zustandStore";
+import useIsDesktop from "$HOOKS/useIsDesktop";
+
+//css
 import "react-loading-skeleton/dist/skeleton.css";
-import BetSlips from "@/Home/BetSlips";
 
 const Homepage = () => {
     const { t } = useTranslation(["common", "footer", "header"]);

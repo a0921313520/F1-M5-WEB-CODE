@@ -1,9 +1,10 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
+//components
 import Layout from "@/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
-import { useState } from "react";
-import { useRouter } from "next/router";
 
 const ForgotPassword = () => {
     const [mainTab, setMainTab] = useState("Password");

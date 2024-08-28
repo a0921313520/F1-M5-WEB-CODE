@@ -1,10 +1,12 @@
-import Layout from "@/Layout";
-import { Check, Dot } from "lucide-react";
-import { Input } from "@/ui/input";
-import { Button } from "@/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { Check, Dot } from "lucide-react";
 import { useTranslation } from "react-i18next";
+
+//components
+import Layout from "@/Layout";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
 import Toast from "@/common/Toast";
 
 const CreateNewPassword = () => {
