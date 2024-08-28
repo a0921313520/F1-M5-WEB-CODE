@@ -35,7 +35,7 @@ function App({ Component, pageProps }) {
             <MyApp Component={Component} pageProps={pageProps} />
             <ToastContainer
                 style={{
-                    top: "2.5rem",
+                    top: "2rem",
                     left: "50%",
                     transform: "translateX(-50%)",
                     width: "auto",
