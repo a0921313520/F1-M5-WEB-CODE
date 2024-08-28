@@ -8,6 +8,8 @@ export
 *.log
 .Central-Payment
 Central-Payment
+central-payment-m5
+.central-payment-m5
 
 # Sentry
 #.sentryclirc

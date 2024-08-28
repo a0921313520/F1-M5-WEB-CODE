@@ -105,19 +105,12 @@ const Header = () => {
                             )}
                         </div>
                         <div className="flex items-center gap-3">
-                            {!isLogin ? (
+                            {isLogin ? (
                                 <Button
                                     className="rounded-md"
                                     type="green"
                                     onClick={() =>
-                                        navigateTo(
-                                            "/wallet/deposit?paymentType=deposit",
-                                            {
-                                                query: {
-                                                    paymentType: "deposit",
-                                                },
-                                            }
-                                        )
+                                        navigateTo("/wallet/deposit")
                                     }
                                 >
                                     {t("deposit")}

@@ -3,13 +3,13 @@
         "baseUrl": ".",
         "paths": {
             "$DATA/*": ["./data/*"],
-            "$SERVICES/*": ["./services*"],
+            "$SERVICES/*": ["./services/*"],
             "$UTILS/*": ["./utils/*"],
             "$STORE/*": ["./redux/store/*"],
             "$ZUSTAND_STORE/*": ["./zustand/*"],
             "$HOOKS/*": ["./hooks/*"],
             "@/*": ["./components/*"],
-            "$Deposits/*": ["./node_modules/central-payment/Deposit/M3/*"]
+            "$CentralPayment/*": ["./node_modules/central-payment/*"]
         }
     },
     "exclude": ["node_modules", "build"]
