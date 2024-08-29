@@ -18,6 +18,8 @@ const { colors } = require("central-payment-m5/common/styles/themes/F1"); // 引
 //NEXT.js 默认配置
 const nextConfig = {
     images: {
+        minimumCacheTTL: 60,
+        unoptimized: true,
         domains: [
             "cache.f866u.com",
             "cache.jiadingyeya.com",
@@ -28,6 +30,7 @@ const nextConfig = {
         loader: "akamai",
         path: "",
     },
+    swcMinify: true,
     sassOptions: {
         includePaths: [path.join(__dirname, "styles")],
         additionalData: `
@@ -50,6 +53,7 @@ const nextConfig = {
     assetPrefix: isDev ? "" : PATH_PREFIX, //设置资产前缀并配置 CDN 的来源以解析为托管 Next.js 的域
     basePath: BASE_PATH, //next內建支持根目錄 處理js和css引用
     compiler: {
+        styledComponents: true,
         removeConsole:
             process.env.NODE_ENV === "production"
                 ? {
@@ -78,6 +82,10 @@ const nextConfig = {
                         __dirname,
                         "./node_modules/central-payment-m5"
                     ),
+                    $CPImg: path.resolve(
+                        __dirname,
+                        "./node_modules/central-payment-m5/common/assets/images"
+                    ),
                 },
             },
         };
@@ -99,49 +107,7 @@ const plugins = [
     [withTM],
     [withLess],
     [withProgressBar],
-    [withBundleAnalyzer],
-    [
-        optimizedImages,
-        {
-            optimizeImages: false, // 是否优化图片 禁用默认的
-            handleImages: ["jpeg", "png", "svg", "webp", "gif"], // 处理哪些类型的图片
-            mozjpeg: {
-                quality: 80, // mozjpeg 压缩质量
-            },
-            pngquant: {
-                speed: 3, // pngquant 压缩速度
-                strip: true, // 是否去除元数据
-                verbose: true, // 是否输出详细信息
-            },
-            svgo: {
-                plugins: [
-                    { removeViewBox: false }, // svgo 插件，是否移除 viewBox 属性
-                    { removeDimensions: true }, // svgo 插件，是否移除宽高属性
-                    { removeAttrs: { attrs: "(data-name)" } }, // svgo 插件，是否移除指定属性
-                ],
-            },
-            webp: {
-                preset: "default", // webp 压缩预设
-                quality: 80, // webp 压缩质量
-            },
-        },
-    ],
-    [
-        new CopyPlugin({
-            patterns: [
-                {
-                    from: path.resolve(
-                        __dirname,
-                        "./node_modules/central-payment-m5/common/assets/images"
-                    ),
-                    to: path.resolve(
-                        __dirname,
-                        "./public/img/central-payment-m5"
-                    ),
-                },
-            ],
-        }),
-    ],
+    [withBundleAnalyzer]
 ];
 
 module.exports = withPlugins(plugins, nextConfig);
