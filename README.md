@@ -83,7 +83,15 @@ For users of other editors, configure your editor to use ESLint and Prettier for
 
 ### `components`
 
-This directory contains all the components used in the app. The components are organized by feature, and each feature has its own directory.
+###### 1.Toast.js
+
+目前只有 success 和 error
+
+```javascript
+import Toast from "@/common/Toast";
+
+<button onClick={() => Toast.success("success")}>success</button>;
+```
 
 ### `pages`
 
@@ -98,20 +106,53 @@ This directory contains all the static assets used in the app, such as images, f
 i18n
 This directory contains the translations for the app.
 
+### `Toast`
+
+目前只有 Success 和 error
+
+```javascript
+import Toast from "@/common/Toast";
+
+<button onClick={() => Toast.success("success")}>success</button>;
+```
+
 ### `styles`
 
-This directory contains all the styles used in the app.
+目前是使用 tailwind css， 顏色、字體都在 tailwind.config.js 中。
 
 ### `utils`
+
+##### 取得當前的路徑(不包含語言以及 queryString)
+
+```javascript
+import useCurrentPath from "$HOOKS/useCurrentPath";
+const path = useCurrentPath();
+console.log("當前路徑: ", path);
+```
+
+##### 判斷是否為桌面版
+
+```javascript
+import useIsDesktop from "$HOOKS/useIsDesktop";
+const isDesktop = useIsDesktop();
+console.log("是否為桌機: ", isDesktop); // 768px以上為桌面版
+```
+
+##### 切換頁面、切換語言
+
+```javascript
+import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
+const { changeLanguage, navigateTo } = useLanguageNavigation();
+//導向其他頁面功能(語言會跟著帶過去)
+<button onClick={() => navigateTo("/login")}>登入</button>;
+
+//切換語言功能
+<button onClick={() => changeLanguage(en || hi)}>切換語言</button>;
+```
 
 ### `services`
 
 ## Other
-
-### A: WebP Format
-
-1. Generate WebP images using `webp.js`.
-2. Run `node webp` in the terminal to generate images.
 
 ### B: SEO
 

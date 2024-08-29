@@ -41,7 +41,8 @@ module.exports = {
                 whiteHover: "#F2F2F2",
             },
             fontFamily: {
-                sans: ["Roboto", "sans-serif"],
+                roboto: ["Roboto", "sans-serif"],
+                hind: ["Hind", "sans-serif"],
             },
             keyframes: {
                 "accordion-down": {

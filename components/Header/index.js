@@ -7,6 +7,7 @@ import useCurrentPath from "$HOOKS/useCurrentPath";
 import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
 import { getLocale } from "$UTILS/lang/getStatic";
 import { ChevronDown } from "lucide-react";
+import { ReactSVG } from "react-svg";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -209,11 +210,8 @@ const Header = () => {
                             );
                         }
                         return (
-                            <div className="relative">
-                                <div
-                                    className="flex h-11 cursor-pointer items-center gap-4"
-                                    key={`nav-item-${index}`}
-                                >
+                            <div className="relative" key={`nav-item-${index}`}>
+                                <div className="flex h-11 cursor-pointer items-center gap-4">
                                     <img
                                         className="size-6"
                                         src={item.img}
@@ -245,6 +243,8 @@ const Header = () => {
                     <div className="fixed bottom-0 z-40 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
                         <div className="flex items-center justify-between">
                             {BOTTOM_ITEMS.map((item, index) => {
+                                const isAcive =
+                                    item.link === path && !isMenuOpen; //如果menu已被打開，該item就不active
                                 if (item === "menu") {
                                     return (
                                         <div
@@ -282,12 +282,22 @@ const Header = () => {
                                         className="flex flex-col items-center gap-1.5"
                                         key={`bottom-item-${index}`}
                                     >
-                                        <img
+                                        <ReactSVG
                                             className="size-[26px]"
-                                            src={item.img}
+                                            src={
+                                                isAcive
+                                                    ? item.activeImg
+                                                    : item.img
+                                            }
                                             alt={`${item.text} icon`}
                                         />
-                                        <div className="text-sm text-grayBlue">
+                                        <div
+                                            className={`text-sm ${
+                                                isAcive
+                                                    ? "text-primary"
+                                                    : "text-grayBlue"
+                                            }`}
+                                        >
                                             {t(item.text)}
                                         </div>
                                     </div>

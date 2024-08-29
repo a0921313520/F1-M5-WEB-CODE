@@ -4,7 +4,6 @@ import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { set } from "lodash";
 
 const ForgotPassword = () => {
     const [mainTab, setMainTab] = useState("Password");
