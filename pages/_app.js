@@ -4,14 +4,16 @@ import store from "../redux/store";
 import { appWithTranslation } from "next-i18next";
 import "../styles/globals.scss";
 import "../styles/tailwindcss.css";
-import { useLanguageSwitch } from '$UTILS/lang/useLanguageSwitch'
+import "central-payment-m5/web/styles/themes/F1/F1.scss";
+
+import { useLanguageSwitch } from "$UTILS/lang/useLanguageSwitch";
 
 function MyApp({ Component, pageProps }) {
     const { status, text } = useSelector((state) => state.spin);
 
     console.log("Redux Store State:", store.getState());
     useLanguageSwitch();
-    
+
     useEffect(() => {
         window.piwikLoadFinished = true;
     }, []);

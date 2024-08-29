@@ -5,5 +5,5 @@ import { makeStaticProps } from "$UTILS/lang/makeStatic";
 
 export default () => <Deposit target={`Deposit`} />;
 
-const getStaticProps = makeStaticProps(["header"]);
+const getStaticProps = makeStaticProps(["common", "footer", "header"]);
 export { getStaticPaths, getStaticProps };

@@ -13,6 +13,7 @@ const PATH_PREFIX = "";
 const BASE_PATH = "";
 const withTM = require("next-transpile-modules")(["central-payment-m5"]);
 const CopyPlugin = require("copy-webpack-plugin");
+const { colors } = require("central-payment-m5/common/styles/themes/F1"); // 引入顏色變數的 JS 文件
 
 //NEXT.js 默认配置
 const nextConfig = {
@@ -26,6 +27,15 @@ const nextConfig = {
         formats: ["image/avif", "image/webp"],
         loader: "akamai",
         path: "",
+    },
+    sassOptions: {
+        includePaths: [path.join(__dirname, "styles")],
+        additionalData: `
+      ${Object.entries(colors)
+          .map(([key, value]) => `$${key}: ${value};`)
+          .join("\n")}
+      $images-path: '/public/images';
+    `, // 注入顏色變數和圖片路徑變數到每個 SCSS 文件
     },
     distDir: "build",
     trailingSlash: true,
@@ -124,7 +134,10 @@ const plugins = [
                         __dirname,
                         "./node_modules/central-payment-m5/common/assets/images"
                     ),
-                    to: path.resolve(__dirname, "./public/img/central-payment"),
+                    to: path.resolve(
+                        __dirname,
+                        "./public/img/central-payment-m5"
+                    ),
                 },
             ],
         }),

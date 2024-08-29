@@ -9,7 +9,7 @@
             "$ZUSTAND_STORE/*": ["./zustand/*"],
             "$HOOKS/*": ["./hooks/*"],
             "@/*": ["./components/*"],
-            "$CentralPayment/*": ["./node_modules/central-payment/*"]
+            "$CentralPayment/*": ["./node_modules/central-payment-m5/*"]
         }
     },
     "exclude": ["node_modules", "build"]

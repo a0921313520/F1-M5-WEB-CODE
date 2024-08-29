@@ -25,7 +25,7 @@ import CentralPaymentEntry from "$CentralPayment/web/src";
 import { setConfig } from "$CentralPayment/config";
 
 const privateParams = {
-    device: "APP",
+    device: "WEB",
     platformType: "F1",
     languageType: "M5",
     paymentModule: "deposit",
@@ -35,6 +35,7 @@ const privateParams = {
     // e2Backbox: window.E2Backbox || '',
     firstName: "zzz",
     language: "hindi", // 當前語言, english or hindi
+    networkIp: "123.123.123.123",
     playerCurrency: "INR", // 當前貨幣 種類
     // StyleSetting: styleSetting,
     // PiwikEventDataHandle: () => {},

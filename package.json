@@ -36,7 +36,7 @@
         "blueimp-md5": "^2.18.0",
         "browserslist": "^4.13.0",
         "caniuse-lite": "^1.0.30001109",
-        "central-payment-m5": "git+ssh://git@github.com/a0921313520/central-payment-m5.git#01d75e6",
+        "central-payment-m5": "git+ssh://git@github.com/a0921313520/central-payment-m5.git#58ed787",
         "class-variance-authority": "^0.7.0",
         "classnames": "^2.3.2",
         "clsx": "^2.1.1",
