@@ -1,22 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Button } from "@/ui/button";
-import { Squash as Hamburger } from "hamburger-react";
-import { formatNumberWithCommas } from "@/lib/utils";
-import useCurrentPath from "$HOOKS/useCurrentPath";
-import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
-import { getLocale } from "$UTILS/lang/getStatic";
-import { ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { ReactSVG } from "react-svg";
+
+//libs
+import { getLocale } from "$UTILS/lang/getStatic";
+import useCurrentPath from "$HOOKS/useCurrentPath";
+import { formatNumberWithCommas } from "@/lib/utils";
+import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
+
+//data
+import { LANGUAGES } from "$DATA/language";
+import { NAV_ITEMS, BOTTOM_ITEMS, HEADER_ITEMS } from "$DATA/navigation";
+
+//ui
+import { ChevronDown } from "lucide-react";
+import { Squash as Hamburger } from "hamburger-react";
+import { Button } from "@/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
-import { NAV_ITEMS, BOTTOM_ITEMS, HEADER_ITEMS } from "$DATA/navigation";
-import { LANGUAGES } from "$DATA/language";
-import { useTranslation } from "react-i18next";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);

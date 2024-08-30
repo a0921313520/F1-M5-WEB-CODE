@@ -1,9 +1,11 @@
-import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+
+//libs
 import { getLocale } from "$UTILS/lang/getStatic";
 import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
-import { ChevronDown } from "lucide-react";
 
+//data
 import { LANGUAGES } from "$DATA/language";
 import {
     FOOTERGAMEITEMS,
@@ -13,6 +15,8 @@ import {
     FOOTERRESPONSIBILITY,
 } from "$DATA/footerItemList";
 
+//ui
+import { ChevronDown } from "lucide-react";
 import {
     Accordion,
     AccordionContent,
