@@ -28,14 +28,12 @@ const Header = () => {
     const { navigateTo, changeLanguage } = useLanguageNavigation();
 
     let isLogin = false;
-    // 根據當前網址決定是否要顯示mobile尺寸的底部導覽
 
-    const shouldShowBottomNavigation = ![
-        "/login/",
-        "/register/",
-        "/forgot-password/",
-        "/sports/",
-    ].includes(path);
+    // 根據當前網址決定是否要顯示mobile尺寸的底部導覽
+    const shouldShowBottomNavigation =
+        !["/login/", "/register/", "/forgot-password/"].some((route) =>
+            path.includes(route)
+        ) && !path.includes("sports");
 
     // 取得當前語言
     let currentLanguage = LANGUAGES.find((lang) => lang.code === currentLocale);
