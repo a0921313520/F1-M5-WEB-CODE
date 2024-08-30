@@ -24,7 +24,7 @@ import {
     DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
 
-const Header = () => {
+const Header = ({ showBottomNavigation = true }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const path = useCurrentPath(); //取得網址
     const router = useRouter();
@@ -34,12 +34,6 @@ const Header = () => {
     const { navigateTo, changeLanguage } = useLanguageNavigation();
 
     let isLogin = false;
-
-    // 根據當前網址決定是否要顯示mobile尺寸的底部導覽
-    const shouldShowBottomNavigation =
-        !["/login/", "/register/", "/forgot-password/"].some((route) =>
-            path.includes(route)
-        ) && !path.includes("sports");
 
     // 取得當前語言
     let currentLanguage = LANGUAGES.find((lang) => lang.code === currentLocale);
@@ -256,7 +250,7 @@ const Header = () => {
                 </div>
             </nav>
             {/* 底部導覽行(768px以下才顯示) */}
-            {shouldShowBottomNavigation && (
+            {showBottomNavigation && (
                 <div className="fixed bottom-0 z-40 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
                     <div className="flex items-center justify-between">
                         {BOTTOM_ITEMS.map((item, index) => {

@@ -20,10 +20,10 @@ function MainComponent(props) {
         getPromotionList: props.getPromotionList,
         definedHeaderNode: props.definedHeaderNode,
     };
-    // global.HttpStatus =4;
-    const globalStatusKey = global.HttpStatus || props.status || 1;
+    const globalStatusKey = props.status || 1;
 
     switch (globalStatusKey) {
+        //正常的layout
         case 1:
             return (
                 <div className="">
@@ -35,17 +35,21 @@ function MainComponent(props) {
                     ) : null}
                 </div>
             );
+        //在mobile模式下沒有底部navigation的layout
         case 2:
             return (
-                <div
-                    className={`tlc-container-wrapper ${
-                        props.wrapperClassName ? props.wrapperClassName : ""
-                    } ${
-                        props.headerHeightLock
-                            ? "_" + props.headerHeightLock
-                            : ""
-                    }`}
-                ></div>
+                <div className="">
+                    <Header
+                        key="main-header"
+                        {...commonParams}
+                        showBottomNavigation={false}
+                    />
+                    {props.children}
+                    {props.footer && <Footer key="main-footer" />}
+                    {props.seoContainer ? (
+                        <SeoFooterContainer seocontent={props.seoContainer} />
+                    ) : null}
+                </div>
             );
         case 3:
             return null;

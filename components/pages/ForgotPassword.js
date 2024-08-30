@@ -69,7 +69,7 @@ const ForgotPassword = () => {
     };
 
     return (
-        <Layout footer={false}>
+        <Layout footer={false} status={2}>
             <div className="w-full">
                 {/* 上方白色 Retrieval 背景 */}
                 <div className="fixed top-11 w-full bg-white md:top-[64px]">

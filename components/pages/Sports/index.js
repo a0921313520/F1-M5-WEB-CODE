@@ -24,7 +24,7 @@ const index = () => {
             slug.includes("saba") || //sports/saba
             slug.includes("b2b"): //sports/b2b
             return (
-                <Layout>
+                <Layout status={2}>
                     <SportsLayout
                         categoryItems={SPORTSCATEGORY}
                         vendor={"sports"}
@@ -35,7 +35,7 @@ const index = () => {
             slug.includes("9wickets") || //sports/exchange/9wickets
             slug.includes("lotus"): //sports/exchange/lotus
             return (
-                <Layout>
+                <Layout status={2}>
                     <SportsLayout
                         categoryItems={EXCHANGECATEGORY}
                         vendor={"exchange"}
@@ -46,7 +46,7 @@ const index = () => {
             slug.includes("ice-hockey") || //sports/virtual/ice-hockey
             slug.includes("cockfighting"): //sports/virtual/cockfighting
             return (
-                <Layout>
+                <Layout status={2}>
                     <SportsLayout
                         categoryItems={VIRTUALCATEGORY}
                         vendor={"virtual"}
