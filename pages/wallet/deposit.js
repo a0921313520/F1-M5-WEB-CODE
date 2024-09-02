@@ -1,5 +1,5 @@
 // import Wallet from "../components/pages/Wallet";
-import Deposit from "../../components/pages/Wallet/Deposit";
+import Deposit from "../../components/pages/Wallet/deposit";
 import { makeStaticProps } from "$UTILS/lang/makeStatic";
 
 // export default () => <Wallet target={`Deposit`} />;

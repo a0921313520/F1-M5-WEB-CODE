@@ -2,6 +2,7 @@ import Router from "next/router";
 import fetch from "isomorphic-unfetch";
 import { getQueryVariable, Cookie, getDisplayPublicError } from "$UTILS/helper";
 import { LogPost } from "./Log";
+import { ApiPort } from "./Host.config";
 
 export default function request(method, url, body, token) {
     const localToken = localStorage.getItem("access_token");
@@ -15,23 +16,29 @@ export default function request(method, url, body, token) {
         body = body && JSON.stringify(body);
     }
     //区分两种Api CMS/Flash
-    let isCms = url.indexOf("vi-vn/api/v1/") != -1;
-    let isCaptcha = url.indexOf("/api/v1.0/") != -1;
+    // let isCms = url.indexOf("vi-vn/api/v1/") != -1;
+    // let isCaptcha = url.indexOf("/api/v1.0/") != -1;
 
     let header;
     header = {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Culture: "vi-vn",
-        token: "71b512d06e0ada5e23e7a0f287908ac1",
+        //TODO: for development, should modify this part in the future
+        "Content-Type": `application/json charset=utf-8`,
+        "X-KZAPI-TOKEN": "HUJGHPA2UV5HJYFONNG0UVKZHAUFFGZ", // staging token
+        "X-KZAPI-PLATFORM": "web",
+        "X-KZAPI-DOMAIN": "https://Stgf1m5kzapi.com",
+        "X-KZAPI-LANGUAGE": "eng",
+        "X-KZAPI-IP": "218.35.190.215",
+        "USER-AGENT": "MSPORT iOS",
     };
+
     if (token || JSON.parse(localToken)) {
         header["Authorization"] = token || JSON.parse(localToken);
+        header["X-KZAPI-USER"] = token || JSON.parse(localToken);
     }
     //仅Flash会添加
-    if (!isCms && !isCaptcha) {
-        header["x-bff-key"] = "51EXaTN7NUeCbjnvg95tgA==";
-    }
+    // if (!isCms && !isCaptcha) {
+    //     header["x-bff-key"] = "51EXaTN7NUeCbjnvg95tgA==";
+    // }
 
     //Api日志
     let logData = {
@@ -40,7 +47,7 @@ export default function request(method, url, body, token) {
         request_time: new Date(),
         responseData: null,
     };
-    const apiUrl = url + (isCms ? "" : "");
+    // const apiUrl = url + (isCms ? "" : "");
 
     return timeout_fetch(
         fetch(url, {
@@ -83,16 +90,18 @@ export default function request(method, url, body, token) {
             }
         })
         .then((response) => {
-            if (response) {
-                logData.responseData = response;
-            } else {
-                logData.responseData = {};
-            }
-            // 日志
-            LogPost(apiUrl, body, logData);
+            // if (response) {
+            //     logData.responseData = response;
+            // } else {
+            //     logData.responseData = {};
+            // }
+            // // 日志
+            // LogPost(apiUrl, body, logData);
             return response;
         })
         .catch((error) => {
+            console.log("err", error);
+            return;
             logData.error = error;
             //避免日誌拿到空的error
             if (error && JSON.stringify(error) === "{}") {

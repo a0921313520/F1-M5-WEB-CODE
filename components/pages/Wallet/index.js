@@ -6,7 +6,7 @@ import useCurrentPath from "$HOOKS/useCurrentPath";
 import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
 
 // components
-import Deposit from "./Deposit";
+import Deposit from "./deposit";
 
 function WalletPortal() {
     const path = useCurrentPath(); //取得網址

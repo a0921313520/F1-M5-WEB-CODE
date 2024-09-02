@@ -7,6 +7,8 @@ import { FaCheck } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
 
+import { post } from "../../services/Request";
+
 const Login = () => {
     const { navigateTo } = useLanguageNavigation();
     const { t } = useTranslation("login");
@@ -47,6 +49,16 @@ const Login = () => {
         } else {
             return userName.length > 0 && password.length > 0;
         }
+    };
+
+    const login = () => {
+        const params = {
+            playername: "test9001",
+            password:
+                "sTvR+5GMio0Tq8WvK8H+ei4bnz06ll4iCy027VtW16i8BTMcZ+QhVYwzQZK7Rjeb2P0idgtMh+e45PBA69l/2CwUneu39cZjExdob+wfElCg8CAJyQ1I+6YkxQOIrSmJl5UAimnYvmp/AFItReaPmzXr2WDKepKiByY8F+khVTGIRVKtKKoIqO4/Z8LErj4f9M9Z7JBVxZq8/rSGQB3Nxk/kwWxTUw3/SwMYWKnrXe3aPElmlMIFBXG4U8mUSiH6mi2WPhoR322f7iNGth0BCgTGeVZd43kXwO9ZeVFpr+s64QPe6RIZjUAPv/HlXYv21Uq4qTypDnMmt/QO06EXEQ==",
+        };
+        const url = "https://Stgf1m5kzapi.com" + "/api/acc-login";
+        post(url, params);
     };
 
     return (
@@ -261,6 +273,7 @@ const Login = () => {
                         type={`${isSubmitEnabled() ? "primary" : "disabled"}`}
                         disabled={!isSubmitEnabled()}
                         className="h-11 w-full text-lg md:h-11 md:w-full"
+                        onClick={login}
                     >
                         {t("login")}
                     </Button>

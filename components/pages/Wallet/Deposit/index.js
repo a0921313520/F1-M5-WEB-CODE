@@ -12,36 +12,36 @@ import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
 
 // lib
 import { getLocale } from "$UTILS/lang/getStatic";
-
 import useBearStore from "$ZUSTAND_STORE/zustandStore";
 import { HomePageSeo } from "$DATA/seo/seo.static";
 import useIsDesktop from "$HOOKS/useIsDesktop";
+import { get, post } from "../../../../services/Request";
+// import { ApiPort } from "../../../../services/API";
 
 // styles
 import "react-loading-skeleton/dist/skeleton.css";
 
 // central payment
 import CentralPaymentEntry from "$CentralPayment/web/src";
-import { setConfig } from "$CentralPayment/config";
+import { setConfig, getConfig } from "$CentralPayment/config";
 
 const privateParams = {
     device: "WEB",
     platformType: "F1",
     languageType: "M5",
     paymentModule: "deposit",
-    // ApiDomain: window.common_url,
+    // ApiDomain: ApiPort.URL,
     // successUrl: 'f1p5native://',
     // domainName: window.SBTDomain,
     // e2Backbox: window.E2Backbox || '',
-    firstName: "zzz",
-    language: "hindi", // 當前語言, english or hindi
+    // firstName: "zzz",
     networkIp: "123.123.123.123",
-    playerCurrency: "INR", // 當前貨幣 種類
+    // playerCurrency: "INR", // 當前貨幣 種類
     // StyleSetting: styleSetting,
     // PiwikEventDataHandle: () => {},
-    // BackClick: () => {
-    //     Actions.pop()
-    // },
+    BackClick: () => {
+        // Actions.pop()
+    },
     // LivechatClick: () => {
     //     LiveChatOpenGlobe()
     // },
@@ -51,8 +51,9 @@ const privateParams = {
     //         methods,
     //     })
     // }, //type = deposit存款记录,withdrawals提款记录
-    // ApiGet: (url) => fetchRequest(url, 'GET'),
-    // ApiPost: (url, postdata = '') => fetchRequest(url, 'POST', postdata),
+    ApiGet: (url) => get(url),
+    ApiPost: (url, postdata = {}) => post(url, postdata),
+    SetFooter: () => <Footer />,
     // modalTip: {
     //     info: (data) => {},
     //     confirm: (data) => {},
@@ -63,10 +64,10 @@ const privateParams = {
     //     fail: (msg) => NotifyToast.fail(msg),
     //     hide: () => Toast.removeAll(),
     // },
-    webPiwikEvent: () => {},
-    webPiwikUrl: () => {},
-    appPiwikEvent: () => {},
-    appPiwikUrl: () => {},
+    // webPiwikEvent: () => {},
+    // webPiwikUrl: () => {},
+    // appPiwikEvent: () => {},
+    // appPiwikUrl: () => {},
 };
 
 const Deposit = () => {
@@ -80,19 +81,26 @@ const Deposit = () => {
 
     const { navigateTo, changeLanguage } = useLanguageNavigation();
     const [pageKey, setPageKey] = useState(Math.random());
+    const [configSet, setConfigSet] = useState(false);
 
     useEffect(() => {
-        setConfig(privateParams);
-        // console.log("path", path);
-        // console.log("router", router);
-        // console.log("currentLocale", currentLocale);
-        // console.log("isDesktop", isDesktop);
+        (async () => {
+            await setConfig(privateParams);
+
+            console.log("getConfig()", getConfig());
+            if (Object.keys(getConfig())?.length) {
+                setConfigSet(true);
+            }
+        })();
     }, []);
 
+    if (!configSet) {
+        return <div>Loading...</div>;
+    }
     return (
         <>
             <Layout
-                // status={2}
+                status={2}
                 title={HomePageSeo.title}
                 Keywords={HomePageSeo.Keywords}
                 description={HomePageSeo.description}
@@ -101,14 +109,13 @@ const Deposit = () => {
                 setLockHeader={(setLockHeader) => {}}
                 // seoData={this.props.seoData}
             >
-                <CentralPaymentEntry
-                    // fromPage={this.props.fromPage}
-                    // triggerFor={this.props.triggerFor || 'deposit'}
-                    // vendor={this.props.vendor || {}}
-                    key={pageKey}
-                    moduleName={"deposits"}
-                    language={currentLocale == "en" ? "english" : "hindi"}
-                />
+                <div className="mt-5 flex justify-center">
+                    <CentralPaymentEntry
+                        key={pageKey}
+                        moduleName={"deposits"}
+                        language={currentLocale == "en" ? "english" : "hindi"}
+                    />
+                </div>
             </Layout>
         </>
     );
