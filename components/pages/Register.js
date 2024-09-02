@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import Layout from "@/Layout";
-import { Check, Dot } from "lucide-react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
+import { Check, Dot } from "lucide-react";
+
+//components
+import Layout from "@/Layout";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
 import {
@@ -11,6 +12,9 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/ui/accordion";
+
+//lib
+import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
 
 const Register = () => {
     const { t } = useTranslation("register");

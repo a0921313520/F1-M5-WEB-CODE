@@ -1,22 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Button } from "@/ui/button";
-import { Squash as Hamburger } from "hamburger-react";
-import { formatNumberWithCommas } from "@/lib/utils";
-import useCurrentPath from "$HOOKS/useCurrentPath";
-import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
-import { getLocale } from "$UTILS/lang/getStatic";
-import { ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { ReactSVG } from "react-svg";
+
+//libs
+import { getLocale } from "$UTILS/lang/getStatic";
+import useCurrentPath from "$HOOKS/useCurrentPath";
+import { formatNumberWithCommas } from "@/lib/utils";
+import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
+
+//data
+import { LANGUAGES } from "$DATA/language";
+import { NAV_ITEMS, BOTTOM_ITEMS, HEADER_ITEMS } from "$DATA/navigation";
+
+//ui
+import { ChevronDown } from "lucide-react";
+import { Squash as Hamburger } from "hamburger-react";
+import { Button } from "@/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
-import { NAV_ITEMS, BOTTOM_ITEMS, HEADER_ITEMS } from "$DATA/navigation";
-import { LANGUAGES } from "$DATA/language";
-import { useTranslation } from "react-i18next";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,6 +35,13 @@ const Header = () => {
 
     let isLogin = false;
 
+    // 根據當前網址決定是否要顯示mobile尺寸的底部導覽
+    const shouldShowBottomNavigation =
+        !["/login/", "/register/", "/forgot-password/"].some((route) =>
+            path.includes(route)
+        ) && !path.includes("sports");
+
+    // 取得當前語言
     let currentLanguage = LANGUAGES.find((lang) => lang.code === currentLocale);
 
     return (
@@ -97,7 +110,7 @@ const Header = () => {
                                 </>
                             )}
 
-                            {path !== "login" && path !== "register" && (
+                            {path !== "/login" && path !== "/register" && (
                                 <img
                                     src="/img/icon/icon_search_white.svg"
                                     className="mr-3 size-5 cursor-pointer md:size-6 md:min-h-6 md:min-w-6"
@@ -120,7 +133,7 @@ const Header = () => {
                                 <>
                                     <Button
                                         className={`rounded-md ${
-                                            path === "login" ? "hidden" : ""
+                                            path === "/login" ? "hidden" : ""
                                         }`}
                                         type="white"
                                         onClick={() => navigateTo("/login")}
@@ -129,15 +142,15 @@ const Header = () => {
                                     </Button>
                                     <Button
                                         className={`rounded-md ${
-                                            path === "register" ? "hidden" : ""
+                                            path === "/register" ? "hidden" : ""
                                         }`}
                                         type="green"
                                         onClick={() => navigateTo("/register")}
                                     >
                                         {t("register")}
                                     </Button>
-                                    {(path === "login" ||
-                                        path === "register") && (
+                                    {(path === "/login" ||
+                                        path === "/register") && (
                                         <img
                                             src="/img/icon/icon_CS.svg"
                                             className="cursor-pointer md:size-7"
@@ -211,7 +224,13 @@ const Header = () => {
                         }
                         return (
                             <div className="relative" key={`nav-item-${index}`}>
-                                <div className="flex h-11 cursor-pointer items-center gap-4">
+                                <div
+                                    className="flex h-11 cursor-pointer items-center gap-4"
+                                    onClick={() => {
+                                        navigateTo(item.link);
+                                        setIsMenuOpen(false);
+                                    }}
+                                >
                                     <img
                                         className="size-6"
                                         src={item.img}
@@ -237,75 +256,74 @@ const Header = () => {
                 </div>
             </nav>
             {/* 底部導覽行(768px以下才顯示) */}
-            {path !== "login" &&
-                path !== "register" &&
-                path !== "forgot-password" && (
-                    <div className="fixed bottom-0 z-40 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
-                        <div className="flex items-center justify-between">
-                            {BOTTOM_ITEMS.map((item, index) => {
-                                const isAcive =
-                                    item.link === path && !isMenuOpen; //如果menu已被打開，該item就不active
-                                if (item === "menu") {
-                                    return (
-                                        <div
-                                            className="flex flex-col items-center gap-1.5"
-                                            key={`bottom-item-${index}`}
-                                        >
-                                            <div className="size-[26px] -translate-x-2.5 -translate-y-2">
-                                                <Hamburger
-                                                    toggled={isMenuOpen}
-                                                    toggle={setIsMenuOpen}
-                                                    size={26}
-                                                    color={`${
-                                                        isMenuOpen
-                                                            ? "rgba(0, 166, 255, 1)"
-                                                            : "rgba(152, 157, 171, 1)"
-                                                    }`}
-                                                    rounded
-                                                />
-                                            </div>
-                                            <div
-                                                className={`text-sm  ${
-                                                    isMenuOpen
-                                                        ? "text-primary"
-                                                        : "text-grayBlue"
-                                                }`}
-                                            >
-                                                {t("menu")}
-                                            </div>
-                                        </div>
-                                    );
-                                }
-
+            {shouldShowBottomNavigation && (
+                <div className="fixed bottom-0 z-40 h-[84px] w-full bg-white px-[20px] pt-[10px] md:hidden">
+                    <div className="flex items-center justify-between">
+                        {BOTTOM_ITEMS.map((item, index) => {
+                            const isAcive = item.link === path && !isMenuOpen; //如果menu已被打開，該item就不active
+                            if (item === "menu") {
                                 return (
                                     <div
                                         className="flex flex-col items-center gap-1.5"
                                         key={`bottom-item-${index}`}
                                     >
-                                        <ReactSVG
-                                            className="size-[26px]"
-                                            src={
-                                                isAcive
-                                                    ? item.activeImg
-                                                    : item.img
-                                            }
-                                            alt={`${item.text} icon`}
-                                        />
+                                        <div className="size-[26px] -translate-x-2.5 -translate-y-2">
+                                            <Hamburger
+                                                toggled={isMenuOpen}
+                                                toggle={setIsMenuOpen}
+                                                size={26}
+                                                color={`${
+                                                    isMenuOpen
+                                                        ? "rgba(0, 166, 255, 1)"
+                                                        : "rgba(152, 157, 171, 1)"
+                                                }`}
+                                                rounded
+                                            />
+                                        </div>
                                         <div
-                                            className={`text-sm ${
-                                                isAcive
+                                            className={`text-sm  ${
+                                                isMenuOpen
                                                     ? "text-primary"
                                                     : "text-grayBlue"
                                             }`}
                                         >
-                                            {t(item.text)}
+                                            {t("menu")}
                                         </div>
                                     </div>
                                 );
-                            })}
-                        </div>
+                            }
+
+                            return (
+                                <div
+                                    className="flex cursor-pointer flex-col items-center gap-1.5"
+                                    key={`bottom-item-${index}`}
+                                    onClick={() => {
+                                        navigateTo(item.link);
+                                        setIsMenuOpen(false);
+                                    }}
+                                >
+                                    <ReactSVG
+                                        className="size-[26px]"
+                                        src={
+                                            isAcive ? item.activeImg : item.img
+                                        }
+                                        alt={`${item.text} icon`}
+                                    />
+                                    <div
+                                        className={`text-sm ${
+                                            isAcive
+                                                ? "text-primary"
+                                                : "text-grayBlue"
+                                        }`}
+                                    >
+                                        {t(item.text)}
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
-                )}
+                </div>
+            )}
         </>
     );
 };

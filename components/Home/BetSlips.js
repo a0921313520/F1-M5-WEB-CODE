@@ -1,3 +1,4 @@
+//component
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 
 const BetSlips = () => {
@@ -13,23 +14,23 @@ const BetSlips = () => {
                             key={"Open"}
                             value={"Open"}
                             className="
-                  relative w-full text-lg 
-                  font-normal 
-                  after:absolute 
-                  after:bottom-0 
-                  after:left-1/4 
-                  after:h-0.5
-                  after:w-1/2
-                  after:scale-x-0 
-                  after:bg-primary 
-                  after:content-[''] 
-                  data-[state=active]:rounded-none 
-                  data-[state=active]:bg-transparent 
-                  data-[state=active]:text-lg 
-                  data-[state=active]:text-primary 
-                  data-[state=active]:shadow-none 
-                  data-[state=active]:after:scale-x-75
-                "
+                                relative w-full text-lg 
+                                font-normal 
+                                after:absolute 
+                                after:bottom-0 
+                                after:left-1/4 
+                                after:h-0.5
+                                after:w-1/2
+                                after:scale-x-0 
+                                after:bg-primary 
+                                after:content-[''] 
+                                data-[state=active]:rounded-none 
+                                data-[state=active]:bg-transparent 
+                                data-[state=active]:text-lg 
+                                data-[state=active]:text-primary 
+                                data-[state=active]:shadow-none 
+                                data-[state=active]:after:scale-x-75
+                                "
                         >
                             Open
                         </TabsTrigger>
@@ -37,23 +38,23 @@ const BetSlips = () => {
                             key={"Settled"}
                             value={"Settled"}
                             className="
-                  relative w-full text-lg 
-                  font-normal 
-                  after:absolute 
-                  after:bottom-0 
-                  after:left-1/4 
-                  after:h-0.5
-                  after:w-1/2
-                  after:scale-x-0 
-                  after:bg-primary 
-                  after:content-[''] 
-                  data-[state=active]:rounded-none 
-                  data-[state=active]:bg-transparent 
-                  data-[state=active]:text-lg 
-                  data-[state=active]:text-primary 
-                  data-[state=active]:shadow-none 
-                  data-[state=active]:after:scale-x-95
-                "
+                                relative w-full text-lg 
+                                font-normal 
+                                after:absolute 
+                                after:bottom-0 
+                                after:left-1/4 
+                                after:h-0.5
+                                after:w-1/2
+                                after:scale-x-0 
+                                after:bg-primary 
+                                after:content-[''] 
+                                data-[state=active]:rounded-none 
+                                data-[state=active]:bg-transparent 
+                                data-[state=active]:text-lg 
+                                data-[state=active]:text-primary 
+                                data-[state=active]:shadow-none 
+                                data-[state=active]:after:scale-x-95
+                                "
                         >
                             Settled
                         </TabsTrigger>

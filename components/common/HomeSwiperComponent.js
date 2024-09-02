@@ -1,8 +1,12 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
+import { ReactSVG } from "react-svg";
+
+//lib
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper";
-import { ReactSVG } from "react-svg";
-import useIsDesktop from "../../hooks/useIsDesktop";
+import useIsDesktop from "$HOOKS/useIsDesktop";
+
+//css
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";

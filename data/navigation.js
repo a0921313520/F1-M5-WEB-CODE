@@ -94,7 +94,7 @@ export const BOTTOM_ITEMS = [
         text: "sports",
         link: "/sports",
         img: "/img/icon/icon_sport01.svg",
-        activeImg: "/img/icon/",
+        activeImg: "/img/icon/icon_sport01_active.svg",
     },
     {
         text: "evolution",

@@ -45,10 +45,7 @@ function MainComponent(props) {
                             ? "_" + props.headerHeightLock
                             : ""
                     }`}
-                >
-                    <Header key="main-header" {...commonParams} />
-                    {props.children}
-                </div>
+                ></div>
             );
         case 3:
             return null;

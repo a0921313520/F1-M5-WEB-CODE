@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { FaCheck } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+
+//components
 import Layout from "@/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
-import { FaCheck } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
+
+//lib
 import useLanguageNavigation from "$HOOKS/useLanguageNavigation";
 
 import { post } from "../../services/Request";
